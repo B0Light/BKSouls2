@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4bb1238a55aadd4bb8ace9de181dfa5, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: Assembly-CSharp::BK.RangedWeaponItem
+  itemName: Bow
+  itemIcon: {fileID: 21300000, guid: 491ffb6fc9b45a04e967253d51794274, type: 3}
+  itemDescription: Bow
+  itemID: 7
+  itemWeight: 0
+  weaponAnimator: {fileID: 22100000, guid: d3f2e012996f9b747b4ad69303221df2, type: 2}
+  weaponModelType: 0
+  weaponModel: {fileID: 2276305552935293728, guid: cb68f6eadade6614fb7a57142d9cfb60, type: 3}
+  weaponClass: 5
+  strengthREQ: 8
+  dexREQ: 1
+  intREQ: 0
+  faithREQ: 0
+  physicalDamage: 72
+  magicDamage: 0
+  fireDamage: 0
+  holyDamage: 0
+  lightningDamage: 0
+  poiseDamage: 10
+  light_Attack_01_Modifier: 1
+  light_Attack_02_Modifier: 1.2
+  light_Jumping_Attack_01_Modifier: 1
+  heavy_Attack_01_Modifier: 1.4
+  heavy_Attack_02_Modifier: 1.6
+  heavy_Jumping_Attack_01_Modifier: 1.8
+  charge_Attack_01_Modifier: 2
+  charge_Attack_02_Modifier: 2.2
+  running_Attack_01_Modifier: 1.1
+  rolling_Attack_01_Modifier: 1.1
+  backstep_Attack_01_Modifier: 1.1
+  baseStaminaCost: 20
+  lightAttackStaminaCostMultiplier: 1
+  heavyAttackStaminaCostMultiplier: 1.3
+  chargedAttackStaminaCostMultiplier: 1.5
+  runningAttackStaminaCostMultiplier: 1.1
+  rollingAttackStaminaCostMultiplier: 1.1
+  backstepAttackStaminaCostMultiplier: 1.1
+  physicalBaseDamageAbsorption: 50
+  magicBaseDamageAbsorption: 50
+  fireBaseDamageAbsorption: 50
+  holyBaseDamageAbsorption: 50
+  lightningBaseDamageAbsorption: 50
+  stability: 50
+  oh_RB_Action: {fileID: 11400000, guid: f6bebb0feccc52845afd5c96e840964d, type: 2}
+  oh_RT_Action: {fileID: 11400000, guid: 2cfc03c86fda8614aa9a0662fbba58b0, type: 2}
+  oh_LB_Action: {fileID: 11400000, guid: 45cca17acb4075448a6c4a07c47aa82b, type: 2}
+  ashOfWarAction: {fileID: 0}
+  whooshes: []
+  blocking: []
+  drawSounds: []
+  releaseSounds: []

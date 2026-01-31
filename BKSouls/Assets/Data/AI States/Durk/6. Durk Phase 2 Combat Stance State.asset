@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 803c3042d06c69f4aaea6ad4c1a95d50, type: 3}
+  m_Name: 6. Durk Phase 2 Combat Stance State
+  m_EditorClassIdentifier: Assembly-CSharp::BK.CombatStanceState
+  aiCharacterAttacks:
+  - {fileID: 11400000, guid: 52eb1421333b72a4ea19aca3518f0e83, type: 2}
+  - {fileID: 11400000, guid: 8b17b3d757bfadf47a5e60beb25f7be4, type: 2}
+  - {fileID: 11400000, guid: 9f3c338a9ffb9a541b0b221ef9d7e2a5, type: 2}
+  potentialAttacks:
+  - {fileID: 11400000, guid: 52eb1421333b72a4ea19aca3518f0e83, type: 2}
+  - {fileID: 11400000, guid: 8b17b3d757bfadf47a5e60beb25f7be4, type: 2}
+  - {fileID: 11400000, guid: 9f3c338a9ffb9a541b0b221ef9d7e2a5, type: 2}
+  choosenAttack: {fileID: 0}
+  previousAttack: {fileID: 0}
+  canPerformCombo: 0
+  chanceToPerformCombo: 25
+  maximumEngagementDistance: 5

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1337cf454a006724e86dd723e3c67f26, type: 3}
+  m_Name: Std Arrow
+  m_EditorClassIdentifier: Assembly-CSharp::BK.RangedProjectileItem
+  itemName: Std Arrow
+  itemIcon: {fileID: 21300000, guid: 2203cf98785a74244a5d1f9cd059b91c, type: 3}
+  itemDescription: 'basic arrow
+
+'
+  itemID: 16
+  projectileClass: 0
+  forwardVelocity: 2200
+  upwardVelocity: 0
+  ammoMass: 0.01
+  maxAmmoAmount: 30
+  currentAmmoAmount: 49
+  physicalDamage: 72
+  magicDamage: 0
+  fireDamage: 0
+  holyDamage: 0
+  lightningDamage: 0
+  drawProjectileModel: {fileID: 2457057456649950796, guid: 8c924cf76d83a6b4985095af572d05b7, type: 3}
+  releaseProjectileModel: {fileID: 5679830398617237053, guid: 3efcf8305ffa4074486909845decbf9f, type: 3}

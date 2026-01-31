@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136e51c4f56cbda40a6ec0a0f7b3be15, type: 3}
+  m_Name: Straight Sword
+  m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
+  itemName: Straight Sword
+  itemIcon: {fileID: 21300000, guid: 0278bcf9203b42841bf0c6837fff3865, type: 3}
+  itemDescription: A Straight sword
+  itemID: 1
+  weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}
+  weaponModelType: 0
+  weaponModel: {fileID: 2456186867962784618, guid: 141d3dfd635469c4c995101999b3fd59, type: 3}
+  strengthREQ: 10
+  dexREQ: 10
+  intREQ: 0
+  faithREQ: 0
+  physicalDamage: 10
+  magicDamage: 0
+  fireDamage: 0
+  holyDamage: 0
+  lightningDamage: 0
+  poiseDamage: 25
+  light_Attack_01_Modifier: 1.1
+  light_Attack_02_Modifier: 1.2
+  heavy_Attack_01_Modifier: 1.4
+  heavy_Attack_02_Modifier: 1.6
+  charge_Attack_01_Modifier: 2
+  charge_Attack_02_Modifier: 2.2
+  running_Attack_01_Modifier: 1.1
+  rolling_Attack_01_Modifier: 1.1
+  backstep_Attack_01_Modifier: 1.1
+  baseStaminaCost: 20
+  lightAttackStaminaCostMultiplier: 0.9
+  heavyAttackStaminaCostMultiplier: 1.3
+  chargedAttackStaminaCostMultiplier: 1.5
+  runningAttackStaminaCostMultiplier: 1.1
+  rollingAttackStaminaCostMultiplier: 1.1
+  backstepAttackStaminaCostMultiplier: 1.1
+  physicalBaseDamageAbsorption: 50
+  magicBaseDamageAbsorption: 50
+  fireBaseDamageAbsorption: 50
+  holyBaseDamageAbsorption: 50
+  lightningBaseDamageAbsorption: 50
+  stability: 50
+  oh_RB_Action: {fileID: 11400000, guid: 1cce0561bba2ba54ebf1279395bd331a, type: 2}
+  oh_RT_Action: {fileID: 11400000, guid: 648ec3a964ae2ec4e83eb891fcc49515, type: 2}
+  oh_LB_Action: {fileID: 11400000, guid: 79e8ff89507e3e74eae57f60026a16b8, type: 2}
+  whooshes:
+  - {fileID: 8300000, guid: f440d5e80e66038458d76d5a1575468a, type: 3}
+  - {fileID: 8300000, guid: af6de04e4ec2e0743b45624c7d7ab9f6, type: 3}
+  - {fileID: 8300000, guid: bac0475b031af65499036f5dc07b2b0e, type: 3}
+  - {fileID: 8300000, guid: 600d0a386aadd4b4099208954406213c, type: 3}
+  - {fileID: 8300000, guid: 1cadb94dc7fcfcd4689d00c1559651e3, type: 3}
+  blocking:
+  - {fileID: 8300000, guid: 920253ef3fabe4abab05a630906abc66, type: 3}
+  - {fileID: 8300000, guid: df4246a6c6f984d6090201c58816fc47, type: 3}
+  - {fileID: 8300000, guid: 4cdd3de2138454d1e92ab58f85630860, type: 3}
+  - {fileID: 8300000, guid: 7f39afc041fff436b8055964a05f3e63, type: 3}

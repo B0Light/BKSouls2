@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7d3247c83bf18b488eaf611898f0b68, type: 3}
+  m_Name: Knight Leggings
+  m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
+  itemName: Knight Leggings
+  itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
+  itemDescription: 'Knight Leggings
+
+'
+  itemID: 7
+  itemWeight: 6.6
+  physicalDamageAbsorption: 7.1
+  magicDamageAbsorption: 6.2
+  fireDamageAbsorption: 6.2
+  holyDamageAbsorption: 5.4
+  lightningDamageAbsorption: 5
+  immunity: 17
+  robustness: 31
+  focus: 11
+  vitality: 11
+  poise: 14
+  equipmentModels:
+  - {fileID: 11400000, guid: 551e431343f4ee24fbd28ff60a872045, type: 2}
+  - {fileID: 11400000, guid: 8da8daca6208b164e83a636af57ca901, type: 2}
+  - {fileID: 11400000, guid: 82a66c59d1f2b9449836df4f0c1446ba, type: 2}
+  - {fileID: 11400000, guid: 6c4a7023e8e7f0b4b90cb89f8f1316bf, type: 2}
+  - {fileID: 11400000, guid: 3f33610075ef8a341b90fc17f5ad2f88, type: 2}

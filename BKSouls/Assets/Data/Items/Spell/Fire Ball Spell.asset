@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dee5fa8f57c76f48b29a3edef255777, type: 3}
+  m_Name: Fire Ball Spell
+  m_EditorClassIdentifier: Assembly-CSharp::BK.FireBallSpell
+  itemName: Fire Ball
+  itemIcon: {fileID: 21300000, guid: caaa8e0cb627d844c95cc3c917bf7a89, type: 3}
+  itemDescription: 
+  itemID: 14
+  SpellClass: 0
+  fullChargeEffectMultiplier: 2
+  spellSlotsUsed: 1
+  staminaCost: 25
+  focusPointCost: 25
+  spellCastWarmUpFX: {fileID: 8024480108448382363, guid: 45ae659232075c34180efa98c4ff5857, type: 3}
+  spellChargeFX: {fileID: 8024480108448382363, guid: c7cddb9e20324ab469e522704c71411b, type: 3}
+  spellCastReleaseFX: {fileID: 7118137286583304359, guid: 7424159956ea44648a8bb78d5322e932, type: 3}
+  spellCastReleaseFXFullCharge: {fileID: 7118137286583304359, guid: e3f97906ebc7185498b375404878dcda, type: 3}
+  mainHandSpellAnimation: Spell_Main_Fire_Ball_Start_01
+  offHandSpellAnimation: Spell_Off_Fire_Ball_Start_01
+  warmUpSoundFX: {fileID: 0}
+  releaseSoundFX: {fileID: 0}
+  upwardVelocity: 4
+  forwardVelocity: 15
