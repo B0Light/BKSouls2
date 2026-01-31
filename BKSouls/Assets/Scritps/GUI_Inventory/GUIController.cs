@@ -26,6 +26,7 @@ namespace BK
         //[HideInInspector] public PerkGUIManager perkGUIManager;
         [SerializeField] private CanvasGroup cashCanvasGroup;
 
+        [Header("LOG")]
         public bool popUpWindowIsOpen = false;
         public GUIComponent currentOpenGUI;
 
