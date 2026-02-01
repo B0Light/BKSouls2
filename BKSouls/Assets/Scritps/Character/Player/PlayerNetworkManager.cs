@@ -78,8 +78,8 @@ namespace BK
             if (player.isDead.Value && NetworkManager.Singleton.IsServer)
             {
                 //  REMOVE THE BOSS HP BAR FROM THE UI
-                if (PlayerUIManager.instance.playerUIHudManager.currentBossHealthBar != null)
-                    PlayerUIManager.instance.playerUIHudManager.currentBossHealthBar.RemoveHPBar(1f);
+                if (GUIController.Instance.playerUIHudManager.currentBossHealthBar != null)
+                    GUIController.Instance.playerUIHudManager.currentBossHealthBar.RemoveHPBar(1f);
 
                 //  IF YOU WANT THIS TO PLAY LIKE ELDEN RING, DISABLE ALL BOSS FIGHTS
                 WorldAIManager.instance.DisableAllBossFights();
@@ -105,21 +105,21 @@ namespace BK
         public void SetNewMaxHealthValue(int oldVitality, int newVitality)
         {
             maxHealth.Value = player.playerStatsManager.CalculateHealthBasedOnVitalityLevel(newVitality);
-            PlayerUIManager.instance.playerUIHudManager.SetMaxHealthValue(maxHealth.Value);
+            GUIController.Instance.playerUIHudManager.SetMaxHealthValue(maxHealth.Value);
             currentHealth.Value = maxHealth.Value;
         }
 
         public void SetNewMaxStaminaValue(int oldEndurance, int newEndurance)
         {
             maxStamina.Value = player.playerStatsManager.CalculateStaminaBasedOnEnduranceLevel(newEndurance);
-            PlayerUIManager.instance.playerUIHudManager.SetMaxStaminaValue(maxStamina.Value);
+            GUIController.Instance.playerUIHudManager.SetMaxStaminaValue(maxStamina.Value);
             currentStamina.Value = maxStamina.Value;
         }
 
         public void SetNewMaxFocusPointsValue(int oldMind, int newMind)
         {
             maxFocusPoints.Value = player.playerStatsManager.CalculateFocusPointsBasedOnMindLevel(newMind);
-            PlayerUIManager.instance.playerUIHudManager.SetMaxFocusPointValue(maxFocusPoints.Value);
+            GUIController.Instance.playerUIHudManager.SetMaxFocusPointValue(maxFocusPoints.Value);
             currentFocusPoints.Value = maxFocusPoints.Value;
         }
 
@@ -155,15 +155,15 @@ namespace BK
 
             if (player.IsOwner)
             {
-                PlayerUIManager.instance.playerUIHudManager.SetRightWeaponQuickSlotIcon(newID);
+                GUIController.Instance.playerUIHudManager.SetRightWeaponQuickSlotIcon(newID);
 
                 if (player.playerInventoryManager.currentRightHandWeapon.weaponClass == WeaponClass.Bow)
                 {
-                    PlayerUIManager.instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
+                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
                 }
                 else
                 {
-                    PlayerUIManager.instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
+                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
                 }
             }
         }
@@ -180,15 +180,15 @@ namespace BK
 
             if (player.IsOwner)
             {
-                PlayerUIManager.instance.playerUIHudManager.SetLeftWeaponQuickSlotIcon(newID);
+                GUIController.Instance.playerUIHudManager.SetLeftWeaponQuickSlotIcon(newID);
 
                 if (player.playerInventoryManager.currentLeftHandWeapon.weaponClass == WeaponClass.Bow)
                 {
-                    PlayerUIManager.instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
+                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
                 }
                 else
                 {
-                    PlayerUIManager.instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
+                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
                 }
             }
         }
@@ -218,7 +218,7 @@ namespace BK
                 player.playerInventoryManager.currentSpell = newSpell;
 
                 if (player.IsOwner)
-                    PlayerUIManager.instance.playerUIHudManager.SetSpellItemQuickSlotIcon(newID);
+                    GUIController.Instance.playerUIHudManager.SetSpellItemQuickSlotIcon(newID);
             }
         }
 
@@ -239,7 +239,7 @@ namespace BK
             }
 
             if (player.IsOwner)
-                PlayerUIManager.instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
+                GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
         }
 
         public void OnMainProjectileIDChange(int oldID, int newID)
@@ -253,7 +253,7 @@ namespace BK
                 player.playerInventoryManager.mainProjectile = newProjectile;
 
             if (player.IsOwner)
-                PlayerUIManager.instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(player.playerInventoryManager.mainProjectile);
+                GUIController.Instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(player.playerInventoryManager.mainProjectile);
         }
 
         public void OnSecondaryProjectileIDChange(int oldID, int newID)
@@ -267,19 +267,19 @@ namespace BK
                 player.playerInventoryManager.secondaryProjectile = newProjectile;
 
             if (player.IsOwner)
-                PlayerUIManager.instance.playerUIHudManager.SetSecondaryProjectileQuickSlotIcon(player.playerInventoryManager.secondaryProjectile);
+                GUIController.Instance.playerUIHudManager.SetSecondaryProjectileQuickSlotIcon(player.playerInventoryManager.secondaryProjectile);
         }
 
         public void OnMaxFocusPointsChanged(int oldFP, int newFP)
         {
             if (player.IsOwner)
-                PlayerUIManager.instance.playerUIHudManager.SetMaxFocusPointValue(newFP);
+                GUIController.Instance.playerUIHudManager.SetMaxFocusPointValue(newFP);
         }
 
         public void OnFocusPointsChanged(int oldFP, int newFP)
         {
             if (player.IsOwner)
-                PlayerUIManager.instance.playerUIHudManager.SetNewFocusPointValue(oldFP, newFP);
+                GUIController.Instance.playerUIHudManager.SetNewFocusPointValue(oldFP, newFP);
         }
 
         public void OnIsHoldingArrowChanged(bool oldStatus, bool newStatus)
@@ -295,7 +295,7 @@ namespace BK
                 PlayerCamera.instance.cameraObject.fieldOfView = 60;
                 PlayerCamera.instance.cameraObject.nearClipPlane = 0.3f;
                 PlayerCamera.instance.cameraPivotTransform.localPosition = new Vector3(0, PlayerCamera.instance.cameraPivotYPositionOffSet, 0);
-                PlayerUIManager.instance.playerUIHudManager.crossHair.SetActive(false);
+                GUIController.Instance.playerUIHudManager.crossHair.SetActive(false);
             }
             else
             {
@@ -304,7 +304,7 @@ namespace BK
                 PlayerCamera.instance.cameraObject.fieldOfView = 40;
                 PlayerCamera.instance.cameraObject.nearClipPlane = 1.3f;
                 PlayerCamera.instance.cameraPivotTransform.localPosition = Vector3.zero;
-                PlayerUIManager.instance.playerUIHudManager.crossHair.SetActive(true);
+                GUIController.Instance.playerUIHudManager.crossHair.SetActive(true);
             }
         }
 

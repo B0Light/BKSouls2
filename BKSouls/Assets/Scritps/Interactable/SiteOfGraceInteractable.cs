@@ -81,14 +81,14 @@ namespace BK
             player.playerAnimatorManager.PlayTargetActionAnimation("Activate_Site_Of_Grace_01", true);
             //  HIDE WEAPON MODELS WHILST PLAYING ANIMATION IF YOU DESIRE
 
-            PlayerUIManager.instance.playerUIPopUpManager.SendGraceRestoredPopUp("SITE OF GRACE RESTORED");
+            GUIController.Instance.playerUIPopUpManager.SendGraceRestoredPopUp("SITE OF GRACE RESTORED");
 
             StartCoroutine(WaitForAnimationAndPopUpThenRestoreCollider());
         }
 
         private void RestAtSiteOfGrace(PlayerManager player)
         {
-            PlayerUIManager.instance.playerUISiteOfGraceManager.OpenMenu();
+            GUIController.Instance.playerUISiteOfGraceManager.OpenMenu();
 
             //  TEMPORARY CODE SECTION
             interactableCollider.enabled = true; // TEMPORARILY RE-ENABLING THE COLLIDER HERE UNTIL WE ADD THE MENU SO YOU CAN RESPAWN MONSTERS INDEFINITELY
@@ -149,13 +149,13 @@ namespace BK
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
 
             //  ENABLE LOADING SCREEN
-            PlayerUIManager.instance.playerUILoadingScreenManager.ActivateLoadingScreen();
+            GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
             //  TELEPORT PLAYER
             player.transform.position = teleportTransform.position;
 
             //  DISABLE LOADING SCREEN
-            PlayerUIManager.instance.playerUILoadingScreenManager.DeactivateLoadingScreen(1);
+            GUIController.Instance.playerUILoadingScreenManager.DeactivateLoadingScreen(1);
         }
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace BK.Inventory
@@ -11,6 +12,10 @@ namespace BK.Inventory
         [HideInInspector] public bool isActive = false;
 
         [SerializeField] private Transform mainInventoryCanvas;
+        
+        PlayerControls playerControls;
+        [Header("Camera Input")]
+        [SerializeField] private Vector2 mouseInput;
 
         private InventoryHighlight _inventoryHighlight;
         private Vector2Int _oldPosition;
@@ -82,13 +87,34 @@ namespace BK.Inventory
             _inventoryHighlight = GetComponent<InventoryHighlight>();
             isActive = false;
         }
+        
+        private void OnEnable()
+        {
+            if (playerControls == null)
+            {
+                playerControls = new PlayerControls();
+
+                playerControls.UI.MousePosition.performed += i => mouseInput = i.ReadValue<Vector2>();
+                playerControls.UI.Click.performed += LeftMouseButtonPress;
+                playerControls.UI.DoubleClick.performed += RightMouseButtonPress;
+                playerControls.UI.RightClick.performed += RightMouseButtonPress;
+                playerControls.UI.Rotate.performed += RotateItem;
+            }
+
+            playerControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            playerControls.Disable();
+        }
 
         private void LateUpdate()
         {
             if (SelectedItem)
             {
                 SelectedItem.gameObject.transform.SetParent(mainInventoryCanvas);
-                SelectedItem.gameObject.transform.position = Input.mousePosition;
+                SelectedItem.gameObject.transform.position = mouseInput;
             }
 
 
@@ -100,7 +126,7 @@ namespace BK.Inventory
             HandleHighlight();
         }
 
-        public void RotateItem()
+        public void RotateItem(InputAction.CallbackContext context)
         {
             if (SelectedItem == null) return;
             SelectedItem.Rotate();
@@ -143,7 +169,7 @@ namespace BK.Inventory
             }
         }
 
-        public void LeftMouseButtonPress()
+        public void LeftMouseButtonPress(InputAction.CallbackContext context)
         {
             if (SelectedItemGrid)
             {
@@ -166,7 +192,7 @@ namespace BK.Inventory
             }
         }
 
-        public void RightMouseButtonPress()
+        public void RightMouseButtonPress(InputAction.CallbackContext context)
         {
             if (_selectedItemGrid == null) return;
             if (SelectedItem)
@@ -254,12 +280,10 @@ namespace BK.Inventory
                     break;
             }
         }
-
-
-
+        
         private Vector2Int GetTileGridPosition()
         {
-            Vector2 position = Input.mousePosition;
+            Vector2 position = mouseInput;
             if (SelectedItem != null)
             {
                 position.x -= (SelectedItem.Width - 1) * ItemGrid.TileSizeWidth / 2;

@@ -145,14 +145,14 @@ namespace BK
         public void LoadWorldScene(int buildIndex)
         {
             //  1. ACTIVATE OUR LOADING SCREEN
-            PlayerUIManager.instance.playerUILoadingScreenManager.ActivateLoadingScreen();
+            GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
             //  2. GET WORLD SCENE, AND LOAD IT
             string worldScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
             NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
 
             //  3. LOAD OUR PLAYER SAVE DATA
-            PlayerUIManager.instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
+            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
         }
 
         //  USED TO LOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE

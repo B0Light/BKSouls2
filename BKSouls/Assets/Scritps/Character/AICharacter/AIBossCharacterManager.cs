@@ -122,7 +122,7 @@ namespace BK
 
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
-            PlayerUIManager.instance.playerUIPopUpManager.SendBossDefeatedPopUp("GREAT FOE FELLED");
+            GUIController.Instance.playerUIPopUpManager.SendBossDefeatedPopUp("GREAT FOE FELLED");
 
             if (IsOwner)
             {
@@ -208,11 +208,11 @@ namespace BK
                 WorldSoundFXManager.instance.PlayBossTrack(bossIntroClip, bossBattleLoopClip);
 
                 GameObject bossHealthBar =
-                Instantiate(PlayerUIManager.instance.playerUIHudManager.bossHealthBarObject, PlayerUIManager.instance.playerUIHudManager.bossHealthBarParent);
+                Instantiate(GUIController.Instance.playerUIHudManager.bossHealthBarObject, GUIController.Instance.playerUIHudManager.bossHealthBarParent);
 
                 UI_Boss_HP_Bar bossHPBar = bossHealthBar.GetComponentInChildren<UI_Boss_HP_Bar>();
                 bossHPBar.EnableBossHPBar(this);
-                PlayerUIManager.instance.playerUIHudManager.currentBossHealthBar = bossHPBar;
+                GUIController.Instance.playerUIHudManager.currentBossHealthBar = bossHPBar;
             }
             else
             {

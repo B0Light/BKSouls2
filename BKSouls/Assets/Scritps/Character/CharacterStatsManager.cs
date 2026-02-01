@@ -103,13 +103,13 @@ namespace BK
             if (calculateProjectedLevel)
             {
                 int totalProjectedAttributes = 
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.vigorSlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.mindSlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.enduranceSlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.strengthSlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.dexteritySlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.intelligenceSlider.value) +
-                    Mathf.RoundToInt(PlayerUIManager.instance.playerUILevelUpManager.faithSlider.value);
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.vigorSlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.mindSlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.enduranceSlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.strengthSlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.dexteritySlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.intelligenceSlider.value) +
+                    Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.faithSlider.value);
 
                 int projectedCharacterLevel = totalProjectedAttributes - 70 + 1;
 

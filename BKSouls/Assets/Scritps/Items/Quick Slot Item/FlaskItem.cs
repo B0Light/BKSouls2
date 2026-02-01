@@ -110,7 +110,7 @@ namespace BK
                     player.playerNetworkManager.remainingFocusPointsFlasks.Value -= 1;
                 }
 
-                PlayerUIManager.instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
+                GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
             }
 
             if (healthFlask && player.playerNetworkManager.remainingHealthFlasks.Value <= 0)

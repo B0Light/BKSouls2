@@ -43,12 +43,12 @@ namespace BK
             popUpMessageGameObject.SetActive(false);
             itemPopUpGameObject.SetActive(false);
 
-            PlayerUIManager.instance.popUpWindowIsOpen = false;
+            GUIController.Instance.popUpWindowIsOpen = false;
         }
 
         public void SendPlayerMessagePopUp(string messageText)
         {
-            PlayerUIManager.instance.popUpWindowIsOpen = true;
+            GUIController.Instance.popUpWindowIsOpen = true;
             popUpMessageText.text = messageText;
             popUpMessageGameObject.SetActive(true);
         }
@@ -66,7 +66,7 @@ namespace BK
             }
 
             itemPopUpGameObject.SetActive(true);
-            PlayerUIManager.instance.popUpWindowIsOpen = true;
+            GUIController.Instance.popUpWindowIsOpen = true;
         }
 
         public void SendYouDiedPopUp()

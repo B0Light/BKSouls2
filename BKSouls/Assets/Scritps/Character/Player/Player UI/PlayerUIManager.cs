@@ -37,7 +37,7 @@ namespace BK
                 Destroy(gameObject);
             }
 
-            playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
+            //playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
             playerUIEquipmentManager = GetComponentInChildren<PlayerUIEquipmentManager>();

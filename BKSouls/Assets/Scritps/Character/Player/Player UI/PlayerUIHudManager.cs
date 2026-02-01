@@ -119,7 +119,7 @@ namespace BK
             //  3. UPDATE RUNE COUNT, RESET PENDING RUNES AND HIDE PENDING RUNES
             runesToAddText.enabled = false;
             pendingRunesToAdd = 0;
-            runesCountText.text = PlayerUIManager.instance.localPlayer.playerStatsManager.runes.ToString();
+            runesCountText.text = GUIController.Instance.localPlayer.playerStatsManager.runes.ToString();
 
             yield return null;
         }
@@ -286,7 +286,7 @@ namespace BK
 
             if (quickSlotItem.isConsumable)
             {
-                quickSlotItemCount.text = quickSlotItem.GetCurrentAmount(PlayerUIManager.instance.localPlayer).ToString();
+                quickSlotItemCount.text = quickSlotItem.GetCurrentAmount(GUIController.Instance.localPlayer).ToString();
                 quickSlotItemCount.enabled = true;
             }
             else

@@ -8,7 +8,7 @@ namespace BK
 
         public void SetCurrentSelectedAttribute()
         {
-            PlayerUIManager.instance.playerUILevelUpManager.currentSelectedAttribute = sliderAttribute;
+            GUIController.Instance.playerUILevelUpManager.currentSelectedAttribute = sliderAttribute;
         }
     }
 }

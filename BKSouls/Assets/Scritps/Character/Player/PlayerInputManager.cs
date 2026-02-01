@@ -68,6 +68,7 @@ namespace BK
         [SerializeField] bool que_RT_Input = false;
 
         [Header("UI INPUTS")]
+        private Vector2 _mousePos;
         [SerializeField] bool openCharacterMenuInput = false;
         [SerializeField] bool closeMenuInput = false;
 
@@ -250,7 +251,7 @@ namespace BK
             {
                 use_Item_Input = false;
 
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 if (player.playerInventoryManager.currentQuickSlotItem != null)
@@ -476,7 +477,7 @@ namespace BK
                 dodge_Input = false;
 
                 //  DO NOTHING IF MENU OR UI WINDOW IS OPEN
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 player.playerLocomotionManager.AttemptToPerformDodge();
@@ -502,7 +503,7 @@ namespace BK
                 jump_Input = false;
 
                 //  IF WE HAVE A UI WINDOW OPEN, SIMPLY RETURN WITHOUT DOING ANYTHING
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 //  ATTEMPT TO PERFORM JUMP
@@ -626,7 +627,7 @@ namespace BK
             {
                 switch_Right_Weapon_Input = false;
 
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 if (player.isPerformingAction)
@@ -645,7 +646,7 @@ namespace BK
             {
                 switch_Left_Weapon_Input = false;
 
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 if (player.isPerformingAction)
@@ -664,7 +665,7 @@ namespace BK
             {
                 switch_Quick_Slot_Item_Input = false;
 
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
                 if (player.isPerformingAction)
@@ -745,9 +746,8 @@ namespace BK
             {
                 openCharacterMenuInput = false;
 
-                PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
-                PlayerUIManager.instance.CloseAllMenuWindows();
-                //PlayerUIManager.instance.playerUICharacterMenuManager.OpenMenu();
+                //PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
+                //PlayerUIManager.instance.CloseAllMenuWindows();
                 StartCoroutine(WaitThenOpenMenu());
             }
         }
@@ -756,7 +756,8 @@ namespace BK
         {
             yield return new WaitForFixedUpdate();
             yield return new WaitForFixedUpdate();
-            PlayerUIManager.instance.playerUICharacterMenuManager.OpenMenu();
+            //PlayerUIManager.instance.playerUICharacterMenuManager.OpenMenu();
+            GUIController.Instance.HandleTab();
         }
 
         private void HandleCloseUIInput()
@@ -765,9 +766,9 @@ namespace BK
             {
                 closeMenuInput = false;
 
-                if (PlayerUIManager.instance.menuWindowIsOpen)
+                if (GUIController.Instance.menuWindowIsOpen)
                 {
-                    PlayerUIManager.instance.CloseAllMenuWindows();
+                    GUIController.Instance.CloseGUI();
                 }
             }
         }

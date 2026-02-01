@@ -390,10 +390,10 @@ namespace BK
             switch (currentProjectileBeingUsed)
             {
                 case ProjectileSlot.Main:
-                    PlayerUIManager.instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(projectileItem);
+                    GUIController.Instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(projectileItem);
                     break;
                 case ProjectileSlot.Secondary:
-                    PlayerUIManager.instance.playerUIHudManager.SetSecondaryProjectileQuickSlotIcon(projectileItem);
+                    GUIController.Instance.playerUIHudManager.SetSecondaryProjectileQuickSlotIcon(projectileItem);
                     break;
                 default:
                     break;

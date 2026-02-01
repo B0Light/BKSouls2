@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 
 namespace BK
@@ -37,6 +38,7 @@ namespace BK
         public void AddItemToInventory(Item item)
         {
             itemsInInventory.Add(item);
+            WorldShopManager.Instance.BuyItem(WorldDatabase_Item.Instance.GetItemByID(item.itemID));
         }
 
         public void RemoveItemFromInventory(Item item)

@@ -33,7 +33,7 @@ namespace BK
             //  REMOVE THE INTERACTION FROM THE PLAYER
             interactableCollider.enabled = false;
             player.playerInteractionManager.RemoveInteractionFromList(this);
-            PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
 
             //  SAVE GAME AFTER INTERACTING
             WorldSaveGameManager.instance.SaveGame();
@@ -70,7 +70,7 @@ namespace BK
 
                 //  REMOVE THE INTERACTION FROM THE PLAYER
                 player.playerInteractionManager.RemoveInteractionFromList(this);
-                PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
+                GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
             }
         }
     }

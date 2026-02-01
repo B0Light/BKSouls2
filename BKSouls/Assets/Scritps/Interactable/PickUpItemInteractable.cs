@@ -13,7 +13,7 @@ namespace BK
         [SerializeField] Item item;
 
         [Header("Creature Loot Pick Up")]
-        public NetworkVariable<int> itemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> itemID = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<Vector3> networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<ulong> droppingCreatureID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public bool trackDroppingCreaturesPosition = true;
@@ -111,7 +111,7 @@ namespace BK
             player.playerInventoryManager.AddItemToInventory(item);
 
             // 3. DISPLAY A UI POP UP SHOWING ITEM'S NAME AND PICTURE
-            PlayerUIManager.instance.playerUIPopUpManager.SendItemPopUp(item, 1);
+            GUIController.Instance.playerUIPopUpManager.SendItemPopUp(item, 1);
 
             // 4. SAVE LOOT STATUS IF IT'S A WORLD SPAWN
             if (pickUpType == ItemPickUpType.WorldSpawn)

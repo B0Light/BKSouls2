@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Unity.Netcode;
@@ -83,7 +84,7 @@ namespace BK
             {
                 PlayerCamera.instance.player = this;
                 PlayerInputManager.instance.player = this;
-                PlayerUIManager.instance.localPlayer = this;
+                GUIController.Instance.localPlayer = this;
                 WorldSaveGameManager.instance.player = this;
 
                 //  UPDATE THE TOTAL AMOUNT OF HEALTH OR STAMINA WHEN THE STAT LINKED TO EITHER CHANGES
@@ -92,9 +93,9 @@ namespace BK
                 playerNetworkManager.mind.OnValueChanged += playerNetworkManager.SetNewMaxFocusPointsValue;
 
                 //  UPDATES UI STAT BARS WHEN A STAT CHANGES (HEALTH OR STAMINA)
-                playerNetworkManager.currentHealth.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewHealthValue;
-                playerNetworkManager.currentStamina.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewStaminaValue;
-                playerNetworkManager.currentFocusPoints.OnValueChanged += PlayerUIManager.instance.playerUIHudManager.SetNewFocusPointValue;
+                playerNetworkManager.currentHealth.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewHealthValue;
+                playerNetworkManager.currentStamina.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
+                playerNetworkManager.currentFocusPoints.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
                 playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
 
                 playerNetworkManager.SetNewMaxHealthValue(0, playerNetworkManager.vigor.Value);
@@ -178,9 +179,9 @@ namespace BK
                 playerNetworkManager.mind.OnValueChanged -= playerNetworkManager.SetNewMaxFocusPointsValue;
 
                 //  UPDATES UI STAT BARS WHEN A STAT CHANGES (HEALTH OR STAMINA)
-                playerNetworkManager.currentHealth.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetNewHealthValue;
-                playerNetworkManager.currentStamina.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetNewStaminaValue;
-                playerNetworkManager.currentFocusPoints.OnValueChanged -= PlayerUIManager.instance.playerUIHudManager.SetNewFocusPointValue;
+                playerNetworkManager.currentHealth.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewHealthValue;
+                playerNetworkManager.currentStamina.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
+                playerNetworkManager.currentFocusPoints.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
                 playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenTimer;
 
                 //  RESETS CAMERA ROTATION TO STANDARD WHEN AIMING IS DISABLED
@@ -279,7 +280,7 @@ namespace BK
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
             if (IsOwner)
-                PlayerUIManager.instance.playerUIPopUpManager.SendYouDiedPopUp();
+                GUIController.Instance.playerUIPopUpManager.SendYouDiedPopUp();
 
             //  TODO KICK NON HOST PLAYERS FROM GAME IF HOST DIES
             WorldGameSessionManager.instance.WaitThenReviveHost();
@@ -574,6 +575,38 @@ namespace BK
                 RangedProjectileItem projectile = currentCharacterData.projectilesInInventory[i].GetProjectile();
                 playerInventoryManager.AddItemToInventory(projectile);
             }
+            
+            //===============
+            // 일반 인벤토리 
+            WorldPlayerInventory.Instance.GetInventory().UpdateItemGridSize(new Vector2Int(6,3));
+            /*
+            foreach (KeyValuePair<int,int> item in currentCharacterData.inventoryItems)
+            {
+                for (int i = 0; i < item.Value; i++)
+                {
+                    ItemInfo itemInfoData = WorldDatabase_Item.Instance.GetItemByID(item.Key);
+                    if (!WorldPlayerInventory.Instance.ReloadItemInventory(itemInfoData))
+                    {
+                        Debug.LogWarning("Reload Error");
+                    }
+                }
+            }
+            
+            // 가방 인벤토리 
+            WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(currentCharacterData.backpackSize);
+            foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
+            {
+                for (int i = 0; i < item.Value; i++)
+                {
+                    ItemInfo itemInfoData = WorldDatabase_Item.Instance.GetItemByID(item.Key);
+                    if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
+                    {
+                        Debug.LogWarning("Reload Error");
+                    }
+                }
+            }
+            */
+            //===============
 
             playerEquipmentManager.EquipArmor();
             playerEquipmentManager.LoadMainProjectileEquipment(currentCharacterData.mainProjectile.GetProjectile());

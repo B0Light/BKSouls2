@@ -5,28 +5,32 @@ namespace BK.Inventory
 {
     public class InventoryGUIManager : GUIComponent
     {
-        [Header("Inventory System")] public InventoryController inventoryController;
+        [Header("Inventory System")] 
+        public InventoryController inventoryController;
         [SerializeField] private GameObject itemTooltip;
 
-        [Header("Player Equipment Inventory")] public ItemGrid_Equipment playerWeapon;
+        [Header("Player Equipment Inventory")] 
+        public ItemGrid_Equipment playerWeapon;
         public ItemGrid_Equipment playerHelmet;
         public ItemGrid_Equipment playerArmor;
         public ItemGrid_Equipment playerConsumable;
 
-        [Header("Player Inventory")] public ItemGrid playerInventoryItemGrid;
+        [Header("Player Inventory")] 
+        public ItemGrid playerInventoryItemGrid;
         public ItemGrid backpackItemGrid;
         [SerializeField] private CanvasGroup backpackCanvasGroup;
         private bool _hasBackpack = false;
 
-        [Header("Safe Inventory")] public ItemGrid safeInventoryItemGrid;
+        [Header("Safe Inventory")] 
+        public ItemGrid safeInventoryItemGrid;
         [SerializeField] private CanvasGroup safeInventoryCanvasGroup;
 
-        [Header("Interactable Inventory")] [SerializeField]
-        private ItemGrid_Interactable interactionInventoryItemGrid;
-
+        [Header("Interactable Inventory")] 
+        [SerializeField] private ItemGrid_Interactable interactionInventoryItemGrid;
         [SerializeField] private CanvasGroup interactionInventoryCanvasGroup;
 
-        [Header("Share Inventory")] public ItemGrid shareInventoryItemGrid;
+        [Header("Share Inventory")] 
+        public ItemGrid shareInventoryItemGrid;
         [SerializeField] private CanvasGroup shareInventoryObject;
 
         [Header("Forge Inventory")] 

@@ -26,7 +26,7 @@ namespace BK
                 return;
 
             //  IF OUR UI MENU IS NOT OPEN, AND WE DONT HAVE A POP UP (CURRENT INTERACTION MESSAGE) CHECK FOR INTERACTABLE
-            if (!PlayerUIManager.instance.menuWindowIsOpen && !PlayerUIManager.instance.popUpWindowIsOpen)
+            if (!GUIController.Instance.menuWindowIsOpen && !GUIController.Instance.popUpWindowIsOpen)
                 CheckForInteractable();
         }
 
@@ -43,7 +43,7 @@ namespace BK
 
             // IF WE HAVE AN INTERACTABLE ACTION AND HAVE NOT NOTIFIED OUR PLAYER, WE DO SO HERE
             if (currentInteractableActions[0] != null)
-                PlayerUIManager.instance.playerUIPopUpManager.SendPlayerMessagePopUp(currentInteractableActions[0].interactableText);
+                GUIController.Instance.playerUIPopUpManager.SendPlayerMessagePopUp(currentInteractableActions[0].interactableText);
         }
 
         private void RefreshInteractionList()
@@ -74,7 +74,7 @@ namespace BK
         public void Interact()
         {
             //  IF WE PRESS THE INTERACT BUTTON WITH OR WITHOUT AN INTERACTABLE, IT WILL CLEAR THE POP UP WINDOWS (ITEM PICK UPS, MESSAGES, ECT)
-            PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
 
             if (currentInteractableActions.Count == 0)
                 return;

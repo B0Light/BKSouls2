@@ -9,13 +9,13 @@ namespace BK
         private void OnEnable()
         {
             //  HIDE THE HUD
-            PlayerUIManager.instance.playerUIHudManager.ToggleHUD(false);
+            GUIController.Instance.playerUIHudManager.ToggleHUD(false);
         }
 
         private void OnDisable()
         {
             //  BRING THE HUD BACK
-            PlayerUIManager.instance.playerUIHudManager.ToggleHUD(true);
+            GUIController.Instance.playerUIHudManager.ToggleHUD(true);
         }
     }
 }

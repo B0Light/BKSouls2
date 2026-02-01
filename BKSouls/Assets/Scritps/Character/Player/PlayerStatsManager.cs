@@ -127,7 +127,7 @@ namespace BK
         public void AddRunes(int runesToAdd)
         {
             runes += runesToAdd;
-            PlayerUIManager.instance.playerUIHudManager.SetRunesCount(runesToAdd);
+            GUIController.Instance.playerUIHudManager.SetRunesCount(runesToAdd);
         }
     }
 }

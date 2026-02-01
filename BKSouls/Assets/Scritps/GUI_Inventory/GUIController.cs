@@ -12,10 +12,17 @@ namespace BK
         [SerializeField] private Texture2D customCursor; // 사용할 커서 이미지
         private readonly Vector2 _hotspot = Vector2.zero; // 커서 중심 위치
         
+        [HideInInspector] public PlayerManager localPlayer;
+        
         public SettingGUIManager settingGUIManager;
     
         [HideInInspector] public PlayerUIHudManager playerUIHudManager;
         [HideInInspector] public PlayerUIPopUpManager playerUIPopUpManager;
+        [HideInInspector] public PlayerUICharacterMenuManager playerUICharacterMenuManager;
+        [HideInInspector] public PlayerUISiteOfGraceManager playerUISiteOfGraceManager;
+        [HideInInspector] public PlayerUITeleportLocationManager playerUITeleportLocationManager;
+        [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
+        [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
         [HideInInspector] public InventoryGUIManager inventoryGUIManager;
         [HideInInspector] public ItemShopUIManager itemShopUIManager;
         //[HideInInspector] public DungeonEnterGUIManager dungeonEnterGUIManager;
@@ -27,6 +34,7 @@ namespace BK
         [SerializeField] private CanvasGroup cashCanvasGroup;
 
         [Header("LOG")]
+        public bool menuWindowIsOpen = false; 
         public bool popUpWindowIsOpen = false;
         public GUIComponent currentOpenGUI;
 
@@ -38,6 +46,12 @@ namespace BK
             base.Awake();
             playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
+            playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
+            playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
+            playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
+            playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
+            playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
+            
             inventoryGUIManager = GetComponentInChildren<InventoryGUIManager>();
             itemShopUIManager = GetComponentInChildren<ItemShopUIManager>();
             //dungeonEnterGUIManager = GetComponentInChildren<DungeonEnterGUIManager>();

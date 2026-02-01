@@ -74,7 +74,7 @@ namespace BK.Inventory
         //Set Inventory size
         protected virtual void Init(int width, int height)
         {
-            //Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
+            Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
             gridSize.x = width;
             gridSize.y = height;
             _inventoryItemSlot = new InventoryItem[width, height];
@@ -172,6 +172,7 @@ namespace BK.Inventory
 
         public bool AddItem(GameObject item, bool isLoad = true)
         {
+            Debug.Log("ADD ITEM");
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
             inventoryItem.Set();
 
@@ -330,6 +331,7 @@ namespace BK.Inventory
 
         public virtual bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad)
         {
+            Debug.Log("Place Item");
             if (!CheckPlaceItem(inventoryItem, posX, posY))
             {
                 return false;

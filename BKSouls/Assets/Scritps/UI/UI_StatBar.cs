@@ -42,7 +42,7 @@ namespace BK
                 rectTransform.sizeDelta = new Vector2(maxValue * widthScaleMultiplier, rectTransform.sizeDelta.y);
 
                 //  RESETS THE POSITION OF THE BARS BASED ON THEIR LAYOUT GROUP'S SETTINGS
-                PlayerUIManager.instance.playerUIHudManager.RefreshHUD();
+                GUIController.Instance.playerUIHudManager.RefreshHUD();
             }
         }
     }

@@ -37,7 +37,7 @@ namespace BK
         {
             yield return new WaitForSeconds(delay);
 
-            PlayerUIManager.instance.playerUILoadingScreenManager.ActivateLoadingScreen();
+            GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
             PlayerUIManager.instance.localPlayer.ReviveCharacter();
             
