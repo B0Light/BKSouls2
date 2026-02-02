@@ -29,7 +29,7 @@ namespace BK.Inventory
             foreach (var recipeIngredient in _recipeData.recipe.ingredients)
             {
                 ShopCostItem shopCostItem = Instantiate(resourcePrefab, recipeSlot).GetComponent<ShopCostItem>();
-                shopCostItem.Init(recipeIngredient.itemData.itemCode, recipeIngredient.quantity);
+                shopCostItem.Init(recipeIngredient.itemData.itemID, recipeIngredient.quantity);
             }
         }
 

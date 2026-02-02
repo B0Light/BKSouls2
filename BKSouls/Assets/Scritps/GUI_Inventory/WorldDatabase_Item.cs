@@ -88,7 +88,7 @@ namespace BK.Inventory
             foreach (var item in miscItems)
             {
                 item.costItemList.Clear();
-                if (1290 <= item.itemCode) // id 1290 이상은 구매 불가 아이템
+                if (1290 <= item.itemID) // id 1290 이상은 구매 불가 아이템
                 {
                     notSaleItem.Add(item);
                 }
@@ -114,7 +114,7 @@ namespace BK.Inventory
             Debug.Log("Classify item cnt : " + allItems.Count);
             foreach (ItemInfo item in allItems)
             {
-                if (item.itemCode != 0)
+                if (item.itemID != 0)
                 {
                     _allItemsByTier[item.itemTier].Add(item);
                 }
@@ -132,7 +132,7 @@ namespace BK.Inventory
 
             foreach (EquipmentItemInfo item in equipmentItems)
             {
-                if (item.itemCode != 0 && item.itemCode < 100)
+                if (item.itemID != 0 && item.itemID < 100)
                 {
                     _weaponItemsByTier[item.itemTier].Add(item);
                 }
@@ -140,7 +140,7 @@ namespace BK.Inventory
 
             foreach (EquipmentItemInfo item in equipmentItems)
             {
-                if (item.itemCode != 0)
+                if (item.itemID != 0)
                 {
                     _equipmentItemsByTier[item.itemTier].Add(item);
                 }
@@ -168,13 +168,13 @@ namespace BK.Inventory
 
         public ItemInfo GetItemByID(int id)
         {
-            return allItems.FirstOrDefault(item => item.itemCode == id);
+            return allItems.FirstOrDefault(item => item.itemID == id);
         }
 
         // 상점 에서 재료로 구매시 활용 
         public ItemInfo GetMiscItemByID(int id)
         {
-            return onSaleItem.FirstOrDefault(item => item.itemCode == id);
+            return onSaleItem.FirstOrDefault(item => item.itemID == id);
         }
 
         public ItemInfo GetRandomItemByTier<T>(ItemTier tier) where T : ItemInfo
@@ -234,49 +234,6 @@ namespace BK.Inventory
             var values = Enum.GetValues(typeof(ItemTier)).Cast<ItemTier>().ToList();
             int index = values.IndexOf(currentTier);
             return index > 0 ? values[index - 1] : ItemTier.None;
-        }
-
-
-        public Color GetItemColorByTier(ItemTier rarity)
-        {
-            switch (rarity)
-            {
-                case ItemTier.Common: // 일반
-                    return new Color(220f / 255f, 220f / 255f, 220f / 255f); // RGB(220, 220, 220) - 연한 회색
-                case ItemTier.Uncommon: // 희귀
-                    return new Color(152f / 255f, 251f / 255f, 152f / 255f); // RGB(152, 251, 152) - 연한 연두색
-                case ItemTier.Rare: // 희귀
-                    return new Color(173f / 255f, 216f / 255f, 230f / 255f); // RGB(173, 216, 230) - 연한 파란색
-                case ItemTier.Epic: // 고급
-                    return new Color(216f / 255f, 191f / 255f, 216f / 255f); // RGB(216, 191, 216) - 연한 보라색
-                case ItemTier.Legendary: // 특급
-                    return new Color(255f / 255f, 223f / 255f, 186f / 255f); // RGB(255, 223, 186) - 연한 주황색
-                case ItemTier.Mythic: // 신화
-                    return new Color(255f / 255f, 182f / 255f, 193f / 255f); // RGB(255, 182, 193) - 연한 핑크색
-                default:
-                    return Color.white; // 기본 색상 - 흰색
-            }
-        }
-
-        public Color GetItemBackgroundColorByTier(ItemTier rarity)
-        {
-            switch (rarity)
-            {
-                case ItemTier.Common: // 일반
-                    return new Color(45f / 255f, 45f / 255f, 45f / 255f); // 어두운 회색
-                case ItemTier.Uncommon: // 희귀
-                    return new Color(50f / 255f, 90f / 255f, 50f / 255f); // 어두운 연두색
-                case ItemTier.Rare: // 희귀
-                    return new Color(50f / 255f, 75f / 255f, 100f / 255f); // 어두운 파란색
-                case ItemTier.Epic: // 고급
-                    return new Color(95f / 255f, 75f / 255f, 95f / 255f); // 어두운 보라색
-                case ItemTier.Legendary: // 특급
-                    return new Color(100f / 255f, 80f / 255f, 50f / 255f); // 어두운 주황색
-                case ItemTier.Mythic: // 신화
-                    return new Color(100f / 255f, 50f / 255f, 60f / 255f); // 어두운 빨간색
-                default:
-                    return new Color(45f / 255f, 45f / 255f, 45f / 255f); // 기본 색상 - 어두운 회색
-            }
         }
 
         /// <summary>
@@ -417,11 +374,11 @@ namespace BK.Inventory
             switch (itemType)
             {
                 case ItemInfo.ItemType.Weapon:
-                    return item is EquipmentItemInfoWeapon || item.itemCode < 100;
+                    return item is EquipmentItemInfoWeapon || item.itemID < 100;
                 case ItemInfo.ItemType.Armor:
-                    return item is EquipmentItemInfo && item.itemCode >= 100 && item.itemCode < 200;
+                    return item is EquipmentItemInfo && item.itemID >= 100 && item.itemID < 200;
                 case ItemInfo.ItemType.Helmet:
-                    return item is EquipmentItemInfo && item.itemCode >= 200 && item.itemCode < 300;
+                    return item is EquipmentItemInfo && item.itemID >= 200 && item.itemID < 300;
                 case ItemInfo.ItemType.Consumables:
                     return item is ItemInfoConsumable;
                 case ItemInfo.ItemType.Misc:

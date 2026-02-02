@@ -68,7 +68,7 @@ namespace BK.Inventory
             itemInfo_Name.text = item.itemName;
             ChangeSprite(itemInfo_Icon, item.itemIcon);
             itemInfo_Description.text = item.itemDescription;
-            itemInfo_BackgroundColor.color = WorldDatabase_Item.Instance.GetItemBackgroundColorByTier(item.itemTier);
+            itemInfo_BackgroundColor.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(item.itemTier);
 
             foreach (var product in onSaleItems)
             {
@@ -107,7 +107,7 @@ namespace BK.Inventory
             itemInfo_Name.text = "None";
             ChangeSprite(itemInfo_Icon, noneItemIcon);
             itemInfo_Description.text = "Select Item";
-            itemInfo_BackgroundColor.color = WorldDatabase_Item.Instance.GetItemBackgroundColorByTier(0);
+            itemInfo_BackgroundColor.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(0);
 
             costItemSlot.SetActive(false);
             costCashSlot.SetActive(false);

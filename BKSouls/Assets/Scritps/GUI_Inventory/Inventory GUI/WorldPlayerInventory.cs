@@ -425,7 +425,7 @@ namespace BK.Inventory
 
         public bool ReloadItemWeapon(ItemInfo itemInfoData)
         {
-            if (itemInfoData.itemCode == 0) return true;
+            if (itemInfoData.itemID == 0) return true;
 
             // 인벤토리에 해당 무기 추가 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
@@ -437,7 +437,7 @@ namespace BK.Inventory
 
         public bool ReloadItemHelmet(ItemInfo itemInfoData)
         {
-            if (itemInfoData.itemCode == 0) return true;
+            if (itemInfoData.itemID == 0) return true;
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
             inventoryItem.itemInfoData = itemInfoData;
@@ -447,7 +447,7 @@ namespace BK.Inventory
 
         public bool ReloadItemArmor(ItemInfo itemInfoData)
         {
-            if (itemInfoData.itemCode == 0) return true;
+            if (itemInfoData.itemID == 0) return true;
 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
@@ -458,7 +458,7 @@ namespace BK.Inventory
 
         public bool ReloadItemQuickSlot(ItemInfo itemInfoData)
         {
-            if (itemInfoData.itemCode == 0) return true;
+            if (itemInfoData.itemID == 0) return true;
 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();

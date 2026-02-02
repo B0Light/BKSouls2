@@ -93,8 +93,8 @@ namespace BK.Inventory
         {
             foreach (var ingredient in recipe.ingredients)
             {
-                if (!gridItems.ContainsKey(ingredient.itemData.itemCode) ||
-                    gridItems[ingredient.itemData.itemCode] < ingredient.quantity)
+                if (!gridItems.ContainsKey(ingredient.itemData.itemID) ||
+                    gridItems[ingredient.itemData.itemID] < ingredient.quantity)
                 {
                     return false;
                 }
@@ -121,13 +121,13 @@ namespace BK.Inventory
         {
             foreach (var ingredient in recipe.ingredients)
             {
-                craftingGrid.RemoveItemsById(ingredient.itemData.itemCode, ingredient.quantity);
+                craftingGrid.RemoveItemsById(ingredient.itemData.itemID, ingredient.quantity);
             }
         }
 
         private void CreateResultItem(CraftingRecipe recipe)
         {
-            craftingGrid.AddItemById(recipe.resultItem.itemCode, recipe.resultQuantity, false);
+            craftingGrid.AddItemById(recipe.resultItem.itemID, recipe.resultQuantity, false);
         }
 
         private void UpdateCraftingGridUI()
@@ -138,7 +138,7 @@ namespace BK.Inventory
             previewGrid.ResetItemGrid();
             if (matchedRecipe != null)
             {
-                previewGrid.AddItemById(matchedRecipe.resultItem.itemCode, matchedRecipe.resultQuantity);
+                previewGrid.AddItemById(matchedRecipe.resultItem.itemID, matchedRecipe.resultQuantity);
             }
 
             foreach (var recipeButton in _recipeButtons)

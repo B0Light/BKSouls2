@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -11,9 +12,10 @@ namespace BK
 
         [Header("Item")]
         [SerializeField] Item item;
-
+        [SerializeField] ItemInfo itemInfo;
+        
         [Header("Creature Loot Pick Up")]
-        public NetworkVariable<int> itemID = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> itemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<Vector3> networkPosition = new NetworkVariable<Vector3>(Vector3.zero, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<ulong> droppingCreatureID = new NetworkVariable<ulong>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public bool trackDroppingCreaturesPosition = true;
@@ -116,7 +118,7 @@ namespace BK
             // 4. SAVE LOOT STATUS IF IT'S A WORLD SPAWN
             if (pickUpType == ItemPickUpType.WorldSpawn)
             {
-                if (WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.ContainsKey((int)worldSpawnInteractableID))
+                if (WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.ContainsKey(worldSpawnInteractableID))
                 {
                     WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.Remove(worldSpawnInteractableID);
                 }

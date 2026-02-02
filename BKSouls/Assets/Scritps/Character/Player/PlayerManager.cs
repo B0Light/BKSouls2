@@ -578,6 +578,9 @@ namespace BK
             
             //===============
             // 일반 인벤토리 
+            WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(new Vector2Int(2,2));
+            WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(new Vector2Int(2,2));
+            WorldPlayerInventory.Instance.GetWeaponInventory().UpdateItemGridSize(new Vector2Int(1,4));
             WorldPlayerInventory.Instance.GetInventory().UpdateItemGridSize(new Vector2Int(6,3));
             /*
             foreach (KeyValuePair<int,int> item in currentCharacterData.inventoryItems)

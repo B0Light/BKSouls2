@@ -42,7 +42,7 @@ namespace BK.Inventory
             if (base.PlaceItem(inventoryItem, posX, posY, isLoad))
             {
                 if (!isLoad)
-                    _interactableItemIDList.Add(inventoryItem.itemInfoData.itemCode);
+                    _interactableItemIDList.Add(inventoryItem.itemInfoData.itemID);
                 return true;
             }
             else
@@ -56,7 +56,7 @@ namespace BK.Inventory
             InventoryItem pickUpItem = base.PickUpItem(x, y);
             if (pickUpItem)
             {
-                _interactableItemIDList.Remove(pickUpItem.itemInfoData.itemCode);
+                _interactableItemIDList.Remove(pickUpItem.itemInfoData.itemID);
             }
 
             return pickUpItem;

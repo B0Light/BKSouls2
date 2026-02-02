@@ -290,7 +290,7 @@ namespace BK.Inventory
         {
             foreach (ItemInfo item in _itemPosDict.GetAllKeys())
             {
-                if (item.itemCode == id)
+                if (item.itemID == id)
                 {
                     return item;
                 }
@@ -359,7 +359,7 @@ namespace BK.Inventory
             rectTransform.localScale = Vector3.one;
 
             _itemPosDict.Add(inventoryItem.itemInfoData, new Vector2(posX, posY));
-            AddValue(inventoryItem.itemInfoData.itemCode);
+            AddValue(inventoryItem.itemInfoData.itemID);
             itemGridWeight.Value += inventoryItem.itemInfoData.weight;
             totalItemValue.Value += inventoryItem.itemInfoData.purchaseCost;
             return true;
@@ -448,7 +448,7 @@ namespace BK.Inventory
                 }
             }
 
-            SubtractValue(item.itemInfoData.itemCode);
+            SubtractValue(item.itemInfoData.itemID);
         }
 
         public bool BoundaryCheck(int posX, int posY, int width, int height)

@@ -9,7 +9,7 @@ namespace BK.Inventory
             saleItemList.Clear();
             foreach (var item in WorldDatabase_Item.Instance.GetAllItem())
             {
-                if (item.itemCode == 0) continue;
+                if (item.itemID == 0) continue;
                 item.purChaseWithItem = true;
                 saleItemList.Add(item);
             }

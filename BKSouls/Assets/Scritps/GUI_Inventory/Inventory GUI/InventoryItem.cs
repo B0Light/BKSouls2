@@ -37,7 +37,7 @@ namespace BK.Inventory
             onGridPositionY = (int)size.y;
             GetComponent<RectTransform>().sizeDelta = size;
             itemIcon.GetComponent<RectTransform>().sizeDelta = size;
-            itemFrame.color = WorldDatabase_Item.Instance.GetItemColorByTier(itemInfoData.itemTier);
+            itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
             ChangeSprite(itemIcon, itemInfoData.itemIcon);
         }
 

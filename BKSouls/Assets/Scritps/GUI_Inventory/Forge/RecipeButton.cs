@@ -24,7 +24,7 @@ namespace BK.Inventory
             _recipeData = recipeData;
             itemIcon.sprite = recipeData.recipe.resultItem.itemIcon;
             itemBackground.color =
-                WorldDatabase_Item.Instance.GetItemColorByTier(recipeData.recipe.resultItem.itemTier);
+                WorldItemDatabase.Instance.GetItemColorByTier(recipeData.recipe.resultItem.itemTier);
             _button.onClick.AddListener(SetItem);
             CheckCanCreateItem();
             _popupOnHover.Init(recipeData);
@@ -34,7 +34,7 @@ namespace BK.Inventory
         {
             foreach (var recipeIngredient in _recipeData.recipe.ingredients)
             {
-                if (WorldPlayerInventory.Instance.GetItemCountInAllInventory(recipeIngredient.itemData.itemCode) <
+                if (WorldPlayerInventory.Instance.GetItemCountInAllInventory(recipeIngredient.itemData.itemID) <
                     recipeIngredient.quantity)
                 {
                     _button.interactable = false;
@@ -56,9 +56,9 @@ namespace BK.Inventory
 
             foreach (var recipeIngredient in _recipeData.recipe.ingredients)
             {
-                WorldPlayerInventory.Instance.RemoveItemInInventory(recipeIngredient.itemData.itemCode,
+                WorldPlayerInventory.Instance.RemoveItemInInventory(recipeIngredient.itemData.itemID,
                     recipeIngredient.quantity);
-                _forgeGUIManager.GetItemGrid.AddItemById(recipeIngredient.itemData.itemCode, recipeIngredient.quantity,
+                _forgeGUIManager.GetItemGrid.AddItemById(recipeIngredient.itemData.itemID, recipeIngredient.quantity,
                     false);
             }
 

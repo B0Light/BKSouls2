@@ -154,7 +154,7 @@ namespace BK.Inventory
                 ItemInfo costItem = WorldDatabase_Item.Instance.GetRandomItemByTier<ItemInfoMisc>(costItemTier);
                 if (costItem != null)
                 {
-                    item.costItemList.Add(costItem.itemCode);
+                    item.costItemList.Add(costItem.itemID);
                 }
             }
         }

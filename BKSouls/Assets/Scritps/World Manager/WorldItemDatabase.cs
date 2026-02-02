@@ -216,5 +216,47 @@ namespace BK
 
             return quickSlotItem;
         }
+        
+        public Color GetItemColorByTier(ItemTier rarity)
+        {
+            switch (rarity)
+            {
+                case ItemTier.Common: // 일반
+                    return new Color(220f / 255f, 220f / 255f, 220f / 255f); // RGB(220, 220, 220) - 연한 회색
+                case ItemTier.Uncommon: // 희귀
+                    return new Color(152f / 255f, 251f / 255f, 152f / 255f); // RGB(152, 251, 152) - 연한 연두색
+                case ItemTier.Rare: // 희귀
+                    return new Color(173f / 255f, 216f / 255f, 230f / 255f); // RGB(173, 216, 230) - 연한 파란색
+                case ItemTier.Epic: // 고급
+                    return new Color(216f / 255f, 191f / 255f, 216f / 255f); // RGB(216, 191, 216) - 연한 보라색
+                case ItemTier.Legendary: // 특급
+                    return new Color(255f / 255f, 223f / 255f, 186f / 255f); // RGB(255, 223, 186) - 연한 주황색
+                case ItemTier.Mythic: // 신화
+                    return new Color(255f / 255f, 182f / 255f, 193f / 255f); // RGB(255, 182, 193) - 연한 핑크색
+                default:
+                    return Color.white; // 기본 색상 - 흰색
+            }
+        }
+
+        public Color GetItemBackgroundColorByTier(ItemTier rarity)
+        {
+            switch (rarity)
+            {
+                case ItemTier.Common: // 일반
+                    return new Color(45f / 255f, 45f / 255f, 45f / 255f); // 어두운 회색
+                case ItemTier.Uncommon: // 희귀
+                    return new Color(50f / 255f, 90f / 255f, 50f / 255f); // 어두운 연두색
+                case ItemTier.Rare: // 희귀
+                    return new Color(50f / 255f, 75f / 255f, 100f / 255f); // 어두운 파란색
+                case ItemTier.Epic: // 고급
+                    return new Color(95f / 255f, 75f / 255f, 95f / 255f); // 어두운 보라색
+                case ItemTier.Legendary: // 특급
+                    return new Color(100f / 255f, 80f / 255f, 50f / 255f); // 어두운 주황색
+                case ItemTier.Mythic: // 신화
+                    return new Color(100f / 255f, 50f / 255f, 60f / 255f); // 어두운 빨간색
+                default:
+                    return new Color(45f / 255f, 45f / 255f, 45f / 255f); // 기본 색상 - 어두운 회색
+            }
+        }
     }
 }

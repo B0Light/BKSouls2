@@ -39,15 +39,13 @@ namespace BK.Inventory
                 switch (itemType)
                 {
                     case ItemInfo.ItemType.Weapon:
-                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value =
-                            inventoryItem.itemInfoData.itemCode;
+                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = inventoryItem.itemInfoData.itemID;
                         break;
                     case ItemInfo.ItemType.Armor:
-                        _playerManager.playerNetworkManager.bodyEquipmentID.Value = inventoryItem.itemInfoData.itemCode;
+                        _playerManager.playerNetworkManager.bodyEquipmentID.Value = inventoryItem.itemInfoData.itemID;
                         break;
                     case ItemInfo.ItemType.Helmet:
-                        _playerManager.playerNetworkManager.headEquipmentID.Value =
-                            inventoryItem.itemInfoData.itemCode;
+                        _playerManager.playerNetworkManager.headEquipmentID.Value = inventoryItem.itemInfoData.itemID;
                         break;
                     /*
                     case ItemInfo.ItemType.Consumables:
@@ -136,7 +134,7 @@ namespace BK.Inventory
         {
             foreach (var inventoryItem in _curEquipItem)
             {
-                if (inventoryItem.itemInfoData.itemCode != itemID) continue;
+                if (inventoryItem.itemInfoData.itemID != itemID) continue;
 
                 _curEquipItem.Remove(inventoryItem);
                 RemoveItem(inventoryItem);

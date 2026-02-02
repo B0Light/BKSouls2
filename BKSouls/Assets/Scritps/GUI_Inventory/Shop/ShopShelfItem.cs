@@ -20,14 +20,14 @@ namespace BK.Inventory
         public virtual void Init(ItemData data)
         {
             itemData = data;
-            itemCode = data.itemCode;
+            itemCode = data.itemID;
             ChangeSprite(itemIcon, data.itemIcon);
 
             /* UI */
             if (itemName)
             {
                 itemName.text = data.itemName;
-                itemName.color = WorldDatabase_Item.Instance.GetItemColorByTier(data.itemTier);
+                itemName.color = WorldItemDatabase.Instance.GetItemColorByTier(data.itemTier);
             }
 
             if (itemCost)
@@ -37,7 +37,7 @@ namespace BK.Inventory
 
             if (itemTierBackground)
             {
-                itemTierBackground.color = WorldDatabase_Item.Instance.GetItemBackgroundColorByTier(data.itemTier);
+                itemTierBackground.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(data.itemTier);
             }
         }
 

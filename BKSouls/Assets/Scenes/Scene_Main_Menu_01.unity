@@ -5247,6 +5247,7 @@ MonoBehaviour:
   allItems: []
   equipmentItems:
   - {fileID: 11400000, guid: 35dc16cbb6c2f6245a82982b0ed90748, type: 2}
+  - {fileID: 11400000, guid: 345a5008db6955248a5c86c0525da109, type: 2}
   consumableItems: []
   miscItems: []
   blueprintItems: []
@@ -11218,6 +11219,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7863143271154702318, guid: e8588e13952eb5f40a982ddfed670594, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943097641439394743, guid: e8588e13952eb5f40a982ddfed670594, type: 3}
+      propertyPath: m_Alpha
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7948625602169363591, guid: e8588e13952eb5f40a982ddfed670594, type: 3}

@@ -154,7 +154,7 @@ namespace BK.Inventory
             if (!WorldPlayerInventory.Instance.SpendItemInInventory(itemInfo))
             {
                 Debug.LogError($"심각한 오류: 비용 지불 중 문제 발생 (이름: {itemInfo.itemName})");
-                WorldPlayerInventory.Instance.RemoveItemInInventory(itemInfo.itemCode);
+                WorldPlayerInventory.Instance.RemoveItemInInventory(itemInfo.itemID);
                 return;
             }
 

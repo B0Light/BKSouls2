@@ -33,10 +33,10 @@ namespace BK.Inventory
             EquipmentItemInfoWeapon itemInfoWeapon = equipmentItemInfo as EquipmentItemInfoWeapon;
             selectedItemImage.sprite = itemInfoWeapon ? itemInfoWeapon.weaponEquipSprite : itemInfo.itemIcon;
 
-            iconBackgroundImage01.color = WorldDatabase_Item.Instance.GetItemBackgroundColorByTier(itemInfo.itemTier);
-            iconBackgroundImage02.color = WorldDatabase_Item.Instance.GetItemColorByTier(itemInfo.itemTier);
-            backgroundImage01.color = WorldDatabase_Item.Instance.GetItemBackgroundColorByTier(itemInfo.itemTier);
-            backgroundImage02.color = WorldDatabase_Item.Instance.GetItemColorByTier(itemInfo.itemTier);
+            iconBackgroundImage01.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(itemInfo.itemTier);
+            iconBackgroundImage02.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfo.itemTier);
+            backgroundImage01.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(itemInfo.itemTier);
+            backgroundImage02.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfo.itemTier);
             itemName.text = itemInfo.itemName;
 
             _itemDescription = itemInfo.itemDescription;
