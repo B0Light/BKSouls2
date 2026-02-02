@@ -23,7 +23,7 @@ namespace BK.Inventory
 
         private Interactable _interactableObject;
 
-        public override void OpenShop(List<ItemInfo> items, Interactable interactable = null, bool isMasterShop = false)
+        public override void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
         {
             _interactableObject = interactable;
             _isShopOpen = true;
@@ -60,9 +60,9 @@ namespace BK.Inventory
             notEnoughSlot.SetActive(false);
         }
 
-        public override void SelectItemToBuy(ItemData item)
+        public override void SelectItemToBuy(Item item)
         {
-            ItemInfo selectItemInfo = item as ItemInfo;
+            GridItem selectItemInfo = item as GridItem;
             if (!selectItemInfo) return;
             SetItemInfo(selectItemInfo);
 
@@ -76,35 +76,17 @@ namespace BK.Inventory
                 }
             }
 
-            costItemSlot.SetActive(selectItemInfo.purChaseWithItem);
-            costCashSlot.SetActive(!selectItemInfo.purChaseWithItem);
+            costCashSlot.SetActive(true);
 
-            itemBuyButton_Item.gameObject.SetActive(selectItemInfo.purChaseWithItem);
-            itemBuyButton_Cash.gameObject.SetActive(!selectItemInfo.purChaseWithItem);
+            itemBuyButton_Cash.gameObject.SetActive(true);
             itemSaleButton.gameObject.SetActive(false);
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
-            if (selectItemInfo.purChaseWithItem)
-            {
-                DeleteAllChildren(costItemSpawnSlot);
-
-                foreach (var costItemPair in selectItemInfo.GetCostDict())
-                {
-                    GameObject spawnedCostItem = Instantiate(costItemPrefab, costItemSpawnSlot);
-
-                    spawnedCostItem.GetComponent<ShopCostItem>()?.Init(costItemPair.Key, costItemPair.Value);
-                }
-
-                itemBuyButton_Item.onClick.RemoveAllListeners();
-                itemBuyButton_Item.onClick.AddListener(() => BuyWithItem(selectItemInfo));
-            }
-            else
-            {
-                itemCostText.text = selectItemInfo.purchaseCost.ToString();
-                itemBuyButton_Cash.onClick.RemoveAllListeners();
-                itemBuyButton_Cash.onClick.AddListener(() => BuyWithCash(selectItemInfo));
-            }
+            
+            itemCostText.text = selectItemInfo.cost.ToString();
+            itemBuyButton_Cash.onClick.RemoveAllListeners();
+            itemBuyButton_Cash.onClick.AddListener(() => BuyWithCash(selectItemInfo));
         }
 
         private void CreateAbilityFromItemAbility(ItemAbility ability)
@@ -131,65 +113,34 @@ namespace BK.Inventory
 
             abilityUIs.Clear();
         }
-
-        private void BuyWithItem(ItemInfo itemInfo)
-        {
-            // 아이템 구매를 위한 전체 프로세스 관리
-            if (!WorldPlayerInventory.Instance.CheckItemInInventoryToChangeItem(itemInfo))
-            {
-                notEnoughItemsComment.SetActive(true);
-                Debug.LogWarning($"구매 실패: 아이템 부족 (이름: {itemInfo.itemName})");
-                return;
-            }
-
-            // 구매 시도 (인벤토리 슬롯 체크 등)
-            if (!WorldShopManager.Instance.BuyItem(itemInfo))
-            {
-                notEnoughSlot.SetActive(true);
-                Debug.LogWarning($"구매 실패: 인벤토리 슬롯 부족 (이름: {itemInfo.itemName})");
-                return;
-            }
-
-            // 구매 비용 지불 (아이템 제거)
-            if (!WorldPlayerInventory.Instance.SpendItemInInventory(itemInfo))
-            {
-                Debug.LogError($"심각한 오류: 비용 지불 중 문제 발생 (이름: {itemInfo.itemName})");
-                WorldPlayerInventory.Instance.RemoveItemInInventory(itemInfo.itemID);
-                return;
-            }
-
-            // 구매 완료 처리
-            BuyItemProcess();
-            Debug.Log($"구매 성공: {itemInfo.itemName}");
-        }
-
-        private void BuyWithCash(ItemInfo itemInfo)
+        
+        private void BuyWithCash(Item item)
         {
             // 돈이 없다면 구매불가
-            if (WorldPlayerInventory.Instance.balance.Value < itemInfo.purchaseCost)
+            if (WorldPlayerInventory.Instance.balance.Value < item.cost)
             {
                 notEnoughItemsComment.SetActive(true);
                 return;
             }
 
             // 플레이어가 구매할 수 있다면 구매하고 대금 지불 
-            if (!WorldShopManager.Instance.BuyItem(itemInfo))
+            if (!WorldShopManager.Instance.BuyItem(item))
             {
                 // 슬롯 부족 등으로 아이템 구매 불가 
                 notEnoughSlot.SetActive(true);
                 return;
             }
 
-            WorldPlayerInventory.Instance.balance.Value -= itemInfo.purchaseCost;
+            WorldPlayerInventory.Instance.balance.Value -= item.cost;
             BuyItemProcess();
-            Debug.Log("Buy Success" + itemInfo.itemName);
+            Debug.Log("Buy Success" + item.itemName);
         }
 
         private void BuyItemProcess()
         {
             if (selectProduct == null) return;
             if (_isMasterShop) return;
-            ItemInfo itemInfo = selectProduct.GetItem() as ItemInfo;
+            var itemInfo = selectProduct.GetItem();
             //진열대에서 상품을 제거
             onSaleItems.Remove(selectProduct);
             Destroy(((MonoBehaviour)selectProduct)?.gameObject);
@@ -204,7 +155,7 @@ namespace BK.Inventory
             ResetItemInfo();
         }
 
-        private void SetUpShelf(List<ItemInfo> items)
+        private void SetUpShelf(List<Item> items)
         {
             ResetShelf();
             foreach (var itemInfoData in items)

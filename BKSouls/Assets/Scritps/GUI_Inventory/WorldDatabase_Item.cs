@@ -242,7 +242,7 @@ namespace BK.Inventory
         /// <param name="itemType">아이템 타입 (Weapon, Armor, Helmet, Consumables, Misc)</param>
         /// <param name="tier">원하는 티어</param>
         /// <returns>해당 타입 및 티어의 모든 아이템 리스트</returns>
-        public List<ItemInfo> GetItemsByTypeAndTier(ItemInfo.ItemType itemType, ItemTier tier)
+        public List<ItemInfo> GetItemsByTypeAndTier(ItemType itemType, ItemTier tier)
         {
             Dictionary<ItemTier, List<ItemInfo>> targetDictionary = GetDictionaryByItemType(itemType);
 
@@ -261,7 +261,7 @@ namespace BK.Inventory
         /// <param name="minTier">최소 티어</param>
         /// <param name="maxTier">최대 티어</param>
         /// <returns>해당 타입 및 티어 범위의 모든 아이템 리스트</returns>
-        public List<ItemInfo> GetItemsByTypeAndTierRange(ItemInfo.ItemType itemType, ItemTier minTier, ItemTier maxTier)
+        public List<ItemInfo> GetItemsByTypeAndTierRange(ItemType itemType, ItemTier minTier, ItemTier maxTier)
         {
             Dictionary<ItemTier, List<ItemInfo>> targetDictionary = GetDictionaryByItemType(itemType);
             List<ItemInfo> result = new List<ItemInfo>();
@@ -295,11 +295,11 @@ namespace BK.Inventory
         /// <param name="itemTypes">아이템 타입 배열</param>
         /// <param name="tier">원하는 티어</param>
         /// <returns>해당 타입들 및 티어의 모든 아이템 리스트</returns>
-        public List<ItemInfo> GetItemsByMultipleTypesAndTier(ItemInfo.ItemType[] itemTypes, ItemTier tier)
+        public List<ItemInfo> GetItemsByMultipleTypesAndTier(ItemType[] itemTypes, ItemTier tier)
         {
             List<ItemInfo> result = new List<ItemInfo>();
 
-            foreach (ItemInfo.ItemType itemType in itemTypes)
+            foreach (ItemType itemType in itemTypes)
             {
                 Dictionary<ItemTier, List<ItemInfo>> targetDictionary = GetDictionaryByItemType(itemType);
 
@@ -317,20 +317,20 @@ namespace BK.Inventory
         /// </summary>
         /// <param name="itemType">아이템 타입</param>
         /// <returns>해당 타입의 티어별 딕셔너리</returns>
-        private Dictionary<ItemTier, List<ItemInfo>> GetDictionaryByItemType(ItemInfo.ItemType itemType)
+        private Dictionary<ItemTier, List<ItemInfo>> GetDictionaryByItemType(ItemType itemType)
         {
             switch (itemType)
             {
-                case ItemInfo.ItemType.Weapon:
+                case ItemType.Weapon:
                     return _weaponItemsByTier;
-                case ItemInfo.ItemType.Armor:
-                case ItemInfo.ItemType.Helmet:
+                case ItemType.Armor:
+                case ItemType.Helmet:
                     return _equipmentItemsByTier; // 방어구들은 모두 장비 딕셔너리에서
-                case ItemInfo.ItemType.Consumables:
+                case ItemType.Consumables:
                     return _consumableItemsByTier;
-                case ItemInfo.ItemType.Misc:
+                case ItemType.Misc:
                     return _onSaleItemsByTier; // 또는 _miscItemsByTier 사용 가능
-                case ItemInfo.ItemType.None:
+                case ItemType.None:
                 default:
                     return _allItemsByTier; // 전체 아이템
             }
@@ -342,7 +342,7 @@ namespace BK.Inventory
         /// <param name="items">필터링할 아이템 리스트</param>
         /// <param name="itemType">원하는 아이템 타입</param>
         /// <returns>필터링된 아이템 리스트</returns>
-        private List<ItemInfo> FilterItemsByType(List<ItemInfo> items, ItemInfo.ItemType itemType)
+        private List<ItemInfo> FilterItemsByType(List<ItemInfo> items, ItemType itemType)
         {
             List<ItemInfo> filteredItems = new List<ItemInfo>();
 
@@ -365,7 +365,7 @@ namespace BK.Inventory
         /// <param name="item">확인할 아이템</param>
         /// <param name="itemType">확인할 타입</param>
         /// <returns>해당 타입 여부</returns>
-        private bool HasItemType(ItemInfo item, ItemInfo.ItemType itemType)
+        private bool HasItemType(ItemInfo item, ItemType itemType)
         {
             // 방법 1: ItemInfo에 itemType 필드가 있는 경우
             // return item.itemType == itemType;
@@ -373,17 +373,17 @@ namespace BK.Inventory
             // 방법 2: 아이템 코드로 구분하는 경우 (기존 코드 기준)
             switch (itemType)
             {
-                case ItemInfo.ItemType.Weapon:
+                case ItemType.Weapon:
                     return item is EquipmentItemInfoWeapon || item.itemID < 100;
-                case ItemInfo.ItemType.Armor:
+                case ItemType.Armor:
                     return item is EquipmentItemInfo && item.itemID >= 100 && item.itemID < 200;
-                case ItemInfo.ItemType.Helmet:
+                case ItemType.Helmet:
                     return item is EquipmentItemInfo && item.itemID >= 200 && item.itemID < 300;
-                case ItemInfo.ItemType.Consumables:
+                case ItemType.Consumables:
                     return item is ItemInfoConsumable;
-                case ItemInfo.ItemType.Misc:
+                case ItemType.Misc:
                     return !(item is EquipmentItemInfo) && !(item is ItemInfoConsumable);
-                case ItemInfo.ItemType.None:
+                case ItemType.None:
                 default:
                     return true;
             }
@@ -413,13 +413,13 @@ namespace BK.Inventory
         /// <param name="itemType">아이템 타입</param>
         /// <param name="tier">원하는 티어</param>
         /// <returns>해당 타입 및 티어의 모든 아이템 리스트</returns>
-        public List<ItemInfo> GetItemsByTypeAndTierWithFilter(ItemInfo.ItemType itemType, ItemTier tier)
+        public List<ItemInfo> GetItemsByTypeAndTierWithFilter(ItemType itemType, ItemTier tier)
         {
             // 기본 딕셔너리에서 아이템들을 가져온 후
             List<ItemInfo> baseItems = GetItemsByTypeAndTier(itemType, tier);
 
             // Armor나 Helmet 같이 세분화가 필요한 경우 추가 필터링
-            if (itemType == ItemInfo.ItemType.Armor || itemType == ItemInfo.ItemType.Helmet)
+            if (itemType == ItemType.Armor || itemType == ItemType.Helmet)
             {
                 return FilterItemsByType(baseItems, itemType);
             }
@@ -435,37 +435,37 @@ namespace BK.Inventory
         /// 모든 무기 아이템 (특정 티어)
         /// </summary>
         public List<ItemInfo> GetAllWeaponsByTier(ItemTier tier)
-            => GetItemsByTypeAndTier(ItemInfo.ItemType.Weapon, tier);
+            => GetItemsByTypeAndTier(ItemType.Weapon, tier);
 
         /// <summary>
         /// 모든 방어구 아이템 (특정 티어)
         /// </summary>
         public List<ItemInfo> GetAllArmorByTier(ItemTier tier)
-            => GetItemsByTypeAndTierWithFilter(ItemInfo.ItemType.Armor, tier);
+            => GetItemsByTypeAndTierWithFilter(ItemType.Armor, tier);
 
         /// <summary>
         /// 모든 헬멧 아이템 (특정 티어)
         /// </summary>
         public List<ItemInfo> GetAllHelmetsByTier(ItemTier tier)
-            => GetItemsByTypeAndTierWithFilter(ItemInfo.ItemType.Helmet, tier);
+            => GetItemsByTypeAndTierWithFilter(ItemType.Helmet, tier);
 
         /// <summary>
         /// 모든 소비 아이템 (특정 티어)
         /// </summary>
         public List<ItemInfo> GetAllConsumablesByTier(ItemTier tier)
-            => GetItemsByTypeAndTier(ItemInfo.ItemType.Consumables, tier);
+            => GetItemsByTypeAndTier(ItemType.Consumables, tier);
 
         /// <summary>
         /// 모든 잡화 아이템 (특정 티어)
         /// </summary>
         public List<ItemInfo> GetAllMiscItemsByTier(ItemTier tier)
-            => GetItemsByTypeAndTier(ItemInfo.ItemType.Misc, tier);
+            => GetItemsByTypeAndTier(ItemType.Misc, tier);
 
         /// <summary>
         /// 특정 티어 범위의 모든 무기
         /// </summary>
         public List<ItemInfo> GetWeaponsByTierRange(ItemTier minTier, ItemTier maxTier)
-            => GetItemsByTypeAndTierRange(ItemInfo.ItemType.Weapon, minTier, maxTier);
+            => GetItemsByTypeAndTierRange(ItemType.Weapon, minTier, maxTier);
 
         /// <summary>
         /// 특정 티어 범위의 모든 장비 (방어구 + 헬멧)
@@ -473,8 +473,8 @@ namespace BK.Inventory
         public List<ItemInfo> GetEquipmentByTierRange(ItemTier minTier, ItemTier maxTier)
         {
             List<ItemInfo> result = new List<ItemInfo>();
-            result.AddRange(GetItemsByTypeAndTierRange(ItemInfo.ItemType.Armor, minTier, maxTier));
-            result.AddRange(GetItemsByTypeAndTierRange(ItemInfo.ItemType.Helmet, minTier, maxTier));
+            result.AddRange(GetItemsByTypeAndTierRange(ItemType.Armor, minTier, maxTier));
+            result.AddRange(GetItemsByTypeAndTierRange(ItemType.Helmet, minTier, maxTier));
             return result;
         }
     }

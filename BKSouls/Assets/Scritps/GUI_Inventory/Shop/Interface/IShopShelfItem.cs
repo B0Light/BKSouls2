@@ -4,11 +4,11 @@ namespace BK.Inventory
 {
     public interface IShopShelfItem
     {
-        public void Init(ItemData data);
+        public void Init(Item data);
 
         int GetItemCategory();
 
-        ItemData GetItem();
+        Item GetItem();
 
         int GetItemCode();
     }

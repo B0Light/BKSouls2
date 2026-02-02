@@ -63,42 +63,42 @@ namespace BK
         private void SetCurrentStats()
         {
             //  CHARACTER LEVEL
-            characterLevelText.text = PlayerUIManager.instance.localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes().ToString();
-            projectedCharacterLevelText.text = PlayerUIManager.instance.localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes().ToString();
+            characterLevelText.text = PlayerUIManager.Instance.localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes().ToString();
+            projectedCharacterLevelText.text = PlayerUIManager.Instance.localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes().ToString();
 
             //  RUNES
-            runesHeldText.text = PlayerUIManager.instance.localPlayer.playerStatsManager.runes.ToString();
-            projectedRunesHeldText.text = PlayerUIManager.instance.localPlayer.playerStatsManager.runes.ToString();
+            runesHeldText.text = PlayerUIManager.Instance.localPlayer.playerStatsManager.runes.ToString();
+            projectedRunesHeldText.text = PlayerUIManager.Instance.localPlayer.playerStatsManager.runes.ToString();
             runesNeededText.text = "0";
 
             //  ATTRIBUTES
-            vigorLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
-            projectedVigorLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
-            vigorSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.vigor.Value;
+            vigorLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
+            projectedVigorLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
+            vigorSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.vigor.Value;
 
-            mindLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.mind.Value.ToString();
-            projectedMindLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.mind.Value.ToString();
-            mindSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.mind.Value;
+            mindLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.mind.Value.ToString();
+            projectedMindLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.mind.Value.ToString();
+            mindSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.mind.Value;
 
-            enduranceLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
-            projectedEnduranceLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
-            enduranceSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.endurance.Value;
+            enduranceLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
+            projectedEnduranceLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
+            enduranceSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.endurance.Value;
 
-            strengthLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.strength.Value.ToString();
-            projectedStrengthLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.strength.Value.ToString();
-            strengthSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.strength.Value;
+            strengthLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.strength.Value.ToString();
+            projectedStrengthLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.strength.Value.ToString();
+            strengthSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.strength.Value;
 
-            dexterityLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
-            projectedDexterityLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
-            dexteritySlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.dexterity.Value;
+            dexterityLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
+            projectedDexterityLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
+            dexteritySlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.dexterity.Value;
 
-            intelligenceLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
-            projectedIntelligenceLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
-            intelligenceSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.intelligence.Value;
+            intelligenceLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
+            projectedIntelligenceLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
+            intelligenceSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.intelligence.Value;
 
-            faithLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.faith.Value.ToString();
-            projectedFaithLevelText.text = PlayerUIManager.instance.localPlayer.playerNetworkManager.faith.Value.ToString();
-            faithSlider.minValue = PlayerUIManager.instance.localPlayer.playerNetworkManager.faith.Value;
+            faithLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.faith.Value.ToString();
+            projectedFaithLevelText.text = PlayerUIManager.Instance.localPlayer.playerNetworkManager.faith.Value.ToString();
+            faithSlider.minValue = PlayerUIManager.Instance.localPlayer.playerNetworkManager.faith.Value;
 
             vigorSlider.Select();
             vigorSlider.OnSelect(null);
@@ -107,7 +107,7 @@ namespace BK
         //  THIS IS CALLED EVERY TIME A LEVEL SLIDER IS CHANGED
         public void UpdateSliderBasedOnCurrentlySelectedAttribute()
         {
-            PlayerManager player = PlayerUIManager.instance.localPlayer;
+            PlayerManager player = PlayerUIManager.Instance.localPlayer;
 
             switch (currentSelectedAttribute)
             {
@@ -163,7 +163,7 @@ namespace BK
 
         public void ConfirmLevels()
         {
-            PlayerManager player = PlayerUIManager.instance.localPlayer;
+            PlayerManager player = PlayerUIManager.Instance.localPlayer;
 
             //  DEDUCT COST FROM TOTAL RUNES
             player.playerStatsManager.runes -= totalLevelUpCost;
@@ -217,9 +217,9 @@ namespace BK
 
             totalLevelUpCost = totalCost;
 
-            projectedRunesHeldText.text = (PlayerUIManager.instance.localPlayer.playerStatsManager.runes - totalCost).ToString();
+            projectedRunesHeldText.text = (PlayerUIManager.Instance.localPlayer.playerStatsManager.runes - totalCost).ToString();
 
-            if (totalCost > PlayerUIManager.instance.localPlayer.playerStatsManager.runes)
+            if (totalCost > PlayerUIManager.Instance.localPlayer.playerStatsManager.runes)
             {
                 projectedRunesHeldText.color = Color.red;
             }
@@ -235,7 +235,7 @@ namespace BK
         //  TO WHITE (IF THE STAT IS UNCHANGED)
         private void ChangeTextColorsDependingOnCosts()
         {
-            PlayerManager player = PlayerUIManager.instance.localPlayer;
+            PlayerManager player = PlayerUIManager.Instance.localPlayer;
 
             int projectedVigorLevel = Mathf.RoundToInt(vigorSlider.value);
             int projectedMindLevel = Mathf.RoundToInt(mindSlider.value);

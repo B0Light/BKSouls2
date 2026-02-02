@@ -6,9 +6,10 @@ namespace BK.Inventory
 {
     public class ShopShelfItem : MonoBehaviour, IShopShelfItem
     {
-        protected ItemData itemData;
+        protected Item itemData;
 
-        [Header("Item Info")] [SerializeField] private int itemCode;
+        [Header("Item Info")] 
+        [SerializeField] private int itemCode;
         [SerializeField] private Image itemIcon;
         [SerializeField] private TextMeshProUGUI itemName;
         [SerializeField] private Image itemTierBackground;
@@ -17,7 +18,7 @@ namespace BK.Inventory
 
         [Header("BUY")] [SerializeField] protected Button itemButton;
 
-        public virtual void Init(ItemData data)
+        public virtual void Init(Item data)
         {
             itemData = data;
             itemCode = data.itemID;
@@ -32,7 +33,7 @@ namespace BK.Inventory
 
             if (itemCost)
             {
-                itemCost.text = data.purchaseCost.ToString();
+                itemCost.text = data.cost.ToString();
             }
 
             if (itemTierBackground)
@@ -68,7 +69,7 @@ namespace BK.Inventory
 
         public int GetItemCode() => itemCode;
 
-        public ItemData GetItem() => itemData;
+        public Item GetItem() => itemData;
 
         public virtual int GetItemCategory() => 0;
     }

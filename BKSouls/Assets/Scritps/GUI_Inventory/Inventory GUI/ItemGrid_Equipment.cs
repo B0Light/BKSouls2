@@ -10,23 +10,23 @@ namespace BK.Inventory
     {
         [SerializeField] private PlayerManager _playerManager;
 
-        [SerializeField] private ItemInfo.ItemType itemType;
+        [SerializeField] private ItemType itemType;
         private List<InventoryItem> _curEquipItem = new List<InventoryItem>();
 
         public override bool CheckPlaceItem(InventoryItem inventoryItem, int posX, int posY)
         {
             if (base.CheckPlaceItem(inventoryItem, posX, posY))
             {
-                if (itemType != inventoryItem.itemInfoData.itemType) return false;
+                if (itemType != inventoryItem.itemData.itemType) return false;
                 return true;
             }
 
             return false;
         }
 
-        public override bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad = false)
+        public override bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad)
         {
-            if (itemType != ItemInfo.ItemType.Consumables && _curEquipItem.Count > 0) return false;
+            if (itemType != ItemType.Consumables && _curEquipItem.Count > 0) return false;
 
             if (base.PlaceItem(inventoryItem, posX, posY, isLoad))
             {
@@ -38,14 +38,15 @@ namespace BK.Inventory
                 _curEquipItem.Add(inventoryItem);
                 switch (itemType)
                 {
-                    case ItemInfo.ItemType.Weapon:
-                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = inventoryItem.itemInfoData.itemID;
+                    case ItemType.Weapon:
+                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = inventoryItem.itemData.itemID;
+                        Debug.Log($"Cur Weapon ID : {_playerManager.playerNetworkManager.currentRightHandWeaponID.Value}");
                         break;
-                    case ItemInfo.ItemType.Armor:
-                        _playerManager.playerNetworkManager.bodyEquipmentID.Value = inventoryItem.itemInfoData.itemID;
+                    case ItemType.Armor:
+                        _playerManager.playerNetworkManager.bodyEquipmentID.Value = inventoryItem.itemData.itemID;
                         break;
-                    case ItemInfo.ItemType.Helmet:
-                        _playerManager.playerNetworkManager.headEquipmentID.Value = inventoryItem.itemInfoData.itemID;
+                    case ItemType.Helmet:
+                        _playerManager.playerNetworkManager.headEquipmentID.Value = inventoryItem.itemData.itemID;
                         break;
                     /*
                     case ItemInfo.ItemType.Consumables:
@@ -71,13 +72,13 @@ namespace BK.Inventory
 
                 switch (itemType)
                 {
-                    case ItemInfo.ItemType.Weapon:
+                    case ItemType.Weapon:
                         _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
                         break;
-                    case ItemInfo.ItemType.Armor:
+                    case ItemType.Armor:
                         _playerManager.playerNetworkManager.bodyEquipmentID.Value = 0;
                         break;
-                    case ItemInfo.ItemType.Helmet:
+                    case ItemType.Helmet:
                         _playerManager.playerNetworkManager.headEquipmentID.Value = 0;
                         break;
                 }
@@ -96,13 +97,14 @@ namespace BK.Inventory
 
             switch (itemType)
             {
-                case ItemInfo.ItemType.Weapon:
+                case ItemType.Weapon:
                     _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
+                    Debug.Log($"Cur Weapon ID : {_playerManager.playerNetworkManager.currentRightHandWeaponID.Value}");
                     break;
-                case ItemInfo.ItemType.Armor:
+                case ItemType.Armor:
                     _playerManager.playerNetworkManager.bodyEquipmentID.Value = 0;
                     break;
-                case ItemInfo.ItemType.Helmet:
+                case ItemType.Helmet:
                     _playerManager.playerNetworkManager.headEquipmentID.Value = 0;
                     break;
                 /*
@@ -134,7 +136,7 @@ namespace BK.Inventory
         {
             foreach (var inventoryItem in _curEquipItem)
             {
-                if (inventoryItem.itemInfoData.itemID != itemID) continue;
+                if (inventoryItem.itemData.itemID != itemID) continue;
 
                 _curEquipItem.Remove(inventoryItem);
                 RemoveItem(inventoryItem);

@@ -12,7 +12,6 @@ namespace BK
 
         [Header("Item")]
         [SerializeField] Item item;
-        [SerializeField] ItemInfo itemInfo;
         
         [Header("Creature Loot Pick Up")]
         public NetworkVariable<int> itemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -39,8 +38,7 @@ namespace BK
         {
             base.Start();
 
-            if (pickUpType == ItemPickUpType.WorldSpawn)
-                CheckIfWorldItemWasAlreadyLooted();
+            //if (pickUpType == ItemPickUpType.WorldSpawn) CheckIfWorldItemWasAlreadyLooted();
         }
 
         public override void OnNetworkSpawn()

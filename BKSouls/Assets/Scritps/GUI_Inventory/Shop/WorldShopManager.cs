@@ -8,13 +8,13 @@ namespace BK.Inventory
     {
         [Header("Inventory Item UI")] public GameObject inventoryItemRef;
 
-        public bool BuyItem(ItemInfo itemInfoData)
+        public bool BuyItem(Item itemData)
         {
-            GameObject item = Instantiate(inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            GameObject itemObject = Instantiate(inventoryItemRef);
+            InventoryItem inventoryItem = itemObject.GetComponent<InventoryItem>();
+            inventoryItem.itemData = itemData as GridItem;
             inventoryItem.Set();
-            return WorldPlayerInventory.Instance.AddItem(item);
+            return WorldPlayerInventory.Instance.AddItem(itemObject);
         }
     }
 }

@@ -23,7 +23,7 @@ namespace BK.Inventory
         // 통합된 초기화 메서드
         private void Init(ItemEffect effect, int value)
         {
-            abilityIcon.sprite = WorldDatabase_Item.Instance.GetDefaultIcon(effect);
+            abilityIcon.sprite = WorldItemDatabase.Instance.GetDefaultIcon(effect);
 
             // 텍스트 설정
             abilityText.text = GetEffectText(effect, value);

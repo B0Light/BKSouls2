@@ -35,7 +35,7 @@ namespace BK.Inventory
 
         private List<int> _interactObjectList;
 
-        private Multimap<ItemInfo, Vector2> _itemPosDict;
+        private Multimap<Item, Vector2> _itemPosDict;
         // 문 상호작용 등 인벤토리에서 직접 아이템을 제거하는 경우  
 
         protected SerializedDictionary<int, int> itemIdToCntDict = new SerializedDictionary<int, int>();
@@ -78,7 +78,7 @@ namespace BK.Inventory
             gridSize.x = width;
             gridSize.y = height;
             _inventoryItemSlot = new InventoryItem[width, height];
-            _itemPosDict = new Multimap<ItemInfo, Vector2>();
+            _itemPosDict = new Multimap<Item, Vector2>();
             GUISize = new Vector2(width * TileSizeWidth, height * TileSizeHeight);
             _rectTransform.sizeDelta = GUISize;
         }
@@ -135,7 +135,7 @@ namespace BK.Inventory
             {
                 GameObject spawnItem = Instantiate(WorldShopManager.Instance.inventoryItemRef);
                 InventoryItem inventoryItem = spawnItem.GetComponent<InventoryItem>();
-                inventoryItem.itemInfoData = WorldDatabase_Item.Instance.GetItemByID(itemCode);
+                inventoryItem.itemData = WorldItemDatabase.Instance.GetItemByID(itemCode) as GridItem;
 
                 bool added = AddItem(spawnItem, isLoad);
                 if (!added)
@@ -157,7 +157,7 @@ namespace BK.Inventory
             {
                 GameObject spawnItem = Instantiate(WorldShopManager.Instance.inventoryItemRef);
                 InventoryItem inventoryItem = spawnItem.GetComponent<InventoryItem>();
-                inventoryItem.itemInfoData = WorldDatabase_Item.Instance.GetItemByID(itemCode);
+                inventoryItem.itemData = WorldItemDatabase.Instance.GetItemByID(itemCode) as GridItem;
 
                 bool added = AddItem(spawnItem, isLoad);
                 if (!added)
@@ -232,7 +232,7 @@ namespace BK.Inventory
 
         private bool RemoveItem(int id)
         {
-            ItemInfo itemInfo = FindItemById(id);
+            var itemInfo = FindItemById(id);
             if (itemInfo)
             {
                 _itemPosDict.TryGetValuesByKey(itemInfo, out var itemPositions);
@@ -249,10 +249,10 @@ namespace BK.Inventory
         {
             if (!inventoryItem) return false;
 
-            _itemPosDict.RemoveByKey(inventoryItem.itemInfoData);
+            _itemPosDict.RemoveByKey(inventoryItem.itemData);
             CleanGridReference(inventoryItem);
-            itemGridWeight.Value -= inventoryItem.itemInfoData.weight;
-            totalItemValue.Value -= inventoryItem.itemInfoData.purchaseCost;
+            itemGridWeight.Value -= inventoryItem.itemData.weight;
+            totalItemValue.Value -= inventoryItem.itemData.cost;
             Destroy(inventoryItem.gameObject);
             return true;
         }
@@ -264,7 +264,7 @@ namespace BK.Inventory
 
             while (removedCount < count)
             {
-                ItemInfo itemInfo = FindItemById(itemId);
+                Item itemInfo = FindItemById(itemId);
                 if (itemInfo == null) break;
 
                 if (_itemPosDict.TryGetValuesByKey(itemInfo, out var itemPositions) &&
@@ -286,9 +286,9 @@ namespace BK.Inventory
         }
 
         [CanBeNull]
-        private ItemInfo FindItemById(int id)
+        private Item FindItemById(int id)
         {
-            foreach (ItemInfo item in _itemPosDict.GetAllKeys())
+            foreach (Item item in _itemPosDict.GetAllKeys())
             {
                 if (item.itemID == id)
                 {
@@ -358,10 +358,10 @@ namespace BK.Inventory
             rectTransform.localPosition = position;
             rectTransform.localScale = Vector3.one;
 
-            _itemPosDict.Add(inventoryItem.itemInfoData, new Vector2(posX, posY));
-            AddValue(inventoryItem.itemInfoData.itemID);
-            itemGridWeight.Value += inventoryItem.itemInfoData.weight;
-            totalItemValue.Value += inventoryItem.itemInfoData.purchaseCost;
+            _itemPosDict.Add(inventoryItem.itemData, new Vector2(posX, posY));
+            AddValue(inventoryItem.itemData.itemID);
+            itemGridWeight.Value += inventoryItem.itemData.weight;
+            totalItemValue.Value += inventoryItem.itemData.cost;
             return true;
         }
 
@@ -407,8 +407,8 @@ namespace BK.Inventory
             CleanGridReference(pickUpItem);
             _itemPosDict.RemoveByValue(new Vector2(x, y));
 
-            itemGridWeight.Value -= pickUpItem.itemInfoData.weight;
-            totalItemValue.Value -= pickUpItem.itemInfoData.purchaseCost;
+            itemGridWeight.Value -= pickUpItem.itemData.weight;
+            totalItemValue.Value -= pickUpItem.itemData.cost;
             return pickUpItem;
         }
 
@@ -417,10 +417,10 @@ namespace BK.Inventory
             if (pickUpItem == null) return null;
 
             CleanGridReference(pickUpItem);
-            _itemPosDict.RemoveByKey(pickUpItem.itemInfoData);
+            _itemPosDict.RemoveByKey(pickUpItem.itemData);
 
-            itemGridWeight.Value -= pickUpItem.itemInfoData.weight;
-            totalItemValue.Value -= pickUpItem.itemInfoData.purchaseCost;
+            itemGridWeight.Value -= pickUpItem.itemData.weight;
+            totalItemValue.Value -= pickUpItem.itemData.cost;
             return pickUpItem;
         }
 
@@ -448,7 +448,7 @@ namespace BK.Inventory
                 }
             }
 
-            SubtractValue(item.itemInfoData.itemID);
+            SubtractValue(item.itemData.itemID);
         }
 
         public bool BoundaryCheck(int posX, int posY, int width, int height)
@@ -559,15 +559,15 @@ namespace BK.Inventory
             ItemGrid selectItemGrid = null;
             if (pickUpItem.rotated) pickUpItem.Rotate();
 
-            switch (pickUpItem.itemInfoData.itemType)
+            switch (pickUpItem.itemData.itemType)
             {
-                case ItemInfo.ItemType.Weapon:
+                case ItemType.Weapon:
                     selectItemGrid = GUIController.Instance.inventoryGUIManager.playerWeapon;
                     break;
-                case ItemInfo.ItemType.Armor:
+                case ItemType.Armor:
                     selectItemGrid = GUIController.Instance.inventoryGUIManager.playerArmor;
                     break;
-                case ItemInfo.ItemType.Helmet:
+                case ItemType.Helmet:
                     selectItemGrid = GUIController.Instance.inventoryGUIManager.playerHelmet;
                     break;
                 /*
@@ -578,7 +578,7 @@ namespace BK.Inventory
                     Destroy(pickUpItem.gameObject);
                     return true;
                     */
-                case ItemInfo.ItemType.Misc:
+                case ItemType.Misc:
                     // 단순 수집 아이템은 인벤토리에 들어갔을 경우만 성공 처리
                     return AddItem(pickUpItem.gameObject, false);
                 /*
@@ -677,7 +677,7 @@ namespace BK.Inventory
             }
             else
             {
-                _itemPosDict = new Multimap<ItemInfo, Vector2>();
+                _itemPosDict = new Multimap<Item, Vector2>();
             }
 
             // 4. 아이템 카운트 딕셔너리 초기화

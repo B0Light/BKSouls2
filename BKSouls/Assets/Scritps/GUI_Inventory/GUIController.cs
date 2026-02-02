@@ -143,7 +143,7 @@ namespace BK
 
         #endregion
         
-        public void OpenShop(List<ItemInfo> items, Interactable interactableObject, bool isMaster = false)
+        public void OpenShop(List<Item> items, Interactable interactableObject, bool isMaster = false)
         {
             OpenGUI(itemShopUIManager);
             itemShopUIManager.OpenShop(items, interactableObject, isMaster);

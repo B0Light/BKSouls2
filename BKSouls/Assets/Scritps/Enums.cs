@@ -53,6 +53,17 @@ public enum ItemTier
     None,       // To out of index
 }
 
+public enum ItemType
+{
+    Weapon,
+    Armor,
+    Helmet,
+    Consumables,
+    Misc,
+    Blueprint,
+    None,
+}
+
 //  USED AS A TAG FOR EACH WEAPON MODEL INSTANTIATION SLOT
 public enum WeaponModelSlot
 {

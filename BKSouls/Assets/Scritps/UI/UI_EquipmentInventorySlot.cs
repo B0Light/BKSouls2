@@ -41,7 +41,7 @@ namespace BK
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             Item equippedItem;
 
-            switch (PlayerUIManager.instance.playerUIEquipmentManager.currentSelectedEquipmentSlot)
+            switch (PlayerUIManager.Instance.playerUIEquipmentManager.currentSelectedEquipmentSlot)
             {
                 case EquipmentType.RightWeapon01:
 
@@ -64,7 +64,7 @@ namespace BK
                         player.playerNetworkManager.currentRightHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.RightWeapon02:
@@ -88,7 +88,7 @@ namespace BK
                         player.playerNetworkManager.currentRightHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.RightWeapon03:
@@ -112,7 +112,7 @@ namespace BK
                         player.playerNetworkManager.currentRightHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.LeftWeapon01:
@@ -136,7 +136,7 @@ namespace BK
                         player.playerNetworkManager.currentLeftHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
                     break;
                 case EquipmentType.LeftWeapon02:
 
@@ -159,7 +159,7 @@ namespace BK
                         player.playerNetworkManager.currentLeftHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.LeftWeapon03:
@@ -183,7 +183,7 @@ namespace BK
                         player.playerNetworkManager.currentLeftHandWeaponID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
 
@@ -207,7 +207,7 @@ namespace BK
                     player.playerEquipmentManager.LoadHeadEquipment(player.playerInventoryManager.headEquipment);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.Body:
@@ -230,7 +230,7 @@ namespace BK
                     player.playerEquipmentManager.LoadBodyEquipment(player.playerInventoryManager.bodyEquipment);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.Legs:
@@ -253,7 +253,7 @@ namespace BK
                     player.playerEquipmentManager.LoadLegEquipment(player.playerInventoryManager.legEquipment);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.Hands:
@@ -276,7 +276,7 @@ namespace BK
                     player.playerEquipmentManager.LoadHandEquipment(player.playerInventoryManager.handEquipment);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.MainProjectile:
@@ -299,7 +299,7 @@ namespace BK
                     player.playerEquipmentManager.LoadMainProjectileEquipment(player.playerInventoryManager.mainProjectile);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.SecondaryProjectile:
@@ -322,7 +322,7 @@ namespace BK
                     player.playerEquipmentManager.LoadSecondaryProjectileEquipment(player.playerInventoryManager.secondaryProjectile);
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.QuickSlot01:
@@ -346,7 +346,7 @@ namespace BK
                         player.playerNetworkManager.currentQuickSlotItemID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.QuickSlot02:
@@ -370,7 +370,7 @@ namespace BK
                         player.playerNetworkManager.currentQuickSlotItemID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 case EquipmentType.QuickSlot03:
@@ -394,14 +394,14 @@ namespace BK
                         player.playerNetworkManager.currentQuickSlotItemID.Value = currentItem.itemID;
 
                     //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.instance.playerUIEquipmentManager.RefreshMenu();
+                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
                 default:
                     break;
             }
 
-            PlayerUIManager.instance.playerUIEquipmentManager.SelectLastSelectedEquipmentSlot();
+            PlayerUIManager.Instance.playerUIEquipmentManager.SelectLastSelectedEquipmentSlot();
         }
     }
 }

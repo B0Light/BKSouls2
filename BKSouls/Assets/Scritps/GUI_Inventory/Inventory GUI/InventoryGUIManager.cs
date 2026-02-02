@@ -193,7 +193,7 @@ namespace BK.Inventory
         }
 
         /* TOOL TIP */
-        public void SetItemToolTip(ItemInfo itemInfo)
+        public void SetItemToolTip(GridItem itemInfo)
         {
             CanvasGroup cg = itemTooltip.GetComponent<CanvasGroup>();
             cg.alpha = 1;

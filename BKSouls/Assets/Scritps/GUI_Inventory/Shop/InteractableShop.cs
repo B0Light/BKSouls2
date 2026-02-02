@@ -3,17 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace BK.Inventory
 {
     public class InteractableShop : Interactable
     {
-        [SerializeField] private bool purchaseWithItem = false;
-
-        [Header("Sale Item")] [SerializeField] private ItemInfo.ItemType saleItemType;
+        [Header("Sale Item")] 
+        [SerializeField] private ItemType saleItemType;
         [SerializeField] private List<int> itemList = new List<int>();
-        [ReadOnly] public List<ItemInfo> saleItemList = new List<ItemInfo>();
+        [ReadOnly] public List<Item> saleItemList = new List<Item>();
 
         // 상점 초기화 상태 관리
         private ShopInitializationState initState = ShopInitializationState.NotInitialized;
@@ -77,10 +75,10 @@ namespace BK.Inventory
 
             foreach (int itemId in itemList)
             {
-                ItemInfo originalItem = WorldDatabase_Item.Instance.GetItemByID(itemId);
+                Item originalItem = WorldItemDatabase.Instance.GetItemByID(itemId);
                 if (originalItem != null)
                 {
-                    ItemInfo shopItem = CreateShopItem(originalItem);
+                    Item shopItem = CreateShopItem(originalItem);
                     saleItemList.Add(shopItem);
                 }
                 else
@@ -101,7 +99,7 @@ namespace BK.Inventory
         {
             ClearSaleItems();
 
-            var availableItems = WorldDatabase_Item.Instance.GetItemsByTypeAndTierRange(
+            var availableItems = WorldItemDatabase.Instance.GetItemsByTypeAndTierRange(
                 saleItemType,
                 ItemTier.Common,
                 (ItemTier)Mathf.Clamp(level, 0, Enum.GetValues(typeof(ItemTier)).Length - 1)
@@ -109,7 +107,7 @@ namespace BK.Inventory
 
             foreach (var originalItem in availableItems)
             {
-                ItemInfo shopItem = CreateShopItem(originalItem);
+                var shopItem = CreateShopItem(originalItem);
                 saleItemList.Add(shopItem);
             }
 
@@ -122,14 +120,9 @@ namespace BK.Inventory
         /// </summary>
         /// <param name="originalItem">원본 아이템</param>
         /// <returns>상점용 아이템</returns>
-        private ItemInfo CreateShopItem(ItemInfo originalItem)
+        private Item CreateShopItem(Item originalItem)
         {
-            ItemInfo shopItem = Instantiate(originalItem);
-
-            if (purchaseWithItem)
-            {
-                SetupItemPurchaseWithItem(shopItem);
-            }
+            Item shopItem = Instantiate(originalItem);
 
             return shopItem;
         }
@@ -138,26 +131,7 @@ namespace BK.Inventory
         /// 아이템으로 구매하는 경우의 비용 설정
         /// </summary>
         /// <param name="item">설정할 아이템</param>
-        private void SetupItemPurchaseWithItem(ItemInfo item)
-        {
-            item.purChaseWithItem = true;
-            item.costItemList.Clear();
-
-            int costItemCount = Random.Range(1, 4); // 1~3개의 비용 아이템
-
-            for (int i = 0; i < costItemCount; i++)
-            {
-                // 현재 아이템 티어보다 낮은 티어의 잡화 아이템을 비용으로 설정
-                int maxTierValue = Mathf.Max(0, (int)item.itemTier - 1);
-                ItemTier costItemTier = (ItemTier)Random.Range(0, maxTierValue + 1);
-
-                ItemInfo costItem = WorldDatabase_Item.Instance.GetRandomItemByTier<ItemInfoMisc>(costItemTier);
-                if (costItem != null)
-                {
-                    item.costItemList.Add(costItem.itemID);
-                }
-            }
-        }
+        
 
         /// <summary>
         /// 판매 아이템 리스트 초기화

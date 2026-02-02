@@ -150,7 +150,7 @@ namespace BK.Inventory
                 {
                     _inventoryHighlight.HighlightToSelect(_itemToHighlight, _selectedItemGrid, true);
 
-                    GUIController.Instance.inventoryGUIManager.SetItemToolTip(_itemToHighlight.itemInfoData);
+                    GUIController.Instance.inventoryGUIManager.SetItemToolTip(_itemToHighlight.itemData);
                 }
                 // 현재 선택된 아이템이 없는데 내가 있는 마우스 포지션이 빈칸임 
                 else

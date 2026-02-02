@@ -88,7 +88,7 @@ namespace BK
             if (player.IsOwner)
             {
                 //  PERFORM THE ACTION
-                weaponAction.AttemptToPerformAction(player, weaponPerformingAction);
+                weaponAction?.AttemptToPerformAction(player, weaponPerformingAction);
             }
         }
 

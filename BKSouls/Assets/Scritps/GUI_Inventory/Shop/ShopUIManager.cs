@@ -41,7 +41,7 @@ namespace BK.Inventory
         {
         } // build Shop
 
-        public virtual void OpenShop(List<ItemInfo> items, Interactable interactable = null, bool isMasterShop = false)
+        public virtual void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
         {
         } // Item Shop
 
@@ -49,7 +49,7 @@ namespace BK.Inventory
         {
         }
 
-        public virtual void SelectItemToBuy(ItemData selectItem)
+        public virtual void SelectItemToBuy(Item selectItem)
         {
         }
 
@@ -63,7 +63,7 @@ namespace BK.Inventory
             onSaleItems.Clear();
         }
 
-        protected void SetItemInfo(ItemData item)
+        protected void SetItemInfo(Item item)
         {
             itemInfo_Name.text = item.itemName;
             ChangeSprite(itemInfo_Icon, item.itemIcon);

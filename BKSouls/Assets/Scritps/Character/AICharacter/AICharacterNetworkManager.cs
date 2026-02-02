@@ -29,7 +29,7 @@ namespace BK
             if (aiCharacter.isDead.Value)
             {
                 aiCharacter.aiCharacterInventoryManager.DropItem();
-                aiCharacter.aiCharacterCombatManager.AwardRunesOnDeath(PlayerUIManager.instance.localPlayer);
+                aiCharacter.aiCharacterCombatManager.AwardRunesOnDeath(PlayerUIManager.Instance.localPlayer);
             }
         }
     }

@@ -145,11 +145,11 @@ namespace BK
 
         public void OnCurrentRightHandWeaponIDChange(int oldID, int newID)
         {
-            if (!player.IsOwner)
-            {
-                WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
-                player.playerInventoryManager.currentRightHandWeapon = newWeapon;
-            }
+            Debug.Log($"old ID : {oldID} / new ID : {newID}");
+            
+            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
+            player.playerInventoryManager.currentRightHandWeapon = newWeapon;
+            
 
             player.playerEquipmentManager.LoadRightWeapon();
 

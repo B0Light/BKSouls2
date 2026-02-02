@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 
@@ -6,14 +7,14 @@ namespace BK.Inventory
 {
     public class InventoryItem : MonoBehaviour
     {
-        public ItemInfo itemInfoData;
+        public GridItem itemData;
 
         [HideInInspector] public ItemGrid previousItemGrid = null;
 
         [SerializeField] private Image itemIcon;
         [SerializeField] private Image itemFrame;
-        public int Height => rotated ? itemInfoData.width : itemInfoData.height;
-        public int Width => rotated ? itemInfoData.height : itemInfoData.width;
+        public int Height => rotated ? itemData.width : itemData.height;
+        public int Width => rotated ? itemData.height : itemData.width;
 
         public int onGridPositionX;
         public int onGridPositionY;
@@ -31,14 +32,14 @@ namespace BK.Inventory
         internal void Set()
         {
             Vector2 size = new Vector2(
-                itemInfoData.width * ItemGrid.TileSizeWidth,
-                itemInfoData.height * ItemGrid.TileSizeHeight);
+                itemData.width * ItemGrid.TileSizeWidth,
+                itemData.height * ItemGrid.TileSizeHeight);
             onGridPositionX = (int)size.x;
             onGridPositionY = (int)size.y;
             GetComponent<RectTransform>().sizeDelta = size;
             itemIcon.GetComponent<RectTransform>().sizeDelta = size;
-            itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
-            ChangeSprite(itemIcon, itemInfoData.itemIcon);
+            itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemData.itemTier);
+            ChangeSprite(itemIcon, itemData.itemIcon);
         }
 
         private void ChangeSprite(Image uiImage, Sprite newSprite)

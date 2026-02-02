@@ -5,9 +5,8 @@ using Unity.Netcode;
 
 namespace BK
 {
-    public class PlayerUIManager : MonoBehaviour
+    public class PlayerUIManager : Singleton<PlayerUIManager>
     {
-        public static PlayerUIManager instance;
         [HideInInspector] public PlayerManager localPlayer;
 
         [Header("NETWORK JOIN")]
@@ -28,15 +27,6 @@ namespace BK
 
         private void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
             //playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();

@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using BK.Inventory;
 
 namespace BK
 {
@@ -39,10 +41,25 @@ namespace BK
 
         [Header("Quick Slot")]
         [SerializeField] List<QuickSlotItem> quickSlotItems = new List<QuickSlotItem>();
+        
+        [Header("Icons")] 
+        [SerializeField] private List<Sprite> defaultItemIcon = new List<Sprite>();
+        [SerializeField] private Sprite unknownIcon;
 
         //  A LIST OF EVERY ITEM WE HAVE IN THE GAME
-        [Header("Items")]
         private List<Item> items = new List<Item>();
+
+        #region Item Classify by Tier
+
+        private Dictionary<ItemTier, List<Item>> _allItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _miscItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _onSaleItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _weaponItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _equipmentItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _consumableItemsByTier;
+        private Dictionary<ItemTier, List<Item>> _blueprintItemsByTier;
+
+        #endregion
 
         private void Awake()
         {
@@ -217,6 +234,65 @@ namespace BK
             return quickSlotItem;
         }
         
+        private Dictionary<ItemTier, List<Item>> GetDictionaryByItemType(ItemType itemType)
+        {
+            switch (itemType)
+            {
+                case ItemType.Weapon:
+                    return _weaponItemsByTier;
+                case ItemType.Armor:
+                case ItemType.Helmet:
+                    return _equipmentItemsByTier; // 방어구들은 모두 장비 딕셔너리에서
+                case ItemType.Consumables:
+                    return _consumableItemsByTier;
+                case ItemType.Misc:
+                    return _onSaleItemsByTier; // 또는 _miscItemsByTier 사용 가능
+                case ItemType.None:
+                default:
+                    return _allItemsByTier; // 전체 아이템
+            }
+        }
+
+        public List<Item> GetItemsByTypeAndTierRange(ItemType itemType, ItemTier minTier, ItemTier maxTier)
+        {
+            Dictionary<ItemTier, List<Item>> targetDictionary = GetDictionaryByItemType(itemType);
+            List<Item> result = new List<Item>();
+
+            if (targetDictionary == null) return result;
+
+            // 티어 순서 가져오기
+            var tierValues = Enum.GetValues(typeof(ItemTier)).Cast<ItemTier>().ToList();
+            int minIndex = tierValues.IndexOf(minTier);
+            int maxIndex = tierValues.IndexOf(maxTier);
+
+            // 인덱스 유효성 검사
+            if (minIndex == -1 || maxIndex == -1 || minIndex > maxIndex) return result;
+
+            // 범위 내의 모든 티어에서 아이템 수집
+            for (int i = minIndex; i <= maxIndex; i++)
+            {
+                ItemTier currentTier = tierValues[i];
+                if (targetDictionary.TryGetValue(currentTier, out List<Item> items))
+                {
+                    result.AddRange(items);
+                }
+            }
+
+            return result;
+        }
+        
+        public List<Item> GetAllItem() => items;
+        
+        public Sprite GetDefaultIcon(ItemEffect itemEffect)
+        {
+            int iconIndex = (int)itemEffect;
+            if (iconIndex < 0 || iconIndex >= defaultItemIcon.Count) return unknownIcon;
+            return defaultItemIcon[iconIndex];
+        }
+
+
+        #region Item Color By Tier
+
         public Color GetItemColorByTier(ItemTier rarity)
         {
             switch (rarity)
@@ -258,5 +334,8 @@ namespace BK
                     return new Color(45f / 255f, 45f / 255f, 45f / 255f); // 기본 색상 - 어두운 회색
             }
         }
+
+        #endregion
+        
     }
 }

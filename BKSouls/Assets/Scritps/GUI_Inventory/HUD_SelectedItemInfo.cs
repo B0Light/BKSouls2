@@ -20,18 +20,15 @@ namespace BK.Inventory
         [SerializeField] private TextMeshProUGUI itemWeight;
         [SerializeField] private Transform abilityContainer; // 모든 능력이 들어갈 컨테이너
 
-        [SerializeField] private GameObject abilityUIPrefab; // HUD_SelectedItemAbility 프리팹
-
-        private List<HUD_SelectedItemAbility> abilityUIs = new List<HUD_SelectedItemAbility>();
+        [SerializeField] private GameObject[] abilityUIObjects; 
+        private int _currentAbilityIndex = 0;
 
         private String _itemDescription;
 
-        public void Init(ItemInfo itemInfo)
+        public void Init(GridItem itemInfo)
         {
             canvasGroup.alpha = 1;
-            EquipmentItemInfo equipmentItemInfo = itemInfo as EquipmentItemInfo;
-            EquipmentItemInfoWeapon itemInfoWeapon = equipmentItemInfo as EquipmentItemInfoWeapon;
-            selectedItemImage.sprite = itemInfoWeapon ? itemInfoWeapon.weaponEquipSprite : itemInfo.itemIcon;
+            selectedItemImage.sprite = itemInfo.itemIcon;
 
             iconBackgroundImage01.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(itemInfo.itemTier);
             iconBackgroundImage02.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfo.itemTier);
@@ -41,51 +38,49 @@ namespace BK.Inventory
 
             _itemDescription = itemInfo.itemDescription;
             itemWeight.text = itemInfo.weight.ToString("F1");
-            itemGold.text = itemInfo.purchaseCost.ToString();
+            itemGold.text = itemInfo.cost.ToString();
 
             // 기존 능력 UI들 정리
             ClearAbilities();
 
+            _currentAbilityIndex = 0;
             // 추가 능력들 생성
-            if (itemInfo.itemAbilities != null && itemInfo.itemAbilities.Count > 0)
+            if (itemInfo.itemAbilities != null)
             {
                 foreach (ItemAbility ability in itemInfo.itemAbilities)
                 {
-                    CreateAbilityFromItemAbility(ability);
+                    // 배열 범위 안에서만 실행되도록 안전장치 추가
+                    if (_currentAbilityIndex < abilityUIObjects.Length)
+                    {
+                        CreateAbilityFromItemAbility(ability, abilityUIObjects[_currentAbilityIndex]);
+                        _currentAbilityIndex++; // 다음 호출을 위해 인덱스 증가
+                    }
                 }
             }
         }
 
-        private void CreateAbilityFromItemAbility(ItemAbility ability)
+        private void CreateAbilityFromItemAbility(ItemAbility ability, GameObject targetObject)
         {
-            if (abilityUIPrefab == null || abilityContainer == null) return;
-
-            GameObject abilityObj = Instantiate(abilityUIPrefab, abilityContainer);
-            HUD_SelectedItemAbility abilityComponent = abilityObj.GetComponent<HUD_SelectedItemAbility>();
+            targetObject.SetActive(true);
+            HUD_SelectedItemAbility abilityComponent = targetObject.GetComponent<HUD_SelectedItemAbility>();
 
             if (abilityComponent != null)
             {
-                // icon / value
                 abilityComponent.Init_ability(ability);
 
                 if (ability.itemEffect == ItemEffect.Resource)
                 {
                     abilityComponent.SetText(_itemDescription);
                 }
-
-                abilityUIs.Add(abilityComponent);
             }
         }
 
         private void ClearAbilities()
         {
-            foreach (var ability in abilityUIs)
+            foreach (var ability in abilityUIObjects)
             {
-                if (ability != null && ability.gameObject != null)
-                    DestroyImmediate(ability.gameObject);
+                ability.SetActive(false);
             }
-
-            abilityUIs.Clear();
         }
 
         private void OnDestroy()

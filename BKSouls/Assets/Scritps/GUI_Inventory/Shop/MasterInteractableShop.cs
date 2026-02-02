@@ -7,10 +7,9 @@ namespace BK.Inventory
         protected override void InitializeShop()
         {
             saleItemList.Clear();
-            foreach (var item in WorldDatabase_Item.Instance.GetAllItem())
+            foreach (var item in WorldItemDatabase.Instance.GetAllItem())
             {
                 if (item.itemID == 0) continue;
-                item.purChaseWithItem = true;
                 saleItemList.Add(item);
             }
         }

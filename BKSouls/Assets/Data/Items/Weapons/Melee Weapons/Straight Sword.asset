@@ -12,13 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136e51c4f56cbda40a6ec0a0f7b3be15, type: 3}
   m_Name: Straight Sword
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
+  itemID: 1
   itemName: Straight Sword
   itemIcon: {fileID: 21300000, guid: 0278bcf9203b42841bf0c6837fff3865, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: A Straight sword
-  itemID: 1
+  itemType: 0
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities:
+  - itemEffect: 0
+    value: 10
+  itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}
   weaponModelType: 0
   weaponModel: {fileID: 2456186867962784618, guid: 141d3dfd635469c4c995101999b3fd59, type: 3}
+  weaponClass: 0
   strengthREQ: 10
   dexREQ: 10
   intREQ: 0
@@ -31,8 +42,10 @@ MonoBehaviour:
   poiseDamage: 25
   light_Attack_01_Modifier: 1.1
   light_Attack_02_Modifier: 1.2
+  light_Jumping_Attack_01_Modifier: 1
   heavy_Attack_01_Modifier: 1.4
   heavy_Attack_02_Modifier: 1.6
+  heavy_Jumping_Attack_01_Modifier: 1.8
   charge_Attack_01_Modifier: 2
   charge_Attack_02_Modifier: 2.2
   running_Attack_01_Modifier: 1.1
@@ -54,6 +67,7 @@ MonoBehaviour:
   oh_RB_Action: {fileID: 11400000, guid: 1cce0561bba2ba54ebf1279395bd331a, type: 2}
   oh_RT_Action: {fileID: 11400000, guid: 648ec3a964ae2ec4e83eb891fcc49515, type: 2}
   oh_LB_Action: {fileID: 11400000, guid: 79e8ff89507e3e74eae57f60026a16b8, type: 2}
+  ashOfWarAction: {fileID: 0}
   whooshes:
   - {fileID: 8300000, guid: f440d5e80e66038458d76d5a1575468a, type: 3}
   - {fileID: 8300000, guid: af6de04e4ec2e0743b45624c7d7ab9f6, type: 3}
@@ -65,3 +79,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df4246a6c6f984d6090201c58816fc47, type: 3}
   - {fileID: 8300000, guid: 4cdd3de2138454d1e92ab58f85630860, type: 3}
   - {fileID: 8300000, guid: 7f39afc041fff436b8055964a05f3e63, type: 3}
+  riposte_Attack_01_Modifier: 3.3
+  backstab_Attack_01_Modifier: 3.3

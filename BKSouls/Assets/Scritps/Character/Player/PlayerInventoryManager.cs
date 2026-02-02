@@ -38,7 +38,7 @@ namespace BK
         public void AddItemToInventory(Item item)
         {
             itemsInInventory.Add(item);
-            WorldShopManager.Instance.BuyItem(WorldDatabase_Item.Instance.GetItemByID(item.itemID));
+            WorldShopManager.Instance.BuyItem(WorldItemDatabase.Instance.GetItemByID(item.itemID));
         }
 
         public void RemoveItemFromInventory(Item item)

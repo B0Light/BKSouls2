@@ -6,12 +6,10 @@ namespace BK.Inventory
 {
     public class ItemGrid_Forge : ItemGrid
     {
-        [SerializeField] private ItemInfo.ItemType itemType;
         private List<InventoryItem> _selectMaterials = new List<InventoryItem>();
 
         public override bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad = false)
         {
-            if (inventoryItem.itemInfoData.itemType != itemType) return false;
             if (base.PlaceItem(inventoryItem, posX, posY, isLoad))
             {
                 _selectMaterials.Add(inventoryItem);

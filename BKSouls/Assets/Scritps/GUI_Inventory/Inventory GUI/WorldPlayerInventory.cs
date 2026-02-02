@@ -149,35 +149,6 @@ namespace BK.Inventory
             return true;
         }
 
-        // buyObject에 대한 requireItem을 제거 
-        public bool SpendItemInInventory(ItemData buyObject)
-        {
-            // 먼저 필요한 아이템이 충분한지 확인
-            if (!CheckItemInInventoryToChangeItem(buyObject))
-                return false;
-
-            // 트랜잭션 생성
-            var transaction = new Dictionary<ItemGrid, Dictionary<int, int>>();
-
-            try
-            {
-                // 각 아이템별로 Remove 수행 (트랜잭션 기록은 내부에서 처리)
-                foreach (var (itemId, requiredCount) in buyObject.GetCostDict())
-                {
-                    RemoveItemInInventory(itemId, requiredCount, transaction);
-                }
-
-                // 전부 성공했으면 true
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"아이템 소비 실패: {ex.Message}");
-                RollbackTransaction(transaction);
-                return false;
-            }
-        }
-
         // itemId에 해당하는 아이템을 requiredCount 만큼 제거
         private bool RemoveItemInInventory(int itemId, int requiredCount,
             Dictionary<ItemGrid, Dictionary<int, int>> transaction)
@@ -396,82 +367,82 @@ namespace BK.Inventory
             return remaining;
         }
 
-        public bool ReloadItemShareBox(ItemInfo itemInfoData)
+        public bool ReloadItemShareBox(Item itemInfoData)
         {
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
             return GetShareInventory().AddItem(item);
         }
 
-        public bool ReloadItemInventory(ItemInfo itemInfoData)
+        public bool ReloadItemInventory(Item itemInfoData)
         {
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
             return GetInventory().AddItem(item);
         }
 
-        public bool ReloadItemBackpack(ItemInfo itemInfoData)
+        public bool ReloadItemBackpack(Item itemInfoData)
         {
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
             return GetBackpackInventory().AddItem(item);
         }
 
-        public bool ReloadItemWeapon(ItemInfo itemInfoData)
+        public bool ReloadItemWeapon(Item itemInfoData)
         {
             if (itemInfoData.itemID == 0) return true;
 
             // 인벤토리에 해당 무기 추가 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
             return GetWeaponInventory().AddItem(item);
         }
 
-        public bool ReloadItemHelmet(ItemInfo itemInfoData)
+        public bool ReloadItemHelmet(Item itemInfoData)
         {
             if (itemInfoData.itemID == 0) return true;
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData  as GridItem;
             inventoryItem.Set();
             return GetHelmetInventory().AddItem(item);
         }
 
-        public bool ReloadItemArmor(ItemInfo itemInfoData)
+        public bool ReloadItemArmor(Item itemInfoData)
         {
             if (itemInfoData.itemID == 0) return true;
 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData  as GridItem;
             inventoryItem.Set();
             return GetArmorInventory().AddItem(item);
         }
 
-        public bool ReloadItemQuickSlot(ItemInfo itemInfoData)
+        public bool ReloadItemQuickSlot(Item itemInfoData)
         {
             if (itemInfoData.itemID == 0) return true;
 
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData  as GridItem;
             inventoryItem.Set();
             return GetConsumableInventory().AddItem(item);
         }
 
-        public bool ReloadItemSafe(ItemInfo itemInfoData)
+        public bool ReloadItemSafe(Item itemInfoData)
         {
             GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemInfoData = itemInfoData;
+            inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
 
             return GetSafeInventory().AddItem(item);

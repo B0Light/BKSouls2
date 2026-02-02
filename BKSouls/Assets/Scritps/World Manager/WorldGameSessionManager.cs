@@ -39,7 +39,7 @@ namespace BK
 
             GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
-            PlayerUIManager.instance.localPlayer.ReviveCharacter();
+            GUIController.Instance.localPlayer.ReviveCharacter();
             
             WorldAIManager.instance.ResetAllCharacters();
 
