@@ -214,7 +214,8 @@ namespace BK
 
         private void Update()
         {
-            HandleAllInputs();
+            if(GUIController.Instance.currentOpenGUI == null)
+                HandleAllInputs();
         }
 
         private void HandleAllInputs()

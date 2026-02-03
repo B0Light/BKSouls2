@@ -617,19 +617,28 @@ namespace BK
                     }
                 }
             }
-            
-            WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(currentCharacterData.backpackSize);
-            foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
+
+            if (currentCharacterData.backpackSize != Vector2Int.zero)
             {
-                for (int i = 0; i < item.Value; i++)
+                WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(true);
+                WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(currentCharacterData.backpackSize);
+                foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
                 {
-                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
-                    if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
+                    for (int i = 0; i < item.Value; i++)
                     {
-                        Debug.LogWarning("Reload Error");
+                        var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
+                        if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
+                        {
+                            Debug.LogWarning("Reload Error");
+                        }
                     }
                 }
             }
+            else
+            {
+                WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(false);
+            }
+            
             // 금고 인벤토리 
             WorldPlayerInventory.Instance.GetSafeInventory().UpdateItemGridSize(currentCharacterData.safeBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.safeItems)

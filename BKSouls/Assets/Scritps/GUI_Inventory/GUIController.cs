@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BK.Inventory;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 namespace BK
 {
@@ -37,6 +38,9 @@ namespace BK
         public bool menuWindowIsOpen = false; 
         public bool popUpWindowIsOpen = false;
         public GUIComponent currentOpenGUI;
+        
+        // INPUT 
+        PlayerControls playerControls;
 
         private CanvasGroup _canvasGroup;
         private bool _activeMainHud = true;
@@ -70,8 +74,25 @@ namespace BK
                 Cursor.SetCursor(customCursor, _hotspot, CursorMode.Auto);
             }
         }
+        
+        private void OnEnable()
+        {
+            if (playerControls == null)
+            {
+                playerControls = new PlayerControls();
 
-        public void HandleEscape()
+                playerControls.UI.CloseTab.performed += HandleEscape;
+            }
+
+            playerControls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            playerControls.Disable();
+        }
+
+        private void HandleEscape(InputAction.CallbackContext context)
         {
             if(_activeMainHud == false) return;
             if (!TryCloseActiveUI())
@@ -92,7 +113,7 @@ namespace BK
         private void OpenPauseMenu()
         {
             OpenGUI(settingGUIManager);
-            settingGUIManager.OpenDisplaySetter();
+            //settingGUIManager.OpenDisplaySetter();
         }
 
         

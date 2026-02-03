@@ -978,6 +978,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "CloseTab",
+                    "type": "Button",
+                    "id": "d423a489-1369-4e58-bfe6-80036846b4be",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ToggleOption",
                     "type": "Button",
                     "id": "5026569b-f38e-402c-962f-d97a9e3e4e35",
@@ -1070,6 +1079,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "X",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5989d949-668c-4b4c-add8-3289d9b623df",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "CloseTab",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "03553cfe-10f2-468a-8942-651dd2f3736e",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "CloseTab",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

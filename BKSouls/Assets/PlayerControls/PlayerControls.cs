@@ -1064,6 +1064,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""CloseTab"",
+                    ""type"": ""Button"",
+                    ""id"": ""d423a489-1369-4e58-bfe6-80036846b4be"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": ""Tap"",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ToggleOption"",
                     ""type"": ""Button"",
                     ""id"": ""5026569b-f38e-402c-962f-d97a9e3e4e35"",
@@ -1156,6 +1165,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""X"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5989d949-668c-4b4c-add8-3289d9b623df"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard"",
+                    ""action"": ""CloseTab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""03553cfe-10f2-468a-8942-651dd2f3736e"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""CloseTab"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1309,6 +1340,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_X = m_UI.FindAction("X", throwIfNotFound: true);
+        m_UI_CloseTab = m_UI.FindAction("CloseTab", throwIfNotFound: true);
         m_UI_ToggleOption = m_UI.FindAction("ToggleOption", throwIfNotFound: true);
         m_UI_NextGUI = m_UI.FindAction("NextGUI", throwIfNotFound: true);
         m_UI_OpenMap = m_UI.FindAction("OpenMap", throwIfNotFound: true);
@@ -1942,6 +1974,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_UI;
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_X;
+    private readonly InputAction m_UI_CloseTab;
     private readonly InputAction m_UI_ToggleOption;
     private readonly InputAction m_UI_NextGUI;
     private readonly InputAction m_UI_OpenMap;
@@ -1965,6 +1998,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "UI/X".
         /// </summary>
         public InputAction @X => m_Wrapper.m_UI_X;
+        /// <summary>
+        /// Provides access to the underlying input action "UI/CloseTab".
+        /// </summary>
+        public InputAction @CloseTab => m_Wrapper.m_UI_CloseTab;
         /// <summary>
         /// Provides access to the underlying input action "UI/ToggleOption".
         /// </summary>
@@ -2026,6 +2063,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @X.started += instance.OnX;
             @X.performed += instance.OnX;
             @X.canceled += instance.OnX;
+            @CloseTab.started += instance.OnCloseTab;
+            @CloseTab.performed += instance.OnCloseTab;
+            @CloseTab.canceled += instance.OnCloseTab;
             @ToggleOption.started += instance.OnToggleOption;
             @ToggleOption.performed += instance.OnToggleOption;
             @ToggleOption.canceled += instance.OnToggleOption;
@@ -2064,6 +2104,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @X.started -= instance.OnX;
             @X.performed -= instance.OnX;
             @X.canceled -= instance.OnX;
+            @CloseTab.started -= instance.OnCloseTab;
+            @CloseTab.performed -= instance.OnCloseTab;
+            @CloseTab.canceled -= instance.OnCloseTab;
             @ToggleOption.started -= instance.OnToggleOption;
             @ToggleOption.performed -= instance.OnToggleOption;
             @ToggleOption.canceled -= instance.OnToggleOption;
@@ -2341,6 +2384,13 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnX(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "CloseTab" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnCloseTab(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "ToggleOption" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
