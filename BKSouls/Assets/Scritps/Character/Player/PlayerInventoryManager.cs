@@ -25,8 +25,6 @@ namespace BK
         [Header("Armor")]
         public HeadEquipmentItem headEquipment;
         public BodyEquipmentItem bodyEquipment;
-        public LegEquipmentItem legEquipment;
-        public HandEquipmentItem handEquipment;
 
         [Header("Projectiles")]
         public RangedProjectileItem mainProjectile;

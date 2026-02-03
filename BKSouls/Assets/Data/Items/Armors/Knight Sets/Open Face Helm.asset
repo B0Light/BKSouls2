@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f831f21f2a4dd43bd41e42e6668b01, type: 3}
   m_Name: Open Face Helm
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
+  itemID: 9
   itemName: Knight Helm
   itemIcon: {fileID: 0}
+  itemTier: 0
+  cost: 0
   itemDescription: 
-  itemID: 6
+  itemType: 2
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities: []
   itemWeight: 4.6
   physicalDamageAbsorption: 4.4
   magicDamageAbsorption: 3.8

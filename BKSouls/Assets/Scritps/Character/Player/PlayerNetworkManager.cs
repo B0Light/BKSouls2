@@ -51,9 +51,7 @@ namespace BK
         public NetworkVariable<bool> isMale = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> headEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> bodyEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> legEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> handEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        
         [Header("Projectiles")]
         public NetworkVariable<int> mainProjectileID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> secondaryProjectileID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -392,10 +390,6 @@ namespace BK
 
         public void OnHeadEquipmentChanged(int oldValue, int newValue)
         {
-            //  WE ALREADY RUN THE LOGIC ON THE OWNERS SIDE, SO THERES NO POINT IN RUNNING IT AGAIN
-            if (IsOwner)
-                return;
-
             HeadEquipmentItem equipment = WorldItemDatabase.Instance.GetHeadEquipmentByID(headEquipmentID.Value);
 
             if (equipment != null)
@@ -410,11 +404,7 @@ namespace BK
 
         public void OnBodyEquipmentChanged(int oldValue, int newValue)
         {
-            //  WE ALREADY RUN THE LOGIC ON THE OWNERS SIDE, SO THERES NO POINT IN RUNNING IT AGAIN
-            if (IsOwner)
-                return;
-
-            BodyEquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(bodyEquipmentID.Value);
+           BodyEquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(bodyEquipmentID.Value);
 
             if (equipment != null)
             {
@@ -423,42 +413,6 @@ namespace BK
             else
             {
                 player.playerEquipmentManager.LoadBodyEquipment(null);
-            }
-        }
-
-        public void OnLegEquipmentChanged(int oldValue, int newValue)
-        {
-            //  WE ALREADY RUN THE LOGIC ON THE OWNERS SIDE, SO THERES NO POINT IN RUNNING IT AGAIN
-            if (IsOwner)
-                return;
-
-            LegEquipmentItem equipment = WorldItemDatabase.Instance.GetLegEquipmentByID(legEquipmentID.Value);
-
-            if (equipment != null)
-            {
-                player.playerEquipmentManager.LoadLegEquipment(Instantiate(equipment));
-            }
-            else
-            {
-                player.playerEquipmentManager.LoadLegEquipment(null);
-            }
-        }
-
-        public void OnHandEquipmentChanged(int oldValue, int newValue)
-        {
-            //  WE ALREADY RUN THE LOGIC ON THE OWNERS SIDE, SO THERES NO POINT IN RUNNING IT AGAIN
-            if (IsOwner)
-                return;
-
-            HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(handEquipmentID.Value);
-
-            if (equipment != null)
-            {
-                player.playerEquipmentManager.LoadHandEquipment(Instantiate(equipment));
-            }
-            else
-            {
-                player.playerEquipmentManager.LoadHandEquipment(null);
             }
         }
 

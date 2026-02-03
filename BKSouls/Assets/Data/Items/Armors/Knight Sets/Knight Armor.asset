@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Knight Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
+  itemID: 10
   itemName: Knigh Armor
   itemIcon: {fileID: 21300000, guid: c10c028b30dac074fa3aee62b39f5d83, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: 
-  itemID: 7
+  itemType: 1
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities: []
   itemWeight: 10.6
   physicalDamageAbsorption: 12.4
   magicDamageAbsorption: 10.9
@@ -35,3 +42,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 170fe6d35df2b1944a0e3a10aecabe2e, type: 2}
   - {fileID: 11400000, guid: b8959d0e03015554cb8a467769f08e8f, type: 2}
   - {fileID: 11400000, guid: 626901e88e7a3464f835a9bf02323f39, type: 2}
+  - {fileID: 11400000, guid: 609571857050be340a2262cd8c281afe, type: 2}
+  - {fileID: 11400000, guid: d35f7a0e387bdb54ca01a3dc165359bf, type: 2}
+  - {fileID: 11400000, guid: 341db93be8b4b454fb410017d3853515, type: 2}
+  - {fileID: 11400000, guid: 258a8bbefd9254c44842e6e5ec0216ab, type: 2}
+  - {fileID: 11400000, guid: 551e431343f4ee24fbd28ff60a872045, type: 2}
+  - {fileID: 11400000, guid: 8da8daca6208b164e83a636af57ca901, type: 2}
+  - {fileID: 11400000, guid: 82a66c59d1f2b9449836df4f0c1446ba, type: 2}
+  - {fileID: 11400000, guid: 6c4a7023e8e7f0b4b90cb89f8f1316bf, type: 2}
+  - {fileID: 11400000, guid: 3f33610075ef8a341b90fc17f5ad2f88, type: 2}

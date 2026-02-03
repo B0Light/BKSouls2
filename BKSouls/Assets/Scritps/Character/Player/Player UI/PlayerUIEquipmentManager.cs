@@ -155,12 +155,6 @@ namespace BK
                 case EquipmentType.Body:
                     lastSelectedButton = bodyEquipmentSlotButton;
                     break;
-                case EquipmentType.Legs:
-                    lastSelectedButton = legEquipmentSlotButton;
-                    break;
-                case EquipmentType.Hands:
-                    lastSelectedButton = handEquipmentSlotButton;
-                    break;
                 case EquipmentType.MainProjectile:
                     lastSelectedButton = mainProjectileEquipmentSlotButton;
                     break;
@@ -295,32 +289,6 @@ namespace BK
             else
             {
                 bodyEquipmentSlot.enabled = false;
-            }
-
-            //  LEG EQUIPMENT
-            LegEquipmentItem legEquipment = player.playerInventoryManager.legEquipment;
-
-            if (legEquipment != null)
-            {
-                legEquipmentSlot.enabled = true;
-                legEquipmentSlot.sprite = legEquipment.itemIcon;
-            }
-            else
-            {
-                legEquipmentSlot.enabled = false;
-            }
-
-            //  HAND EQUIPMENT
-            HandEquipmentItem handEquipment = player.playerInventoryManager.handEquipment;
-
-            if (handEquipment != null)
-            {
-                handEquipmentSlot.enabled = true;
-                handEquipmentSlot.sprite = handEquipment.itemIcon;
-            }
-            else
-            {
-                handEquipmentSlot.enabled = false;
             }
 
             //  PROJECTILE EQUIPMENT
@@ -464,12 +432,6 @@ namespace BK
                     break;
                 case EquipmentType.Body:
                     LoadBodyEquipmentInventory();
-                    break;
-                case EquipmentType.Legs:
-                    LoadLegEquipmentInventory();
-                    break;
-                case EquipmentType.Hands:
-                    LoadHandEquipmentInventory();
                     break;
                 case EquipmentType.MainProjectile:
                     LoadProjectileInventory();
@@ -619,93 +581,7 @@ namespace BK
                 }
             }
         }
-
-        private void LoadLegEquipmentInventory()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            List<LegEquipmentItem> legEquipmentInInventory = new List<LegEquipmentItem>();
-
-            //  SEARCH OUR ENTIRE INVENTORY, AND OUT OF ALL OF THE ITEMS IN OUR INVENTORY IF THE ITEM IS A WEAPON ADD IT TO OUR WEAPONS LIST
-            for (int i = 0; i < player.playerInventoryManager.itemsInInventory.Count; i++)
-            {
-                LegEquipmentItem equipment = player.playerInventoryManager.itemsInInventory[i] as LegEquipmentItem;
-
-                if (equipment != null)
-                    legEquipmentInInventory.Add(equipment);
-            }
-
-            if (legEquipmentInInventory.Count <= 0)
-            {
-                //  TO DO SEND A PLAYER A MESSAGE THAT HE HAS NONE OF ITEM TYPE IN INVENTORY
-                equipmentInventoryWindow.SetActive(false);
-                ToggleEquipmentButtons(true);
-                RefreshMenu();
-                return;
-            }
-
-            bool hasSelectedFirstInventorySlot = false;
-
-            for (int i = 0; i < legEquipmentInInventory.Count; i++)
-            {
-                GameObject inventorySlotGameObject = Instantiate(equipmentInventorySlotPrefab, equipmentInventoryContentWindow);
-                UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.AddItem(legEquipmentInInventory[i]);
-
-                //  THIS WILL SELECT THE FIRST BUTTON IN THE LIST
-                if (!hasSelectedFirstInventorySlot)
-                {
-                    hasSelectedFirstInventorySlot = true;
-                    Button inventorySlotButton = inventorySlotGameObject.GetComponent<Button>();
-                    inventorySlotButton.Select();
-                    inventorySlotButton.OnSelect(null);
-                }
-            }
-        }
-
-        private void LoadHandEquipmentInventory()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            List<HandEquipmentItem> handEquipmentInInventory = new List<HandEquipmentItem>();
-
-            //  SEARCH OUR ENTIRE INVENTORY, AND OUT OF ALL OF THE ITEMS IN OUR INVENTORY IF THE ITEM IS A WEAPON ADD IT TO OUR WEAPONS LIST
-            for (int i = 0; i < player.playerInventoryManager.itemsInInventory.Count; i++)
-            {
-                HandEquipmentItem equipment = player.playerInventoryManager.itemsInInventory[i] as HandEquipmentItem;
-
-                if (equipment != null)
-                    handEquipmentInInventory.Add(equipment);
-            }
-
-            if (handEquipmentInInventory.Count <= 0)
-            {
-                //  TO DO SEND A PLAYER A MESSAGE THAT HE HAS NONE OF ITEM TYPE IN INVENTORY
-                equipmentInventoryWindow.SetActive(false);
-                ToggleEquipmentButtons(true);
-                RefreshMenu();
-                return;
-            }
-
-            bool hasSelectedFirstInventorySlot = false;
-
-            for (int i = 0; i < handEquipmentInInventory.Count; i++)
-            {
-                GameObject inventorySlotGameObject = Instantiate(equipmentInventorySlotPrefab, equipmentInventoryContentWindow);
-                UI_EquipmentInventorySlot equipmentInventorySlot = inventorySlotGameObject.GetComponent<UI_EquipmentInventorySlot>();
-                equipmentInventorySlot.AddItem(handEquipmentInInventory[i]);
-
-                //  THIS WILL SELECT THE FIRST BUTTON IN THE LIST
-                if (!hasSelectedFirstInventorySlot)
-                {
-                    hasSelectedFirstInventorySlot = true;
-                    Button inventorySlotButton = inventorySlotGameObject.GetComponent<Button>();
-                    inventorySlotButton.Select();
-                    inventorySlotButton.OnSelect(null);
-                }
-            }
-        }
-
+        
         private void LoadProjectileInventory()
         {
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
@@ -922,28 +798,7 @@ namespace BK
                     player.playerEquipmentManager.LoadBodyEquipment(player.playerInventoryManager.bodyEquipment);
 
                     break;
-                case EquipmentType.Legs:
-
-                    unequippedItem = player.playerInventoryManager.legEquipment;
-
-                    if (unequippedItem != null)
-                        player.playerInventoryManager.AddItemToInventory(unequippedItem);
-
-                    player.playerInventoryManager.legEquipment = null;
-                    player.playerEquipmentManager.LoadLegEquipment(player.playerInventoryManager.legEquipment);
-
-                    break;
-                case EquipmentType.Hands:
-
-                    unequippedItem = player.playerInventoryManager.handEquipment;
-
-                    if (unequippedItem != null)
-                        player.playerInventoryManager.AddItemToInventory(unequippedItem);
-
-                    player.playerInventoryManager.handEquipment = null;
-                    player.playerEquipmentManager.LoadHandEquipment(player.playerInventoryManager.handEquipment);
-
-                    break;
+                
                 case EquipmentType.MainProjectile:
 
                     unequippedItem = player.playerInventoryManager.mainProjectile;

@@ -138,8 +138,6 @@ namespace BK
             playerNetworkManager.isBlocking.OnValueChanged += playerNetworkManager.OnIsBlockingChanged;
             playerNetworkManager.headEquipmentID.OnValueChanged += playerNetworkManager.OnHeadEquipmentChanged;
             playerNetworkManager.bodyEquipmentID.OnValueChanged += playerNetworkManager.OnBodyEquipmentChanged;
-            playerNetworkManager.legEquipmentID.OnValueChanged += playerNetworkManager.OnLegEquipmentChanged;
-            playerNetworkManager.handEquipmentID.OnValueChanged += playerNetworkManager.OnHandEquipmentChanged;
             playerNetworkManager.mainProjectileID.OnValueChanged += playerNetworkManager.OnMainProjectileIDChange;
             playerNetworkManager.secondaryProjectileID.OnValueChanged += playerNetworkManager.OnSecondaryProjectileIDChange;
             playerNetworkManager.isHoldingArrow.OnValueChanged += playerNetworkManager.OnIsHoldingArrowChanged;
@@ -218,8 +216,6 @@ namespace BK
             playerNetworkManager.currentSpellID.OnValueChanged -= playerNetworkManager.OnCurrentSpellIDChange;
             playerNetworkManager.headEquipmentID.OnValueChanged -= playerNetworkManager.OnHeadEquipmentChanged;
             playerNetworkManager.bodyEquipmentID.OnValueChanged -= playerNetworkManager.OnBodyEquipmentChanged;
-            playerNetworkManager.legEquipmentID.OnValueChanged -= playerNetworkManager.OnLegEquipmentChanged;
-            playerNetworkManager.handEquipmentID.OnValueChanged -= playerNetworkManager.OnHandEquipmentChanged;
             playerNetworkManager.mainProjectileID.OnValueChanged -= playerNetworkManager.OnMainProjectileIDChange;
             playerNetworkManager.secondaryProjectileID.OnValueChanged -= playerNetworkManager.OnSecondaryProjectileIDChange;
             playerNetworkManager.isHoldingArrow.OnValueChanged -= playerNetworkManager.OnIsHoldingArrowChanged;
@@ -341,8 +337,6 @@ namespace BK
             //  EQUIPMENT
             currentCharacterData.headEquipment = playerNetworkManager.headEquipmentID.Value;
             currentCharacterData.bodyEquipment = playerNetworkManager.bodyEquipmentID.Value;
-            currentCharacterData.legEquipment = playerNetworkManager.legEquipmentID.Value;
-            currentCharacterData.handEquipment = playerNetworkManager.handEquipmentID.Value;
 
             currentCharacterData.rightWeaponIndex = playerInventoryManager.rightHandWeaponIndex;
             currentCharacterData.rightWeapon01 = WorldSaveGameManager.instance.GetSerializableWeaponFromWeaponItem(playerInventoryManager.weaponsInRightHandSlots[0]); //   THIS SHOULD NEVER BE NULL (it should always default to unarmed)
@@ -371,9 +365,7 @@ namespace BK
             currentCharacterData.quickSlotItemsInInventory = new List<SerilalizableQuickSlotItem>();
             currentCharacterData.headEquipmentInInventory = new List<int>();
             currentCharacterData.bodyEquipmentInInventory = new List<int>();
-            currentCharacterData.handEquipmentInInventory = new List<int>();
-            currentCharacterData.legEquipmentInInventory = new List<int>();
-
+            
             for (int i = 0; i < playerInventoryManager.itemsInInventory.Count; i++)
             {
                 if (playerInventoryManager.itemsInInventory[i] == null)
@@ -382,8 +374,6 @@ namespace BK
                 WeaponItem weaponInInventory = playerInventoryManager.itemsInInventory[i] as WeaponItem;
                 HeadEquipmentItem headEquipmentInInventory = playerInventoryManager.itemsInInventory[i] as HeadEquipmentItem;
                 BodyEquipmentItem bodyEquipmentInInventory = playerInventoryManager.itemsInInventory[i] as BodyEquipmentItem;
-                LegEquipmentItem legEquipmentInInventory = playerInventoryManager.itemsInInventory[i] as LegEquipmentItem;
-                HandEquipmentItem handEquipmentInInventory = playerInventoryManager.itemsInInventory[i] as HandEquipmentItem;
                 QuickSlotItem quickSlotItemInInventory = playerInventoryManager.itemsInInventory[i] as QuickSlotItem;
                 RangedProjectileItem projectileInInventory = playerInventoryManager.itemsInInventory[i] as RangedProjectileItem;
 
@@ -395,12 +385,6 @@ namespace BK
 
                 if (bodyEquipmentInInventory != null)
                     currentCharacterData.bodyEquipmentInInventory.Add(bodyEquipmentInInventory.itemID);
-
-                if (legEquipmentInInventory != null)
-                    currentCharacterData.legEquipmentInInventory.Add(legEquipmentInInventory.itemID);
-
-                if (handEquipmentInInventory != null)
-                    currentCharacterData.handEquipmentInInventory.Add(handEquipmentInInventory.itemID);
 
                 if (quickSlotItemInInventory != null)
                     currentCharacterData.quickSlotItemsInInventory.Add(WorldSaveGameManager.instance.GetSerializableQuickSlotItemFromQuickSlotItem(quickSlotItemInInventory));
@@ -463,26 +447,6 @@ namespace BK
             else
             {
                 playerInventoryManager.bodyEquipment = null;
-            }
-
-            if (WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.handEquipment))
-            {
-                HandEquipmentItem handEquipment = Instantiate(WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.handEquipment));
-                playerInventoryManager.handEquipment = handEquipment;
-            }
-            else
-            {
-                playerInventoryManager.handEquipment = null;
-            }
-
-            if (WorldItemDatabase.Instance.GetLegEquipmentByID(currentCharacterData.legEquipment))
-            {
-                LegEquipmentItem legEquipment = Instantiate(WorldItemDatabase.Instance.GetLegEquipmentByID(currentCharacterData.legEquipment));
-                playerInventoryManager.legEquipment = legEquipment;
-            }
-            else
-            {
-                playerInventoryManager.legEquipment = null;
             }
 
             //  WEAPONS
@@ -551,18 +515,7 @@ namespace BK
                 EquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.bodyEquipmentInInventory[i]);
                 playerInventoryManager.AddItemToInventory(equipment);
             }
-
-            for (int i = 0; i < currentCharacterData.legEquipmentInInventory.Count; i++)
-            {
-                EquipmentItem equipment = WorldItemDatabase.Instance.GetLegEquipmentByID(currentCharacterData.legEquipmentInInventory[i]);
-                playerInventoryManager.AddItemToInventory(equipment);
-            }
-
-            for (int i = 0; i < currentCharacterData.handEquipmentInInventory.Count; i++)
-            {
-                EquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.handEquipmentInInventory[i]);
-                playerInventoryManager.AddItemToInventory(equipment);
-            }
+            
 
             for (int i = 0; i < currentCharacterData.quickSlotItemsInInventory.Count; i++)
             {
@@ -688,8 +641,6 @@ namespace BK
             //  SYNC ARMOR
             playerNetworkManager.OnHeadEquipmentChanged(0, playerNetworkManager.headEquipmentID.Value);
             playerNetworkManager.OnBodyEquipmentChanged(0, playerNetworkManager.bodyEquipmentID.Value);
-            playerNetworkManager.OnLegEquipmentChanged(0, playerNetworkManager.legEquipmentID.Value);
-            playerNetworkManager.OnHandEquipmentChanged(0, playerNetworkManager.handEquipmentID.Value);
 
             //  SYNC PROJECTILES
             playerNetworkManager.OnMainProjectileIDChange(0, playerNetworkManager.mainProjectileID.Value);

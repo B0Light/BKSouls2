@@ -233,52 +233,7 @@ namespace BK
                     PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
 
                     break;
-                case EquipmentType.Legs:
-
-                    //  IF OUR CURRENT EQUIPMENT IN THIS SLOT, IS NOT A NULL ITEM, ADD IT TO OUR INVENTORY
-                    equippedItem = player.playerInventoryManager.legEquipment;
-
-                    if (equippedItem != null)
-                    {
-                        player.playerInventoryManager.AddItemToInventory(equippedItem);
-                    }
-
-                    //  THEN ASSIGN THE SLOT OUR NEW ITEM
-                    player.playerInventoryManager.legEquipment = currentItem as LegEquipmentItem;
-
-                    //  THEN REMOVE THE NEW ITEM FROM OUR INVENTORY
-                    player.playerInventoryManager.RemoveItemFromInventory(currentItem);
-
-                    //  RE-EQUIP NEW ITEM
-                    player.playerEquipmentManager.LoadLegEquipment(player.playerInventoryManager.legEquipment);
-
-                    //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
-
-                    break;
-                case EquipmentType.Hands:
-
-                    //  IF OUR CURRENT EQUIPMENT IN THIS SLOT, IS NOT A NULL ITEM, ADD IT TO OUR INVENTORY
-                    equippedItem = player.playerInventoryManager.handEquipment;
-
-                    if (equippedItem != null)
-                    {
-                        player.playerInventoryManager.AddItemToInventory(equippedItem);
-                    }
-
-                    //  THEN ASSIGN THE SLOT OUR NEW ITEM
-                    player.playerInventoryManager.handEquipment = currentItem as HandEquipmentItem;
-
-                    //  THEN REMOVE THE NEW ITEM FROM OUR INVENTORY
-                    player.playerInventoryManager.RemoveItemFromInventory(currentItem);
-
-                    //  RE-EQUIP NEW ITEM
-                    player.playerEquipmentManager.LoadHandEquipment(player.playerInventoryManager.handEquipment);
-
-                    //  REFRESHES EQUIPMENT WINDOW
-                    PlayerUIManager.Instance.playerUIEquipmentManager.RefreshMenu();
-
-                    break;
+                
                 case EquipmentType.MainProjectile:
 
                     //  IF OUR CURRENT EQUIPMENT IN THIS SLOT, IS NOT A NULL ITEM, ADD IT TO OUR INVENTORY

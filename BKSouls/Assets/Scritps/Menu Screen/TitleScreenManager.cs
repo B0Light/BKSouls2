@@ -406,8 +406,7 @@ namespace BK
 
         public void SetCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
             WeaponItem[] mainHandWeapons, WeaponItem[] offHandWeapons, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment,
-            QuickSlotItem[] quickSlotItems)
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, QuickSlotItem[] quickSlotItems)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -456,28 +455,6 @@ namespace BK
             else
             {
                 player.playerInventoryManager.bodyEquipment = null;
-            }
-
-            // LEG EQUIPMENT
-            if (legEquipment != null)
-            {
-                LegEquipmentItem equipment = Instantiate(legEquipment);
-                player.playerInventoryManager.legEquipment = equipment;
-            }
-            else
-            {
-                player.playerInventoryManager.legEquipment = null;
-            }
-
-            //  HAND EQUIPMENT
-            if (handEquipment != null)
-            {
-                HandEquipmentItem equipment = Instantiate(handEquipment);
-                player.playerInventoryManager.handEquipment = equipment;
-            }
-            else
-            {
-                player.playerInventoryManager.handEquipment = null;
             }
 
             player.playerEquipmentManager.EquipArmor();

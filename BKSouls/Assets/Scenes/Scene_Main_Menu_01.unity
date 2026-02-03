@@ -10216,8 +10216,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
     headEquipment: {fileID: 11400000, guid: 1ad4fc2aed7b48446b58d776e23869fb, type: 2}
     bodyEquipment: {fileID: 11400000, guid: 411b71f54b96e1d4090537da3cf78587, type: 2}
-    legEquipment: {fileID: 11400000, guid: f9569a217aea6434aa70b334271de919, type: 2}
-    handEquipment: {fileID: 11400000, guid: b2b48bdf8d41fce42aa8909788ebc462, type: 2}
     quickSlotItems:
     - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
     - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
@@ -10240,8 +10238,6 @@ MonoBehaviour:
     - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
     headEquipment: {fileID: 11400000, guid: 3756aa9031f91d84ba1333060ed87103, type: 2}
     bodyEquipment: {fileID: 11400000, guid: 411b71f54b96e1d4090537da3cf78587, type: 2}
-    legEquipment: {fileID: 11400000, guid: f9569a217aea6434aa70b334271de919, type: 2}
-    handEquipment: {fileID: 11400000, guid: b2b48bdf8d41fce42aa8909788ebc462, type: 2}
     quickSlotItems:
     - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
     - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}

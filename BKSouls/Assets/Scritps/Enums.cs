@@ -152,10 +152,9 @@ public enum EquipmentType
     LeftWeapon03,   // 5
     Head,           // 6
     Body,           // 7
-    Legs,           // 8
-    Hands,          // 9
-    MainProjectile, // 10
-    SecondaryProjectile, // 11
+    
+    MainProjectile, // 8
+    SecondaryProjectile, // 9
     QuickSlot01,        // 12
     QuickSlot02,        // 13
     QuickSlot03         // 14

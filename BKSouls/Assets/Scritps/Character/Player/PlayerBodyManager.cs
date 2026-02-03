@@ -89,10 +89,7 @@ namespace BK
             {
                 model.SetActive(true);
             }
-        }
-
-        public void EnableArms()
-        {
+            
             foreach (var model in maleArms)
             {
                 model.SetActive(true);
@@ -102,10 +99,7 @@ namespace BK
             {
                 model.SetActive(true);
             }
-        }
-
-        public void EnableLowerBody()
-        {
+            
             foreach (var model in maleLegs)
             {
                 model.SetActive(true);
@@ -128,10 +122,7 @@ namespace BK
             {
                 model.SetActive(false);
             }
-        }
-
-        public void DisableArms()
-        {
+            
             foreach (var model in maleArms)
             {
                 model.SetActive(false);
@@ -141,10 +132,7 @@ namespace BK
             {
                 model.SetActive(false);
             }
-        }
-
-        public void DisableLowerBody()
-        {
+            
             foreach (var model in maleLegs)
             {
                 model.SetActive(false);

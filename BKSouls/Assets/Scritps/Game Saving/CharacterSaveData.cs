@@ -98,8 +98,6 @@ namespace BK
         public List<SerilalizableQuickSlotItem> quickSlotItemsInInventory;
         public List<int> headEquipmentInInventory;
         public List<int> bodyEquipmentInInventory;
-        public List<int> handEquipmentInInventory;
-        public List<int> legEquipmentInInventory;
         
         [Header("Inventory Size")] 
         public Vector2Int rightWeaponBoxSize;
@@ -153,8 +151,7 @@ namespace BK
             quickSlotItemsInInventory = new List<SerilalizableQuickSlotItem>();
             headEquipmentInInventory = new List<int>();
             bodyEquipmentInInventory = new List<int>();
-            legEquipmentInInventory = new List<int>();
-            handEquipmentInInventory = new List<int>();
+           
         }
     }
 }

@@ -25,8 +25,6 @@ namespace BK
         [Header("Class Armor")]
         public HeadEquipmentItem headEquipment;
         public BodyEquipmentItem bodyEquipment;
-        public LegEquipmentItem legEquipment;
-        public HandEquipmentItem handEquipment;
 
         [Header("Quick Slot Items")]
         public QuickSlotItem[] quickSlotItems = new QuickSlotItem[3];
@@ -34,7 +32,7 @@ namespace BK
         public void SetClass(PlayerManager player)
         {
             TitleScreenManager.Instance.SetCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
-                mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems);
+                mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, quickSlotItems);
         }
     }
 }
