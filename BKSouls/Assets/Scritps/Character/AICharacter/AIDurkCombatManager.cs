@@ -53,7 +53,7 @@ namespace BK
         public void OpenClubDamageCollider()
         {          
             clubDamageCollider.EnableDamageCollider();
-            durkManager.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(durkManager.durkSoundFXManager.clubWhooshes));
+            durkManager.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(durkManager.durkSoundFXManager.clubWhooshes));
         }
 
         public void CloseClubDamageCollider()

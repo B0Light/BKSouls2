@@ -34,7 +34,7 @@ namespace BK
         {
             CreatePenetrationIntoObject(collision);
 
-            WorldSoundFXManager.instance.AlertNearbyCharactersToSound(transform.position, 3);
+            WorldSoundFXManager.Instance.AlertNearbyCharactersToSound(transform.position, 3);
 
             CharacterManager potentialTarget = collision.transform.gameObject.GetComponent<CharacterManager>();
 

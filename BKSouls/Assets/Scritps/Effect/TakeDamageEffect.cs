@@ -126,7 +126,7 @@ namespace BK
 
         protected void PlayDamageSFX(CharacterManager character)
         {
-            AudioClip physicalDamageSFX = WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.physicalDamageSFX);
+            AudioClip physicalDamageSFX = WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.physicalDamageSFX);
 
             character.characterSoundFXManager.PlaySoundFX(physicalDamageSFX);
             character.characterSoundFXManager.PlayDamageGruntSoundFX();

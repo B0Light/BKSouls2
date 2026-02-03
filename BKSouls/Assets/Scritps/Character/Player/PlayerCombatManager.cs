@@ -337,7 +337,7 @@ namespace BK
                 Destroy(player.playerEffectsManager.activeDrawnProjectileFX);
 
             //  PLAY RELEASE ARROW SFX
-            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.releaseArrowSFX));
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.releaseArrowSFX));
 
             // ANIMATE THE BOW
             Animator bowAnimator;

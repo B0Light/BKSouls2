@@ -25,7 +25,8 @@ namespace BK.Inventory
 
         private ItemGrid _itemGrid;
         private ItemGrid _backpackGrid;
-        private ItemGrid_Equipment _itemGridEquipmentWeapon;
+        private ItemGrid_Equipment _itemGridEquipmentRightWeapon;
+        private ItemGrid_Equipment _itemGridEquipmentLeftWeapon;
         private ItemGrid_Equipment _itemGridEquipmentHelmet;
         private ItemGrid_Equipment _itemGridEquipmentArmor;
         private ItemGrid_Equipment _itemGridEquipmentConsumable;
@@ -85,7 +86,8 @@ namespace BK.Inventory
             _itemGrid = GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid;
             _backpackGrid = GUIController.Instance.inventoryGUIManager.backpackItemGrid;
             _shareItemGrid = GUIController.Instance.inventoryGUIManager.shareInventoryItemGrid;
-            _itemGridEquipmentWeapon = GUIController.Instance.inventoryGUIManager.playerWeapon;
+            _itemGridEquipmentRightWeapon = GUIController.Instance.inventoryGUIManager.playerRightWeapon;
+            _itemGridEquipmentLeftWeapon = GUIController.Instance.inventoryGUIManager.playerLeftWeapon;
             _itemGridEquipmentHelmet = GUIController.Instance.inventoryGUIManager.playerHelmet;
             _itemGridEquipmentArmor = GUIController.Instance.inventoryGUIManager.playerArmor;
             _itemGridEquipmentConsumable = GUIController.Instance.inventoryGUIManager.playerConsumable;
@@ -93,7 +95,8 @@ namespace BK.Inventory
 
             _itemGrid.itemGridWeight.OnValueChanged += UpdateWeight;
             _backpackGrid.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentWeapon.itemGridWeight.OnValueChanged += UpdateWeight;
+            _itemGridEquipmentRightWeapon.itemGridWeight.OnValueChanged += UpdateWeight;
+            _itemGridEquipmentLeftWeapon.itemGridWeight.OnValueChanged += UpdateWeight;
             _itemGridEquipmentHelmet.itemGridWeight.OnValueChanged += UpdateWeight;
             _itemGridEquipmentArmor.itemGridWeight.OnValueChanged += UpdateWeight;
             _itemGridEquipmentConsumable.itemGridWeight.OnValueChanged += UpdateWeight;
@@ -113,9 +116,9 @@ namespace BK.Inventory
                 GetBackpackInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
             }
 
-            if (GetWeaponInventory() != null)
+            if (GetRightWeaponInventory() != null)
             {
-                GetWeaponInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
+                GetRightWeaponInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
             }
 
             if (GetHelmetInventory() != null)
@@ -314,11 +317,18 @@ namespace BK.Inventory
                 : _shareItemGrid;
         }
 
-        public ItemGrid_Equipment GetWeaponInventory()
+        public ItemGrid_Equipment GetRightWeaponInventory()
         {
-            return _itemGridEquipmentWeapon == null
-                ? _itemGridEquipmentWeapon = GUIController.Instance.inventoryGUIManager.playerWeapon
-                : _itemGridEquipmentWeapon;
+            return _itemGridEquipmentRightWeapon == null
+                ? _itemGridEquipmentRightWeapon = GUIController.Instance.inventoryGUIManager.playerRightWeapon
+                : _itemGridEquipmentRightWeapon;
+        }
+        
+        public ItemGrid_Equipment GetLeftWeaponInventory()
+        {
+            return _itemGridEquipmentLeftWeapon == null
+                ? _itemGridEquipmentLeftWeapon = GUIController.Instance.inventoryGUIManager.playerLeftWeapon
+                : _itemGridEquipmentLeftWeapon;
         }
 
         public ItemGrid_Equipment GetHelmetInventory()
@@ -403,7 +413,7 @@ namespace BK.Inventory
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
             inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
-            return GetWeaponInventory().AddItem(item);
+            return GetRightWeaponInventory().AddItem(item);
         }
 
         public bool ReloadItemHelmet(Item itemInfoData)
@@ -452,7 +462,8 @@ namespace BK.Inventory
         {
             float newItemWeight = 0;
             newItemWeight += _itemGrid.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentWeapon.itemGridWeight.Value;
+            newItemWeight += _itemGridEquipmentRightWeapon.itemGridWeight.Value;
+            newItemWeight += _itemGridEquipmentLeftWeapon.itemGridWeight.Value;
             newItemWeight += _itemGridEquipmentHelmet.itemGridWeight.Value;
             newItemWeight += _itemGridEquipmentArmor.itemGridWeight.Value;
             newItemWeight += _itemGridEquipmentConsumable.itemGridWeight.Value;
@@ -465,7 +476,8 @@ namespace BK.Inventory
             _initialItemDict.Clear();
             MergeItemValue(_initialItemDict, _itemGrid);
             MergeItemValue(_initialItemDict, _backpackGrid);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentWeapon);
+            MergeItemValue(_initialItemDict, _itemGridEquipmentRightWeapon);
+            MergeItemValue(_initialItemDict, _itemGridEquipmentLeftWeapon);
             MergeItemValue(_initialItemDict, _itemGridEquipmentHelmet);
             MergeItemValue(_initialItemDict, _itemGridEquipmentArmor);
             MergeItemValue(_initialItemDict, _itemGridEquipmentConsumable);
@@ -489,7 +501,8 @@ namespace BK.Inventory
             _exitItemDict.Clear();
             MergeItemValue(_exitItemDict, _itemGrid);
             MergeItemValue(_exitItemDict, _backpackGrid);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentWeapon);
+            MergeItemValue(_exitItemDict, _itemGridEquipmentRightWeapon);
+            MergeItemValue(_exitItemDict, _itemGridEquipmentLeftWeapon);
             MergeItemValue(_exitItemDict, _itemGridEquipmentHelmet);
             MergeItemValue(_exitItemDict, _itemGridEquipmentArmor);
             MergeItemValue(_exitItemDict, _itemGridEquipmentConsumable);

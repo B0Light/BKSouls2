@@ -17,14 +17,14 @@ namespace BK
 
         public override void PlayBlockSoundFX()
         {
-            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(player.playerCombatManager.currentWeaponBeingUsed.blocking));
+            PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(player.playerCombatManager.currentWeaponBeingUsed.blocking));
         }
 
         public override void PlayFootStepSoundFX()
         {
             base.PlayFootStepSoundFX();
 
-            WorldSoundFXManager.instance.AlertNearbyCharactersToSound(transform.position, 2);
+            WorldSoundFXManager.Instance.AlertNearbyCharactersToSound(transform.position, 2);
         }
     }
 }

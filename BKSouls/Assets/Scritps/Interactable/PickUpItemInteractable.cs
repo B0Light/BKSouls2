@@ -102,7 +102,7 @@ namespace BK
             base.Interact(player);
 
             // 1. PLAY A SFX
-            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.pickUpItemSFX);
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.pickUpItemSFX);
 
             // 2. PLAY AN ANIMATION
             player.playerAnimatorManager.PlayTargetActionAnimation("Pick_Up_Item_01", true);

@@ -562,7 +562,7 @@ namespace BK.Inventory
             switch (pickUpItem.itemData.itemType)
             {
                 case ItemType.Weapon:
-                    selectItemGrid = GUIController.Instance.inventoryGUIManager.playerWeapon;
+                    selectItemGrid = GUIController.Instance.inventoryGUIManager.playerRightWeapon;
                     break;
                 case ItemType.Armor:
                     selectItemGrid = GUIController.Instance.inventoryGUIManager.playerArmor;

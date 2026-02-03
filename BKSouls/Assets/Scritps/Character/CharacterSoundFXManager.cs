@@ -36,35 +36,35 @@ namespace BK
 
         public void PlayRollSoundFX()
         {
-            audioSource.PlayOneShot(WorldSoundFXManager.instance.rollSFX);
+            audioSource.PlayOneShot(WorldSoundFXManager.Instance.rollSFX);
         }
 
         public virtual void PlayDamageGruntSoundFX()
         {
             if (damageGrunts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(damageGrunts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(damageGrunts));
         }
 
         public virtual void PlayAttackGruntSoundFX()
         {
             if (attackGrunts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(attackGrunts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(attackGrunts));
         }
 
         public virtual void PlayFootStepSoundFX()
         {
             if (footSteps.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(footSteps));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(footSteps));
         }
 
         public virtual void PlayStanceBreakSoundFX()
         {
-            audioSource.PlayOneShot(WorldSoundFXManager.instance.stanceBreakSFX);
+            audioSource.PlayOneShot(WorldSoundFXManager.Instance.stanceBreakSFX);
         }
 
         public virtual void PlayCriticalStrikeSoundFX()
         {
-            audioSource.PlayOneShot(WorldSoundFXManager.instance.criticalStrikeSFX);
+            audioSource.PlayOneShot(WorldSoundFXManager.Instance.criticalStrikeSFX);
         }
 
         public virtual void PlayBlockSoundFX()

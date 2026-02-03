@@ -18,13 +18,13 @@ namespace BK
         public virtual void PlayClubImpactSoundFX()
         {
             if (clubImpacts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(clubImpacts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(clubImpacts));
         }
 
         public virtual void PlayStompImpactSoundFX()
         {
             if (stompImpacts.Length > 0)
-                PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(stompImpacts));
+                PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(stompImpacts));
         }
     }
 }

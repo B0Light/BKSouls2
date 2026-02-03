@@ -576,18 +576,41 @@ namespace BK
                 playerInventoryManager.AddItemToInventory(projectile);
             }
             
-            //===============
-            // 일반 인벤토리 
-            WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(new Vector2Int(2,2));
-            WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(new Vector2Int(2,2));
-            WorldPlayerInventory.Instance.GetWeaponInventory().UpdateItemGridSize(new Vector2Int(1,4));
-            WorldPlayerInventory.Instance.GetInventory().UpdateItemGridSize(new Vector2Int(6,3));
-            /*
+            WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(currentCharacterData.helmetBoxSize);
+            var helmetItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.helmetItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(currentCharacterData.armorBoxSize);
+            var armorItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.armorItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(armorItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetRightWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
+            var rightWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(rightWeaponItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
+            var leftWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(leftWeaponItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
+            foreach (KeyValuePair<int,int> item in currentCharacterData.shareInventoryItems)
+            {
+                for (int i = 0; i < item.Value; i++)
+                {
+                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
+                    if (!WorldPlayerInventory.Instance.ReloadItemShareBox(itemInfoData))
+                    {
+                        Debug.LogWarning("Reload Error");
+                    }
+                }
+            }
+            
+            WorldPlayerInventory.Instance.GetInventory().UpdateItemGridSize(currentCharacterData.inventoryBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.inventoryItems)
             {
                 for (int i = 0; i < item.Value; i++)
                 {
-                    ItemInfo itemInfoData = WorldDatabase_Item.Instance.GetItemByID(item.Key);
+                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
                     if (!WorldPlayerInventory.Instance.ReloadItemInventory(itemInfoData))
                     {
                         Debug.LogWarning("Reload Error");
@@ -595,22 +618,45 @@ namespace BK
                 }
             }
             
-            // 가방 인벤토리 
             WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(currentCharacterData.backpackSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
             {
                 for (int i = 0; i < item.Value; i++)
                 {
-                    ItemInfo itemInfoData = WorldDatabase_Item.Instance.GetItemByID(item.Key);
+                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
                     if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
                     {
                         Debug.LogWarning("Reload Error");
                     }
                 }
             }
-            */
-            //===============
-
+            // 금고 인벤토리 
+            WorldPlayerInventory.Instance.GetSafeInventory().UpdateItemGridSize(currentCharacterData.safeBoxSize);
+            foreach (KeyValuePair<int,int> item in currentCharacterData.safeItems)
+            {
+                for (int i = 0; i < item.Value; i++)
+                {
+                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
+                    if (!WorldPlayerInventory.Instance.ReloadItemSafe(itemInfoData))
+                    {
+                        Debug.LogWarning("Reload Error");
+                    }
+                }
+            }
+            // QuickSlot 인벤토리 
+            WorldPlayerInventory.Instance.GetConsumableInventory().UpdateItemGridSize(currentCharacterData.consumableBoxSize);
+            foreach (KeyValuePair<int,int> item in currentCharacterData.quickSlotConsumableItems)
+            {
+                for (int i = 0; i < item.Value; i++)
+                {
+                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
+                    if (!WorldPlayerInventory.Instance.ReloadItemQuickSlot(itemInfoData))
+                    {
+                        Debug.LogError("Reload Error");
+                    }
+                }
+            }
+            
             playerEquipmentManager.EquipArmor();
             playerEquipmentManager.LoadMainProjectileEquipment(currentCharacterData.mainProjectile.GetProjectile());
             playerEquipmentManager.LoadSecondaryProjectileEquipment(currentCharacterData.secondaryProjectile.GetProjectile());

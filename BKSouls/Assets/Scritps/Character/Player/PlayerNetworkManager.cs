@@ -568,7 +568,7 @@ namespace BK
             player.playerEffectsManager.activeDrawnProjectileFX = arrow;
 
             //  PLAY SFX
-            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(WorldSoundFXManager.instance.notchArrowSFX));
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.notchArrowSFX));
         }
 
         //  RELEASE PROJECTILE

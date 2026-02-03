@@ -205,7 +205,7 @@ namespace BK
         {
             if (bossFightIsActive.Value)
             {
-                WorldSoundFXManager.instance.PlayBossTrack(bossIntroClip, bossBattleLoopClip);
+                WorldSoundFXManager.Instance.PlayBossTrack(bossIntroClip, bossBattleLoopClip);
 
                 GameObject bossHealthBar =
                 Instantiate(GUIController.Instance.playerUIHudManager.bossHealthBarObject, GUIController.Instance.playerUIHudManager.bossHealthBarParent);
@@ -216,7 +216,7 @@ namespace BK
             }
             else
             {
-                WorldSoundFXManager.instance.StopBossMusic();
+                WorldSoundFXManager.Instance.StopBossMusic();
             }
         }
 

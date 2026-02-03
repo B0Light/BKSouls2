@@ -12,7 +12,7 @@ namespace BK
             if (blockingSFX.Length <= 0)
                 return;
 
-            PlaySoundFX(WorldSoundFXManager.instance.ChooseRandomSFXFromArray(blockingSFX));
+            PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(blockingSFX));
         }
     }
 }

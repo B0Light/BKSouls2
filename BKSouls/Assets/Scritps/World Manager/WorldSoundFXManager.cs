@@ -5,13 +5,13 @@ using Unity.Netcode;
 
 namespace BK
 {
-    public class WorldSoundFXManager : MonoBehaviour
+    public class WorldSoundFXManager : Singleton<WorldSoundFXManager>
     {
-        public static WorldSoundFXManager instance;
-
         [Header("Boss Track")]
         [SerializeField] AudioSource bossIntroPlayer;
         [SerializeField] AudioSource bossLoopPlayer;
+
+        [SerializeField] private AudioClip emptySound;
 
         [Header("Damage Sounds")]
         public AudioClip[] physicalDamageSFX;
@@ -25,25 +25,14 @@ namespace BK
         public AudioClip[] notchArrowSFX;
         public AudioClip healingFlaskSFX;
 
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-
         private void Start()
         {
             DontDestroyOnLoad(gameObject);
         }
 
-        public AudioClip ChooseRandomSFXFromArray(AudioClip[] array)
+        public AudioClip ChooseRandomSfxFromArray(AudioClip[] array)
         {
+            if (array.Length == 0) return emptySound;
             int index = Random.Range(0, array.Length);
 
             return array[index];

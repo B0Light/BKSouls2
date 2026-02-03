@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BK
 {
@@ -99,6 +100,31 @@ namespace BK
         public List<int> bodyEquipmentInInventory;
         public List<int> handEquipmentInInventory;
         public List<int> legEquipmentInInventory;
+        
+        [Header("Inventory Size")] 
+        public Vector2Int rightWeaponBoxSize;
+        public Vector2Int leftWeaponBoxSize;
+        public Vector2Int helmetBoxSize;
+        public Vector2Int armorBoxSize;
+        public Vector2Int consumableBoxSize;
+    
+        public Vector2Int inventoryBoxSize;
+        public Vector2Int backpackSize;
+        public Vector2Int shareBoxSize;
+        public Vector2Int safeBoxSize;
+        
+        [Header("New Inventory")] 
+        public int rightWeaponItemCode;
+        public int leftWeaponItemCode;
+        public int helmetItemCode;
+        public int armorItemCode;
+        // key : itemID / value : itemCount
+        public SerializableDictionary<int, int> quickSlotConsumableItems;
+        public SerializableDictionary<int, int> inventoryItems;
+        public SerializableDictionary<int, int> backpackItems;
+        public SerializableDictionary<int, int> safeItems;
+        [Header("ShareInventory")] 
+        public SerializableDictionary<int, int> shareInventoryItems;
 
         //  THIS WILL CHANGE A LITTLE WHEN WE ADD MULTIPLE SPELL SLOTS, IT WILL BE SOMEWHAT SIMILAR TO HOW WEAPONS ARE SAVED
         public int currentSpell;
@@ -106,6 +132,17 @@ namespace BK
 
         public CharacterSaveData()
         {
+            rightWeaponBoxSize = new Vector2Int(1, 4);
+            leftWeaponBoxSize = new Vector2Int(2, 2);
+            helmetBoxSize = new Vector2Int(2, 2);
+            armorBoxSize = new Vector2Int(2, 2);
+            consumableBoxSize = new Vector2Int(4, 1);
+
+            backpackSize = new Vector2Int(0,0);
+            inventoryBoxSize = new Vector2Int(6, 3);
+            safeBoxSize = new Vector2Int(2, 2);
+            shareBoxSize = new Vector2Int(8, 20);
+            
             sitesOfGrace = new SerializableDictionary<int, bool>();
             bossesAwakened = new SerializableDictionary<int, bool>();
             bossesDefeated = new SerializableDictionary<int, bool>();

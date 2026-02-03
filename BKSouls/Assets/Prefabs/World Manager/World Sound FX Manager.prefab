@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.WorldSoundFXManager
   bossIntroPlayer: {fileID: 730005725882261208}
   bossLoopPlayer: {fileID: 6518401882414043424}
+  emptySound: {fileID: 8300000, guid: 484238d059a46fd48b40a29104d66dff, type: 3}
   physicalDamageSFX:
   - {fileID: 8300000, guid: bbdcb40a3eb60c745a148e6c294252dd, type: 3}
   - {fileID: 8300000, guid: 52563b061a3b5c74aa902c58160ea6a2, type: 3}
@@ -61,6 +62,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 0a8f8620a76094d57959cb8f81c81871, type: 3}
   notchArrowSFX:
   - {fileID: 8300000, guid: 05b354e5be31e4de68ed0febd5be6c29, type: 3}
+  healingFlaskSFX: {fileID: 8300000, guid: 0fd607aabc6c84544ab60d594da07f34, type: 3}
 --- !u!82 &730005725882261208
 AudioSource:
   m_ObjectHideFlags: 0

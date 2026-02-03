@@ -25,8 +25,9 @@ namespace BK
         public bool menuWindowIsOpen = false;       // INVENTORY SCREEN, EQUIPMENT MENU, BLACKSMITH MENU ECT
         public bool popUpWindowIsOpen = false;      // ITEM PICK UP, DIALOGUE POP UP ECT
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             //playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();

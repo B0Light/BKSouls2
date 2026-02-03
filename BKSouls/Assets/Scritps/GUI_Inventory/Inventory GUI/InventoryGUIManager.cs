@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BK.Inventory
 {
@@ -10,7 +11,8 @@ namespace BK.Inventory
         [SerializeField] private GameObject itemTooltip;
 
         [Header("Player Equipment Inventory")] 
-        public ItemGrid_Equipment playerWeapon;
+        public ItemGrid_Equipment playerRightWeapon;
+        public ItemGrid_Equipment playerLeftWeapon;
         public ItemGrid_Equipment playerHelmet;
         public ItemGrid_Equipment playerArmor;
         public ItemGrid_Equipment playerConsumable;
@@ -18,7 +20,6 @@ namespace BK.Inventory
         [Header("Player Inventory")] 
         public ItemGrid playerInventoryItemGrid;
         public ItemGrid backpackItemGrid;
-        [SerializeField] private CanvasGroup backpackCanvasGroup;
         private bool _hasBackpack = false;
 
         [Header("Safe Inventory")] 
@@ -157,9 +158,7 @@ namespace BK.Inventory
 
         public void ToggleBackpackInventory(bool isActive)
         {
-            backpackCanvasGroup.alpha = isActive ? 1 : 0;
-            backpackCanvasGroup.interactable = isActive;
-            backpackCanvasGroup.blocksRaycasts = isActive;
+            backpackItemGrid.gameObject.SetActive(isActive);
 
             _hasBackpack = isActive;
         }
