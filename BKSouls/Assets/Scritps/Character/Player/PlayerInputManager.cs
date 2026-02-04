@@ -38,8 +38,6 @@ namespace BK
         [SerializeField] bool dodge_Input = false;
         [SerializeField] bool sprint_Input = false;
         [SerializeField] bool jump_Input = false;
-        [SerializeField] bool switch_Right_Weapon_Input = false;
-        [SerializeField] bool switch_Left_Weapon_Input = false;
         [SerializeField] bool switch_Quick_Slot_Item_Input = false;
         [SerializeField] bool interaction_Input = false;
         [SerializeField] bool use_Item_Input = false;
@@ -137,8 +135,6 @@ namespace BK
                 //  ACTIONS
                 playerControls.PlayerActions.Dodge.performed += i => dodge_Input = true;
                 playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
-                playerControls.PlayerActions.SwitchRightWeapon.performed += i => switch_Right_Weapon_Input = true;
-                playerControls.PlayerActions.SwitchLeftWeapon.performed += i => switch_Left_Weapon_Input = true;
                 playerControls.PlayerActions.SwitchQuickSlotItem.performed += i => switch_Quick_Slot_Item_Input = true;
                 playerControls.PlayerActions.Interact.performed += i => interaction_Input = true;
                 playerControls.PlayerActions.X.performed += i => use_Item_Input = true;
@@ -236,8 +232,6 @@ namespace BK
             HandleRTInput();
             HandleChargeRTInput();
             HandleLTInput();
-            HandleSwitchRightWeaponInput();
-            HandleSwitchLeftWeaponInput();
             HandleSwitchQuickSlotItemInput();
             HandleQuedInputs();
             HandleInteractionInput();
@@ -619,44 +613,6 @@ namespace BK
                 WeaponItem weaponPerformingAshOfWar = player.playerCombatManager.SelectWeaponToPerformAshOfWar();
 
                 weaponPerformingAshOfWar.ashOfWarAction.AttemptToPerformAction(player);
-            }
-        }
-
-        private void HandleSwitchRightWeaponInput()
-        {
-            if (switch_Right_Weapon_Input)
-            {
-                switch_Right_Weapon_Input = false;
-
-                if (GUIController.Instance.menuWindowIsOpen)
-                    return;
-
-                if (player.isPerformingAction)
-                    return;
-
-                if (player.playerCombatManager.isUsingItem)
-                    return;
-
-                player.playerEquipmentManager.SwitchRightWeapon();
-            }
-        }
-
-        private void HandleSwitchLeftWeaponInput()
-        {
-            if (switch_Left_Weapon_Input)
-            {
-                switch_Left_Weapon_Input = false;
-
-                if (GUIController.Instance.menuWindowIsOpen)
-                    return;
-
-                if (player.isPerformingAction)
-                    return;
-
-                if (player.playerCombatManager.isUsingItem)
-                    return;
-
-                player.playerEquipmentManager.SwitchLeftWeapon();
             }
         }
 

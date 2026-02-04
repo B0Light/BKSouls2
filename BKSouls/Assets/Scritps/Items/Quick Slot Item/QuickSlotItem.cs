@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BK
 {
-    public class QuickSlotItem : Item
+    public class QuickSlotItem : GridItem
     {
         [Header("Item Model")]
         [SerializeField] protected GameObject itemModel;

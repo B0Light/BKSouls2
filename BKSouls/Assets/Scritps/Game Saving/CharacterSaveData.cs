@@ -68,23 +68,8 @@ namespace BK
         [Header("Equipment")]
         public int headEquipment;
         public int bodyEquipment;
-        public int legEquipment;
-        public int handEquipment;
-
-        public int rightWeaponIndex;
-        public SerializableWeapon rightWeapon01;
-        public SerializableWeapon rightWeapon02;
-        public SerializableWeapon rightWeapon03;
-
-        public int leftWeaponIndex;
-        public SerializableWeapon leftWeapon01;
-        public SerializableWeapon leftWeapon02;
-        public SerializableWeapon leftWeapon03;
 
         public int quickSlotIndex;
-        public SerilalizableQuickSlotItem quickSlotItem01;
-        public SerilalizableQuickSlotItem quickSlotItem02;
-        public SerilalizableQuickSlotItem quickSlotItem03;
 
         public SerializableRangedProjectile mainProjectile;
         public SerializableRangedProjectile secondaryProjectile;
@@ -93,11 +78,7 @@ namespace BK
         public int currentFocusPointsFlaskRemaining = 1;
 
         [Header("Inventory")]
-        public List<SerializableWeapon> weaponsInInventory;
         public List<SerializableRangedProjectile> projectilesInInventory;
-        public List<SerilalizableQuickSlotItem> quickSlotItemsInInventory;
-        public List<int> headEquipmentInInventory;
-        public List<int> bodyEquipmentInInventory;
         
         [Header("Inventory Size")] 
         public Vector2Int rightWeaponBoxSize;
@@ -145,13 +126,15 @@ namespace BK
             bossesAwakened = new SerializableDictionary<int, bool>();
             bossesDefeated = new SerializableDictionary<int, bool>();
             worldItemsLooted = new SerializableDictionary<int, bool>();
-
-            weaponsInInventory = new List<SerializableWeapon>();
+            
             projectilesInInventory = new List<SerializableRangedProjectile>();
-            quickSlotItemsInInventory = new List<SerilalizableQuickSlotItem>();
-            headEquipmentInInventory = new List<int>();
-            bodyEquipmentInInventory = new List<int>();
-           
+
+            quickSlotConsumableItems = new SerializableDictionary<int, int>();
+            inventoryItems = new SerializableDictionary<int, int>();
+            backpackItems = new SerializableDictionary<int, int>();
+            safeItems = new SerializableDictionary<int, int>();
+            shareInventoryItems = new SerializableDictionary<int, int>();
+
         }
     }
 }

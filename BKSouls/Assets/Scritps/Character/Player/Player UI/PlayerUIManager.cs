@@ -15,7 +15,6 @@ namespace BK
         [HideInInspector] public PlayerUIHudManager playerUIHudManager;
         [HideInInspector] public PlayerUIPopUpManager playerUIPopUpManager;
         [HideInInspector] public PlayerUICharacterMenuManager playerUICharacterMenuManager;
-        [HideInInspector] public PlayerUIEquipmentManager playerUIEquipmentManager;
         [HideInInspector] public PlayerUISiteOfGraceManager playerUISiteOfGraceManager;
         [HideInInspector] public PlayerUITeleportLocationManager playerUITeleportLocationManager;
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
@@ -31,7 +30,6 @@ namespace BK
             //playerUIHudManager = GetComponentInChildren<PlayerUIHudManager>();
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
-            playerUIEquipmentManager = GetComponentInChildren<PlayerUIEquipmentManager>();
             playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
             playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
@@ -58,7 +56,6 @@ namespace BK
         public void CloseAllMenuWindows()
         {
             playerUICharacterMenuManager.CloseMenuAfterFixedFrame();
-            playerUIEquipmentManager.CloseMenuAfterFixedFrame();
             playerUISiteOfGraceManager.CloseMenuAfterFixedFrame();
             playerUITeleportLocationManager.CloseMenuAfterFixedFrame();
             playerUILevelUpManager.CloseMenuAfterFixedFrame();

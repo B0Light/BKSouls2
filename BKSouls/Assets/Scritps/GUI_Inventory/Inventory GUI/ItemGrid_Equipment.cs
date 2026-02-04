@@ -9,9 +9,12 @@ namespace BK.Inventory
     public class ItemGrid_Equipment : ItemGrid
     {
         [SerializeField] private PlayerManager _playerManager;
-
         [SerializeField] private ItemType itemType;
+        
         private List<InventoryItem> _curEquipItem = new List<InventoryItem>();
+        
+        [Header("Only Weapon")]
+        [SerializeField] private bool right;
 
         public override bool CheckPlaceItem(InventoryItem inventoryItem, int posX, int posY)
         {
@@ -39,8 +42,10 @@ namespace BK.Inventory
                 switch (itemType)
                 {
                     case ItemType.Weapon:
-                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = inventoryItem.itemData.itemID;
-                        Debug.Log($"Cur Weapon ID : {_playerManager.playerNetworkManager.currentRightHandWeaponID.Value}");
+                        if(right)
+                            _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = inventoryItem.itemData.itemID;
+                        else
+                            _playerManager.playerNetworkManager.currentLeftHandWeaponID.Value = inventoryItem.itemData.itemID;
                         break;
                     case ItemType.Armor:
                         _playerManager.playerNetworkManager.bodyEquipmentID.Value = inventoryItem.itemData.itemID;
@@ -73,7 +78,10 @@ namespace BK.Inventory
                 switch (itemType)
                 {
                     case ItemType.Weapon:
-                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
+                        if(right)
+                            _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
+                        else
+                            _playerManager.playerNetworkManager.currentLeftHandWeaponID.Value = 0;
                         break;
                     case ItemType.Armor:
                         _playerManager.playerNetworkManager.bodyEquipmentID.Value = 0;
@@ -98,8 +106,10 @@ namespace BK.Inventory
             switch (itemType)
             {
                 case ItemType.Weapon:
-                    _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
-                    Debug.Log($"Cur Weapon ID : {_playerManager.playerNetworkManager.currentRightHandWeaponID.Value}");
+                    if(right)
+                        _playerManager.playerNetworkManager.currentRightHandWeaponID.Value = 0;
+                    else
+                        _playerManager.playerNetworkManager.currentLeftHandWeaponID.Value = 0;
                     break;
                 case ItemType.Armor:
                     _playerManager.playerNetworkManager.bodyEquipmentID.Value = 0;

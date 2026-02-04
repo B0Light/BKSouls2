@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BK
@@ -19,19 +20,25 @@ namespace BK
         //arcane/luck/whatever other stats you want
 
         [Header("Class Weapons")]
-        public WeaponItem[] mainHandWeapons = new WeaponItem[3];
-        public WeaponItem[] offHandWeapons = new WeaponItem[3];
+        public WeaponItem mainHandWeapons;
+        public WeaponItem offHandWeapons;
 
         [Header("Class Armor")]
         public HeadEquipmentItem headEquipment;
         public BodyEquipmentItem bodyEquipment;
 
         [Header("Quick Slot Items")]
-        public QuickSlotItem[] quickSlotItems = new QuickSlotItem[3];
+        public List<QuickSlotItem> quickSlotItems = new List<QuickSlotItem>();
 
         public void SetClass(PlayerManager player)
         {
             TitleScreenManager.Instance.SetCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
+                mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, quickSlotItems);
+        }
+
+        public void DecideClass(PlayerManager player)
+        {
+            TitleScreenManager.Instance.DecideCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
                 mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, quickSlotItems);
         }
     }

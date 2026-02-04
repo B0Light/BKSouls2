@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 using Unity.Netcode;
 using UnityEngine.UI;
@@ -63,6 +64,7 @@ namespace BK
 
         [Header("Classes")]
         public CharacterClass[] startingClasses;
+        private int selectClass;
 
         private void Awake()
         {
@@ -96,6 +98,8 @@ namespace BK
         public void StartNewGame()
         {
             WorldSaveGameManager.instance.AttemptToCreateNewGame();
+            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+            startingClasses[selectClass].DecideClass(player);
         }
 
         public void OpenLoadGameMenu()
@@ -391,6 +395,7 @@ namespace BK
                 return;
 
             startingClasses[classID].SetClass(player);
+            selectClass = classID;
             CloseChooseCharacterClassSubMenu();
         }
 
@@ -405,8 +410,35 @@ namespace BK
         }
 
         public void SetCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
-            WeaponItem[] mainHandWeapons, WeaponItem[] offHandWeapons, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, QuickSlotItem[] quickSlotItems)
+            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, 
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, List<QuickSlotItem> quickSlotItems)
+        {
+            // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
+            hiddenHelmet = null;
+
+            // 1. Set the stats
+            player.playerNetworkManager.vigor.Value = vitality;
+            player.playerNetworkManager.endurance.Value = endurance;
+            player.playerNetworkManager.mind.Value = mind;
+            player.playerNetworkManager.strength.Value = strength;
+            player.playerNetworkManager.dexterity.Value = dexterity;
+            player.playerNetworkManager.intelligence.Value = intelligence;
+            player.playerNetworkManager.faith.Value = faith;
+
+            player.playerInventoryManager.headEquipment = headEquipment != null ? Instantiate(headEquipment) : null;
+            player.playerInventoryManager.bodyEquipment = bodyEquipment != null ? Instantiate(bodyEquipment) : null;
+            player.playerInventoryManager.currentRightHandWeapon =
+                mainHandWeapon != null ? Instantiate(mainHandWeapon) : null;
+            player.playerInventoryManager.currentLeftHandWeapon =
+                offHandWeapon != null ? Instantiate(offHandWeapon) : null;
+            
+            player.playerEquipmentManager.EquipArmor();
+            player.playerEquipmentManager.EquipWeapons();
+        }
+        
+        public void DecideCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
+            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, 
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, List<QuickSlotItem> quickSlotItems)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -421,55 +453,24 @@ namespace BK
             player.playerNetworkManager.faith.Value = faith;
 
             // 2. Set the weapons
-            player.playerInventoryManager.weaponsInRightHandSlots[0] = Instantiate(mainHandWeapons[0]);
-            player.playerInventoryManager.weaponsInRightHandSlots[1] = Instantiate(mainHandWeapons[1]);
-            player.playerInventoryManager.weaponsInRightHandSlots[2] = Instantiate(mainHandWeapons[2]);
-            player.playerInventoryManager.currentRightHandWeapon = player.playerInventoryManager.weaponsInRightHandSlots[0];
-            player.playerNetworkManager.currentRightHandWeaponID.Value = player.playerInventoryManager.weaponsInRightHandSlots[0].itemID;
-
-            player.playerInventoryManager.weaponsInLeftHandSlots[0] = Instantiate(offHandWeapons[0]);
-            player.playerInventoryManager.weaponsInLeftHandSlots[1] = Instantiate(offHandWeapons[1]);
-            player.playerInventoryManager.weaponsInLeftHandSlots[2] = Instantiate(offHandWeapons[2]);
-            player.playerInventoryManager.currentLeftHandWeapon = player.playerInventoryManager.weaponsInLeftHandSlots[0];
-            player.playerNetworkManager.currentLeftHandWeaponID.Value = player.playerInventoryManager.weaponsInLeftHandSlots[0].itemID;
+            WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightWeaponInventory(), mainHandWeapon);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftWeaponInventory(), offHandWeapon);
 
             // 3. Set the armor
+            WorldPlayerInventory.Instance.GetHelmetInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetArmorInventory().ResetItemGrid();
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetHelmetInventory(), headEquipment);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetArmorInventory(), bodyEquipment);
 
-            //  HEAD EQUIPMENT
-            if (headEquipment != null)
+            // 4. Consume
+            WorldPlayerInventory.Instance.GetConsumableInventory().ResetItemGrid();
+            foreach (var item in quickSlotItems)
             {
-                HeadEquipmentItem equipment = Instantiate(headEquipment);
-                player.playerInventoryManager.headEquipment = equipment;
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetConsumableInventory(), item);
             }
-            else
-            {
-                player.playerInventoryManager.headEquipment = null;
-            }
-
-            //  BODY EQUIPMENT
-            if (bodyEquipment != null)
-            {
-                BodyEquipmentItem equipment = Instantiate(bodyEquipment);
-                player.playerInventoryManager.bodyEquipment = equipment;
-            }
-            else
-            {
-                player.playerInventoryManager.bodyEquipment = null;
-            }
-
-            player.playerEquipmentManager.EquipArmor();
-
-            // 4. Set the quickslot items
-            player.playerInventoryManager.quickSlotItemIndex = 0;
-
-            if (quickSlotItems[0] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[0] = Instantiate(quickSlotItems[0]);
-            if (quickSlotItems[1] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[1] = Instantiate(quickSlotItems[1]);
-            if (quickSlotItems[2] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[2] = Instantiate(quickSlotItems[2]);
-
-            player.playerEquipmentManager.LoadQuickSlotEquipment(player.playerInventoryManager.quickSlotItemsInQuickSlots[player.playerInventoryManager.quickSlotItemIndex]);
+            
         }
 
         //  CHARACTER HAIR

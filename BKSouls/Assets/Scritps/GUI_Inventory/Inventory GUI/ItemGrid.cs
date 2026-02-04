@@ -192,7 +192,6 @@ namespace BK.Inventory
             {
                 return PlaceItem(item, posOnGrid.Value.x, posOnGrid.Value.y, isLoad);
             }
-
             return false;
         }
 

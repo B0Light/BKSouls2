@@ -6,7 +6,8 @@ namespace BK.Inventory
 {
     public class WorldShopManager : Singleton<WorldShopManager>
     {
-        [Header("Inventory Item UI")] public GameObject inventoryItemRef;
+        [Header("Inventory Item UI")] 
+        public GameObject inventoryItemRef;
 
         public bool BuyItem(Item itemData)
         {
@@ -15,6 +16,15 @@ namespace BK.Inventory
             inventoryItem.itemData = itemData as GridItem;
             inventoryItem.Set();
             return WorldPlayerInventory.Instance.AddItem(itemObject);
+        }
+
+        public bool SetItem(ItemGrid targetGrid, Item item)
+        {
+            GameObject itemObject = Instantiate(inventoryItemRef);
+            InventoryItem inventoryItem = itemObject.GetComponent<InventoryItem>();
+            inventoryItem.itemData = item as GridItem;
+            inventoryItem.Set();
+            return targetGrid.AddItem(itemObject);
         }
     }
 }
