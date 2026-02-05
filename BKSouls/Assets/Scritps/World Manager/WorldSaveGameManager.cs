@@ -338,18 +338,14 @@ namespace BK
 
         public void SaveGame()
         {
-            //  SAVE THE CURRENT FILE UNDER A FILE NAME DEPENDING ON WHICH SLOT WE ARE USING
             saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
 
             saveFileDataWriter = new SaveFileDataWriter();
-            //  GENERALLY WORKS ON MULTIPLE MACHINE TYPES (Application.persistentDataPath)
             saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
             saveFileDataWriter.saveFileName = saveFileName;
-
-            //  PASS THE PLAYERS INFO, FROM GAME, TO THEIR SAVE FILE
+            
             player.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
-
-            //  WRITE THAT INFO ONTO A JSON FILE, SAVED TO THIS MACHINE
+            
             saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
         }
 

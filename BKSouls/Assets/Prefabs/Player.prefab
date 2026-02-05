@@ -2108,7 +2108,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6716391886132699103}
-  m_Layer: 6
+  - component: {fileID: 1425135330323279402}
+  m_Layer: 7
   m_Name: LowerLeg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2132,6 +2133,29 @@ Transform:
   - {fileID: 394371282415457944}
   m_Father: {fileID: 2881473090074788638}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1425135330323279402
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 191590911317164051}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.4
+  m_Direction: 0
+  m_Center: {x: -0.15, y: 0, z: 0}
 --- !u!1 &197902923686571483
 GameObject:
   m_ObjectHideFlags: 0
@@ -54661,7 +54685,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2604982607913613713}
-  m_Layer: 6
+  - component: {fileID: 6993601934202097169}
+  m_Layer: 7
   m_Name: LowerLeg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54685,6 +54710,29 @@ Transform:
   - {fileID: 5128341253225196296}
   m_Father: {fileID: 587963767431918481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &6993601934202097169
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6922592582183682606}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.08
+  m_Height: 0.4
+  m_Direction: 0
+  m_Center: {x: 0.15, y: 0, z: 0}
 --- !u!1 &6925218433595301767
 GameObject:
   m_ObjectHideFlags: 0
@@ -74356,6 +74404,8 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+  lastSiteOfGraceUsed:
+    m_InternalValue: 0
   remainingHealthFlasks:
     m_InternalValue: 3
   remainingFocusPointsFlasks:
@@ -74402,10 +74452,6 @@ MonoBehaviour:
     m_InternalValue: -1
   bodyEquipmentID:
     m_InternalValue: -1
-  legEquipmentID:
-    m_InternalValue: -1
-  handEquipmentID:
-    m_InternalValue: -1
   mainProjectileID:
     m_InternalValue: -1
   secondaryProjectileID:
@@ -74429,6 +74475,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isPerformingAction: 0
   isDead:
     m_InternalValue: 0
   characterController: {fileID: 0}
@@ -74442,7 +74489,6 @@ MonoBehaviour:
   characterLocomotionManager: {fileID: 0}
   characterUIManager: {fileID: 0}
   characterGroup: 0
-  isPerformingAction: 0
   playerAnimatorManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
@@ -74572,16 +74618,6 @@ MonoBehaviour:
   currentRightHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
   currentTwoHandWeapon: {fileID: 0}
-  weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  rightHandWeaponIndex: 0
-  weaponsInLeftHandSlots:
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  leftHandWeaponIndex: 0
   currentSpell: {fileID: 0}
   quickSlotItemsInQuickSlots:
   - {fileID: 0}
@@ -74591,11 +74627,8 @@ MonoBehaviour:
   currentQuickSlotItem: {fileID: 0}
   headEquipment: {fileID: 0}
   bodyEquipment: {fileID: 0}
-  legEquipment: {fileID: 0}
-  handEquipment: {fileID: 0}
   mainProjectile: {fileID: 0}
   secondaryProjectile: {fileID: 0}
-  itemsInInventory: []
 --- !u!114 &6474042748667512669
 MonoBehaviour:
   m_ObjectHideFlags: 0

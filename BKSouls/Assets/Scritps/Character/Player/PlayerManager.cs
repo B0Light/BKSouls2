@@ -300,52 +300,96 @@ namespace BK
             }
         }
 
-        public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentCharacterData)
+        public void SaveGameDataToCurrentCharacterData(ref CharacterSaveData currentGameData)
         {
-            currentCharacterData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
+            currentGameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
-            currentCharacterData.characterName = playerNetworkManager.characterName.Value.ToString();
-            currentCharacterData.isMale = playerNetworkManager.isMale.Value;
-            currentCharacterData.xPosition = transform.position.x;
-            currentCharacterData.yPosition = transform.position.y;
-            currentCharacterData.zPosition = transform.position.z;
+            currentGameData.characterName = playerNetworkManager.characterName.Value.ToString();
+            currentGameData.isMale = playerNetworkManager.isMale.Value;
+            currentGameData.xPosition = transform.position.x;
+            currentGameData.yPosition = transform.position.y;
+            currentGameData.zPosition = transform.position.z;
 
             //  STATS
-            currentCharacterData.currentHealth = playerNetworkManager.currentHealth.Value;
-            currentCharacterData.currentStamina = playerNetworkManager.currentStamina.Value;
-            currentCharacterData.currentFocusPoints = playerNetworkManager.currentFocusPoints.Value;
+            currentGameData.currentHealth = playerNetworkManager.currentHealth.Value;
+            currentGameData.currentStamina = playerNetworkManager.currentStamina.Value;
+            currentGameData.currentFocusPoints = playerNetworkManager.currentFocusPoints.Value;
 
-            currentCharacterData.vitality = playerNetworkManager.vigor.Value;
-            currentCharacterData.endurance = playerNetworkManager.endurance.Value;
-            currentCharacterData.mind = playerNetworkManager.mind.Value;
-            currentCharacterData.strength = playerNetworkManager.strength.Value;
-            currentCharacterData.dexterity = playerNetworkManager.dexterity.Value;
-            currentCharacterData.intelligence = playerNetworkManager.intelligence.Value;
-            currentCharacterData.faith = playerNetworkManager.faith.Value;
+            currentGameData.vitality = playerNetworkManager.vigor.Value;
+            currentGameData.endurance = playerNetworkManager.endurance.Value;
+            currentGameData.mind = playerNetworkManager.mind.Value;
+            currentGameData.strength = playerNetworkManager.strength.Value;
+            currentGameData.dexterity = playerNetworkManager.dexterity.Value;
+            currentGameData.intelligence = playerNetworkManager.intelligence.Value;
+            currentGameData.faith = playerNetworkManager.faith.Value;
 
-            currentCharacterData.runes = playerStatsManager.runes;
+            currentGameData.runes = playerStatsManager.runes;
 
             //  BODY
-            currentCharacterData.hairStyleID = playerNetworkManager.hairStyleID.Value;
-            currentCharacterData.hairColorRed = playerNetworkManager.hairColorRed.Value;
-            currentCharacterData.hairColorGreen = playerNetworkManager.hairColorGreen.Value;
-            currentCharacterData.hairColorBlue = playerNetworkManager.hairColorBlue.Value;
+            currentGameData.hairStyleID = playerNetworkManager.hairStyleID.Value;
+            currentGameData.hairColorRed = playerNetworkManager.hairColorRed.Value;
+            currentGameData.hairColorGreen = playerNetworkManager.hairColorGreen.Value;
+            currentGameData.hairColorBlue = playerNetworkManager.hairColorBlue.Value;
 
-            currentCharacterData.currentHealthFlasksRemaining = playerNetworkManager.remainingHealthFlasks.Value;
-            currentCharacterData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
+            currentGameData.currentHealthFlasksRemaining = playerNetworkManager.remainingHealthFlasks.Value;
+            currentGameData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
 
             //  EQUIPMENT
-            currentCharacterData.headEquipment = playerNetworkManager.headEquipmentID.Value;
-            currentCharacterData.bodyEquipment = playerNetworkManager.bodyEquipmentID.Value;
+            currentGameData.headEquipment = playerNetworkManager.headEquipmentID.Value;
+            currentGameData.bodyEquipment = playerNetworkManager.bodyEquipmentID.Value;
             
-            currentCharacterData.mainProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
-            currentCharacterData.secondaryProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
+            currentGameData.mainProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
+            currentGameData.secondaryProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
 
             if (playerInventoryManager.currentSpell != null)
-                currentCharacterData.currentSpell = playerInventoryManager.currentSpell.itemID;
+                currentGameData.currentSpell = playerInventoryManager.currentSpell.itemID;
 
             //  CLEAR LISTS BEFORE SAVE
-            currentCharacterData.projectilesInInventory = new List<SerializableRangedProjectile>();
+            currentGameData.projectilesInInventory = new List<SerializableRangedProjectile>();
+            
+            
+            // Invnetory
+            
+            currentGameData.backpackItems.Clear();
+            currentGameData.inventoryItems.Clear(); 
+            currentGameData.safeItems.Clear();
+            currentGameData.quickSlotConsumableItems.Clear();
+            
+            foreach (var pair in WorldPlayerInventory.Instance.GetConsumableInventory().GetCurItemDictById())
+            {
+                currentGameData.quickSlotConsumableItems.Add(pair.Key, pair.Value);
+            }
+         
+            foreach (var pair in WorldPlayerInventory.Instance.GetSafeInventory().GetCurItemDictById())
+            {
+                currentGameData.safeItems.Add(pair.Key, pair.Value);
+            }
+         
+            foreach (var pair in WorldPlayerInventory.Instance.GetInventory().GetCurItemDictById())
+            {
+                currentGameData.inventoryItems.Add(pair.Key, pair.Value);
+            }
+         
+            foreach (var pair in WorldPlayerInventory.Instance.GetBackpackInventory().GetCurItemDictById())
+            {
+                currentGameData.backpackItems.Add(pair.Key, pair.Value);
+            }
+            
+            // 장비 
+            currentGameData.rightWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
+            currentGameData.leftWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
+            currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
+            currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
+         
+            // 저장공간 저장
+            //currentGameData.rightWeaponBoxSize = WorldPlayerInventory.Instance.GetRightWeaponInventory().GetCurItemGridSize();
+            //currentGameData.leftWeaponBoxSize = WorldPlayerInventory.Instance.GetLeftWeaponInventory().GetCurItemGridSize();
+            //currentGameData.helmetBoxSize = WorldPlayerInventory.Instance.GetHelmetInventory().GetCurItemGridSize();
+            //currentGameData.armorBoxSize = WorldPlayerInventory.Instance.GetArmorInventory().GetCurItemGridSize();
+            //currentGameData.consumableBoxSize = WorldPlayerInventory.Instance.GetConsumableInventory().GetCurItemGridSize();
+            //currentGameData.backpackSize = WorldPlayerInventory.Instance.GetBackpackInventory().GetCurItemGridSize();
+            //currentGameData.inventoryBoxSize = WorldPlayerInventory.Instance.GetInventory().GetCurItemGridSize();
+            //currentGameData.safeBoxSize = WorldPlayerInventory.Instance.GetSafeInventory().GetCurItemGridSize();
         }
 
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData)
@@ -425,15 +469,15 @@ namespace BK
             
             WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(currentCharacterData.armorBoxSize);
             var armorItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.armorItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(armorItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemArmor(armorItem)) Debug.LogError("Reload Error");
             
             WorldPlayerInventory.Instance.GetRightWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
             var rightWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(rightWeaponItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemRightWeapon(rightWeaponItem)) Debug.LogError("Reload Error");
             
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
             var leftWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(leftWeaponItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemLeftWeapon(leftWeaponItem)) Debug.LogError("Reload Error");
             
             WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.shareInventoryItems)
@@ -508,8 +552,6 @@ namespace BK
                     }
                 }
             }
-            
-            playerEquipmentManager.EquipArmor();
             playerEquipmentManager.LoadMainProjectileEquipment(currentCharacterData.mainProjectile.GetProjectile());
             playerEquipmentManager.LoadSecondaryProjectileEquipment(currentCharacterData.secondaryProjectile.GetProjectile());
         }

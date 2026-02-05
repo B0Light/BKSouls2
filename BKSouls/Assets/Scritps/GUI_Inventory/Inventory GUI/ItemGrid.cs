@@ -74,7 +74,7 @@ namespace BK.Inventory
         //Set Inventory size
         protected virtual void Init(int width, int height)
         {
-            Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
+            //Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
             gridSize.x = width;
             gridSize.y = height;
             _inventoryItemSlot = new InventoryItem[width, height];

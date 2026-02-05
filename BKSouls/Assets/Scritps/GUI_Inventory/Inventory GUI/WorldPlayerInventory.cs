@@ -404,7 +404,7 @@ namespace BK.Inventory
             return GetBackpackInventory().AddItem(item);
         }
 
-        public bool ReloadItemWeapon(Item itemInfoData)
+        public bool ReloadItemRightWeapon(Item itemInfoData)
         {
             if (itemInfoData.itemID == 0) return true;
 
@@ -414,6 +414,18 @@ namespace BK.Inventory
             inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
             return GetRightWeaponInventory().AddItem(item);
+        }
+        
+        public bool ReloadItemLeftWeapon(Item itemInfoData)
+        {
+            if (itemInfoData.itemID == 0) return true;
+
+            // 인벤토리에 해당 무기 추가 
+            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
+            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
+            inventoryItem.itemData = itemInfoData as GridItem;
+            inventoryItem.Set();
+            return GetLeftWeaponInventory().AddItem(item);
         }
 
         public bool ReloadItemHelmet(Item itemInfoData)

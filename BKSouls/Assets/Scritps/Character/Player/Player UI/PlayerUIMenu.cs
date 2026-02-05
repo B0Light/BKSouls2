@@ -10,14 +10,14 @@ namespace BK
 
         public virtual void OpenMenu()
         {
-            PlayerUIManager.Instance.menuWindowIsOpen = true;
+            GUIController.Instance.menuWindowIsOpen = true;
             menu.SetActive(true);
         }
 
         //  THIS IS FINE, BUT IF YOU'RE USING THE "A" BUTTON TO CLOSE MENUS YOU WILL JUMP AS YOU CLOSE THE MENU
         public virtual void CloseMenu()
         {
-            PlayerUIManager.Instance.menuWindowIsOpen = false;
+            GUIController.Instance.menuWindowIsOpen = false;
             menu.SetActive(false);
         }
 
@@ -33,7 +33,7 @@ namespace BK
         {
             yield return new WaitForFixedUpdate();
 
-            PlayerUIManager.Instance.menuWindowIsOpen = false;
+            GUIController.Instance.menuWindowIsOpen = false;
             menu.SetActive(false);
         }
     }
