@@ -20,7 +20,7 @@ MonoBehaviour:
   itemDescription: A Straight sword
   itemType: 0
   width: 1
-  height: 1
+  height: 4
   weight: 0
   itemAbilities:
   - itemEffect: 0

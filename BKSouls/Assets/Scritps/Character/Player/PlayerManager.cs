@@ -397,10 +397,10 @@ namespace BK
             playerNetworkManager.characterName.Value = currentCharacterData.characterName;
             playerNetworkManager.isMale.Value = currentCharacterData.isMale;
             playerBodyManager.ToggleBodyType(currentCharacterData.isMale); //   TOGGLE INCASE THE VALUE IS THE SAME AS DEFAULT (ONVALUECHANGED ONLY WORKS WHEN VALUE IS CHANGED)
-            Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition, currentCharacterData.zPosition);
+            Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition + 5f, currentCharacterData.zPosition);
             transform.position = myPosition;
 
-            //  STATS
+            //  STATS 
             playerNetworkManager.vigor.Value = currentCharacterData.vitality;
             playerNetworkManager.endurance.Value = currentCharacterData.endurance;
             playerNetworkManager.mind.Value = currentCharacterData.mind;

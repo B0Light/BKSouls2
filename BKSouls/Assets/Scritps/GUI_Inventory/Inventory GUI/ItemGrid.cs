@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Serialization;
 
 namespace BK.Inventory
 {
@@ -103,21 +103,8 @@ namespace BK.Inventory
             foreach (var itemCode in setItemList)
             {
                 if (AddItemById(itemCode, isLoad: isLoad)) continue;
-
-
-                /*
-                 -----------item Drop 방식을 변경----------
-                // 새로 아이템 추가에 실패 -> 아이템 드롭
-                // 플레이어가 슬롯 특전 반환하며 아이템 슬롯이 줄어들 경우 
-                if (!IsBoxGrid()) // 파밍 레벨에서 현재 아이템 박스보다 큰 아이템이 들어있는 경우에 대해서는 드롭하지 않음 
-                {
-                    Vector3 spawnPos = GameManager.Instance.GetPlayer().transform.position + new Vector3(0, 1, 0.5f);
-                    GameObject item = Instantiate(WorldDatabase_Item.Instance.emptyInteractItemPrefab, spawnPos,
-                        Quaternion.identity);
-                    InteractableItem interactableItem = item.GetComponentInChildren<InteractableItem>();
-                    interactableItem.SetItemCode(itemCode);
-                }
-                */
+                
+                InventoryController.DropItem(itemCode);
             }
         }
 

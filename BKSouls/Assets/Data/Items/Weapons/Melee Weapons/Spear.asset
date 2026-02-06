@@ -12,12 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136e51c4f56cbda40a6ec0a0f7b3be15, type: 3}
   m_Name: Spear
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
+  itemID: 2
   itemName: Spear
   itemIcon: {fileID: 21300000, guid: 8ffcdbe77cb58984e837e3a206c48c24, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: 'A Spear
 
 '
-  itemID: 2
+  itemType: 0
+  width: 1
+  height: 4
+  weight: 0
+  itemAbilities: []
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 5968b00da981e4345a40d34026c1a8ec, type: 2}
   weaponModelType: 0
@@ -35,8 +42,10 @@ MonoBehaviour:
   poiseDamage: 25
   light_Attack_01_Modifier: 1.1
   light_Attack_02_Modifier: 1.2
+  light_Jumping_Attack_01_Modifier: 1
   heavy_Attack_01_Modifier: 1.4
   heavy_Attack_02_Modifier: 1.6
+  heavy_Jumping_Attack_01_Modifier: 1.8
   charge_Attack_01_Modifier: 2
   charge_Attack_02_Modifier: 2.2
   running_Attack_01_Modifier: 1.1

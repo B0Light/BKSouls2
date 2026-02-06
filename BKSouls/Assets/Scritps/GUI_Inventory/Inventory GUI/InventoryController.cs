@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -334,19 +335,24 @@ namespace BK.Inventory
         {
             if (!SelectedItem) return;
             
-            /*
-             ----- 아이템 드롭 형식으로 변경 ------
-             
-            // 땅에 떨어뜨릴 아이템 생성 
-            Vector3 spawnPos = GameManager.Instance.GetPlayer().transform.position + new Vector3(0, 1, 0.5f);
-            GameObject item = Instantiate(WorldDatabase_Item.Instance.emptyInteractItemPrefab, spawnPos, quaternion.identity);
-            //InteractableItem interactableItem = item.GetComponentInChildren<InteractableItem>();
-            //interactableItem.SetItemCode(SelectedItem.itemInfoData.itemCode);
-            */
+            DropItem(SelectedItem.itemData.itemID);
+            
             // 손에 들고 있는 아이템 제거 
             Destroy(SelectedItem.gameObject);
             _lastSelectedItemGrid = null;
             SelectedItem = null;
+        }
+        
+        public static void DropItem(int itemCode)
+        {
+            PlayerManager player = GUIController.Instance.localPlayer;
+
+            GameObject itemPickUpInteractableGameObject = Instantiate(WorldItemDatabase.Instance.pickUpItemPrefab);
+            PickUpItemInteractable pickUpInteractable = itemPickUpInteractableGameObject.GetComponent<PickUpItemInteractable>();
+            itemPickUpInteractableGameObject.GetComponent<NetworkObject>().Spawn();
+            pickUpInteractable.itemID.Value = itemCode;
+            pickUpInteractable.networkPosition.Value = player.transform.position;
+            pickUpInteractable.droppingCreatureID.Value = player.NetworkObjectId;
         }
     }
 }

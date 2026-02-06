@@ -19,8 +19,8 @@ MonoBehaviour:
   cost: 0
   itemDescription: 
   itemType: 1
-  width: 1
-  height: 1
+  width: 2
+  height: 2
   weight: 0
   itemAbilities: []
   itemWeight: 10.6

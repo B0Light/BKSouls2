@@ -73,7 +73,7 @@ namespace BK.Inventory
             {
                 if (AddItemById(itemCode, isLoad: isLoad)) continue;
 
-                // ============= item Drop ==================
+                InventoryController.DropItem(itemCode);
 
                 switch (itemType)
                 {
