@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -15,7 +12,7 @@ namespace BK.Inventory
         [SerializeField] private Transform mainInventoryCanvas;
         
         PlayerControls playerControls;
-        [Header("Camera Input")]
+        [Header("Input")]
         [SerializeField] private Vector2 mouseInput;
 
         private InventoryHighlight _inventoryHighlight;
@@ -23,10 +20,6 @@ namespace BK.Inventory
         private InventoryItem _itemToHighlight;
 
         private InventoryItem _overlapItem;
-
-        [SerializeField] private List<ItemInfo> items;
-        [SerializeField] private GameObject itemPrefab;
-        [SerializeField] private Transform canvasTransform;
 
         private ItemGrid _selectedItemGrid;
 

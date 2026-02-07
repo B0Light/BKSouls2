@@ -18,7 +18,7 @@ namespace BK
 
         [Header("Flags")]
         public bool canComboWithMainHandWeapon = false;
-        //public bool canComboWithOffHandWeapon = false;
+        public bool canComboWithOffHandWeapon = false;
         public bool isUsingItem = false;
 
         protected override void Awake()
@@ -288,6 +288,24 @@ namespace BK
                 case AttackType.BackstepAttack01:
                     staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.backstepAttackStaminaCostMultiplier;
                     break;
+                case AttackType.DualAttack01:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.DualAttack02:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.lightAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.DualJumpAttack:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.heavyAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.DualRunAttack:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.runningAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.DualRollAttack:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.rollingAttackStaminaCostMultiplier;
+                    break;
+                case AttackType.DualBackstepAttack:
+                    staminaDeducted = currentWeaponBeingUsed.baseStaminaCost * currentWeaponBeingUsed.backstepAttackStaminaCostMultiplier;
+                    break;
                 default:
                     break;
             }
@@ -316,14 +334,14 @@ namespace BK
             }
             else
             {
-                //  ENABLE OFF HAND COMBO
+                player.playerCombatManager.canComboWithOffHandWeapon = true;
             }
         }
 
         public override void DisableCanDoCombo()
         {
             player.playerCombatManager.canComboWithMainHandWeapon = false;
-            //player.playerCombatManager.canComboWithOffHandWeapon = false;
+            player.playerCombatManager.canComboWithOffHandWeapon = false;
         }
 
         //  PROJECTILE

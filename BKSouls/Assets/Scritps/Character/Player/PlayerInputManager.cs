@@ -612,7 +612,7 @@ namespace BK
 
                 WeaponItem weaponPerformingAshOfWar = player.playerCombatManager.SelectWeaponToPerformAshOfWar();
 
-                weaponPerformingAshOfWar.ashOfWarAction.AttemptToPerformAction(player);
+                weaponPerformingAshOfWar?.ashOfWarAction?.AttemptToPerformAction(player);
             }
         }
 

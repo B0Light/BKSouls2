@@ -1068,6 +1068,44 @@ namespace BK
                 leftWeaponManager.meleeDamageCollider.DisableDamageCollider();
             }
         }
+        
+        public void OpenMainHandDamageCollider()
+        {
+            rightWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(player.playerInventoryManager.currentRightHandWeapon.whooshes));
+            //  PLAY WHOOSH SFX
+        }
+
+        public void CloseMainHandDamageCollider()
+        {
+            rightWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
+
+        public void OpenOffHandDamageCollider()
+        {
+            leftWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(player.playerInventoryManager.currentLeftHandWeapon.whooshes));
+            //  PLAY WHOOSH SFX
+        }
+
+        public void CloseOffHandDamageCollider()
+        {
+            leftWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
+
+        public void OpenBothHandDamageCollider()
+        {
+            rightWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(player.playerInventoryManager.currentRightHandWeapon.whooshes));
+            leftWeaponManager.meleeDamageCollider.EnableDamageCollider();
+            player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(player.playerInventoryManager.currentLeftHandWeapon.whooshes));
+        }
+
+        public void CloseBothHandDamageCollider()
+        {
+            rightWeaponManager.meleeDamageCollider.DisableDamageCollider();
+            leftWeaponManager.meleeDamageCollider.DisableDamageCollider();
+        }
 
         //  UNHIDE WEAPONS
         public void UnHideWeapons()

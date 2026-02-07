@@ -51,3 +51,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 82a66c59d1f2b9449836df4f0c1446ba, type: 2}
   - {fileID: 11400000, guid: 6c4a7023e8e7f0b4b90cb89f8f1316bf, type: 2}
   - {fileID: 11400000, guid: 3f33610075ef8a341b90fc17f5ad2f88, type: 2}
+  backpackSize: {x: 3, y: 3}

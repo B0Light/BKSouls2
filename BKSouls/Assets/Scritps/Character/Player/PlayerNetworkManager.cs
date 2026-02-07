@@ -389,28 +389,25 @@ namespace BK
         {
             HeadEquipmentItem equipment = WorldItemDatabase.Instance.GetHeadEquipmentByID(headEquipmentID.Value);
 
-            if (equipment != null)
-            {
-                player.playerEquipmentManager.LoadHeadEquipment(Instantiate(equipment));
-            }
-            else
-            {
-                player.playerEquipmentManager.LoadHeadEquipment(null);
-            }
+            player.playerEquipmentManager.LoadHeadEquipment(equipment != null ? Instantiate(equipment) : null);
         }
 
         public void OnBodyEquipmentChanged(int oldValue, int newValue)
         {
-           BodyEquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(bodyEquipmentID.Value);
+            // 1. 데이터 가져오기
+            BodyEquipmentItem equipment = WorldItemDatabase.Instance.GetBodyEquipmentByID(bodyEquipmentID.Value);
 
-            if (equipment != null)
-            {
-                player.playerEquipmentManager.LoadBodyEquipment(Instantiate(equipment));
-            }
-            else
-            {
-                player.playerEquipmentManager.LoadBodyEquipment(null);
-            }
+            // 2. 장비 로드 (null이면 null을 그대로 전달)
+            player.playerEquipmentManager.LoadBodyEquipment(equipment != null ? Instantiate(equipment) : null);
+
+            // 3. 백팩 설정 결정
+            bool hasBackpack = equipment != null && equipment.backpackSize != Vector2Int.zero;
+            Vector2Int gridSize = hasBackpack ? equipment.backpackSize : Vector2Int.zero;
+
+            // 4. GUI 업데이트
+            var inventoryUI = GUIController.Instance.inventoryGUIManager;
+            inventoryUI.ToggleBackpackInventory(hasBackpack);
+            inventoryUI.backpackItemGrid.UpdateItemGridSize(gridSize);
         }
 
         public void OnIsMaleChanged(bool oldStatus, bool newStatus)

@@ -384,7 +384,7 @@ namespace BK
             // 저장공간 저장
             //currentGameData.rightWeaponBoxSize = WorldPlayerInventory.Instance.GetRightWeaponInventory().GetCurItemGridSize();
             //currentGameData.leftWeaponBoxSize = WorldPlayerInventory.Instance.GetLeftWeaponInventory().GetCurItemGridSize();
-            //currentGameData.helmetBoxSize = WorldPlayerInventory.Instance.GetHelmetInventory().GetCurItemGridSize();
+            //currentGameData.helmetBoxSize = WorldPlayerInventory.Instance.GetHelmetInventory().GetCurItemGridSize(); 
             //currentGameData.armorBoxSize = WorldPlayerInventory.Instance.GetArmorInventory().GetCurItemGridSize();
             //currentGameData.consumableBoxSize = WorldPlayerInventory.Instance.GetConsumableInventory().GetCurItemGridSize();
             //currentGameData.backpackSize = WorldPlayerInventory.Instance.GetBackpackInventory().GetCurItemGridSize();

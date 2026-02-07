@@ -20,7 +20,7 @@ MonoBehaviour:
   itemDescription: A Straight sword
   itemType: 0
   width: 1
-  height: 4
+  height: 2
   weight: 0
   itemAbilities:
   - itemEffect: 0
@@ -53,6 +53,12 @@ MonoBehaviour:
   running_Attack_01_Modifier: 1.1
   rolling_Attack_01_Modifier: 1.1
   backstep_Attack_01_Modifier: 1.1
+  dw_Attack_01_Modifier: 0.77
+  dw_Attack_02_Modifier: 0.87
+  dw_Jump_Attack_01_Modifier: 1.27
+  dw_Run_Attack_01_Modifier: 0.75
+  dw_Roll_Attack_01_Modifier: 0.72
+  dw_Backstep_Attack_01_Modifier: 0.77
   baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 0.9
   heavyAttackStaminaCostMultiplier: 1.3
