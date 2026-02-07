@@ -441,6 +441,28 @@ namespace BK
             {
                 BodyEquipmentItem bodyEquipment = Instantiate(WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.bodyEquipment));
                 playerInventoryManager.bodyEquipment = bodyEquipment;
+                
+                if (bodyEquipment.backpackSize != Vector2Int.zero)
+                {
+                    WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(true);
+                    WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(bodyEquipment.backpackSize);
+                    foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
+                    {
+                        for (int i = 0; i < item.Value; i++)
+                        {
+                            var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
+                            if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
+                            {
+                                Debug.LogWarning("Reload Error");
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(false);
+                }
+                
             }
             else
             {
@@ -503,27 +525,6 @@ namespace BK
                         Debug.LogWarning("Reload Error");
                     }
                 }
-            }
-
-            if (currentCharacterData.backpackSize != Vector2Int.zero)
-            {
-                WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(true);
-                WorldPlayerInventory.Instance.GetBackpackInventory().UpdateItemGridSize(currentCharacterData.backpackSize);
-                foreach (KeyValuePair<int,int> item in currentCharacterData.backpackItems)
-                {
-                    for (int i = 0; i < item.Value; i++)
-                    {
-                        var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
-                        if (!WorldPlayerInventory.Instance.ReloadItemBackpack(itemInfoData))
-                        {
-                            Debug.LogWarning("Reload Error");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(false);
             }
             
             // 금고 인벤토리 
