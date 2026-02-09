@@ -12,7 +12,7 @@ namespace BK
 
         //  PROCESS STATIC EFFECTS (ADDING/REMOVING BUFFS FROM TALISMANS ECT)
 
-        CharacterManager character;
+        protected CharacterManager character;
 
         [Header("Current Active FX")]
         public GameObject activeQuickSlotItemFX;
@@ -25,6 +25,10 @@ namespace BK
 
         [Header("Static Effects")]
         public List<StaticCharacterEffect> staticEffects = new List<StaticCharacterEffect>();
+        
+        [Header("Timed Effects")]
+        public List<TimedCharacterEffect> timedEffects = new List<TimedCharacterEffect>();
+
 
         protected virtual void Awake()
         {
@@ -63,6 +67,27 @@ namespace BK
                 GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.instance.criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
             }
         }
+        
+        public virtual void AddBuildUps(BuildUp buildUpType, float amount)
+        {
+            if (!character.IsOwner)
+                return;
+
+            switch (buildUpType)
+            {
+                case BuildUp.Poison:
+                    //  IF CHARACTER IS ALREADY POISONED, RETURN
+                    //  TO DO, PASS THE VALUE THROUGH THE CHARACTERS POISON RESISTANCE FIRST (SIMILAR TO ARMOR)
+                    character.characterNetworkManager.poisonBuildUp.Value += amount;
+                    break;
+                case BuildUp.Bleed:
+                    //  TO DO, PASS THE VALUE THROUGH THE CHARACTERS BLEED RESISTANCE FIRST (SIMILAR TO ARMOR)
+                    character.characterNetworkManager.bleedBuildUp.Value += amount;
+                    break;
+                default:
+                    break;
+            }
+        }
 
         public void AddStaticEffect(StaticCharacterEffect effect)
         {
@@ -81,7 +106,7 @@ namespace BK
                     staticEffects.RemoveAt(i);
             }
         }
-
+        
         public void RemoveStaticEffect(int effectID)
         {
             //  IF YOU WANT TO SYNC EFFECTS ACROSS NETWORK, IF YOU ARE THE OWNER LAUNCH A SERVER RPC HERE TO PROCESS THE EFFECT ON ALL OTHER CLIENTS
@@ -109,6 +134,92 @@ namespace BK
                 if (staticEffects[i] == null)
                     staticEffects.RemoveAt(i);
             }
+        }
+        
+        //  TIMED EFFECTS
+
+        //  PROCESSES ALL CURRENT TIMED EFFECTS
+        public void ProcessTimedEffects()
+        {
+            for (int i = 0; i < timedEffects.Count; i++)
+            {
+                if (timedEffects[i] == null)
+                    continue;
+
+                timedEffects[i].ProcessEffect(character);
+            }
+        }
+
+        //  ADDS A NEW EFFECT
+        public void AddTimedEffect(TimedCharacterEffect effect)
+        {
+            bool effectIsAlreadyOnCharacter = false;
+
+            //  IF WE ALREADY HAVE THE EFFECT, JUST RESTART ITS TIMER AGAIN INSTEAD OF ADDING A DUPLICATE
+            for (int i = 0; i < timedEffects.Count; i++)
+            {
+                if (timedEffects[i] == null)
+                    continue;
+
+                if (timedEffects[i].effectID == effect.effectID)
+                {
+                    effectIsAlreadyOnCharacter = true;
+                    timedEffects[i].timeRemainingOnEffect = timedEffects[i].defaultLengthOfEffect;
+                }
+            }
+
+            if (!effectIsAlreadyOnCharacter)
+            {
+                timedEffects.Add(effect);
+                effect.timeRemainingOnEffect = effect.defaultLengthOfEffect;
+
+                //  PROCESS THE FIRST "TICK" INSTANTLY
+                effect.ProcessEffect(character);
+            }
+        }
+
+        //  REMOVES AN EFFECT
+        public void RemoveTimedEffect(int effectID)
+        {
+            TimedCharacterEffect effect;
+
+            //  FIND AND REMOVE
+            for (int i = 0; i < timedEffects.Count; i++)
+            {
+                if (timedEffects[i] == null)
+                    continue;
+
+                if (timedEffects[i].effectID == effectID)
+                {
+                    effect = timedEffects[i];
+                    effect.RemoveEffect(character);
+                    timedEffects.Remove(effect);
+                }
+            }
+
+            //  REMOVE NULL ENTRIES FROM LIST
+            for (int i = 0; i < timedEffects.Count; i++)
+            {
+                if (timedEffects[i] == null)
+                    timedEffects.RemoveAt(i);
+            }
+        }
+
+        //  CHECKS IF WE ALREADY HAVE A SPECIFIC EFFECT (AND GETS IT)
+        public TimedCharacterEffect CheckForTimedEffect(int effectID)
+        {
+            TimedCharacterEffect timedEffect = null;
+
+            for (int i = 0; i < timedEffects.Count; i++)
+            {
+                if (timedEffects[i].effectID == effectID)
+                {
+                    timedEffect = timedEffects[i];
+                    break;
+                }
+            }
+
+            return timedEffect;
         }
     }
 }

@@ -42,6 +42,13 @@ public enum CharacterAttribute
     Faith
 }
 
+public enum BuildUp
+{
+    Poison,
+    Bleed,
+    Frost,
+}
+
 public enum ItemTier
 {
     Common,     //0 white
