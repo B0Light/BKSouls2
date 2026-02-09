@@ -37,8 +37,16 @@ namespace BK
             // 1. IF THE CHARACTER IS ALREADY POISONED, SIMPLY RETURN
 
             // 2. CHECK FOR A "TIMED" BUILD UP EFFECT OF TYPE POISON (WE ADD A TIMED BUILD UP EFFECT SO THE BUILD UP CAN DECAY OVER TIME)
+            BuildUpEffect poisonBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradePoisonBuildUpEffect.effectID) as BuildUpEffect;
 
             // 3. IF THAT EFFECT DOES NOT EXIST MAKE ONE AND APPLY IT
+            if (poisonBuildUp == null)
+            {
+                poisonBuildUp = Instantiate(WorldCharacterEffectsManager.instance.degradePoisonBuildUpEffect);
+                character.characterEffectsManager.AddTimedEffect(poisonBuildUp);
+                poisonBuildUp.ProcessEffect(character);
+            }
+
 
             // 4. IF THE CHARACTER IS OVER THEIR BUILD UP LIMIT, APPLY THE NEW TIMED EFFECT "POISONED"
         }

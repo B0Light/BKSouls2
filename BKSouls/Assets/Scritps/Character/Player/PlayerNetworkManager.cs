@@ -120,6 +120,12 @@ namespace BK
             GUIController.Instance.playerUIHudManager.SetMaxFocusPointValue(maxFocusPoints.Value);
             currentFocusPoints.Value = maxFocusPoints.Value;
         }
+        
+        public void SetNewMaxBuildUpCapacityValue(int oldVitality, int newVitality)
+        {
+            buildUpCapacity.Value = player.playerStatsManager.CalculateBuildUpCapacityBasedOnVitalityLevel(newVitality);
+            GUIController.Instance.playerUIHudManager.SetMaxBuildUpValue(Mathf.RoundToInt(buildUpCapacity.Value));
+        }
 
         public void OnHairStyleIDChanged(int oldID, int newID)
         {

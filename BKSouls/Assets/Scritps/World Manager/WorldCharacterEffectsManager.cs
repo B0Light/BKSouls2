@@ -20,8 +20,11 @@ namespace BK
         public TakeCriticalDamageEffect takeCriticalDamageEffect;
         
         [Header("Build Ups")]
-        public TakeBuildUpEffect poisonBuildUpEffect;
-        public TakeBuildUpEffect bleedBuildUpEffect;
+        public TakeBuildUpEffect takePoisonBuildUpEffect;
+        public TakeBuildUpEffect takeBleedBuildUpEffect;
+        
+        [Header("Degrade Build Ups")]
+        public BuildUpEffect degradePoisonBuildUpEffect;
 
         [Header("Two Hand")]
         public TwoHandingEffect twoHandingEffect;

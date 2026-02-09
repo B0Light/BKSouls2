@@ -134,6 +134,17 @@ namespace BK
 
             return characterLevel;
         }
+        
+        public int CalculateBuildUpCapacityBasedOnVitalityLevel(int vitality)
+        {
+            float capacity = 0;
+
+            //  CREATE AN EQUATION FOR HOW YOU WANT YOUR STAMINA TO BE CALCULATED
+
+            capacity = vitality * 3.25f;
+
+            return Mathf.RoundToInt(capacity);
+        }
 
         public virtual void RegenerateStamina()
         {
@@ -184,6 +195,21 @@ namespace BK
             else
             {
                 totalPoiseDamage = 0;
+            }
+        }
+        
+        public virtual void DegradeBuildUps(BuildUp buildUp, int amount, BuildUpEffect effect)
+        {
+            switch (buildUp)
+            {
+                case BuildUp.Poison:
+                    character.characterNetworkManager.poisonBuildUp.Value += amount;
+                    effect.buildUpRemaining = character.characterNetworkManager.poisonBuildUp.Value;
+                    break;
+                case BuildUp.Bleed:
+                    break;
+                default:
+                    break;
             }
         }
     }

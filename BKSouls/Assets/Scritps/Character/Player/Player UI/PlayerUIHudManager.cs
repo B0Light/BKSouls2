@@ -15,6 +15,9 @@ namespace BK
         [SerializeField] UI_StatBar healthBar;
         [SerializeField] UI_StatBar staminaBar;
         [SerializeField] UI_StatBar focusPointBar;
+        
+        [Header("Build Up Bars")]
+        [SerializeField] UI_BuildUpBar poisonBuildUpBar;
 
         [Header("Runes")]
         [SerializeField] float runeUpdateCountDelayTimer = 2.5f;
@@ -122,6 +125,33 @@ namespace BK
             runesCountText.text = GUIController.Instance.localPlayer.playerStatsManager.runes.ToString();
 
             yield return null;
+        }
+        
+        //  OPTION #1 CALL THIS FUNCTION AT "PROCESS" OF A TIMED BUILD UP EFFECT
+        public void SetBuildUpAmount(BuildUp buildUpType, int amount)
+        {
+            switch (buildUpType)
+            {
+                case BuildUp.Poison:
+                    poisonBuildUpBar.SetStat(amount);
+                    break;
+                case BuildUp.Bleed:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        //  OPTION #2 CALL THIS ON "ONVALUECHANGED" EVENT
+        public void SetNewPoisonBuildUpAmount(float oldValue, float amount)
+        {
+            poisonBuildUpBar.SetStat(Mathf.RoundToInt(amount));
+        }
+
+        public void SetMaxBuildUpValue(int buildUpCapacity)
+        {
+            poisonBuildUpBar.SetMaxStat(buildUpCapacity);
+            //  BLEED
         }
 
         public void SetNewHealthValue(int oldValue, int newValue)
