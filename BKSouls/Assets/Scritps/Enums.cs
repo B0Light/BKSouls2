@@ -93,6 +93,21 @@ public enum WeaponClass
     Bow
 }
 
+public enum UpgradeLevel
+{
+    Zero, 
+    One, 
+    Two, 
+    Three,
+    Four,
+    Five,
+    Six,
+    Seven,
+    Eight,
+    Nine,
+    Ten
+}
+
 //  USED TO DETERMINE WHICH ITEM (CATALYST) IS NEEDED TO CAST SPELL
 public enum SpellClass
 {
