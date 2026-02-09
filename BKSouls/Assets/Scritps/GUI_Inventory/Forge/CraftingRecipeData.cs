@@ -14,14 +14,14 @@ namespace BK.Inventory
     public class CraftingRecipe
     {
         public List<RecipeIngredient> ingredients;
-        public ItemData resultItem;
+        public GridItem resultItem;
         public int resultQuantity;
     }
 
     [System.Serializable]
     public class RecipeIngredient
     {
-        public ItemData itemData;
+        public GridItem itemData;
         public int quantity;
     }
 }

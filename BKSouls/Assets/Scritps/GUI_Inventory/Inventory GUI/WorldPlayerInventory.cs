@@ -215,14 +215,6 @@ namespace BK.Inventory
                 }
             }
 
-            /*
-            WorldSaveGameManager.Instance.currentGameData.shareInventoryItems.Clear();
-            foreach (var pair in GetShareInventory().GetCurItemDictById())
-            {
-                WorldSaveGameManager.Instance.currentGameData.shareInventoryItems.Add(pair.Key, pair.Value);
-            }
-            */
-
             if (remainingToRemove > 0)
             {
                 throw new InsufficientItemsException(itemId, remainingToRemove);
@@ -247,23 +239,6 @@ namespace BK.Inventory
                 RollbackTransaction(transaction);
                 return false;
             }
-        }
-
-
-        // 인벤토리와 백팩에 필요한 모든 아이템이 있는지 확인
-        public bool CheckItemInInventoryToChangeItem(ItemData buyObject)
-        {
-            foreach (var (itemId, requiredCount) in buyObject.GetCostDict())
-            {
-                int totalCount = GetItemCountInAllInventory(itemId);
-                if (totalCount < requiredCount)
-                {
-                    Debug.LogWarning($"아이템 부족: {itemId} / 필요: {requiredCount}, 보유: {totalCount}");
-                    return false;
-                }
-            }
-
-            return true;
         }
 
         public bool CheckItemInInventory(int itemCode)
@@ -294,8 +269,7 @@ namespace BK.Inventory
                 }
             }
         }
-
-
+        
         public ItemGrid GetInventory()
         {
             return _itemGrid == null
@@ -538,7 +512,7 @@ namespace BK.Inventory
                 if (newCount > 0)
                 {
                     finalItemDict[itemId] = newCount;
-                    TotalLootValue += WorldDatabase_Item.Instance.GetItemByID(itemId).purchaseCost;
+                    TotalLootValue += WorldItemDatabase.Instance.GetItemByID(itemId).cost;
                 }
             }
         }
@@ -549,7 +523,7 @@ namespace BK.Inventory
             int maxValueItemId = 0;
             foreach (var itemId in finalItemDict.Keys)
             {
-                int curItemPrice = WorldDatabase_Item.Instance.GetItemByID(itemId).purchaseCost;
+                int curItemPrice = WorldItemDatabase.Instance.GetItemByID(itemId).cost;
                 if (maxValue < curItemPrice)
                 {
                     maxValue = curItemPrice;
