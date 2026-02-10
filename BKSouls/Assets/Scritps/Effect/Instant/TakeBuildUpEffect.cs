@@ -35,7 +35,9 @@ namespace BK
         private void CheckForPoisonedStatus(CharacterManager character)
         {
             // 1. IF THE CHARACTER IS ALREADY POISONED, SIMPLY RETURN
-
+            if (character.characterNetworkManager.isPoisoned.Value)
+                return;
+            
             // 2. CHECK FOR A "TIMED" BUILD UP EFFECT OF TYPE POISON (WE ADD A TIMED BUILD UP EFFECT SO THE BUILD UP CAN DECAY OVER TIME)
             BuildUpEffect poisonBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradePoisonBuildUpEffect.effectID) as BuildUpEffect;
 
@@ -49,6 +51,27 @@ namespace BK
 
 
             // 4. IF THE CHARACTER IS OVER THEIR BUILD UP LIMIT, APPLY THE NEW TIMED EFFECT "POISONED"
+            if (character.characterNetworkManager.poisonBuildUp.Value > character.characterNetworkManager.buildUpCapacity.Value)
+            {
+                //  RESET THE BUILD UP AMOUNT, AND SET THE STATUS EFFECT FLAG TO TRUE
+                character.characterNetworkManager.poisonBuildUp.Value = 0;
+                character.characterNetworkManager.isPoisoned.Value = true;
+
+                //  CREATE THE POISONED EFFECT
+                PoisonedEffect poison = Instantiate(WorldCharacterEffectsManager.instance.poisonedEffect);
+                character.characterEffectsManager.AddTimedEffect(poison);
+
+                PlayerManager player = character as PlayerManager;
+
+                if (player == null)
+                    return;
+
+                //  IF YOU ARE SYNCING THESE EFFECTS VIA RPC CALLS DO AN OWNER CHECK HERE
+                if (!player.IsOwner)
+                    return;
+
+                //  TO DO ADD A TEMPORARY RESISTANCE SO YOU CAN'T GET POISONED BACK TO BACK SO EASILY
+            }
         }
 
         private void CheckForBloodLossStatus(CharacterManager character)

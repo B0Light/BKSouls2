@@ -5311,8 +5311,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fa1a2f333206724e9fa3acf182f7057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerUIPopUpManager
+  popUpTransformParent: {fileID: 1946738129414585564}
   popUpMessageText: {fileID: 1778431438688981043}
   popUpMessageGameObject: {fileID: 6244787595427739438}
+  statusEffectPopUpPrefab: {fileID: 8697422660480240250, guid: 1372b57022163584ebc12ea147a4f116, type: 3}
   itemPopUpGameObject: {fileID: 5461150784292445621}
   itemIcon: {fileID: 6740639273263188027}
   itemName: {fileID: 7441643664562572761}
@@ -10258,6 +10260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.UI_StatBar
   scaleBarLengthWithStats: 1
   widthScaleMultiplier: 1.1
+  fillImage: {fileID: 0}
+  barFillColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &2659271638073098334
 GameObject:
   m_ObjectHideFlags: 0
@@ -16517,6 +16521,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.UI_StatBar
   scaleBarLengthWithStats: 1
   widthScaleMultiplier: 1.1
+  fillImage: {fileID: 1910728905591064880}
+  barFillColor: {r: 0.39607844, g: 0.003921569, b: 0, a: 1}
 --- !u!1 &4362490814087736259
 GameObject:
   m_ObjectHideFlags: 0
@@ -27873,6 +27879,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.UI_StatBar
   scaleBarLengthWithStats: 1
   widthScaleMultiplier: 1.1
+  fillImage: {fileID: 0}
+  barFillColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &7421617753785248241
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,25 +4,14 @@ using UnityEngine;
 
 namespace BK
 {
-    public class WorldUtilityManager : MonoBehaviour
+    public class WorldUtilityManager : Singleton<WorldUtilityManager>
     {
-        public static WorldUtilityManager Instance;
-
         [Header("Layers")]
         [SerializeField] LayerMask characterLayers;
         [SerializeField] LayerMask enviroLayers;
-
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        
+        [Header("UI Colors")]
+        [SerializeField] Color poisonedColor;
 
         public LayerMask GetCharacterLayers()
         {
@@ -32,6 +21,11 @@ namespace BK
         public LayerMask GetEnviroLayers()
         {
             return enviroLayers;
+        }
+        
+        public Color GetPoisonedColor()
+        {
+            return poisonedColor;
         }
 
         public bool CanIDamageThisTarget(CharacterGroup attackingCharacter, CharacterGroup targetCharacter)

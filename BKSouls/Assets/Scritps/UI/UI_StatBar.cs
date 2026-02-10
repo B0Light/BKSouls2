@@ -15,7 +15,10 @@ namespace BK
         [SerializeField] protected float widthScaleMultiplier = 1;
         // SECONDARY BAR BEHIND MAY BAR FOR POLISH EFFECT (YELLOW BAR THAT SHOWS HOW MUCH AN ACTION/DAMAGE TAKES AWAY FROM CURRENT STAT)
 
-
+        [Header("Fill Color")]
+        [SerializeField] protected Image fillImage;
+        [SerializeField] protected Color barFillColor;
+        
         protected virtual void Awake()
         {
             slider = GetComponent<Slider>();
@@ -43,6 +46,21 @@ namespace BK
 
                 //  RESETS THE POSITION OF THE BARS BASED ON THEIR LAYOUT GROUP'S SETTINGS
                 GUIController.Instance.playerUIHudManager.RefreshHUD();
+            }
+        }
+        
+        public void ToggleBarFillColor(bool isPoisoned)
+        {
+            if (fillImage == null)
+                return;
+
+            if (isPoisoned)
+            {
+                fillImage.color = WorldUtilityManager.Instance.GetPoisonedColor();
+            }
+            else
+            {
+                fillImage.color = barFillColor;
             }
         }
     }

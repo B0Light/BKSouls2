@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 namespace BK
@@ -15,10 +16,13 @@ namespace BK
         [SerializeField] bool displayCharacterNameOnDamage = false;
         [SerializeField] float defaultTimeBeforeBarHides = 3;
         [SerializeField] float hideTimer = 0;
-        [SerializeField] public int currentDamageTaken = 0;
+        public int currentDamageTaken = 0;
         [SerializeField] TextMeshProUGUI characterName;
         [SerializeField] TextMeshProUGUI characterDamage;
         [HideInInspector] public int oldHealthValue = 0;
+
+        [Header("Status Effects")]
+        [SerializeField] Color regularColor;
 
         protected override void Awake()
         {
@@ -42,6 +46,16 @@ namespace BK
 
         public override void SetStat(int newValue)
         {
+            //  IF YOU HAVE MORE THAN ONE STATUS EFFECT THAT AFFECTS THIS, CONSIDER MAKING A FUNCTION TO DECIDE WHICH COLOR TO CHOOSE
+            if (character.characterNetworkManager.isPoisoned.Value)
+            {
+                fillImage.color = WorldUtilityManager.Instance.GetPoisonedColor();
+            }
+            else
+            {
+                fillImage.color = regularColor;
+            }
+
             if (displayCharacterNameOnDamage)
             {
                 characterName.enabled = true;

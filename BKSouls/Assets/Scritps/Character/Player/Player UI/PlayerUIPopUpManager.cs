@@ -8,9 +8,13 @@ namespace BK
 {
     public class PlayerUIPopUpManager : MonoBehaviour
     {
+        [Header("Pop Up Parent")]
+        [SerializeField] Transform popUpTransformParent;
+        
         [Header("Message Pop Up")]
         [SerializeField] TextMeshProUGUI popUpMessageText;
         [SerializeField] GameObject popUpMessageGameObject;
+        [SerializeField] private GameObject statusEffectPopUpPrefab;
 
         [Header("Item Pop Up")]
         [SerializeField] GameObject itemPopUpGameObject;
@@ -101,6 +105,76 @@ namespace BK
             StartCoroutine(FadeInPopUpOverTime(graceRestoredPopUpCanvasGroup, 5));
             StartCoroutine(WaitThenFadeOutPopUpOverTime(graceRestoredPopUpCanvasGroup, 2, 5));
         }
+        
+        public void SendStatusEffectPopUp(BuildUp status)
+        {
+            GameObject popUp = Instantiate(statusEffectPopUpPrefab, popUpTransformParent);
+            UI_StatusEffectWarning popUpWarning = popUp.GetComponent<UI_StatusEffectWarning>();
+            popUpWarning.SetWarningMessage(status);
+            StartCoroutine(FadeOutThenDestroy(popUpWarning.canvas, 2, popUp));
+        }
+        
+        // Dialogue
+        /*
+        public void SendDialoguePopUp(CharacterDialogue dialogue, AICharacterManager aiCharacter)
+        {
+            GUIController.Instance.playerUIHudManager.ToggleHUDWithOutPopUps(false);
+            currentDialogue = dialogue;
+
+            if (dialogueCoroutine != null)
+                StopCoroutine(dialogueCoroutine);
+
+            //  CLOSE ALL POP UP WINDOWS
+            PlayerUIManager.instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            PlayerUIManager.instance.popUpWindowIsOpen = true;
+
+            dialogueCoroutine = StartCoroutine(dialogue.PlayDialogueCoroutine(aiCharacter));
+        }
+
+        public void SendNextDialoguePopUpInIndex(CharacterDialogue dialogue, AICharacterManager aiCharacter)
+        {
+            currentDialogue = dialogue;
+
+            if (dialogueCoroutine != null)
+                StopCoroutine(dialogueCoroutine);
+
+            if (aiCharacter.aiCharacterSoundFXManager.dialogueIsPlaying)
+                aiCharacter.aiCharacterSoundFXManager.audioSource.Stop();
+
+            //  CLOSE ALL POP UP WINDOWS
+            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            GUIController.Instance.popUpWindowIsOpen = true;
+
+            currentDialogue.dialogueIndex++;
+            dialogueCoroutine = StartCoroutine(dialogue.PlayDialogueCoroutine(aiCharacter));
+        }
+
+        public void SetDialoguePopUpSubtitles(string dialogueText)
+        {
+            dialoguePopUpGameObject.SetActive(true);
+            dialoguePopUpText.text = dialogueText;
+        }
+
+        public void EndDialoguePopUp()
+        {
+            dialoguePopUpGameObject.SetActive(false);
+            GUIController.Instance.playerUIHudManager.ToggleHUDWithOutPopUps(true);
+        }
+
+        public void CancelDialoguePopUp(AICharacterManager aiCharacter)
+        {
+            GUIController.Instance.playerUIHudManager.ToggleHUDWithOutPopUps(true);
+
+            if (dialogueCoroutine != null)
+                StopCoroutine(dialogueCoroutine);
+
+            if (aiCharacter.aiCharacterSoundFXManager.audioSource.isPlaying)
+                aiCharacter.aiCharacterSoundFXManager.audioSource.Stop();
+
+            dialoguePopUpGameObject.SetActive(false);
+            currentDialogue.OnDialogueCancelled(aiCharacter);
+        }
+        */
 
         private IEnumerator StretchPopUpTextOverTime(TextMeshProUGUI text, float duration, float stretchAmount)
         {
@@ -165,6 +239,30 @@ namespace BK
             }
 
             canvas.alpha = 0;
+
+            yield return null;
+        }
+        
+        private IEnumerator FadeOutThenDestroy(CanvasGroup canvas, float duration, GameObject objectToDestroy)
+        {
+            float timer = 0;
+
+            while (timer < duration)
+            {
+                timer += Time.deltaTime;
+                yield return null;
+            }
+
+            float fadeOutTimer = 1;
+
+            while (fadeOutTimer > 0)
+            {
+                fadeOutTimer -= Time.deltaTime;
+                canvas.alpha = fadeOutTimer;
+                yield return null;
+            }
+
+            Destroy(objectToDestroy);
 
             yield return null;
         }

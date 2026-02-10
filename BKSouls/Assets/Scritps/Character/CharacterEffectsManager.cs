@@ -22,6 +22,9 @@ namespace BK
         [Header("VFX")]
         [SerializeField] GameObject bloodSplatterVFX;
         [SerializeField] GameObject criticalBloodSplatterVFX;
+        
+        [Header("Status Effect VFX")]
+        [HideInInspector] public GameObject poisonedVFX;
 
         [Header("Static Effects")]
         public List<StaticCharacterEffect> staticEffects = new List<StaticCharacterEffect>();
@@ -233,6 +236,29 @@ namespace BK
             }
 
             return timedEffect;
+        }
+        
+        //  POISON
+        public void ProcessPoisonDamage(int poisonDamage)
+        {
+            //  IF YOU ARE SYNCING YOUR EFFECTS ON SERVER RPC CALLS REMEMBER TO CHECK FOR OWNER BEFORE MODIFYING A NETWORK VARAIBLE
+            if (!character.IsOwner)
+                return;
+
+            if (character.isDead.Value)
+                return;
+
+            character.characterNetworkManager.currentHealth.Value -= poisonDamage;
+
+            if (character.characterNetworkManager.currentHealth.Value >= 1)
+                return;
+
+            //  IF WE ARE PLAYING A RIPOSTE OR BACK STAB ANIMATION, DO NOT BREAK IT
+            if (!character.characterNetworkManager.isBeingCriticallyDamaged.Value)
+                character.characterAnimatorManager.PlayTargetActionAnimation("Dead_01", true);
+
+            character.characterNetworkManager.isPoisoned.Value = false;
+            character.isDead.Value = true;
         }
     }
 }

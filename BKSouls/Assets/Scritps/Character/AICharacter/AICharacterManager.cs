@@ -11,6 +11,7 @@ namespace BK
         [Header("Character Name")]
         public string characterName = "";
 
+        [HideInInspector] public AICharacterSoundFXManager aiCharacterSoundFXManager;
         [HideInInspector] public AICharacterNetworkManager aiCharacterNetworkManager;
         [HideInInspector] public AICharacterCombatManager aiCharacterCombatManager;
         [HideInInspector] public AICharacterLocomotionManager aiCharacterLocomotionManager;
@@ -37,6 +38,7 @@ namespace BK
             base.Awake();
 
             aiCharacterNetworkManager = GetComponent<AICharacterNetworkManager>();
+            aiCharacterSoundFXManager = GetComponent<AICharacterSoundFXManager>();
             aiCharacterCombatManager = GetComponent<AICharacterCombatManager>();
             aiCharacterLocomotionManager = GetComponent<AICharacterLocomotionManager>();
             aiCharacterInventoryManager = GetComponent<AICharacterInventoryManager>();
@@ -69,6 +71,7 @@ namespace BK
 
             aiCharacterNetworkManager.currentHealth.OnValueChanged += aiCharacterNetworkManager.OnHpChanged;
             aiCharacterNetworkManager.isBlocking.OnValueChanged += aiCharacterNetworkManager.OnIsBlockingChanged;
+            aiCharacterNetworkManager.isPoisoned.OnValueChanged += aiCharacterNetworkManager.OnIsPoisonedChanged;
 
             if (!aiCharacterNetworkManager.isAwake.Value)
                 animator.Play(aiCharacterNetworkManager.sleepingAnimation.Value.ToString());
@@ -77,6 +80,9 @@ namespace BK
                 animator.Play("Dead_01");
 
             CreateActivationBeacon();
+
+            if (!IsOwner)
+                aiCharacterNetworkManager.OnIsPoisonedChanged(false, aiCharacterNetworkManager.isPoisoned.Value);
         }
 
         public override void OnNetworkDespawn()
@@ -85,6 +91,7 @@ namespace BK
 
             aiCharacterNetworkManager.currentHealth.OnValueChanged -= aiCharacterNetworkManager.OnHpChanged;
             aiCharacterNetworkManager.isBlocking.OnValueChanged -= aiCharacterNetworkManager.OnIsBlockingChanged;
+            aiCharacterNetworkManager.isPoisoned.OnValueChanged -= aiCharacterNetworkManager.OnIsPoisonedChanged;
         }
 
         protected override void OnEnable()

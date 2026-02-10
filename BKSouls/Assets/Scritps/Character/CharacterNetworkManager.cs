@@ -7,7 +7,7 @@ namespace BK
 {
     public class CharacterNetworkManager : NetworkBehaviour
     {
-        CharacterManager character;
+        protected CharacterManager character;
 
         [Header("Active")]
         public NetworkVariable<bool> isActive = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -40,6 +40,8 @@ namespace BK
         public NetworkVariable<bool> isChargingAttack = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isRipostable = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isBeingCriticallyDamaged = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> isRolling = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> isPoisoned = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Resources")]
         public NetworkVariable<int> currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -127,6 +129,32 @@ namespace BK
         public virtual void OnIsBlockingChanged(bool oldStatus, bool newStatus)
         {
             character.animator.SetBool("isBlocking", isBlocking.Value);
+        }
+        
+        public virtual void OnIsPoisonedChanged(bool oldStatus, bool newStatus)
+        {
+            if (isPoisoned.Value)
+            {
+                if (character.characterEffectsManager.poisonedVFX != null)
+                    return;
+
+                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.instance.poisonedVFX);
+                poisonVFX.transform.parent = character.characterCombatManager.lockOnTransform;
+                poisonVFX.transform.localPosition = Vector3.zero;
+                poisonVFX.transform.localRotation = Quaternion.identity;
+            }
+            else
+            {
+                if (character.characterEffectsManager.poisonedVFX == null)
+                    return;
+
+                //  OPTION 1 JUST DESTROY IT
+                Destroy(character.characterEffectsManager.poisonedVFX);
+
+                //  OPTION 2
+                //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
+                //  AND DONT JUST STOP SUDDENLY, THEN WHEN THEY ARE FADED DESTROY IT
+            }
         }
 
         //  USED TO CANCEL FX WHEN POISE BROKEN

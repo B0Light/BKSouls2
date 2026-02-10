@@ -1,0 +1,42 @@
+using UnityEngine;
+
+namespace BK
+{
+    [CreateAssetMenu(menuName = "Character Effects/Timed Effects/Poison Effect")]
+    public class PoisonedEffect : TimedCharacterEffect
+    {
+        private int poisonDamage = 1;
+        private bool poisonDamageHasBeenCalculated = false;
+
+        public override void ProcessEffect(CharacterManager character)
+        {
+            timeRemainingOnEffect -= 1;
+
+            if (timeRemainingOnEffect <= 0 || character.isDead.Value)
+                character.characterEffectsManager.RemoveTimedEffect(effectID);
+
+            if (!poisonDamageHasBeenCalculated)
+            {
+                poisonDamageHasBeenCalculated = true;
+                CalculatePoisonDamage(character);
+            }
+
+            if (!character.characterNetworkManager.isPoisoned.Value)
+                character.characterEffectsManager.RemoveTimedEffect(effectID);
+
+            ProcessPoisonDamage(character);
+        }
+
+        private void CalculatePoisonDamage(CharacterManager character)
+        {
+            //  THIS IS A PLACE WHERE IF DESIRED YOU CAN CREATE A FORMULA FOR YOUR POISON
+            //  IT COULD BE BASED OFF CREATURES HP OR OTHER FACTORS
+            poisonDamage = 10;
+        }
+
+        private void ProcessPoisonDamage(CharacterManager character)
+        {
+            character.characterEffectsManager.ProcessPoisonDamage(poisonDamage);
+        }
+    }
+}

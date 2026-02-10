@@ -626,7 +626,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -644,6 +644,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.UI_Character_HP_Bar
   scaleBarLengthWithStats: 1
   widthScaleMultiplier: 1
+  fillImage: {fileID: 2054245601239593374}
+  barFillColor: {r: 0.11764707, g: 0.11764707, b: 0.11764707, a: 1}
   displayCharacterNameOnDamage: 0
   defaultTimeBeforeBarHides: 3
   hideTimer: 0
@@ -651,6 +653,7 @@ MonoBehaviour:
   characterName: {fileID: 1320800496379892451}
   characterDamage: {fileID: 1181600325940712790}
   oldHealthValue: 0
+  regularColor: {r: 0.43529412, g: 0.05882353, b: 0.05882353, a: 1}
 --- !u!1 &8796019270214235485
 GameObject:
   m_ObjectHideFlags: 0

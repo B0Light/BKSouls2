@@ -127,6 +127,9 @@ namespace BK
             playerNetworkManager.currentFocusPoints.OnValueChanged += playerNetworkManager.OnFocusPointsChanged;
             playerNetworkManager.maxFocusPoints.OnValueChanged += playerNetworkManager.OnMaxFocusPointsChanged;
 
+            // STATUS EFFECTS
+            playerNetworkManager.isPoisoned.OnValueChanged += playerNetworkManager.OnIsPoisonedChanged;
+
             //  LOCK ON
             playerNetworkManager.isLockedOn.OnValueChanged += playerNetworkManager.OnIsLockedOnChanged;
             playerNetworkManager.currentTargetNetworkObjectID.OnValueChanged += playerNetworkManager.OnLockOnTargetIDChange;
@@ -208,6 +211,9 @@ namespace BK
             playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.OnHpChanged;
             playerNetworkManager.currentFocusPoints.OnValueChanged -= playerNetworkManager.OnFocusPointsChanged;
             playerNetworkManager.maxFocusPoints.OnValueChanged -= playerNetworkManager.OnMaxFocusPointsChanged;
+            
+            // STATUS EFFECTS
+            playerNetworkManager.isPoisoned.OnValueChanged -= playerNetworkManager.OnIsPoisonedChanged;
 
             //  LOCK ON
             playerNetworkManager.isLockedOn.OnValueChanged -= playerNetworkManager.OnIsLockedOnChanged;
@@ -597,6 +603,10 @@ namespace BK
             //  SYNC TWO HAND STATUS
             playerNetworkManager.OnIsTwoHandingRightWeaponChanged(false, playerNetworkManager.isTwoHandingRightWeapon.Value);
             playerNetworkManager.OnIsTwoHandingLeftWeaponChanged(false, playerNetworkManager.isTwoHandingLeftWeapon.Value);
+            
+            //  SYNC STATUS EFFECTS
+            playerNetworkManager.OnIsPoisonedChanged(false, playerNetworkManager.isPoisoned.Value);
+
 
             //  SYNC BLOCK STATUS
             playerNetworkManager.OnIsBlockingChanged(false, playerNetworkManager.isBlocking.Value);

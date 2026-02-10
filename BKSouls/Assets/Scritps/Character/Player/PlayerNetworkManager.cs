@@ -85,6 +85,46 @@ namespace BK
                 //
             }
         }
+        
+        public override void OnIsPoisonedChanged(bool oldStatus, bool newStatus)
+        {
+            if (player.IsOwner)
+            {
+                if (isPoisoned.Value)
+                {
+                    GUIController.Instance.playerUIPopUpManager.SendStatusEffectPopUp(BuildUp.Poison);
+                    GUIController.Instance.playerUIHudManager.healthBar.ToggleBarFillColor(true);
+                }
+                else
+                {
+                    GUIController.Instance.playerUIHudManager.healthBar.ToggleBarFillColor(false);
+                }
+            }
+
+            if (isPoisoned.Value)
+            {
+                if (character.characterEffectsManager.poisonedVFX != null)
+                    return;
+
+                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.instance.poisonedVFX);
+                poisonVFX.transform.parent = character.characterCombatManager.lockOnTransform;
+                poisonVFX.transform.localPosition = Vector3.zero;
+                poisonVFX.transform.localRotation = Quaternion.identity;
+                character.characterEffectsManager.poisonedVFX = poisonVFX;
+            }
+            else
+            {
+                if (character.characterEffectsManager.poisonedVFX == null)
+                    return;
+
+                //  OPTION 1 JUST DESTROY IT
+                Destroy(character.characterEffectsManager.poisonedVFX);
+
+                //  OPTION 2
+                //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
+                //  AND DONT JUST STOP SUDDENLY, THEN WHEN THEY ARE FADED DESTROY IT
+            }
+        }
 
         public void SetCharacterActionHand(bool rightHandedAction)
         {
