@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a76b16d4020749944b33340ad612b423
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 199700
+  packageName: Wireframe Shader Effect
+  packageVersion: 1.0
+  assetPath: Assets/Azerilo/Demo/Wireframe Materials/Wire Material 1.mat
+  uploadId: 445503

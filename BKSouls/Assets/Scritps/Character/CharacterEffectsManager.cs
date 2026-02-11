@@ -22,18 +22,25 @@ namespace BK
         [Header("VFX")]
         [SerializeField] GameObject bloodSplatterVFX;
         [SerializeField] GameObject criticalBloodSplatterVFX;
-        
+
         [Header("Status Effect VFX")]
         [HideInInspector] public GameObject poisonedVFX;
+        [HideInInspector] public GameObject frostBiteVFX;
 
         [Header("Static Effects")]
         public List<StaticCharacterEffect> staticEffects = new List<StaticCharacterEffect>();
-        
+
         [Header("Timed Effects")]
         [SerializeField] protected float effectTickTimer = 0;
         [SerializeField] protected float defaultEffectTickTime = 1;
         public List<TimedCharacterEffect> timedEffects = new List<TimedCharacterEffect>();
 
+        [Header("Frozen")]
+        private Coroutine frozenCoroutine;
+
+        [Header("Renderers")]
+        private SkinnedMeshRenderer[] skinnedMeshRenderers;
+        private MeshRenderer[] meshRenderers;
 
         protected virtual void Awake()
         {
@@ -50,7 +57,7 @@ namespace BK
                 ProcessTimedEffects();
             }
         }
-        
+
         public virtual void ProcessInstantEffect(InstantCharacterEffect effect)
         {
             effect.ProcessEffect(character);
@@ -83,7 +90,7 @@ namespace BK
                 GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.instance.criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
             }
         }
-        
+
         public virtual void AddBuildUps(BuildUp buildUpType, float amount)
         {
             if (!character.IsOwner)
@@ -100,11 +107,16 @@ namespace BK
                     //  TO DO, PASS THE VALUE THROUGH THE CHARACTERS BLEED RESISTANCE FIRST (SIMILAR TO ARMOR)
                     character.characterNetworkManager.bleedBuildUp.Value += amount;
                     break;
+                case BuildUp.Frost:
+                    //  TO DO, PASS THE VALUE THROUGH THE CHARACTERS FROST RESISTANCE FIRST (SIMILAR TO ARMOR)
+                    character.characterNetworkManager.frostBiteBuildUp.Value += amount;
+                    break;
                 default:
                     break;
             }
         }
 
+        //  STATIC EFFECTS
         public void AddStaticEffect(StaticCharacterEffect effect)
         {
             //  IF YOU WANT TO SYNC EFFECTS ACROSS NETWORK, IF YOU ARE THE OWNER LAUNCH A SERVER RPC HERE TO PROCESS THE EFFECT ON ALL OTHER CLIENTS
@@ -122,7 +134,7 @@ namespace BK
                     staticEffects.RemoveAt(i);
             }
         }
-        
+
         public void RemoveStaticEffect(int effectID)
         {
             //  IF YOU WANT TO SYNC EFFECTS ACROSS NETWORK, IF YOU ARE THE OWNER LAUNCH A SERVER RPC HERE TO PROCESS THE EFFECT ON ALL OTHER CLIENTS
@@ -151,7 +163,7 @@ namespace BK
                     staticEffects.RemoveAt(i);
             }
         }
-        
+
         //  TIMED EFFECTS
 
         //  PROCESSES ALL CURRENT TIMED EFFECTS
@@ -238,8 +250,7 @@ namespace BK
             return timedEffect;
         }
         
-        //  POISON
-        public void ProcessPoisonDamage(int poisonDamage)
+        public void ProcessEffectDamage(int effectDamage)
         {
             //  IF YOU ARE SYNCING YOUR EFFECTS ON SERVER RPC CALLS REMEMBER TO CHECK FOR OWNER BEFORE MODIFYING A NETWORK VARAIBLE
             if (!character.IsOwner)
@@ -248,7 +259,7 @@ namespace BK
             if (character.isDead.Value)
                 return;
 
-            character.characterNetworkManager.currentHealth.Value -= poisonDamage;
+            character.characterNetworkManager.currentHealth.Value -= effectDamage;
 
             if (character.characterNetworkManager.currentHealth.Value >= 1)
                 return;
@@ -258,7 +269,95 @@ namespace BK
                 character.characterAnimatorManager.PlayTargetActionAnimation("Dead_01", true);
 
             character.characterNetworkManager.isPoisoned.Value = false;
+            character.characterNetworkManager.isBleeding.Value = false;
+            character.characterNetworkManager.isFrostBitten.Value = false;
+            character.characterNetworkManager.isFrozen.Value = false;
             character.isDead.Value = true;
+        }
+
+        //  FROZEN
+        public void PlayFrozenFX()
+        {
+            //  IF YOU ARE USING ANIMATION IK, TEMPORARILY DISABLE IT HERE
+
+            skinnedMeshRenderers = GetComponentsInChildren<SkinnedMeshRenderer>();
+            meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+            if (frozenCoroutine != null)
+                StopCoroutine(frozenCoroutine);
+
+            frozenCoroutine = StartCoroutine(ActivateFrozenVFXCoroutine(WorldUtilityManager.Instance.GetFrozenMaterial()));
+        }
+
+        private IEnumerator ActivateFrozenVFXCoroutine(Material frozenMaterial)
+        {
+            //  ALL CHARACTER SKIN MESH RENDERER MATERIALS
+            List<Material> originalSkinMeshMaterials = new List<Material>();
+
+            //  ANY MARTERIALS OF OBJECTS THE CHARACTER HAS ON THEIR MODEL (SUCH AS A WEAPON)
+            List<Material> originalMeshMaterials = new List<Material>();
+
+            //  SAVE WHAT ARE CHARACTER'S STATUS WAS BEFORE WE WERE FROZEN
+            bool rotationStatusOnFrozen = character.characterLocomotionManager.canRotate;
+            bool canMoveStatusOnFrozen = character.characterLocomotionManager.canMove;
+            bool isPerformingActionStatusOnFrozen = character.isPerformingAction;
+
+            //  FREEZE THEIR ABILITY TO MOVE OR PERFORM AN ACTION
+            character.characterLocomotionManager.canRotate = false;
+            character.characterLocomotionManager.canMove = false;
+            character.isPerformingAction = true;
+
+            //  CHANGE ALL CHARACTER MATERIALS TO FROZEN MATERIAL
+            for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+            {
+                if (skinnedMeshRenderers[i] == null)
+                    continue;
+
+                //  INSTANTIATE A COPY IF ANY PROPERTIES ON YOUR MATERIAL CHANGE DURING RUNTIME
+                originalSkinMeshMaterials.Add(Instantiate(skinnedMeshRenderers[i].material));
+                skinnedMeshRenderers[i].material = Instantiate(frozenMaterial);
+            }
+
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                if (meshRenderers[i] == null)
+                    continue;
+
+                originalMeshMaterials.Add(Instantiate(meshRenderers[i].material));
+                meshRenderers[i].material = Instantiate(frozenMaterial);
+            }
+
+            while (character.characterNetworkManager.isFrozen.Value)
+            {
+                yield return null;
+            }
+
+            //  UPON BEING UNFROZEN, CHANGE ALL MATERIALS BACK TO THEIR ORIGINAL MATERIAL
+            for (int i = 0; i < skinnedMeshRenderers.Length; i++)
+            {
+                for (int j = 0; j < originalSkinMeshMaterials.Count; j++)
+                {
+                    skinnedMeshRenderers[i].material = originalSkinMeshMaterials[j];
+                }
+            }
+
+            for (int i = 0; i < meshRenderers.Length; i++)
+            {
+                for (int j = 0; j < originalMeshMaterials.Count; j++)
+                {
+                    meshRenderers[i].material = originalMeshMaterials[j];
+                }
+            }
+
+            character.characterLocomotionManager.canRotate = rotationStatusOnFrozen;
+            character.characterLocomotionManager.canMove = canMoveStatusOnFrozen;
+            character.isPerformingAction = isPerformingActionStatusOnFrozen;
+
+
+            //  IS THERE AN ALTERNATIVE TO CHANGING THE MATERIALS?
+
+            //  YES! YOU COULD MAKE A SHADER WITH A "FROZEN" PROPERTY, WHICH COULD ADD A LAYER OF ICE OVER THE STANDARD MATERIAL USING THE SHADER
+            //  THEN, INSTEAD OF CHANGING MATERIALS, SIMPLY SET THE FROZEN VARAIBLE VALUE TO THE DESIRED SETTING, AND CHANGE IT BACK TO 0 WHEN UNFROZEN
         }
     }
 }

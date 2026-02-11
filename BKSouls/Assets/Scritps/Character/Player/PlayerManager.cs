@@ -99,12 +99,11 @@ namespace BK
                 playerNetworkManager.currentHealth.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
                 playerNetworkManager.currentFocusPoints.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
-                playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
 
                 //  UPDATE UI BUILD UP BARS WHEN BUILD UP CHANGES
                 playerNetworkManager.poisonBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
                 playerNetworkManager.bleedBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewBleedBuildUpAmount;
-
+                playerNetworkManager.frostBiteBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewFrostBuildUpAmount;
 
                 playerNetworkManager.SetNewMaxHealthValue(0, playerNetworkManager.vigor.Value);
                 playerNetworkManager.SetNewMaxStaminaValue(0, playerNetworkManager.endurance.Value);
@@ -128,11 +127,13 @@ namespace BK
             playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.OnHpChanged;
             playerNetworkManager.currentFocusPoints.OnValueChanged += playerNetworkManager.OnFocusPointsChanged;
             playerNetworkManager.maxFocusPoints.OnValueChanged += playerNetworkManager.OnMaxFocusPointsChanged;
-
+            playerNetworkManager.currentStamina.OnValueChanged += playerStatsManager.ResetStaminaRegenTimer;
+            
             // STATUS EFFECTS
             playerNetworkManager.isPoisoned.OnValueChanged += playerNetworkManager.OnIsPoisonedChanged;
             playerNetworkManager.isBleeding.OnValueChanged += playerNetworkManager.OnIsBleedingChanged;
-
+            playerNetworkManager.isFrostBitten.OnValueChanged += playerNetworkManager.OnIsFrostBittenChanged;
+            playerNetworkManager.isFrozen.OnValueChanged += playerNetworkManager.OnIsFrozenChanged;
 
             //  LOCK ON
             playerNetworkManager.isLockedOn.OnValueChanged += playerNetworkManager.OnIsLockedOnChanged;
@@ -196,12 +197,12 @@ namespace BK
                 playerNetworkManager.currentHealth.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
                 playerNetworkManager.currentFocusPoints.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
-                playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenTimer;
                 
                 //  UPDATE UI BUILD UP BARS WHEN BUILD UP CHANGES
                 playerNetworkManager.poisonBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
                 playerNetworkManager.bleedBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewBleedBuildUpAmount;
-
+                playerNetworkManager.frostBiteBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewFrostBuildUpAmount;
+                
                 //  RESETS CAMERA ROTATION TO STANDARD WHEN AIMING IS DISABLED
                 playerNetworkManager.isAiming.OnValueChanged -= playerNetworkManager.OnIsAimingChanged;
             }
@@ -216,10 +217,13 @@ namespace BK
             playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.OnHpChanged;
             playerNetworkManager.currentFocusPoints.OnValueChanged -= playerNetworkManager.OnFocusPointsChanged;
             playerNetworkManager.maxFocusPoints.OnValueChanged -= playerNetworkManager.OnMaxFocusPointsChanged;
+            playerNetworkManager.currentStamina.OnValueChanged -= playerStatsManager.ResetStaminaRegenTimer;
             
             // STATUS EFFECTS
             playerNetworkManager.isPoisoned.OnValueChanged -= playerNetworkManager.OnIsPoisonedChanged;
             playerNetworkManager.isBleeding.OnValueChanged -= playerNetworkManager.OnIsBleedingChanged;
+            playerNetworkManager.isFrostBitten.OnValueChanged -= playerNetworkManager.OnIsFrostBittenChanged;
+            playerNetworkManager.isFrozen.OnValueChanged -= playerNetworkManager.OnIsFrozenChanged;
 
 
             //  LOCK ON

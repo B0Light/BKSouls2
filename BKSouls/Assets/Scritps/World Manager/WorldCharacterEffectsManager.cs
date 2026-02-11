@@ -15,23 +15,30 @@ namespace BK
         public GameObject deadSpotVFX;
         public GameObject poisonedVFX;
         public GameObject bloodLossVFX;
+        public GameObject frostBiteVFX;
 
         [Header("Damage")]
         public TakeDamageEffect takeDamageEffect;
         public TakeBlockedDamageEffect takeBlockedDamageEffect;
         public TakeCriticalDamageEffect takeCriticalDamageEffect;
+        
+        [Header("Frost Bite")]
+        public ModifyStaminaRegenerationForATimeEffect frostBiteStaminaRegenerationEffect;
 
         [Header("Status Effects")]
         public PoisonedEffect poisonedEffect;
         public BloodLossEffect bloodLossEffect;
+        public FrostBiteEffect frostBiteEffect;
 
         [Header("Take Build Ups")]
         public TakeBuildUpEffect takePoisonBuildUpEffect;
         public TakeBuildUpEffect takeBleedBuildUpEffect;
+        public TakeBuildUpEffect takeFrostBuildUpEffect;
 
         [Header("Degrade Build Ups")]
         public BuildUpEffect degradePoisonBuildUpEffect;
         public BuildUpEffect degradeBleedBuildUpEffect;
+        public BuildUpEffect degradeFrostBiteBuildUpEffect;
 
         [Header("Two Hand")]
         public TwoHandingEffect twoHandingEffect;

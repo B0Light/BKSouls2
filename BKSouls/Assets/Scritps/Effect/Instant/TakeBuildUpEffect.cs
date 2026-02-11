@@ -25,6 +25,9 @@ namespace BK
                 case BuildUp.Bleed:
                     CheckForBloodLossStatus(character);
                     break;
+                case BuildUp.Frost:
+                    CheckForFrostBiteStatus(character);
+                    break;
                 default:
                     break;
             }
@@ -116,6 +119,37 @@ namespace BK
                     return;
 
                 //  TO DO ADD A TEMPORARY RESISTANCE SO YOU CAN'T GET POISONED BACK TO BACK SO EASILY
+            }
+        }
+
+        private void CheckForFrostBiteStatus(CharacterManager character)
+        {
+            if (character.characterNetworkManager.isFrostBitten.Value) return;
+
+            BuildUpEffect frostBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradeFrostBiteBuildUpEffect.effectID) as BuildUpEffect;
+
+            if (frostBuildUp == null)
+            {
+                frostBuildUp = Instantiate(WorldCharacterEffectsManager.instance.degradeFrostBiteBuildUpEffect);
+                character.characterEffectsManager.AddTimedEffect(frostBuildUp);
+                frostBuildUp.ProcessEffect(character);
+            }
+
+            if (character.characterNetworkManager.frostBiteBuildUp.Value > character.characterNetworkManager.buildUpCapacity.Value)
+            {
+                //  RESET THE BUILD UP AMOUNT, AND SET THE STATUS EFFECT FLAG TO TRUE
+                character.characterNetworkManager.frostBiteBuildUp.Value = 0;
+                character.characterNetworkManager.isFrostBitten.Value = true;
+
+                //  CREATE THE POISONED EFFECT
+                FrostBiteEffect frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteEffect);
+                character.characterEffectsManager.AddTimedEffect(frostBite);
+
+                PlayerManager player = character as PlayerManager;
+
+                if (player == null) return;
+
+                if (!player.IsOwner) return;
             }
         }
     }

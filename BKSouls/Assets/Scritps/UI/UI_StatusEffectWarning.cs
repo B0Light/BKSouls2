@@ -11,6 +11,7 @@ namespace BK
         [Header("Effect Colors")]
         [SerializeField] Color poisonedColor;
         [SerializeField] Color bloodLossColor;
+        [SerializeField] Color frostColor;
 
         public void SetWarningMessage(BuildUp status)
         {
@@ -23,6 +24,10 @@ namespace BK
                 case BuildUp.Bleed:
                     warningText.color = bloodLossColor;
                     warningText.text = "BLOOD LOSS!";
+                    break;
+                case BuildUp.Frost:
+                    warningText.color = frostColor;
+                    warningText.text = "FROSTBITE!";
                     break;
                 default:
                     break;

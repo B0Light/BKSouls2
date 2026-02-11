@@ -43,7 +43,9 @@ namespace BK
         public NetworkVariable<bool> isRolling = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isPoisoned = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isBleeding = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+        public NetworkVariable<bool> isFrostBitten = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> isFrozen = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Resources")]
         public NetworkVariable<int> currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> maxHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -65,9 +67,11 @@ namespace BK
         public NetworkVariable<float> buildUpCapacity = new NetworkVariable<float>(100, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> poisonBuildUp = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<float> bleedBuildUp = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+        public NetworkVariable<float> frostBiteBuildUp = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Stats Modifiers")]
         public NetworkVariable<int> strengthModifier = new NetworkVariable<int>(1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<float> staminaRegenerationModifier = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         protected virtual void Awake()
         {
@@ -169,6 +173,52 @@ namespace BK
             }
         }
 
+        public virtual void OnIsFrostBittenChanged(bool oldStatus, bool newStatus)
+        {
+            if (isFrostBitten.Value)
+            {
+                if (character.characterEffectsManager.frostBiteVFX != null)
+                    return;
+
+                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteVFX);
+                frostBite.transform.parent = character.characterCombatManager.lockOnTransform;
+                frostBite.transform.localPosition = Vector3.zero;
+                frostBite.transform.localRotation = Quaternion.identity;
+                character.characterEffectsManager.frostBiteVFX = frostBite;
+            }
+            else
+            {
+                if (character.characterEffectsManager.frostBiteVFX == null)
+                    return;
+
+                //  OPTION 1 JUST DESTROY IT
+                Destroy(character.characterEffectsManager.frostBiteVFX);
+
+                //  OPTION 2
+                //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
+                //  AND DONT JUST STOP SUDDENLY, THEN WHEN THEY ARE FADED DESTROY IT
+            }
+        }
+        
+        public virtual void OnIsFrozenChanged(bool oldStatus, bool newStatus)
+        {
+            // IF FROZEN
+            if (isFrozen.Value)
+            {
+                //  1. STOP ANIMATION
+                character.animator.speed = 0;
+
+                //  2. APPLY A FROZEN MATERIAL AND VFX
+                character.characterEffectsManager.PlayFrozenFX();
+            }
+            else
+            {
+                //  IF UNFROZEN
+                //  1. RESUME ANIMATION AS NORMAL FROM WHERE IT LEFT ON WHEN FROZEN
+                character.animator.speed = 1;
+                //  2. RE-APPLY NORMAL MATERIAL OR REMOVE FROZEN MATERIAL
+            }
+        }
 
         //  USED TO CANCEL FX WHEN POISE BROKEN
         [ServerRpc]

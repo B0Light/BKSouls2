@@ -19,6 +19,7 @@ namespace BK
         [Header("Build Up Bars")]
         [SerializeField] UI_BuildUpBar poisonBuildUpBar;
         [SerializeField] UI_BuildUpBar bleedBuildUpBar;
+        [SerializeField] UI_BuildUpBar frostBiteBuildUpBar;
         
         [Header("Runes")]
         [SerializeField] float runeUpdateCountDelayTimer = 2.5f;
@@ -138,11 +139,16 @@ namespace BK
             bleedBuildUpBar.SetStat(Mathf.RoundToInt(amount));
         }
 
+        public void SetNewFrostBuildUpAmount(float oldValue, float amount)
+        {
+            frostBiteBuildUpBar.SetStat(Mathf.RoundToInt(amount));
+        }
 
         public void SetMaxBuildUpValue(int buildUpCapacity)
         {
             poisonBuildUpBar.SetMaxStat(buildUpCapacity);
             bleedBuildUpBar.SetMaxStat(buildUpCapacity);
+            frostBiteBuildUpBar.SetMaxStat(buildUpCapacity);
         }
 
         public void SetNewHealthValue(int oldValue, int newValue)

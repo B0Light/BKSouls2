@@ -86,23 +86,6 @@ namespace BK
             }
         }
         
-        public override void OnIsBleedingChanged(bool oldStatus, bool newStatus)
-        {
-            if (isBleeding.Value)
-            {
-                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.instance.bloodLossVFX);
-                bloodLossVFX.transform.parent = character.characterCombatManager.lockOnTransform;
-                bloodLossVFX.transform.localPosition = Vector3.zero;
-                bloodLossVFX.transform.localRotation = Quaternion.identity;
-
-                if (player.IsOwner)
-                {
-                    GUIController.Instance.playerUIPopUpManager.SendStatusEffectPopUp(BuildUp.Bleed);
-                    isBleeding.Value = false;
-                }
-            }
-        }
-        
         public override void OnIsPoisonedChanged(bool oldStatus, bool newStatus)
         {
             if (player.IsOwner)
@@ -136,6 +119,53 @@ namespace BK
 
                 //  OPTION 1 JUST DESTROY IT
                 Destroy(character.characterEffectsManager.poisonedVFX);
+
+                //  OPTION 2
+                //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
+                //  AND DONT JUST STOP SUDDENLY, THEN WHEN THEY ARE FADED DESTROY IT
+            }
+        }
+        
+        public override void OnIsBleedingChanged(bool oldStatus, bool newStatus)
+        {
+            if (isBleeding.Value)
+            {
+                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.instance.bloodLossVFX);
+                bloodLossVFX.transform.parent = character.characterCombatManager.lockOnTransform;
+                bloodLossVFX.transform.localPosition = Vector3.zero;
+                bloodLossVFX.transform.localRotation = Quaternion.identity;
+
+                if (player.IsOwner)
+                {
+                    GUIController.Instance.playerUIPopUpManager.SendStatusEffectPopUp(BuildUp.Bleed);
+                    isBleeding.Value = false;
+                }
+            }
+        }
+        
+        public override void OnIsFrostBittenChanged(bool oldStatus, bool newStatus)
+        {
+            if (isFrostBitten.Value)
+            {
+                if (player.IsOwner)
+                    GUIController.Instance.playerUIPopUpManager.SendStatusEffectPopUp(BuildUp.Frost);
+
+                if (character.characterEffectsManager.frostBiteVFX != null)
+                    return;
+
+                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteVFX);
+                frostBite.transform.parent = character.characterCombatManager.lockOnTransform;
+                frostBite.transform.localPosition = Vector3.zero;
+                frostBite.transform.localRotation = Quaternion.identity;
+                player.playerEffectsManager.frostBiteVFX = frostBite;
+            }
+            else
+            {
+                if (character.characterEffectsManager.frostBiteVFX == null)
+                    return;
+
+                //  OPTION 1 JUST DESTROY IT
+                Destroy(character.characterEffectsManager.frostBiteVFX);
 
                 //  OPTION 2
                 //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE

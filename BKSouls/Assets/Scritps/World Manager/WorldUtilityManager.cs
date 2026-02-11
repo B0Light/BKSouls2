@@ -9,9 +9,16 @@ namespace BK
         [Header("Layers")]
         [SerializeField] LayerMask characterLayers;
         [SerializeField] LayerMask enviroLayers;
-        
+        [SerializeField] LayerMask slipperyEnviroLayers;
+
         [Header("UI Colors")]
         [SerializeField] Color poisonedColor;
+
+        [Header("Materials")]
+        [SerializeField] Material frozenMaterial;
+
+        [Header("Forces")]
+        public float slopeSlideForce = -15;
 
         public LayerMask GetCharacterLayers()
         {
@@ -22,10 +29,20 @@ namespace BK
         {
             return enviroLayers;
         }
-        
+
+        public LayerMask GetSlipperyEnviroLayers()
+        {
+            return slipperyEnviroLayers;
+        }
+
         public Color GetPoisonedColor()
         {
             return poisonedColor;
+        }
+
+        public Material GetFrozenMaterial()
+        {
+            return frozenMaterial;
         }
 
         public bool CanIDamageThisTarget(CharacterGroup attackingCharacter, CharacterGroup targetCharacter)

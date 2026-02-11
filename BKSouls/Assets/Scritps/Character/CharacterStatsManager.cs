@@ -12,11 +12,12 @@ namespace BK
         public int runesDroppedOnDeath = 50;
 
         [Header("Stamina Regeneration")]
-        [SerializeField] float staminaRegenerationAmount = 2;
-        private float staminaRegenerationTimer = 0;
+        [SerializeField] float baseStaminaRegenerationAmount = 2;
+        private float staminaRegenerationAmount = 0;
         private float staminaTickTimer = 0;
+        private float staminaRegenerationTimer = 0;
         [SerializeField] float staminaRegenerationDelay = 2;
-
+        
         [Header("Blocking Absorptions")]
         public float blockingPhysicalAbsorption;
         public float blockingFireAbsorption;
@@ -134,7 +135,7 @@ namespace BK
 
             return characterLevel;
         }
-        
+
         public int CalculateBuildUpCapacityBasedOnVitalityLevel(int vitality)
         {
             float capacity = 0;
@@ -159,8 +160,20 @@ namespace BK
             if (character.isPerformingAction)
                 return;
 
-            staminaRegenerationTimer += Time.deltaTime;
+            if (character.characterNetworkManager.currentStamina.Value >= character.characterNetworkManager.maxStamina.Value)
+                return;
 
+            staminaRegenerationAmount = baseStaminaRegenerationAmount + (baseStaminaRegenerationAmount * (character.characterNetworkManager.staminaRegenerationModifier.Value / 100));
+            staminaTickTimer += Time.deltaTime;
+
+            Debug.Log("STAMINA REGENERATION AMOUNT: " + staminaRegenerationAmount);
+
+            //  IF WE ARE BLOCKING, RECOVER STAMINA SLOWER THAN USUAL
+            if (character.characterNetworkManager.isBlocking.Value)
+                staminaRegenerationAmount *= 0.2f;
+
+            staminaRegenerationTimer += Time.deltaTime;
+            
             if (staminaRegenerationTimer >= staminaRegenerationDelay)
             {
                 if (character.characterNetworkManager.currentStamina.Value < character.characterNetworkManager.maxStamina.Value)
@@ -175,7 +188,7 @@ namespace BK
                 }
             }
         }
-
+        
         public virtual void ResetStaminaRegenTimer(float previousStaminaAmount, float currentStaminaAmount)
         {
             //  WE ONLY WANT TO RESET THE REGENERATION IF THE ACTION USED STAMINA
@@ -197,7 +210,7 @@ namespace BK
                 totalPoiseDamage = 0;
             }
         }
-        
+
         public virtual void DegradeBuildUps(BuildUp buildUp, int amount, BuildUpEffect effect)
         {
             switch (buildUp)
@@ -209,6 +222,10 @@ namespace BK
                 case BuildUp.Bleed:
                     character.characterNetworkManager.bleedBuildUp.Value += amount;
                     effect.buildUpRemaining = character.characterNetworkManager.bleedBuildUp.Value;
+                    break;
+                case BuildUp.Frost:
+                    character.characterNetworkManager.frostBiteBuildUp.Value += amount;
+                    effect.buildUpRemaining = character.characterNetworkManager.frostBiteBuildUp.Value;
                     break;
                 default:
                     break;

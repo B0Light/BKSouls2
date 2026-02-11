@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 2c169ac03a30afe44906ceb319ea621d
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 199700
+  packageName: Wireframe Shader Effect
+  packageVersion: 1.0
+  assetPath: Assets/Azerilo/Wireframe Shader/Core.cginc
+  uploadId: 445503
