@@ -103,6 +103,8 @@ namespace BK
 
                 //  UPDATE UI BUILD UP BARS WHEN BUILD UP CHANGES
                 playerNetworkManager.poisonBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
+                playerNetworkManager.bleedBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewBleedBuildUpAmount;
+
 
                 playerNetworkManager.SetNewMaxHealthValue(0, playerNetworkManager.vigor.Value);
                 playerNetworkManager.SetNewMaxStaminaValue(0, playerNetworkManager.endurance.Value);
@@ -129,6 +131,8 @@ namespace BK
 
             // STATUS EFFECTS
             playerNetworkManager.isPoisoned.OnValueChanged += playerNetworkManager.OnIsPoisonedChanged;
+            playerNetworkManager.isBleeding.OnValueChanged += playerNetworkManager.OnIsBleedingChanged;
+
 
             //  LOCK ON
             playerNetworkManager.isLockedOn.OnValueChanged += playerNetworkManager.OnIsLockedOnChanged;
@@ -196,6 +200,7 @@ namespace BK
                 
                 //  UPDATE UI BUILD UP BARS WHEN BUILD UP CHANGES
                 playerNetworkManager.poisonBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
+                playerNetworkManager.bleedBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewBleedBuildUpAmount;
 
                 //  RESETS CAMERA ROTATION TO STANDARD WHEN AIMING IS DISABLED
                 playerNetworkManager.isAiming.OnValueChanged -= playerNetworkManager.OnIsAimingChanged;
@@ -214,6 +219,8 @@ namespace BK
             
             // STATUS EFFECTS
             playerNetworkManager.isPoisoned.OnValueChanged -= playerNetworkManager.OnIsPoisonedChanged;
+            playerNetworkManager.isBleeding.OnValueChanged -= playerNetworkManager.OnIsBleedingChanged;
+
 
             //  LOCK ON
             playerNetworkManager.isLockedOn.OnValueChanged -= playerNetworkManager.OnIsLockedOnChanged;

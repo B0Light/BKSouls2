@@ -2,11 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enums : MonoBehaviour
-{
-
-}
-
 //  USED FOR CHARACTER DATA SAVING
 public enum CharacterSlot
 {

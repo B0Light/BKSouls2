@@ -38,5 +38,13 @@ namespace BK
         {
             character.characterEffectsManager.ProcessPoisonDamage(poisonDamage);
         }
+        
+        public override void RemoveEffect(CharacterManager character)
+        {
+            base.RemoveEffect(character);
+
+            if (character.IsOwner)
+                character.characterNetworkManager.isPoisoned.Value = false;
+        }
     }
 }

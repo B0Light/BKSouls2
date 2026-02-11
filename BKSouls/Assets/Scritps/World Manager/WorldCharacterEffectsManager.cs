@@ -14,21 +14,24 @@ namespace BK
         public GameObject healingFlaskVFX;
         public GameObject deadSpotVFX;
         public GameObject poisonedVFX;
+        public GameObject bloodLossVFX;
 
         [Header("Damage")]
         public TakeDamageEffect takeDamageEffect;
         public TakeBlockedDamageEffect takeBlockedDamageEffect;
         public TakeCriticalDamageEffect takeCriticalDamageEffect;
-        
+
         [Header("Status Effects")]
         public PoisonedEffect poisonedEffect;
-        
-        [Header("Build Ups")]
+        public BloodLossEffect bloodLossEffect;
+
+        [Header("Take Build Ups")]
         public TakeBuildUpEffect takePoisonBuildUpEffect;
         public TakeBuildUpEffect takeBleedBuildUpEffect;
-        
+
         [Header("Degrade Build Ups")]
         public BuildUpEffect degradePoisonBuildUpEffect;
+        public BuildUpEffect degradeBleedBuildUpEffect;
 
         [Header("Two Hand")]
         public TwoHandingEffect twoHandingEffect;
@@ -38,7 +41,7 @@ namespace BK
 
         [Header("Static Effects")]
         [SerializeField] List<StaticCharacterEffect> staticEffects;
-        
+
         [Header("Timed Effects")]
         [SerializeField] List<TimedCharacterEffect> timedEffects;
 
@@ -67,7 +70,7 @@ namespace BK
             {
                 staticEffects[i].staticEffectID = i;
             }
-            
+
             for (int i = 0; i < timedEffects.Count; i++)
             {
                 timedEffects[i].effectID = i;

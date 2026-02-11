@@ -42,7 +42,8 @@ namespace BK
         public NetworkVariable<bool> isBeingCriticallyDamaged = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isRolling = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> isPoisoned = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        public NetworkVariable<bool> isBleeding = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         [Header("Resources")]
         public NetworkVariable<int> currentHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> maxHealth = new NetworkVariable<int>(400, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -156,6 +157,18 @@ namespace BK
                 //  AND DONT JUST STOP SUDDENLY, THEN WHEN THEY ARE FADED DESTROY IT
             }
         }
+        
+        public virtual void OnIsBleedingChanged(bool oldStatus, bool newStatus)
+        {
+            if (isBleeding.Value)
+            {
+                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.instance.bloodLossVFX);
+                bloodLossVFX.transform.parent = character.characterCombatManager.lockOnTransform;
+                bloodLossVFX.transform.localPosition = Vector3.zero;
+                bloodLossVFX.transform.localRotation = Quaternion.identity;
+            }
+        }
+
 
         //  USED TO CANCEL FX WHEN POISE BROKEN
         [ServerRpc]

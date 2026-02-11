@@ -72,6 +72,8 @@ namespace BK
             aiCharacterNetworkManager.currentHealth.OnValueChanged += aiCharacterNetworkManager.OnHpChanged;
             aiCharacterNetworkManager.isBlocking.OnValueChanged += aiCharacterNetworkManager.OnIsBlockingChanged;
             aiCharacterNetworkManager.isPoisoned.OnValueChanged += aiCharacterNetworkManager.OnIsPoisonedChanged;
+            aiCharacterNetworkManager.isBleeding.OnValueChanged += aiCharacterNetworkManager.OnIsBleedingChanged;
+
 
             if (!aiCharacterNetworkManager.isAwake.Value)
                 animator.Play(aiCharacterNetworkManager.sleepingAnimation.Value.ToString());
@@ -92,6 +94,8 @@ namespace BK
             aiCharacterNetworkManager.currentHealth.OnValueChanged -= aiCharacterNetworkManager.OnHpChanged;
             aiCharacterNetworkManager.isBlocking.OnValueChanged -= aiCharacterNetworkManager.OnIsBlockingChanged;
             aiCharacterNetworkManager.isPoisoned.OnValueChanged -= aiCharacterNetworkManager.OnIsPoisonedChanged;
+            aiCharacterNetworkManager.isBleeding.OnValueChanged -= aiCharacterNetworkManager.OnIsBleedingChanged;
+
         }
 
         protected override void OnEnable()

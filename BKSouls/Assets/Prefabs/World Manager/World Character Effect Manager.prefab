@@ -49,13 +49,16 @@ MonoBehaviour:
   healingFlaskVFX: {fileID: 1587903466669714742, guid: 25109e5e8f88aad4ea9a7802ebc120f3, type: 3}
   deadSpotVFX: {fileID: 5324397802511957224, guid: b4942b55e71430741b8cfca07e4846b2, type: 3}
   poisonedVFX: {fileID: 2141061633260675883, guid: 0a4513c9ba7d9724eb849e4bb6b34f90, type: 3}
+  bloodLossVFX: {fileID: 176311210410475692, guid: 346f275f194a29f4e9c9dd9d3d5cff6a, type: 3}
   takeDamageEffect: {fileID: 11400000, guid: 0edf4413f717d6648a305360f221a040, type: 2}
   takeBlockedDamageEffect: {fileID: 11400000, guid: 6a6069dd5b19f054aa22929f9a46556d, type: 2}
   takeCriticalDamageEffect: {fileID: 11400000, guid: fa073053b6f41494bbf21e0aae516e2e, type: 2}
   poisonedEffect: {fileID: 11400000, guid: cd5e54e8e2bb47844abfe54b6d96f293, type: 2}
+  bloodLossEffect: {fileID: 11400000, guid: 934729d6a1b05634aba1745b56fe5be0, type: 2}
   takePoisonBuildUpEffect: {fileID: 11400000, guid: 48b07da95d26733449d6ab1f2f0d5a2f, type: 2}
   takeBleedBuildUpEffect: {fileID: 11400000, guid: a83c02dd446dbc3438f5412471760e95, type: 2}
   degradePoisonBuildUpEffect: {fileID: 11400000, guid: 810718302deecc140a150fceaa0b3138, type: 2}
+  degradeBleedBuildUpEffect: {fileID: 11400000, guid: 33c6b97a803bff34eb7d55fe8cf91b60, type: 2}
   twoHandingEffect: {fileID: 11400000, guid: fa9e46a319668914fa7657f1a1790a66, type: 2}
   instantEffects:
   - {fileID: 11400000, guid: 97fdafdd91b1ebd4d8f34803624ebf7a, type: 2}
