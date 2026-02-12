@@ -118,6 +118,8 @@ namespace BK
         {
             LoadHeadEquipment(player.playerInventoryManager.headEquipment);
             LoadBodyEquipment(player.playerInventoryManager.bodyEquipment);
+            LoadLegEquipment(player.playerInventoryManager.legEquipment);
+            LoadHandEquipment(player.playerInventoryManager.handEquipment);
         }
 
         //  QUICK SLOTS
@@ -719,6 +721,50 @@ namespace BK
             {
                 model.SetActive(false);
             }
+
+            player.playerBodyManager.EnableBody();
+        }
+
+        public void LoadLegEquipment(LegEquipmentItem equipment)
+        {
+            //  1. UNLOAD OLD EQUIPMENT MODELS (IF ANY)
+            UnloadLegEquipmentModels();
+
+            //  2. IF EQUIPMENT IS NULL SIMPLY SET EQUIPMENT IN INVENTORY TO NULL AND RETURN
+            if (equipment == null)
+            {
+                if (player.IsOwner)
+                    player.playerNetworkManager.legEquipmentID.Value = -1; //  -1 WILL NEVER BE AN ITEM ID, SO IT WILL ALWAYS BE NULL
+
+                player.playerInventoryManager.legEquipment = null;
+                return;
+            }
+
+            //  3. IF YOU HAVE AN "ONITEMEQUIPPED" CALL ON YOUR EQUIPMENT, RUN IT NOW
+
+            //  4. SET CURRENT HEAD EQUIPMENT IN PLAYER INVENTORY TO THE EQUIPMENT THAT IS PASSED TO THIS FUNCTION
+            player.playerInventoryManager.legEquipment = equipment;
+
+            //  5. IF YOU NEED TO CHECK FOR HEAD EQUIPMENT TYPE TO DISABLE CERTAIN BODY FEATURES (HOODS DISABLING HAIR ECT, FULL HELMS DISABLING HEADS) DO IT NOW
+            player.playerBodyManager.DisableLowerBody();
+
+            //  6. LOAD HEAD EQUIPMENT MODELS
+            foreach (var model in equipment.equipmentModels)
+            {
+                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
+            }
+
+            //  7. CALCULATE TOTAL EQUIPMENT LOAD (WEIGHT OF ALL YOUR WORN EQUIPMENT. THIS IMPACTS ROLL SPEED AND AT EXTREME WEIGHTS, MOVEMENT SPEED)
+
+            //  8. CALCULATE TOTAL ARMOR ABSORPTION
+            player.playerStatsManager.CalculateTotalArmorAbsorption();
+
+            if (player.IsOwner)
+                player.playerNetworkManager.legEquipmentID.Value = equipment.itemID;
+        }
+
+        private void UnloadLegEquipmentModels()
+        {
             foreach (var model in maleHips)
             {
                 model.SetActive(false);
@@ -758,7 +804,50 @@ namespace BK
             {
                 model.SetActive(false);
             }
-            
+
+            player.playerBodyManager.EnableLowerBody();
+        }
+
+        public void LoadHandEquipment(HandEquipmentItem equipment)
+        {
+            //  1. UNLOAD OLD EQUIPMENT MODELS (IF ANY)
+            UnloadHandEquipmentModels();
+
+            //  2. IF EQUIPMENT IS NULL SIMPLY SET EQUIPMENT IN INVENTORY TO NULL AND RETURN
+            if (equipment == null)
+            {
+                if (player.IsOwner)
+                    player.playerNetworkManager.handEquipmentID.Value = -1; //  -1 WILL NEVER BE AN ITEM ID, SO IT WILL ALWAYS BE NULL
+
+                player.playerInventoryManager.handEquipment = null;
+                return;
+            }
+
+            //  3. IF YOU HAVE AN "ONITEMEQUIPPED" CALL ON YOUR EQUIPMENT, RUN IT NOW
+
+            //  4. SET CURRENT HEAD EQUIPMENT IN PLAYER INVENTORY TO THE EQUIPMENT THAT IS PASSED TO THIS FUNCTION
+            player.playerInventoryManager.handEquipment = equipment;
+
+            //  5. IF YOU NEED TO CHECK FOR HEAD EQUIPMENT TYPE TO DISABLE CERTAIN BODY FEATURES (HOODS DISABLING HAIR ECT, FULL HELMS DISABLING HEADS) DO IT NOW
+            player.playerBodyManager.DisableArms();
+
+            //  6. LOAD HEAD EQUIPMENT MODELS
+            foreach (var model in equipment.equipmentModels)
+            {
+                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
+            }
+
+            //  7. CALCULATE TOTAL EQUIPMENT LOAD (WEIGHT OF ALL YOUR WORN EQUIPMENT. THIS IMPACTS ROLL SPEED AND AT EXTREME WEIGHTS, MOVEMENT SPEED)
+
+            //  8. CALCULATE TOTAL ARMOR ABSORPTION
+            player.playerStatsManager.CalculateTotalArmorAbsorption();
+
+            if (player.IsOwner)
+                player.playerNetworkManager.handEquipmentID.Value = equipment.itemID;
+        }
+
+        private void UnloadHandEquipmentModels()
+        {
             foreach (var model in maleLeftLowerArms)
             {
                 model.SetActive(false);
@@ -799,7 +888,7 @@ namespace BK
                 model.SetActive(false);
             }
 
-            player.playerBodyManager.EnableBody();
+            player.playerBodyManager.EnableArms();
         }
         
 

@@ -317,7 +317,6 @@ namespace BK.Inventory
 
         public virtual bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad)
         {
-            Debug.Log("Place Item");
             if (!CheckPlaceItem(inventoryItem, posX, posY))
             {
                 return false;
@@ -555,6 +554,12 @@ namespace BK.Inventory
                     break;
                 case ItemType.Helmet:
                     selectItemGrid = GUIController.Instance.inventoryGUIManager.playerHelmet;
+                    break;
+                case ItemType.Gauntlet:
+                    selectItemGrid = GUIController.Instance.inventoryGUIManager.playerGauntlet;
+                    break;
+                case ItemType.Leggings:
+                    selectItemGrid = GUIController.Instance.inventoryGUIManager.playerLeggings;
                     break;
                 /*
                 case ItemInfo.ItemType.Consumables:

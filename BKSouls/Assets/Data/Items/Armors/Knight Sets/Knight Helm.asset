@@ -35,5 +35,5 @@ MonoBehaviour:
   vitality: 8
   poise: 8
   equipmentModels:
-  - {fileID: 11400000, guid: 26155290e02c41448a6680cfb2f82882, type: 2}
+  - {fileID: 11400000, guid: 8b0c28f02a9ebca4fa71d30adba62a42, type: 2}
   headEquipmentType: 0

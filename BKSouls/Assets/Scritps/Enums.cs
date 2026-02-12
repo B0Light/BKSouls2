@@ -60,6 +60,8 @@ public enum ItemType
     Weapon,
     Armor,
     Helmet,
+    Gauntlet,
+    Leggings,
     Consumables,
     Misc,
     Blueprint,

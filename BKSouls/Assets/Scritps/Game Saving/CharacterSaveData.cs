@@ -66,8 +66,6 @@ namespace BK
         public SerializableDictionary<int, bool> worldItemsLooted;  //  THE INT IS THE ITEM I.D, THE BOOL IS THE LOOTED STATUS
 
         [Header("Equipment")]
-        public int headEquipment;
-        public int bodyEquipment;
 
         public int quickSlotIndex;
 
@@ -85,10 +83,11 @@ namespace BK
         public Vector2Int leftWeaponBoxSize;
         public Vector2Int helmetBoxSize;
         public Vector2Int armorBoxSize;
+        public Vector2Int gauntletBoxSize;
+        public Vector2Int leggingsBoxSize;
         public Vector2Int consumableBoxSize;
     
         public Vector2Int inventoryBoxSize;
-        public Vector2Int backpackSize;
         public Vector2Int shareBoxSize;
         public Vector2Int safeBoxSize;
         
@@ -97,6 +96,9 @@ namespace BK
         public int leftWeaponItemCode;
         public int helmetItemCode;
         public int armorItemCode;
+        public int gauntletItemCode;
+        public int leggingsItemCode;
+        
         // key : itemID / value : itemCount
         public SerializableDictionary<int, int> quickSlotConsumableItems;
         public SerializableDictionary<int, int> inventoryItems;
@@ -115,9 +117,10 @@ namespace BK
             leftWeaponBoxSize = new Vector2Int(2, 2);
             helmetBoxSize = new Vector2Int(2, 2);
             armorBoxSize = new Vector2Int(2, 2);
+            gauntletBoxSize = new Vector2Int(2, 2);
+            leggingsBoxSize = new Vector2Int(2, 2);
             consumableBoxSize = new Vector2Int(4, 1);
 
-            backpackSize = new Vector2Int(0,0);
             inventoryBoxSize = new Vector2Int(6, 3);
             safeBoxSize = new Vector2Int(2, 2);
             shareBoxSize = new Vector2Int(8, 20);

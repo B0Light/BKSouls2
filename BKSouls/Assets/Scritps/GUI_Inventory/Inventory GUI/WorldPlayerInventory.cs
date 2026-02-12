@@ -29,6 +29,8 @@ namespace BK.Inventory
         private ItemGrid_Equipment _itemGridEquipmentLeftWeapon;
         private ItemGrid_Equipment _itemGridEquipmentHelmet;
         private ItemGrid_Equipment _itemGridEquipmentArmor;
+        private ItemGrid_Equipment _itemGridEquipmentGauntlet;
+        private ItemGrid_Equipment _itemGridEquipmentLeggings;
         private ItemGrid_Equipment _itemGridEquipmentConsumable;
         private ItemGrid _safeItemGrid;
 
@@ -90,6 +92,8 @@ namespace BK.Inventory
             _itemGridEquipmentLeftWeapon = GUIController.Instance.inventoryGUIManager.playerLeftWeapon;
             _itemGridEquipmentHelmet = GUIController.Instance.inventoryGUIManager.playerHelmet;
             _itemGridEquipmentArmor = GUIController.Instance.inventoryGUIManager.playerArmor;
+            _itemGridEquipmentGauntlet = GUIController.Instance.inventoryGUIManager.playerGauntlet;
+            _itemGridEquipmentLeggings = GUIController.Instance.inventoryGUIManager.playerLeggings;
             _itemGridEquipmentConsumable = GUIController.Instance.inventoryGUIManager.playerConsumable;
             _safeItemGrid = GUIController.Instance.inventoryGUIManager.safeInventoryItemGrid;
 
@@ -129,6 +133,16 @@ namespace BK.Inventory
             if (GetArmorInventory() != null)
             {
                 GetArmorInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
+            }
+
+            if (GetGauntletInventory() != null)
+            {
+                GetGauntletInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
+            }
+            
+            if (GetLeggingsInventory() != null)
+            {
+                GetLeggingsInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
             }
 
             if (GetConsumableInventory() != null)
@@ -318,6 +332,20 @@ namespace BK.Inventory
                 ? _itemGridEquipmentArmor = GUIController.Instance.inventoryGUIManager.playerArmor
                 : _itemGridEquipmentArmor;
         }
+        
+        public ItemGrid_Equipment GetGauntletInventory()
+        {
+            return _itemGridEquipmentGauntlet == null
+                ? _itemGridEquipmentGauntlet = GUIController.Instance.inventoryGUIManager.playerGauntlet
+                : _itemGridEquipmentGauntlet;
+        }
+        
+        public ItemGrid_Equipment GetLeggingsInventory()
+        {
+            return _itemGridEquipmentLeggings == null
+                ? _itemGridEquipmentLeggings = GUIController.Instance.inventoryGUIManager.playerLeggings
+                : _itemGridEquipmentLeggings;
+        }
 
         public ItemGrid_Equipment GetConsumableInventory()
         {
@@ -421,6 +449,28 @@ namespace BK.Inventory
             inventoryItem.itemData = itemInfoData  as GridItem;
             inventoryItem.Set();
             return GetArmorInventory().AddItem(item);
+        }
+        
+        public bool ReloadItemGauntlet(Item itemInfoData)
+        {
+            if (itemInfoData.itemID == 0) return true;
+
+            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
+            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
+            inventoryItem.itemData = itemInfoData as GridItem;
+            inventoryItem.Set();
+            return GetGauntletInventory().AddItem(item);
+        }
+        
+        public bool ReloadItemLeggings(Item itemInfoData)
+        {
+            if (itemInfoData.itemID == 0) return true;
+
+            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
+            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
+            inventoryItem.itemData = itemInfoData as GridItem;
+            inventoryItem.Set();
+            return GetLeggingsInventory().AddItem(item);
         }
 
         public bool ReloadItemQuickSlot(Item itemInfoData)

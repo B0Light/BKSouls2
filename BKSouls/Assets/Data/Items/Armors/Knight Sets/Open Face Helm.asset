@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Open Face Helm
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
   itemID: 9
-  itemName: Knight Helm
+  itemName: Knight Open Helm
   itemIcon: {fileID: 0}
   itemTier: 0
   cost: 0
@@ -35,5 +35,5 @@ MonoBehaviour:
   vitality: 8
   poise: 8
   equipmentModels:
-  - {fileID: 11400000, guid: 87cadcef2eff336459bc2e38d687b51c, type: 2}
+  - {fileID: 11400000, guid: 7808a89b6fc12f64bb84dbaaf3ff2e81, type: 2}
   headEquipmentType: 2

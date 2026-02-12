@@ -411,7 +411,7 @@ namespace BK
 
         public void SetCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
             WeaponItem mainHandWeapon, WeaponItem offHandWeapon, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, List<QuickSlotItem> quickSlotItems)
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment, List<QuickSlotItem> quickSlotItems)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -427,6 +427,8 @@ namespace BK
 
             player.playerInventoryManager.headEquipment = headEquipment != null ? Instantiate(headEquipment) : null;
             player.playerInventoryManager.bodyEquipment = bodyEquipment != null ? Instantiate(bodyEquipment) : null;
+            player.playerInventoryManager.handEquipment = handEquipment != null ? Instantiate(handEquipment) : null;
+            player.playerInventoryManager.legEquipment = legEquipment != null ? Instantiate(legEquipment) : null;
             player.playerInventoryManager.currentRightHandWeapon =
                 mainHandWeapon != null ? Instantiate(mainHandWeapon) : null;
             player.playerInventoryManager.currentLeftHandWeapon =
@@ -438,7 +440,7 @@ namespace BK
         
         public void DecideCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
             WeaponItem mainHandWeapon, WeaponItem offHandWeapon, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, List<QuickSlotItem> quickSlotItems)
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment, List<QuickSlotItem> quickSlotItems)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -461,8 +463,12 @@ namespace BK
             // 3. Set the armor
             WorldPlayerInventory.Instance.GetHelmetInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetArmorInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetGauntletInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetLeggingsInventory().ResetItemGrid();
             WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetHelmetInventory(), headEquipment);
             WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetArmorInventory(), bodyEquipment);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetGauntletInventory(), legEquipment);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeggingsInventory(), bodyEquipment);
 
             // 4. Consume
             WorldPlayerInventory.Instance.GetConsumableInventory().ResetItemGrid();

@@ -51,7 +51,9 @@ namespace BK
         public NetworkVariable<bool> isMale = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> headEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> bodyEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        
+        public NetworkVariable<int> legEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> handEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         [Header("Projectiles")]
         public NetworkVariable<int> mainProjectileID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> secondaryProjectileID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -501,6 +503,20 @@ namespace BK
             var inventoryUI = GUIController.Instance.inventoryGUIManager;
             inventoryUI.ToggleBackpackInventory(hasBackpack);
             inventoryUI.backpackItemGrid.UpdateItemGridSize(gridSize);
+        }
+        
+        public void OnLegEquipmentChanged(int oldValue, int newValue)
+        {
+            LegEquipmentItem equipment = WorldItemDatabase.Instance.GetLegEquipmentByID(legEquipmentID.Value);
+
+            player.playerEquipmentManager.LoadLegEquipment(equipment != null ? Instantiate(equipment) : null);
+        }
+
+        public void OnHandEquipmentChanged(int oldValue, int newValue)
+        {
+            HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(handEquipmentID.Value);
+
+            player.playerEquipmentManager.LoadHandEquipment(equipment != null ? Instantiate(equipment) : null);
         }
 
         public void OnIsMaleChanged(bool oldStatus, bool newStatus)

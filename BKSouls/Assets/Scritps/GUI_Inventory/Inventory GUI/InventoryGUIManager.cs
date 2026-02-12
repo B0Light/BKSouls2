@@ -15,6 +15,8 @@ namespace BK.Inventory
         public ItemGrid_Equipment playerLeftWeapon;
         public ItemGrid_Equipment playerHelmet;
         public ItemGrid_Equipment playerArmor;
+        public ItemGrid_Equipment playerGauntlet;
+        public ItemGrid_Equipment playerLeggings;
         public ItemGrid_Equipment playerConsumable;
 
         [Header("Player Inventory")] 

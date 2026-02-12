@@ -56,10 +56,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a0e807740ec9a6948ae06e628c3f751c, type: 2}
   - {fileID: 11400000, guid: 9edd8f101a660df47bd85ad2d7e1ffa1, type: 2}
   headEquipment:
-  - {fileID: 11400000, guid: 1ad4fc2aed7b48446b58d776e23869fb, type: 2}
-  - {fileID: 11400000, guid: 3756aa9031f91d84ba1333060ed87103, type: 2}
+  - {fileID: 11400000, guid: 3b62051a6ec6c9041a595b903bb92530, type: 2}
+  - {fileID: 11400000, guid: 88accf95e8579834abb518dd619a51da, type: 2}
   bodyEquipment:
-  - {fileID: 11400000, guid: 411b71f54b96e1d4090537da3cf78587, type: 2}
+  - {fileID: 11400000, guid: bf041bf4217abe749954d1f08282b600, type: 2}
   legEquipment:
   - {fileID: 11400000, guid: f9569a217aea6434aa70b334271de919, type: 2}
   handEquipment:
@@ -74,3 +74,19 @@ MonoBehaviour:
   quickSlotItems:
   - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
   - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
+  defaultItemIcon:
+  - {fileID: 21300000, guid: ece7ef5478fa96f4dabccabd64797dd6, type: 3}
+  - {fileID: 21300000, guid: d02981cf76b565842b36565a701dd20e, type: 3}
+  - {fileID: 21300000, guid: 3a29a50589c94754984f1b936562504b, type: 3}
+  - {fileID: 21300000, guid: 0740d6b5a1083e847b35a8613cbbf2a4, type: 3}
+  - {fileID: 21300000, guid: 697670f75cb8da94cb2060eb405872f8, type: 3}
+  - {fileID: 21300000, guid: 3d3fe7f79c082264fa15db41a0a7e0d3, type: 3}
+  - {fileID: 21300000, guid: 57f8499b095ae9843ba1024a3ee5324d, type: 3}
+  - {fileID: 21300000, guid: 96e0701a7be362648a610309d0ae09ad, type: 3}
+  - {fileID: 21300000, guid: 33eb0461b294ca44881e4ed4c2884ef0, type: 3}
+  - {fileID: 21300000, guid: eddc6f79fb3d010468cdcb7f9daf8276, type: 3}
+  - {fileID: 21300000, guid: ea8a20b013e120245b916771d7786be5, type: 3}
+  - {fileID: 21300000, guid: 4c28e8db52af63f43acdd6aa38a6c191, type: 3}
+  - {fileID: 21300000, guid: b2baae98665e1434186da1449705120f, type: 3}
+  - {fileID: 21300000, guid: be3b9f479237c4242b7117024894589c, type: 3}
+  unknownIcon: {fileID: 21300000, guid: 5f614881884279c42ac12b49cab7dc5b, type: 3}

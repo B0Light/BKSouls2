@@ -19,10 +19,13 @@ namespace BK.Inventory
         {
             if (base.CheckPlaceItem(inventoryItem, posX, posY))
             {
-                if (itemType != inventoryItem.itemData.itemType) return false;
+                if (itemType != inventoryItem.itemData.itemType)
+                {
+                    Debug.LogWarning("item Type Mismatch");
+                    return false;
+                }
                 return true;
             }
-
             return false;
         }
 
@@ -51,6 +54,12 @@ namespace BK.Inventory
                         break;
                     case ItemType.Helmet:
                         _playerManager.playerNetworkManager.headEquipmentID.Value = inventoryItem.itemData.itemID;
+                        break;
+                    case ItemType.Gauntlet:
+                        _playerManager.playerNetworkManager.handEquipmentID.Value = inventoryItem.itemData.itemID;
+                        break;
+                    case ItemType.Leggings:
+                        _playerManager.playerNetworkManager.legEquipmentID.Value = inventoryItem.itemData.itemID;
                         break;
                     /*
                     case ItemInfo.ItemType.Consumables:

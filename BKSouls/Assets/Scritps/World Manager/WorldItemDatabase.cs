@@ -24,6 +24,12 @@ namespace BK
         [Header("Body Equipment")]
         [SerializeField] List<BodyEquipmentItem> bodyEquipment = new List<BodyEquipmentItem>();
 
+        [Header("Leg Equipment")]
+        [SerializeField] List<LegEquipmentItem> legEquipment = new List<LegEquipmentItem>();
+
+        [Header("Hand Equipment")]
+        [SerializeField] List<HandEquipmentItem> handEquipment = new List<HandEquipmentItem>();
+        
         [Header("Ashes Of War")]
         [SerializeField] List<AshOfWar> ashesOfWar = new List<AshOfWar>();
 
@@ -82,6 +88,16 @@ namespace BK
                 items.Add(item);
             }
 
+            foreach (var item in legEquipment)
+            {
+                items.Add(item);
+            }
+
+            foreach (var item in handEquipment)
+            {
+                items.Add(item);
+            }
+            
             foreach (var item in ashesOfWar)
             {
                 items.Add(item);
@@ -131,6 +147,15 @@ namespace BK
             return bodyEquipment.FirstOrDefault(equipment => equipment.itemID == ID);
         }
         
+        public LegEquipmentItem GetLegEquipmentByID(int ID)
+        {
+            return legEquipment.FirstOrDefault(equipment => equipment.itemID == ID);
+        }
+
+        public HandEquipmentItem GetHandEquipmentByID(int ID)
+        {
+            return handEquipment.FirstOrDefault(equipment => equipment.itemID == ID);
+        }
 
         public AshOfWar GetAshOfWarByID(int ID)
         {
@@ -217,6 +242,8 @@ namespace BK
                     return _weaponItemsByTier;
                 case ItemType.Armor:
                 case ItemType.Helmet:
+                case ItemType.Gauntlet:
+                case ItemType.Leggings:
                     return _equipmentItemsByTier; // 방어구들은 모두 장비 딕셔너리에서
                 case ItemType.Consumables:
                     return _consumableItemsByTier;

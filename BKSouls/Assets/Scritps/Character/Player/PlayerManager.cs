@@ -152,6 +152,9 @@ namespace BK
             playerNetworkManager.isBlocking.OnValueChanged += playerNetworkManager.OnIsBlockingChanged;
             playerNetworkManager.headEquipmentID.OnValueChanged += playerNetworkManager.OnHeadEquipmentChanged;
             playerNetworkManager.bodyEquipmentID.OnValueChanged += playerNetworkManager.OnBodyEquipmentChanged;
+            playerNetworkManager.legEquipmentID.OnValueChanged += playerNetworkManager.OnLegEquipmentChanged;
+            
+            playerNetworkManager.handEquipmentID.OnValueChanged += playerNetworkManager.OnHandEquipmentChanged;
             playerNetworkManager.mainProjectileID.OnValueChanged += playerNetworkManager.OnMainProjectileIDChange;
             playerNetworkManager.secondaryProjectileID.OnValueChanged += playerNetworkManager.OnSecondaryProjectileIDChange;
             playerNetworkManager.isHoldingArrow.OnValueChanged += playerNetworkManager.OnIsHoldingArrowChanged;
@@ -245,6 +248,9 @@ namespace BK
             playerNetworkManager.currentSpellID.OnValueChanged -= playerNetworkManager.OnCurrentSpellIDChange;
             playerNetworkManager.headEquipmentID.OnValueChanged -= playerNetworkManager.OnHeadEquipmentChanged;
             playerNetworkManager.bodyEquipmentID.OnValueChanged -= playerNetworkManager.OnBodyEquipmentChanged;
+            playerNetworkManager.legEquipmentID.OnValueChanged -= playerNetworkManager.OnLegEquipmentChanged;
+            playerNetworkManager.handEquipmentID.OnValueChanged -= playerNetworkManager.OnHandEquipmentChanged;
+            
             playerNetworkManager.mainProjectileID.OnValueChanged -= playerNetworkManager.OnMainProjectileIDChange;
             playerNetworkManager.secondaryProjectileID.OnValueChanged -= playerNetworkManager.OnSecondaryProjectileIDChange;
             playerNetworkManager.isHoldingArrow.OnValueChanged -= playerNetworkManager.OnIsHoldingArrowChanged;
@@ -364,8 +370,10 @@ namespace BK
             currentGameData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
 
             //  EQUIPMENT
-            currentGameData.headEquipment = playerNetworkManager.headEquipmentID.Value;
-            currentGameData.bodyEquipment = playerNetworkManager.bodyEquipmentID.Value;
+            currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
+            currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
+            currentGameData.gauntletItemCode = playerNetworkManager.handEquipmentID.Value;
+            currentGameData.leggingsItemCode = playerNetworkManager.legEquipmentID.Value;
             
             currentGameData.mainProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
             currentGameData.secondaryProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
@@ -458,9 +466,9 @@ namespace BK
             playerNetworkManager.hairColorBlue.Value = currentCharacterData.hairColorBlue;
 
             //  EQUIPMENT
-            if (WorldItemDatabase.Instance.GetHeadEquipmentByID(currentCharacterData.headEquipment))
+            if (WorldItemDatabase.Instance.GetHeadEquipmentByID(currentCharacterData.helmetItemCode))
             {
-                HeadEquipmentItem headEquipment = Instantiate(WorldItemDatabase.Instance.GetHeadEquipmentByID(currentCharacterData.headEquipment));
+                var headEquipment = Instantiate(WorldItemDatabase.Instance.GetHeadEquipmentByID(currentCharacterData.helmetItemCode));
                 playerInventoryManager.headEquipment = headEquipment;
             }
             else
@@ -468,9 +476,9 @@ namespace BK
                 playerInventoryManager.headEquipment = null;
             }
 
-            if (WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.bodyEquipment))
+            if (WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.armorItemCode))
             {
-                BodyEquipmentItem bodyEquipment = Instantiate(WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.bodyEquipment));
+                BodyEquipmentItem bodyEquipment = Instantiate(WorldItemDatabase.Instance.GetBodyEquipmentByID(currentCharacterData.armorItemCode));
                 playerInventoryManager.bodyEquipment = bodyEquipment;
                 
                 if (bodyEquipment.backpackSize != Vector2Int.zero)
@@ -499,6 +507,27 @@ namespace BK
             {
                 playerInventoryManager.bodyEquipment = null;
             }
+            
+            if (WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.helmetItemCode))
+            {
+                var handEquipment = Instantiate(WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.helmetItemCode));
+                playerInventoryManager.handEquipment = handEquipment;
+            }
+            else
+            {
+                playerInventoryManager.handEquipment = null;
+            }
+            
+            if (WorldItemDatabase.Instance.GetLegEquipmentByID(currentCharacterData.leggingsItemCode))
+            {
+                var legEquipment = Instantiate(WorldItemDatabase.Instance.GetLegEquipmentByID(currentCharacterData.leggingsItemCode));
+                playerInventoryManager.legEquipment = legEquipment;
+            }
+            else
+            {
+                playerInventoryManager.legEquipment = null;
+            }
+            
 
             if (WorldItemDatabase.Instance.GetSpellByID(currentCharacterData.currentSpell))
             {
@@ -518,7 +547,12 @@ namespace BK
             
             WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(currentCharacterData.helmetBoxSize);
             var helmetItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.helmetItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem))
+            {
+                Debug.LogError($"helmetCode : {currentCharacterData.helmetItemCode}");
+                Debug.LogError($"helmetData : {helmetItem}");
+                Debug.LogError("helmet : Reload Error");
+            }
             
             WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(currentCharacterData.armorBoxSize);
             var armorItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.armorItemCode);
@@ -531,6 +565,14 @@ namespace BK
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
             var leftWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftWeaponItemCode);
             if (!WorldPlayerInventory.Instance.ReloadItemLeftWeapon(leftWeaponItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetGauntletInventory().UpdateItemGridSize(currentCharacterData.gauntletBoxSize);
+            var gauntletItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.gauntletItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError("Reload Error");
+            
+            WorldPlayerInventory.Instance.GetLeggingsInventory().UpdateItemGridSize(currentCharacterData.leggingsBoxSize);
+            var leggingsItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leggingsItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemLeggings(leggingsItem)) Debug.LogError("Reload Error");
             
             WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.shareInventoryItems)

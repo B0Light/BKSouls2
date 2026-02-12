@@ -35,20 +35,11 @@ MonoBehaviour:
   vitality: 18
   poise: 25
   equipmentModels:
-  - {fileID: 11400000, guid: ea03ed7f565485a4e8eeaa3949da4248, type: 2}
-  - {fileID: 11400000, guid: 026ebc68197e7a74f9ecf7c7a2705665, type: 2}
-  - {fileID: 11400000, guid: 56a88c8699813824d945d767e077578d, type: 2}
-  - {fileID: 11400000, guid: 9632ffe355862044e99aadf7162f3735, type: 2}
-  - {fileID: 11400000, guid: 170fe6d35df2b1944a0e3a10aecabe2e, type: 2}
-  - {fileID: 11400000, guid: b8959d0e03015554cb8a467769f08e8f, type: 2}
-  - {fileID: 11400000, guid: 626901e88e7a3464f835a9bf02323f39, type: 2}
-  - {fileID: 11400000, guid: 609571857050be340a2262cd8c281afe, type: 2}
-  - {fileID: 11400000, guid: d35f7a0e387bdb54ca01a3dc165359bf, type: 2}
-  - {fileID: 11400000, guid: 341db93be8b4b454fb410017d3853515, type: 2}
-  - {fileID: 11400000, guid: 258a8bbefd9254c44842e6e5ec0216ab, type: 2}
-  - {fileID: 11400000, guid: 551e431343f4ee24fbd28ff60a872045, type: 2}
-  - {fileID: 11400000, guid: 8da8daca6208b164e83a636af57ca901, type: 2}
-  - {fileID: 11400000, guid: 82a66c59d1f2b9449836df4f0c1446ba, type: 2}
-  - {fileID: 11400000, guid: 6c4a7023e8e7f0b4b90cb89f8f1316bf, type: 2}
-  - {fileID: 11400000, guid: 3f33610075ef8a341b90fc17f5ad2f88, type: 2}
+  - {fileID: 11400000, guid: 127d3b990ff2cdc42a062dd5b69a6244, type: 2}
+  - {fileID: 11400000, guid: a4f9462e09284fb46b02ee9065310054, type: 2}
+  - {fileID: 11400000, guid: 95664b51caff8f14285df471540498fe, type: 2}
+  - {fileID: 11400000, guid: 28fe2b5ee77733e43b81defdbea9a4c5, type: 2}
+  - {fileID: 11400000, guid: 57fdf87079b7fc74c91b6ce70ae42cf9, type: 2}
+  - {fileID: 11400000, guid: a152bdee998413947bdbf8558e521440, type: 2}
+  - {fileID: 11400000, guid: 45cc30e8deb49284ca1db7edd69ac567, type: 2}
   backpackSize: {x: 3, y: 3}

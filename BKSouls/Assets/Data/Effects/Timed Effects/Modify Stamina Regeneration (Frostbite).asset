@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Modify Stamina Regeneration (Frostbite)
   m_EditorClassIdentifier: Assembly-CSharp::BK.ModifyStaminaRegenerationForATimeEffect
   effectID: 5
-  defaultLengthOfEffect: 30
-  timeRemainingOnEffect: 30
+  defaultLengthOfEffect: 20
+  timeRemainingOnEffect: 20
   staminaRegenerationPercentageModifier: -80
