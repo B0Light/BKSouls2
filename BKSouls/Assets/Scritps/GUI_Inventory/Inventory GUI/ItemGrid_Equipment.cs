@@ -21,7 +21,9 @@ namespace BK.Inventory
             {
                 if (itemType != inventoryItem.itemData.itemType)
                 {
-                    Debug.LogWarning("item Type Mismatch");
+                    Debug.LogWarning($"item Type Mismatch \n" +
+                                     $"{inventoryItem.itemData.name} : {inventoryItem.itemData.itemType} \n" +
+                                     $"inventory Type : {itemType}");
                     return false;
                 }
                 return true;
@@ -39,7 +41,6 @@ namespace BK.Inventory
                 {
                     Debug.LogError("NO PLAYER MANAGER");
                 }
-
                 _curEquipItem.Add(inventoryItem);
                 switch (itemType)
                 {
@@ -61,12 +62,10 @@ namespace BK.Inventory
                     case ItemType.Leggings:
                         _playerManager.playerNetworkManager.legEquipmentID.Value = inventoryItem.itemData.itemID;
                         break;
-                    /*
-                    case ItemInfo.ItemType.Consumables:
-                        _playerManager.playerNetworkManager.currentQuickSlotIDList.Add(inventoryItem.itemInfoData
-                            .itemCode);
+                    
+                    case ItemType.Consumables:
+                        _playerManager.playerInventoryManager.quickSlotItemsInQuickSlots.Add(inventoryItem.itemData as QuickSlotItem);
                         break;
-                        */
                 }
 
                 return true;
@@ -97,6 +96,12 @@ namespace BK.Inventory
                     case ItemType.Helmet:
                         _playerManager.playerNetworkManager.headEquipmentID.Value = 0;
                         break;
+                    case ItemType.Gauntlet:
+                        _playerManager.playerNetworkManager.handEquipmentID.Value = 0;
+                        break;
+                    case ItemType.Leggings:
+                        _playerManager.playerNetworkManager.legEquipmentID.Value = 0;
+                        break;
                 }
             }
         }
@@ -125,12 +130,15 @@ namespace BK.Inventory
                 case ItemType.Helmet:
                     _playerManager.playerNetworkManager.headEquipmentID.Value = 0;
                     break;
-                /*
-                case ItemInfo.ItemType.Consumables:
-                    _playerManager.playerVariableManager.currentQuickSlotIDList.Remove(pickUpItem.itemInfoData
-                        .itemCode);
+                case ItemType.Gauntlet:
+                    _playerManager.playerNetworkManager.handEquipmentID.Value = 0;
                     break;
-                    */
+                case ItemType.Leggings:
+                    _playerManager.playerNetworkManager.legEquipmentID.Value = 0;
+                    break;
+                case ItemType.Consumables:
+                    _playerManager.playerInventoryManager.quickSlotItemsInQuickSlots.Remove(pickUpItem.itemData as QuickSlotItem);
+                    break;
             }
 
             _curEquipItem.Remove(pickUpItem);

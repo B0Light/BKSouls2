@@ -12,12 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257580ef25bb09e4f9c6bcc18fdadad1, type: 3}
   m_Name: Mana Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
+  itemID: 18
   itemName: Mana Flask
   itemIcon: {fileID: 21300000, guid: ab1d83d6d9539f4429674b75560cf51e, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: 
-  itemID: 0
+  itemType: 5
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities: []
   itemModel: {fileID: 670785654338084186, guid: 534646500b1c3ff4db0f6b943c12a55c, type: 3}
   useItemAnimation: Item_Flask_Drink_Start_01
+  isConsumable: 1
+  itemAmount: 1
   healthFlask: 1
   flaskRestoration: 50
   emptyFlaskItem: {fileID: 670785654338084186, guid: 28e4b3ff936793e43836e818f41587a1, type: 3}

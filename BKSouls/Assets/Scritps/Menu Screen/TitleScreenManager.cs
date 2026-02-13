@@ -467,8 +467,8 @@ namespace BK
             WorldPlayerInventory.Instance.GetLeggingsInventory().ResetItemGrid();
             WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetHelmetInventory(), headEquipment);
             WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetArmorInventory(), bodyEquipment);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetGauntletInventory(), legEquipment);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeggingsInventory(), bodyEquipment);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetGauntletInventory(), handEquipment);
+            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeggingsInventory(), legEquipment);
 
             // 4. Consume
             WorldPlayerInventory.Instance.GetConsumableInventory().ResetItemGrid();
@@ -476,7 +476,6 @@ namespace BK
             {
                 WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetConsumableInventory(), item);
             }
-            
         }
 
         //  CHARACTER HAIR

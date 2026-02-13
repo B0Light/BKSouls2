@@ -159,7 +159,6 @@ namespace BK.Inventory
 
         public bool AddItem(GameObject item, bool isLoad = true)
         {
-            Debug.Log("ADD ITEM");
             InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
             inventoryItem.Set();
 

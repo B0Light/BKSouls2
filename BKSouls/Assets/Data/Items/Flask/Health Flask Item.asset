@@ -12,12 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257580ef25bb09e4f9c6bcc18fdadad1, type: 3}
   m_Name: Health Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
+  itemID: 17
   itemName: Health Flask
   itemIcon: {fileID: 21300000, guid: 11a2f270c1ea6bc42a989b01db574f16, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: 
-  itemID: 17
+  itemType: 5
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities: []
   itemModel: {fileID: 6630635678089878116, guid: 4d15ba3ced6cc4b4f8ba6342a7891d2b, type: 3}
   useItemAnimation: Item_Flask_Drink_Start_01
+  isConsumable: 1
+  itemAmount: 1
   healthFlask: 1
   flaskRestoration: 50
   emptyFlaskItem: {fileID: 670785654338084186, guid: 28e4b3ff936793e43836e818f41587a1, type: 3}

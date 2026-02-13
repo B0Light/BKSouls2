@@ -22494,7 +22494,7 @@ MonoBehaviour:
   totalItemValue:
     _value: 0
   _playerManager: {fileID: 0}
-  itemType: 3
+  itemType: 5
   right: 0
 --- !u!114 &4211054610384298212
 MonoBehaviour:

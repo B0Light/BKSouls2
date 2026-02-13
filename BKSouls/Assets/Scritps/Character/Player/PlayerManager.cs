@@ -370,6 +370,9 @@ namespace BK
             currentGameData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
 
             //  EQUIPMENT
+            currentGameData.rightWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
+            currentGameData.leftWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
+            
             currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
             currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
             currentGameData.gauntletItemCode = playerNetworkManager.handEquipmentID.Value;
@@ -411,22 +414,6 @@ namespace BK
             {
                 currentGameData.backpackItems.Add(pair.Key, pair.Value);
             }
-            
-            // 장비 
-            currentGameData.rightWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
-            currentGameData.leftWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
-            currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
-            currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
-         
-            // 저장공간 저장
-            //currentGameData.rightWeaponBoxSize = WorldPlayerInventory.Instance.GetRightWeaponInventory().GetCurItemGridSize();
-            //currentGameData.leftWeaponBoxSize = WorldPlayerInventory.Instance.GetLeftWeaponInventory().GetCurItemGridSize();
-            //currentGameData.helmetBoxSize = WorldPlayerInventory.Instance.GetHelmetInventory().GetCurItemGridSize(); 
-            //currentGameData.armorBoxSize = WorldPlayerInventory.Instance.GetArmorInventory().GetCurItemGridSize();
-            //currentGameData.consumableBoxSize = WorldPlayerInventory.Instance.GetConsumableInventory().GetCurItemGridSize();
-            //currentGameData.backpackSize = WorldPlayerInventory.Instance.GetBackpackInventory().GetCurItemGridSize();
-            //currentGameData.inventoryBoxSize = WorldPlayerInventory.Instance.GetInventory().GetCurItemGridSize();
-            //currentGameData.safeBoxSize = WorldPlayerInventory.Instance.GetSafeInventory().GetCurItemGridSize();
         }
 
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData)
