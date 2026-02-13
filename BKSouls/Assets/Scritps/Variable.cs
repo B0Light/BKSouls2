@@ -95,7 +95,7 @@ public class ClampedVariable<T> where T : IComparable<T>
 
 
 [Serializable]
-public class VariableList<T>
+public class VariableList<T> : IEnumerable<T>
 {
     [SerializeField] private List<T> _value = new List<T>();
 
@@ -157,6 +157,16 @@ public class VariableList<T>
     }
 
     public int Count => _value.Count;
+    
+    public IEnumerator<T> GetEnumerator()
+    {
+        return _value.GetEnumerator();
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
+    }
 }
 
 [Serializable]

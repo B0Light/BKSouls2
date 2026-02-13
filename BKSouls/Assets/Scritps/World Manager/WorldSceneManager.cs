@@ -152,7 +152,7 @@ namespace BK
             NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
 
             //  3. LOAD OUR PLAYER SAVE DATA
-            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
+            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentGameData);
         }
 
         //  USED TO LOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE

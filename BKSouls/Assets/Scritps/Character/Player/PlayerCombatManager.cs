@@ -45,15 +45,15 @@ namespace BK
             //  OPTIONALLY, ONLY CREATE THIS IF THE WORLD SCENE LOADS (NOT MAIN MENU SCENE)
 
             //  DEAD SPOT
-            if (WorldSaveGameManager.instance.currentCharacterData.hasDeadSpot)
+            if (WorldSaveGameManager.instance.currentGameData.hasDeadSpot)
             {
                 Vector3 deadSpotPosition = new Vector3(
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionX, 
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionY, 
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionZ);
+                    WorldSaveGameManager.instance.currentGameData.deadSpotPositionX, 
+                    WorldSaveGameManager.instance.currentGameData.deadSpotPositionY, 
+                    WorldSaveGameManager.instance.currentGameData.deadSpotPositionZ);
 
                 //  WE DONT REMOVE THE PLAYERS RUNES HERE BECAUSE IF YOU'RE LOADING A PREVIOUS SAVE THEY WERE ALREADY REMOVED WHEN THEY DIED
-                CreateDeadSpot(deadSpotPosition, WorldSaveGameManager.instance.currentCharacterData.deadSpotRuneCount, false);
+                CreateDeadSpot(deadSpotPosition, WorldSaveGameManager.instance.currentGameData.deadSpotRuneCount, false);
             }
         }
 
@@ -76,11 +76,11 @@ namespace BK
             if (removePlayersRunes)
                 player.playerStatsManager.AddRunes(-player.playerStatsManager.runes);
 
-            WorldSaveGameManager.instance.currentCharacterData.hasDeadSpot = true;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotRuneCount = pickUpRunes.runeCount;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionX = position.x;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionY = position.y;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionZ = position.z;
+            WorldSaveGameManager.instance.currentGameData.hasDeadSpot = true;
+            WorldSaveGameManager.instance.currentGameData.deadSpotRuneCount = pickUpRunes.runeCount;
+            WorldSaveGameManager.instance.currentGameData.deadSpotPositionX = position.x;
+            WorldSaveGameManager.instance.currentGameData.deadSpotPositionY = position.y;
+            WorldSaveGameManager.instance.currentGameData.deadSpotPositionZ = position.z;
         }
 
         public void PerformWeaponBasedAction(WeaponItemAction weaponAction, WeaponItem weaponPerformingAction)

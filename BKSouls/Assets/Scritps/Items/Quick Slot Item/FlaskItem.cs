@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 
 namespace BK
@@ -32,10 +33,8 @@ namespace BK
         {
             if (!CanIUseThisItem(player))
                 return;
-
-            //  HEALTH FLASK CHECK
-            if (healthFlask && player.playerNetworkManager.remainingHealthFlasks.Value <= 0)
-            {
+            
+            if(player.playerInventoryManager.currentQuickSlotIDList.Count == 0){
                 if (player.playerCombatManager.isUsingItem)
                     return;
 
@@ -43,36 +42,18 @@ namespace BK
 
                 if (player.IsOwner)
                 {
-                    player.playerAnimatorManager.PlayTargetActionAnimation(emptyFlaskAnimation, false, false, true, true, false);
+                    player.playerAnimatorManager.PlayTargetActionAnimation(emptyFlaskAnimation, false, false, true,
+                        true, false);
                     player.playerNetworkManager.HideWeaponsServerRpc();
                 }
 
                 Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
-                GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
+                GameObject emptyFlask = Instantiate(emptyFlaskItem,
+                    player.playerEquipmentManager.rightHandWeaponSlot.transform);
                 player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
                 return;
             }
-
-            //  FOCUS POINTS FLASK CHECK
-            if (!healthFlask && player.playerNetworkManager.remainingFocusPointsFlasks.Value <= 0)
-            {
-                if (player.playerCombatManager.isUsingItem)
-                    return;
-
-                player.playerCombatManager.isUsingItem = true;
-
-                if (player.IsOwner)
-                {
-                    player.playerAnimatorManager.PlayTargetActionAnimation(emptyFlaskAnimation, false, false, true, true, false);
-                    player.playerNetworkManager.HideWeaponsServerRpc();
-                }
-
-                Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
-                GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
-                player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
-                return;
-            }
-
+                
             //  CHECK FOR CHUGGING
             if (player.playerCombatManager.isUsingItem)
             {
@@ -99,28 +80,23 @@ namespace BK
 
             if (player.IsOwner)
             {
+                WorldPlayerInventory.Instance.GetConsumableInventory().RemoveItemAtGrid(itemID);
+                player.playerInventoryManager.currentQuickSlotIDList.Remove(itemID); 
+                
+                
                 if (healthFlask)
                 {
                     player.playerNetworkManager.currentHealth.Value += flaskRestoration;
-                    player.playerNetworkManager.remainingHealthFlasks.Value -= 1;
                 }
                 else
                 {
                     player.playerNetworkManager.currentFocusPoints.Value += flaskRestoration;
-                    player.playerNetworkManager.remainingFocusPointsFlasks.Value -= 1;
                 }
 
                 GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
             }
 
-            if (healthFlask && player.playerNetworkManager.remainingHealthFlasks.Value <= 0)
-            {
-                Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
-                GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
-                player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
-            }
-
-            if (!healthFlask && player.playerNetworkManager.remainingFocusPointsFlasks.Value <= 0)
+            if (player.playerInventoryManager.currentQuickSlotIDList.Count <= 0)
             {
                 Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
                 GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
@@ -140,12 +116,11 @@ namespace BK
         {
             int currentAmount = 0;
 
-            if (healthFlask)
-                currentAmount = player.playerNetworkManager.remainingHealthFlasks.Value;
-
-            if (!healthFlask)
-                currentAmount = player.playerNetworkManager.remainingFocusPointsFlasks.Value;
-
+            foreach (var id in player.playerInventoryManager.currentQuickSlotIDList)
+            {
+                if (id == itemID) currentAmount++;
+            }
+            
             return currentAmount;
         }
     }

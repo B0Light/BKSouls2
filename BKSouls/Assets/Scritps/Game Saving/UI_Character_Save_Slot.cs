@@ -21,16 +21,16 @@ namespace BK
         {
             // 1. 매니저의 배열에서 해당 슬롯의 데이터를 가져옵니다.
             // Enum을 int로 형변환하여 배열 인덱스로 사용합니다.
-            CharacterSaveData slotData = WorldSaveGameManager.instance.allCharacterSlots[(int)characterSlot];
+            SaveGameData slotGameData = WorldSaveGameManager.instance.allCharacterSlots[(int)characterSlot];
 
             // 2. 데이터가 존재하는지 확인 (null이 아니면 파일이 있는 것)
-            if (slotData != null)
+            if (slotGameData != null)
             {
                 // 데이터가 있으면 텍스트 UI 업데이트
-                characterName.text = slotData.characterName;
+                characterName.text = slotGameData.characterName;
                 
                 // 플레이 시간도 저장되어 있다면 여기에 추가 가능
-                timedPlayed.text = slotData.secondsPlayed.ToString(); 
+                timedPlayed.text = slotGameData.secondsPlayed.ToString(); 
                 
                 gameObject.SetActive(true);
             }
