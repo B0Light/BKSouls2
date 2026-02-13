@@ -64,7 +64,7 @@ namespace BK.Inventory
                         break;
                     
                     case ItemType.Consumables:
-                        _playerManager.playerInventoryManager.quickSlotItemsInQuickSlots.Add(inventoryItem.itemData as QuickSlotItem);
+                        _playerManager.playerInventoryManager.currentQuickSlotIDList.Add(inventoryItem.itemData.itemID);
                         break;
                 }
 
@@ -137,7 +137,7 @@ namespace BK.Inventory
                     _playerManager.playerNetworkManager.legEquipmentID.Value = 0;
                     break;
                 case ItemType.Consumables:
-                    _playerManager.playerInventoryManager.quickSlotItemsInQuickSlots.Remove(pickUpItem.itemData as QuickSlotItem);
+                    _playerManager.playerInventoryManager.currentQuickSlotIDList.Remove(pickUpItem.itemData.itemID);
                     break;
             }
 

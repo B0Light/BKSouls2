@@ -108,6 +108,10 @@ namespace BK
                 playerNetworkManager.SetNewMaxHealthValue(0, playerNetworkManager.vigor.Value);
                 playerNetworkManager.SetNewMaxStaminaValue(0, playerNetworkManager.endurance.Value);
                 playerNetworkManager.SetNewMaxFocusPointsValue(0, playerNetworkManager.mind.Value);
+                
+                playerInventoryManager.currentQuickSlotIDList.OnItemAdded += playerInventoryManager.OnAddQuickSlotItem;
+                playerInventoryManager.currentQuickSlotIDList.OnItemRemoved += playerInventoryManager.OnRemoveQuickSlotItem;
+                playerInventoryManager.currentQuickSlotIDList.OnListCleared += playerInventoryManager.OnQuickSlotClear;
 
                 //  RESETS CAMERA ROTATION TO STANDARD WHEN AIMING IS DISABLED
                 playerNetworkManager.isAiming.OnValueChanged += playerNetworkManager.OnIsAimingChanged;

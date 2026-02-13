@@ -631,7 +631,7 @@ namespace BK
                 if (player.playerCombatManager.isUsingItem)
                     return;
 
-                player.playerEquipmentManager.SwitchQuickSlotItem();
+                player.playerInventoryManager.SelectNextQuickSlotItem();
             }
         }
 
