@@ -94,13 +94,13 @@ namespace BK
         [Header("New Inventory")] 
         public int rightWeaponItemCode;
         public int leftWeaponItemCode;
+        public int rangeWeaponItemCode;
         public int helmetItemCode;
         public int armorItemCode;
         public int gauntletItemCode;
         public int leggingsItemCode;
         
         // key : itemID / value : itemCount
-        public SerializableDictionary<int, int> quickSlotConsumableItems;
         public SerializableDictionary<int, int> inventoryItems;
         public SerializableDictionary<int, int> backpackItems;
         public SerializableDictionary<int, int> safeItems;
@@ -131,8 +131,7 @@ namespace BK
             worldItemsLooted = new SerializableDictionary<int, bool>();
             
             projectilesInInventory = new List<SerializableRangedProjectile>();
-
-            quickSlotConsumableItems = new SerializableDictionary<int, int>();
+            
             inventoryItems = new SerializableDictionary<int, int>();
             backpackItems = new SerializableDictionary<int, int>();
             safeItems = new SerializableDictionary<int, int>();

@@ -108,10 +108,6 @@ namespace BK
                 playerNetworkManager.SetNewMaxHealthValue(0, playerNetworkManager.vigor.Value);
                 playerNetworkManager.SetNewMaxStaminaValue(0, playerNetworkManager.endurance.Value);
                 playerNetworkManager.SetNewMaxFocusPointsValue(0, playerNetworkManager.mind.Value);
-                
-                playerInventoryManager.currentQuickSlotIDList.OnItemAdded += playerInventoryManager.OnAddQuickSlotItem;
-                playerInventoryManager.currentQuickSlotIDList.OnItemRemoved += playerInventoryManager.OnRemoveQuickSlotItem;
-                playerInventoryManager.currentQuickSlotIDList.OnListCleared += playerInventoryManager.OnQuickSlotClear;
 
                 //  RESETS CAMERA ROTATION TO STANDARD WHEN AIMING IS DISABLED
                 playerNetworkManager.isAiming.OnValueChanged += playerNetworkManager.OnIsAimingChanged;
@@ -149,6 +145,7 @@ namespace BK
             //  EQUIPMENT
             playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             playerNetworkManager.currentLeftHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+            playerNetworkManager.currentSubWeaponID.OnValueChanged += playerNetworkManager.OnCurrentSubWeaponIDChange;
             playerNetworkManager.currentWeaponBeingUsed.OnValueChanged += playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             playerNetworkManager.currentQuickSlotItemID.OnValueChanged += playerNetworkManager.OnCurrentQuickSlotItemIDChange;
             playerNetworkManager.isChugging.OnValueChanged += playerNetworkManager.OnIsChuggingChanged;
@@ -376,6 +373,7 @@ namespace BK
             //  EQUIPMENT
             currentGameData.rightWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
             currentGameData.leftWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
+            currentGameData.rangeWeaponItemCode = playerNetworkManager.currentSubWeaponID.Value;
             
             currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
             currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
@@ -397,13 +395,7 @@ namespace BK
             currentGameData.backpackItems.Clear();
             currentGameData.inventoryItems.Clear(); 
             currentGameData.safeItems.Clear();
-            currentGameData.quickSlotConsumableItems.Clear();
             
-            foreach (var pair in WorldPlayerInventory.Instance.GetConsumableInventory().GetCurItemDictById())
-            {
-                currentGameData.quickSlotConsumableItems.Add(pair.Key, pair.Value);
-            }
-         
             foreach (var pair in WorldPlayerInventory.Instance.GetSafeInventory().GetCurItemDictById())
             {
                 currentGameData.safeItems.Add(pair.Key, pair.Value);
@@ -557,6 +549,10 @@ namespace BK
             var leftWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftWeaponItemCode);
             if (!WorldPlayerInventory.Instance.ReloadItemLeftWeapon(leftWeaponItem)) Debug.LogError("Reload Error");
             
+            // QuickSlot 인벤토리 
+            WorldPlayerInventory.Instance.GetSubWeaponInventory().UpdateItemGridSize(currentCharacterData.consumableBoxSize);
+            
+            
             WorldPlayerInventory.Instance.GetGauntletInventory().UpdateItemGridSize(currentCharacterData.gauntletBoxSize);
             var gauntletItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.gauntletItemCode);
             if (!WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError("Reload Error");
@@ -604,19 +600,7 @@ namespace BK
                     }
                 }
             }
-            // QuickSlot 인벤토리 
-            WorldPlayerInventory.Instance.GetConsumableInventory().UpdateItemGridSize(currentCharacterData.consumableBoxSize);
-            foreach (KeyValuePair<int,int> item in currentCharacterData.quickSlotConsumableItems)
-            {
-                for (int i = 0; i < item.Value; i++)
-                {
-                    var itemInfoData = WorldItemDatabase.Instance.GetItemByID(item.Key);
-                    if (!WorldPlayerInventory.Instance.ReloadItemQuickSlot(itemInfoData))
-                    {
-                        Debug.LogError("Reload Error");
-                    }
-                }
-            }
+            
             playerEquipmentManager.LoadMainProjectileEquipment(currentCharacterData.mainProjectile.GetProjectile());
             playerEquipmentManager.LoadSecondaryProjectileEquipment(currentCharacterData.secondaryProjectile.GetProjectile());
         }

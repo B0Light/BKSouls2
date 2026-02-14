@@ -1,49 +1,49 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
-
 
 namespace BK.Inventory
 {
     public class WorldPlayerInventory : Singleton<WorldPlayerInventory>
     {
-        // InventoryHUDManager 에서 가져와서 처리하지만 루팅 가치등 연산은 해당 클래스에서 수행 
-        // InventoryHUDManager는 시각적인 정보만 처리 
         [SerializeField] private IncomeEventBalance incomeEvent;
+
         public Variable<int> balance = new Variable<int>(-1);
         public ClampedVariable<float> itemWeight = new ClampedVariable<float>(0, 0, 500);
 
-        [Header("Inventory Info")] [SerializeField]
-        private int boxWidth;
-
+        [Header("Inventory Info")]
+        [SerializeField] private int boxWidth;
         [SerializeField] private int boxHeight;
 
+        // Grids
         private ItemGrid _itemGrid;
         private ItemGrid _backpackGrid;
-        private ItemGrid_Equipment _itemGridEquipmentRightWeapon;
-        private ItemGrid_Equipment _itemGridEquipmentLeftWeapon;
-        private ItemGrid_Equipment _itemGridEquipmentHelmet;
-        private ItemGrid_Equipment _itemGridEquipmentArmor;
-        private ItemGrid_Equipment _itemGridEquipmentGauntlet;
-        private ItemGrid_Equipment _itemGridEquipmentLeggings;
-        private ItemGrid_Equipment _itemGridEquipmentConsumable;
         private ItemGrid _safeItemGrid;
-
         private ItemGrid _shareItemGrid;
+
+        private ItemGrid_Equipment _rightWeapon;
+        private ItemGrid_Equipment _leftWeapon;
+        private ItemGrid_Equipment _subWeapon;
+
+        private ItemGrid_Equipment _helmet;
+        private ItemGrid_Equipment _armor;
+        private ItemGrid_Equipment _gauntlet;
+        private ItemGrid_Equipment _leggings;
 
         public ItemGridType curOpenedInventory;
         public ItemGrid curInteractItemGrid;
 
-        private Dictionary<int, int> _initialItemDict = new Dictionary<int, int>();
-        private Dictionary<int, int> _exitItemDict = new Dictionary<int, int>();
-        public Dictionary<int, int> finalItemDict = new Dictionary<int, int>();
+        private readonly Dictionary<int, int> _initialItemDict = new();
+        private readonly Dictionary<int, int> _exitItemDict = new();
+        public readonly Dictionary<int, int> finalItemDict = new();
 
         public int TotalLootValue { get; private set; }
+
+        //반복 처리를 위한 컬렉션
+        private readonly List<ItemGrid> _weightGrids = new();
+        private readonly List<ItemGrid> _lootGrids = new();
+        private readonly List<ItemGrid> _removePriorityGrids = new();
 
         private void OnEnable()
         {
@@ -53,191 +53,177 @@ namespace BK.Inventory
 
         private IEnumerator InitializeWithTimeout(float timeout)
         {
-            float elapsedTime = 0f;
+            float elapsed = 0f;
 
-            // PlayerUIManager.Instance가 준비될 때까지 기다림
-            while (GUIController.Instance == null && elapsedTime < timeout)
+            // GUIController 준비 대기
+            while (GUIController.Instance == null && elapsed < timeout)
             {
-                elapsedTime += Time.deltaTime;
+                elapsed += Time.deltaTime;
                 yield return null;
             }
-
             if (GUIController.Instance == null)
             {
-                Debug.LogError("PlayerUIManager.Instance is not initialized within the timeout.");
+                Debug.LogError("GUIController.Instance is not initialized within the timeout.");
                 yield break;
             }
 
-            // playerUIInventoryManager와 playerInventoryItemGrid가 준비될 때까지 기다림
-            elapsedTime = 0f;
+            // InventoryGUIManager 준비 대기
+            elapsed = 0f;
             while ((GUIController.Instance.inventoryGUIManager == null ||
                     GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid == null) &&
-                   elapsedTime < timeout)
+                   elapsed < timeout)
             {
-                elapsedTime += Time.deltaTime;
+                elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            if (GUIController.Instance.inventoryGUIManager == null ||
-                GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid == null)
+            var gui = GUIController.Instance.inventoryGUIManager;
+            if (gui == null || gui.playerInventoryItemGrid == null)
             {
-                Debug.LogError("PlayerUIInventoryManager or InventoryItemGrid is not initialized within the timeout.");
+                Debug.LogError("InventoryGUIManager or playerInventoryItemGrid is not initialized within the timeout.");
                 yield break;
             }
+            
+            _itemGrid = gui.playerInventoryItemGrid;
+            _backpackGrid = gui.backpackItemGrid;
+            _shareItemGrid = gui.shareInventoryItemGrid;
+            _safeItemGrid = gui.safeInventoryItemGrid;
 
-            _itemGrid = GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid;
-            _backpackGrid = GUIController.Instance.inventoryGUIManager.backpackItemGrid;
-            _shareItemGrid = GUIController.Instance.inventoryGUIManager.shareInventoryItemGrid;
-            _itemGridEquipmentRightWeapon = GUIController.Instance.inventoryGUIManager.playerRightWeapon;
-            _itemGridEquipmentLeftWeapon = GUIController.Instance.inventoryGUIManager.playerLeftWeapon;
-            _itemGridEquipmentHelmet = GUIController.Instance.inventoryGUIManager.playerHelmet;
-            _itemGridEquipmentArmor = GUIController.Instance.inventoryGUIManager.playerArmor;
-            _itemGridEquipmentGauntlet = GUIController.Instance.inventoryGUIManager.playerGauntlet;
-            _itemGridEquipmentLeggings = GUIController.Instance.inventoryGUIManager.playerLeggings;
-            _itemGridEquipmentConsumable = GUIController.Instance.inventoryGUIManager.playerConsumable;
-            _safeItemGrid = GUIController.Instance.inventoryGUIManager.safeInventoryItemGrid;
+            _rightWeapon = gui.playerRightWeapon;
+            _leftWeapon = gui.playerLeftWeapon;
+            _subWeapon = gui.playerSubWeapon;
 
-            _itemGrid.itemGridWeight.OnValueChanged += UpdateWeight;
-            _backpackGrid.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentRightWeapon.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentLeftWeapon.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentHelmet.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentArmor.itemGridWeight.OnValueChanged += UpdateWeight;
-            _itemGridEquipmentConsumable.itemGridWeight.OnValueChanged += UpdateWeight;
-            _safeItemGrid.itemGridWeight.OnValueChanged += UpdateWeight;
+            _helmet = gui.playerHelmet;
+            _armor = gui.playerArmor;
+            _gauntlet = gui.playerGauntlet;
+            _leggings = gui.playerLeggings;
+
+            // ✅ 리스트 구성 (이후 모든 중복 제거의 핵심)
+            BuildGridLists();
+            SubscribeWeightEvents();
+
+            // 초기 weight 계산 한번
+            RecalculateWeight();
         }
 
         private void OnDisable()
         {
-            // OnDisable에서 이벤트 해제
-            if (GetInventory() != null)
-            {
-                GetInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetBackpackInventory() != null)
-            {
-                GetBackpackInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetRightWeaponInventory() != null)
-            {
-                GetRightWeaponInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetHelmetInventory() != null)
-            {
-                GetHelmetInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetArmorInventory() != null)
-            {
-                GetArmorInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetGauntletInventory() != null)
-            {
-                GetGauntletInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-            
-            if (GetLeggingsInventory() != null)
-            {
-                GetLeggingsInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetConsumableInventory() != null)
-            {
-                GetConsumableInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
-            if (GetSafeInventory() != null)
-            {
-                GetSafeInventory().itemGridWeight.OnValueChanged -= UpdateWeight;
-            }
-
+            UnsubscribeWeightEvents();
             balance.ClearAllSubscribers();
         }
+
+        #region Grid Lists & Events
+
+        private void BuildGridLists()
+        {
+            _weightGrids.Clear();
+            _lootGrids.Clear();
+            _removePriorityGrids.Clear();
+
+            // weight 계산에 포함될 그리드들
+            AddIfNotNull(_weightGrids, _itemGrid);
+            AddIfNotNull(_weightGrids, _backpackGrid);
+            AddIfNotNull(_weightGrids, _rightWeapon);
+            AddIfNotNull(_weightGrids, _leftWeapon);
+            AddIfNotNull(_weightGrids, _subWeapon);
+            AddIfNotNull(_weightGrids, _helmet);
+            AddIfNotNull(_weightGrids, _armor);
+            AddIfNotNull(_weightGrids, _gauntlet);
+            AddIfNotNull(_weightGrids, _leggings);
+            AddIfNotNull(_weightGrids, _safeItemGrid);
+
+            // 루팅 가치 계산에 포함될 그리드들
+            _lootGrids.AddRange(_weightGrids);
+
+            // 제거 우선순위: share -> inventory -> backpack (기존 로직과 동일)
+            AddIfNotNull(_removePriorityGrids, _shareItemGrid);
+            AddIfNotNull(_removePriorityGrids, _itemGrid);
+            AddIfNotNull(_removePriorityGrids, _backpackGrid);
+        }
+
+        private static void AddIfNotNull(List<ItemGrid> list, ItemGrid grid)
+        {
+            if (grid != null) list.Add(grid);
+        }
+
+        private void SubscribeWeightEvents()
+        {
+            foreach (var grid in _weightGrids)
+            {
+                grid.itemGridWeight.OnValueChanged += UpdateWeight;
+            }
+        }
+
+        private void UnsubscribeWeightEvents()
+        {
+            foreach (var grid in _weightGrids)
+            {
+                if (grid == null) continue;
+                grid.itemGridWeight.OnValueChanged -= UpdateWeight;
+            }
+        }
+
+        private void UpdateWeight(float _)
+        {
+            RecalculateWeight();
+        }
+
+        private void RecalculateWeight()
+        {
+            float total = 0f;
+            foreach (var grid in _weightGrids)
+            {
+                if (grid == null) continue;
+                total += grid.itemGridWeight.Value;
+            }
+            itemWeight.Value = total;
+        }
+
+        #endregion
+
+        #region Money
 
         public bool TrySpend(int cost)
         {
             if (balance.Value < cost) return false;
-
             balance.Value -= cost;
             return true;
         }
 
-        // itemId에 해당하는 아이템을 requiredCount 만큼 제거
+        #endregion
+
+        #region Transaction Remove (Method 1 유지)
+
         private bool RemoveItemInInventory(int itemId, int requiredCount,
             Dictionary<ItemGrid, Dictionary<int, int>> transaction)
         {
             if (GetItemCountInAllInventory(itemId) < requiredCount)
                 return false;
 
-            ItemGrid share = GetShareInventory();
-            ItemGrid inventory = GetInventory();
-            ItemGrid backpack = GetBackpackInventory();
+            int remaining = requiredCount;
 
-            int remainingToRemove = requiredCount;
-
-            int removedFromShare = share.RemoveItemsById(itemId, remainingToRemove);
-            if (removedFromShare > 0)
+            foreach (var grid in _removePriorityGrids)
             {
-                if (!transaction.ContainsKey(share))
-                    transaction[share] = new Dictionary<int, int>();
+                if (grid == null || remaining <= 0) break;
 
-                if (!transaction[share].ContainsKey(itemId))
-                    transaction[share][itemId] = 0;
+                int removed = grid.RemoveItemsById(itemId, remaining);
+                if (removed <= 0) continue;
 
-                transaction[share][itemId] += removedFromShare;
-
-                remainingToRemove -= removedFromShare;
-            }
-
-            // 인벤토리에서 제거
-            if (remainingToRemove > 0)
-            {
-                int removedFromInventory = inventory.RemoveItemsById(itemId, remainingToRemove);
-                if (removedFromInventory > 0)
+                if (!transaction.TryGetValue(grid, out var itemMap))
                 {
-                    if (!transaction.ContainsKey(inventory))
-                        transaction[inventory] = new Dictionary<int, int>();
-
-                    if (!transaction[inventory].ContainsKey(itemId))
-                        transaction[inventory][itemId] = 0;
-
-                    transaction[inventory][itemId] += removedFromInventory;
-
-                    remainingToRemove -= removedFromInventory;
+                    itemMap = new Dictionary<int, int>();
+                    transaction[grid] = itemMap;
                 }
+
+                itemMap[itemId] = itemMap.TryGetValue(itemId, out var cur) ? cur + removed : removed;
+                remaining -= removed;
             }
 
-            // 백팩에서 제거
-            if (remainingToRemove > 0)
-            {
-                int removedFromBackpack = backpack.RemoveItemsById(itemId, remainingToRemove);
-                if (removedFromBackpack > 0)
-                {
-                    if (!transaction.ContainsKey(backpack))
-                        transaction[backpack] = new Dictionary<int, int>();
-
-                    if (!transaction[backpack].ContainsKey(itemId))
-                        transaction[backpack][itemId] = 0;
-
-                    transaction[backpack][itemId] += removedFromBackpack;
-
-                    remainingToRemove -= removedFromBackpack;
-                }
-            }
-
-            if (remainingToRemove > 0)
-            {
-                throw new InsufficientItemsException(itemId, remainingToRemove);
-            }
+            if (remaining > 0)
+                throw new InsufficientItemsException(itemId, remaining);
 
             return true;
         }
-
-        // RemoveItemInInventory transaction ver
 
         public bool RemoveItemInInventory(int itemId, int requiredCount = 1)
         {
@@ -255,24 +241,6 @@ namespace BK.Inventory
             }
         }
 
-        public bool CheckItemInInventory(int itemCode)
-        {
-            return GetItemCountInAllInventory(itemCode) > 0;
-        }
-
-        public int GetItemCountInAllInventory(int itemCode)
-        {
-            ItemGrid inventory = GetInventory();
-            ItemGrid backpack = GetBackpackInventory();
-            ItemGrid shareInventory = GetShareInventory();
-
-            int countInInventory = inventory.GetItemCountById(itemCode);
-            int countInBackpack = backpack.GetItemCountById(itemCode);
-            int countInShareInventory = shareInventory.GetItemCountById(itemCode);
-            return countInInventory + countInBackpack + countInShareInventory;
-        }
-
-        // 트랜잭션 롤백 헬퍼 메서드
         private void RollbackTransaction(Dictionary<ItemGrid, Dictionary<int, int>> transaction)
         {
             foreach (var (grid, items) in transaction)
@@ -283,83 +251,39 @@ namespace BK.Inventory
                 }
             }
         }
-        
-        public ItemGrid GetInventory()
+
+        public bool CheckItemInInventory(int itemCode) => GetItemCountInAllInventory(itemCode) > 0;
+
+        public int GetItemCountInAllInventory(int itemCode)
         {
-            return _itemGrid == null
-                ? _itemGrid = GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid
-                : _itemGrid;
+            int sum = 0;
+            if (GetInventory() != null) sum += GetInventory().GetItemCountById(itemCode);
+            if (GetBackpackInventory() != null) sum += GetBackpackInventory().GetItemCountById(itemCode);
+            if (GetShareInventory() != null) sum += GetShareInventory().GetItemCountById(itemCode);
+            return sum;
         }
 
-        public ItemGrid GetBackpackInventory()
-        {
-            return _backpackGrid == null
-                ? _backpackGrid = GUIController.Instance.inventoryGUIManager.backpackItemGrid
-                : _backpackGrid;
-        }
+        #endregion
 
-        public ItemGrid GetShareInventory()
-        {
-            return _shareItemGrid == null
-                ? _shareItemGrid = GUIController.Instance.inventoryGUIManager.shareInventoryItemGrid
-                : _shareItemGrid;
-        }
+        #region Getters
 
-        public ItemGrid_Equipment GetRightWeaponInventory()
-        {
-            return _itemGridEquipmentRightWeapon == null
-                ? _itemGridEquipmentRightWeapon = GUIController.Instance.inventoryGUIManager.playerRightWeapon
-                : _itemGridEquipmentRightWeapon;
-        }
-        
-        public ItemGrid_Equipment GetLeftWeaponInventory()
-        {
-            return _itemGridEquipmentLeftWeapon == null
-                ? _itemGridEquipmentLeftWeapon = GUIController.Instance.inventoryGUIManager.playerLeftWeapon
-                : _itemGridEquipmentLeftWeapon;
-        }
+        public ItemGrid GetInventory() => _itemGrid ??= GUIController.Instance.inventoryGUIManager.playerInventoryItemGrid;
+        public ItemGrid GetBackpackInventory() => _backpackGrid ??= GUIController.Instance.inventoryGUIManager.backpackItemGrid;
+        public ItemGrid GetShareInventory() => _shareItemGrid ??= GUIController.Instance.inventoryGUIManager.shareInventoryItemGrid;
+        public ItemGrid GetSafeInventory() => _safeItemGrid ??= GUIController.Instance.inventoryGUIManager.safeInventoryItemGrid;
 
-        public ItemGrid_Equipment GetHelmetInventory()
-        {
-            return _itemGridEquipmentHelmet == null
-                ? _itemGridEquipmentHelmet = GUIController.Instance.inventoryGUIManager.playerHelmet
-                : _itemGridEquipmentHelmet;
-        }
+        public ItemGrid_Equipment GetRightWeaponInventory() => _rightWeapon ??= GUIController.Instance.inventoryGUIManager.playerRightWeapon;
+        public ItemGrid_Equipment GetLeftWeaponInventory() => _leftWeapon ??= GUIController.Instance.inventoryGUIManager.playerLeftWeapon;
+        public ItemGrid_Equipment GetSubWeaponInventory() => _subWeapon ??= GUIController.Instance.inventoryGUIManager.playerSubWeapon;
 
-        public ItemGrid_Equipment GetArmorInventory()
-        {
-            return _itemGridEquipmentArmor == null
-                ? _itemGridEquipmentArmor = GUIController.Instance.inventoryGUIManager.playerArmor
-                : _itemGridEquipmentArmor;
-        }
-        
-        public ItemGrid_Equipment GetGauntletInventory()
-        {
-            return _itemGridEquipmentGauntlet == null
-                ? _itemGridEquipmentGauntlet = GUIController.Instance.inventoryGUIManager.playerGauntlet
-                : _itemGridEquipmentGauntlet;
-        }
-        
-        public ItemGrid_Equipment GetLeggingsInventory()
-        {
-            return _itemGridEquipmentLeggings == null
-                ? _itemGridEquipmentLeggings = GUIController.Instance.inventoryGUIManager.playerLeggings
-                : _itemGridEquipmentLeggings;
-        }
+        public ItemGrid_Equipment GetHelmetInventory() => _helmet ??= GUIController.Instance.inventoryGUIManager.playerHelmet;
+        public ItemGrid_Equipment GetArmorInventory() => _armor ??= GUIController.Instance.inventoryGUIManager.playerArmor;
+        public ItemGrid_Equipment GetGauntletInventory() => _gauntlet ??= GUIController.Instance.inventoryGUIManager.playerGauntlet;
+        public ItemGrid_Equipment GetLeggingsInventory() => _leggings ??= GUIController.Instance.inventoryGUIManager.playerLeggings;
 
-        public ItemGrid_Equipment GetConsumableInventory()
-        {
-            return _itemGridEquipmentConsumable == null
-                ? _itemGridEquipmentConsumable = GUIController.Instance.inventoryGUIManager.playerConsumable
-                : _itemGridEquipmentConsumable;
-        }
+        #endregion
 
-        public ItemGrid GetSafeInventory()
-        {
-            return _safeItemGrid == null
-                ? _safeItemGrid = GUIController.Instance.inventoryGUIManager.safeInventoryItemGrid
-                : _safeItemGrid;
-        }
+        #region Add Item
 
         public bool AddItem(GameObject item) =>
             GetInventory().AddItem(item, false) ||
@@ -367,7 +291,7 @@ namespace BK.Inventory
 
         public int AddItemById(int itemCode, int itemCnt)
         {
-            int remaining = itemCnt; // 첫 번째 인벤토리에 넣을 목표 개수
+            int remaining = itemCnt;
             remaining = GetInventory().AddItemById_FailCount(itemCode, remaining, false);
 
             if (remaining > 0)
@@ -379,170 +303,75 @@ namespace BK.Inventory
             return remaining;
         }
 
-        public bool ReloadItemShareBox(Item itemInfoData)
+        #endregion
+
+        #region Reload Helpers (중복 제거 핵심)
+
+        private InventoryItem CreateInventoryItem(Item itemInfoData)
         {
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
+            GameObject go = Instantiate(WorldShopManager.Instance.inventoryItemRef);
+            var inventoryItem = go.GetComponent<InventoryItem>();
             inventoryItem.itemData = itemInfoData as GridItem;
             inventoryItem.Set();
-            return GetShareInventory().AddItem(item);
+            return inventoryItem;
         }
 
-        public bool ReloadItemInventory(Item itemInfoData)
+        private bool ReloadToGrid(ItemGrid targetGrid, Item itemInfoData, bool skipIfZeroId)
         {
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetInventory().AddItem(item);
+            if (targetGrid == null) return false;
+            if (itemInfoData == null) return false;
+            if (skipIfZeroId && itemInfoData.itemID == 0) return true;
+
+            var invItem = CreateInventoryItem(itemInfoData);
+            return targetGrid.AddItem(invItem.gameObject);
         }
 
-        public bool ReloadItemBackpack(Item itemInfoData)
-        {
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetBackpackInventory().AddItem(item);
-        }
+        public bool ReloadItemShareBox(Item itemInfoData) => ReloadToGrid(GetShareInventory(), itemInfoData, skipIfZeroId: false);
+        public bool ReloadItemInventory(Item itemInfoData) => ReloadToGrid(GetInventory(), itemInfoData, skipIfZeroId: false);
+        public bool ReloadItemBackpack(Item itemInfoData) => ReloadToGrid(GetBackpackInventory(), itemInfoData, skipIfZeroId: false);
 
-        public bool ReloadItemRightWeapon(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
+        public bool ReloadItemRightWeapon(Item itemInfoData) => ReloadToGrid(GetRightWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemLeftWeapon(Item itemInfoData) => ReloadToGrid(GetLeftWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemQuickSlot(Item itemInfoData) => ReloadToGrid(GetSubWeaponInventory(), itemInfoData, skipIfZeroId: true);
 
-            // 인벤토리에 해당 무기 추가 
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetRightWeaponInventory().AddItem(item);
-        }
-        
-        public bool ReloadItemLeftWeapon(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
+        public bool ReloadItemHelmet(Item itemInfoData) => ReloadToGrid(GetHelmetInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemArmor(Item itemInfoData) => ReloadToGrid(GetArmorInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemGauntlet(Item itemInfoData) => ReloadToGrid(GetGauntletInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemLeggings(Item itemInfoData) => ReloadToGrid(GetLeggingsInventory(), itemInfoData, skipIfZeroId: true);
 
-            // 인벤토리에 해당 무기 추가 
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetLeftWeaponInventory().AddItem(item);
-        }
+        public bool ReloadItemSafe(Item itemInfoData) => ReloadToGrid(GetSafeInventory(), itemInfoData, skipIfZeroId: false);
 
-        public bool ReloadItemHelmet(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData  as GridItem;
-            inventoryItem.Set();
-            return GetHelmetInventory().AddItem(item);
-        }
+        #endregion
 
-        public bool ReloadItemArmor(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
-
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData  as GridItem;
-            inventoryItem.Set();
-            return GetArmorInventory().AddItem(item);
-        }
-        
-        public bool ReloadItemGauntlet(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
-
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetGauntletInventory().AddItem(item);
-        }
-        
-        public bool ReloadItemLeggings(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
-
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-            return GetLeggingsInventory().AddItem(item);
-        }
-
-        public bool ReloadItemQuickSlot(Item itemInfoData)
-        {
-            if (itemInfoData.itemID == 0) return true;
-
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData  as GridItem;
-            inventoryItem.Set();
-            return GetConsumableInventory().AddItem(item);
-        }
-
-        public bool ReloadItemSafe(Item itemInfoData)
-        {
-            GameObject item = Instantiate(WorldShopManager.Instance.inventoryItemRef);
-            InventoryItem inventoryItem = item.GetComponent<InventoryItem>();
-            inventoryItem.itemData = itemInfoData as GridItem;
-            inventoryItem.Set();
-
-            return GetSafeInventory().AddItem(item);
-        }
-
-        private void UpdateWeight(float newValue)
-        {
-            float newItemWeight = 0;
-            newItemWeight += _itemGrid.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentRightWeapon.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentLeftWeapon.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentHelmet.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentArmor.itemGridWeight.Value;
-            newItemWeight += _itemGridEquipmentConsumable.itemGridWeight.Value;
-            newItemWeight += _safeItemGrid.itemGridWeight.Value;
-            itemWeight.Value = newItemWeight;
-        }
+        #region Loot Value Calculation
 
         public void SetStartItemValue()
         {
             _initialItemDict.Clear();
-            MergeItemValue(_initialItemDict, _itemGrid);
-            MergeItemValue(_initialItemDict, _backpackGrid);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentRightWeapon);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentLeftWeapon);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentHelmet);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentArmor);
-            MergeItemValue(_initialItemDict, _itemGridEquipmentConsumable);
-            MergeItemValue(_initialItemDict, _safeItemGrid);
-        }
-
-        private void MergeItemValue(Dictionary<int, int> dict, ItemGrid grid)
-        {
-            var itemDict = grid.GetCurItemDictById();
-            foreach (var kvp in itemDict)
+            foreach (var grid in _lootGrids)
             {
-                if (dict.ContainsKey(kvp.Key))
-                    dict[kvp.Key] += kvp.Value;
-                else
-                    dict[kvp.Key] = kvp.Value;
+                MergeItemValue(_initialItemDict, grid);
             }
         }
 
         private void SetExitItemValue()
         {
             _exitItemDict.Clear();
-            MergeItemValue(_exitItemDict, _itemGrid);
-            MergeItemValue(_exitItemDict, _backpackGrid);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentRightWeapon);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentLeftWeapon);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentHelmet);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentArmor);
-            MergeItemValue(_exitItemDict, _itemGridEquipmentConsumable);
-            MergeItemValue(_exitItemDict, _safeItemGrid);
+            foreach (var grid in _lootGrids)
+            {
+                MergeItemValue(_exitItemDict, grid);
+            }
+        }
+
+        private void MergeItemValue(Dictionary<int, int> dict, ItemGrid grid)
+        {
+            if (grid == null) return;
+
+            var itemDict = grid.GetCurItemDictById();
+            foreach (var (itemId, count) in itemDict)
+            {
+                dict[itemId] = dict.TryGetValue(itemId, out var cur) ? cur + count : count;
+            }
         }
 
         public void CalculateFinalLoot()
@@ -550,20 +379,17 @@ namespace BK.Inventory
             SetExitItemValue();
             finalItemDict.Clear();
             TotalLootValue = 0;
-            foreach (var kvp in _exitItemDict)
-            {
-                int itemId = kvp.Key;
-                int exitCount = kvp.Value;
 
-                int initialCount = 0;
-                _initialItemDict.TryGetValue(itemId, out initialCount);
+            foreach (var (itemId, exitCount) in _exitItemDict)
+            {
+                _initialItemDict.TryGetValue(itemId, out int initialCount);
 
                 int newCount = exitCount - initialCount;
-                if (newCount > 0)
-                {
-                    finalItemDict[itemId] = newCount;
-                    TotalLootValue += WorldItemDatabase.Instance.GetItemByID(itemId).cost;
-                }
+                if (newCount <= 0) continue;
+
+                finalItemDict[itemId] = newCount;
+
+                TotalLootValue += WorldItemDatabase.Instance.GetItemByID(itemId).cost * newCount;
             }
         }
 
@@ -571,18 +397,21 @@ namespace BK.Inventory
         {
             int maxValue = 0;
             int maxValueItemId = 0;
+
             foreach (var itemId in finalItemDict.Keys)
             {
-                int curItemPrice = WorldItemDatabase.Instance.GetItemByID(itemId).cost;
-                if (maxValue < curItemPrice)
+                int price = WorldItemDatabase.Instance.GetItemByID(itemId).cost;
+                if (price > maxValue)
                 {
-                    maxValue = curItemPrice;
+                    maxValue = price;
                     maxValueItemId = itemId;
                 }
             }
 
             return maxValueItemId;
         }
+
+        #endregion
     }
 }
 
@@ -590,7 +419,7 @@ public class InsufficientItemsException : Exception
 {
     public int ItemId { get; }
     public int RemainingCount { get; }
-    
+
     public InsufficientItemsException(int itemId, int remainingCount)
         : base($"아이템 ID {itemId} 부족: 추가로 {remainingCount}개 필요")
     {

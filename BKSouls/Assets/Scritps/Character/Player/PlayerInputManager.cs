@@ -38,6 +38,7 @@ namespace BK
         [SerializeField] bool dodge_Input = false;
         [SerializeField] bool sprint_Input = false;
         [SerializeField] bool jump_Input = false;
+        [SerializeField] bool switch_Main_Weapon_Input = false;
         [SerializeField] bool switch_Quick_Slot_Item_Input = false;
         [SerializeField] bool interaction_Input = false;
         [SerializeField] bool use_Item_Input = false;
@@ -135,6 +136,7 @@ namespace BK
                 //  ACTIONS
                 playerControls.PlayerActions.Dodge.performed += i => dodge_Input = true;
                 playerControls.PlayerActions.Jump.performed += i => jump_Input = true;
+                playerControls.PlayerActions.SwitchRightWeapon.performed += i => switch_Main_Weapon_Input = true;
                 playerControls.PlayerActions.SwitchQuickSlotItem.performed += i => switch_Quick_Slot_Item_Input = true;
                 playerControls.PlayerActions.Interact.performed += i => interaction_Input = true;
                 playerControls.PlayerActions.X.performed += i => use_Item_Input = true;
@@ -232,6 +234,7 @@ namespace BK
             HandleRTInput();
             HandleChargeRTInput();
             HandleLTInput();
+            HandleSwitchRightWeaponInput();
             HandleSwitchQuickSlotItemInput();
             HandleQuedInputs();
             HandleInteractionInput();
@@ -615,6 +618,25 @@ namespace BK
                 weaponPerformingAshOfWar?.ashOfWarAction?.AttemptToPerformAction(player);
             }
         }
+        
+        private void HandleSwitchRightWeaponInput()
+        {
+            if (switch_Main_Weapon_Input)
+            {
+                switch_Main_Weapon_Input = false;
+
+                if (GUIController.Instance.menuWindowIsOpen)
+                    return;
+
+                if (player.isPerformingAction)
+                    return;
+
+                if (player.playerCombatManager.isUsingItem)
+                    return;
+
+                player.playerEquipmentManager.SwitchMainWeapon();
+            }
+        }
 
         private void HandleSwitchQuickSlotItemInput()
         {
@@ -630,8 +652,8 @@ namespace BK
 
                 if (player.playerCombatManager.isUsingItem)
                     return;
-
-                player.playerInventoryManager.SelectNextQuickSlotItem();
+                
+                player.playerEquipmentManager.SwitchQuickSlotItem();
             }
         }
 

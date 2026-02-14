@@ -68,6 +68,13 @@ public enum ItemType
     None,
 }
 
+public enum WeaponSlotType
+{
+    Right,
+    Left,
+    Sub,
+    None
+}
 //  USED AS A TAG FOR EACH WEAPON MODEL INSTANTIATION SLOT
 public enum WeaponModelSlot
 {

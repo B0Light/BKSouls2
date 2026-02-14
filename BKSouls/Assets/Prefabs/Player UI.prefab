@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 5936008093051040804}
   - component: {fileID: 1612421511746320776}
   m_Layer: 0
-  m_Name: ItemGrid_QuickSlot
+  m_Name: EquipmentGridSlot_Sub_Weapon_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4581,7 +4581,7 @@ GameObject:
   - component: {fileID: 4528485531974660929}
   - component: {fileID: 7777705615031979783}
   m_Layer: 5
-  m_Name: WeaponGrid
+  m_Name: EquipmentGrid_Left_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4665,7 +4665,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 0
-  right: 0
+  weaponSlotType: 1
 --- !u!114 &7777705615031979783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11813,11 +11813,11 @@ MonoBehaviour:
   itemTooltip: {fileID: 7203143129276432308}
   playerRightWeapon: {fileID: 6216540070661558978}
   playerLeftWeapon: {fileID: 4528485531974660929}
+  playerSubWeapon: {fileID: 1689999430468122855}
   playerHelmet: {fileID: 8861946390467045344}
   playerArmor: {fileID: 7371551083784637208}
   playerGauntlet: {fileID: 1135546926004452130}
   playerLeggings: {fileID: 4622375336902238035}
-  playerConsumable: {fileID: 1689999430468122855}
   playerInventoryItemGrid: {fileID: 5575667540491149058}
   backpackItemGrid: {fileID: 5010290809164347399}
   safeInventoryItemGrid: {fileID: 8336205676225788301}
@@ -17842,9 +17842,9 @@ RectTransform:
   - {fileID: 610751314220532426}
   - {fileID: 3479251180234586229}
   - {fileID: 8502236972093547109}
+  - {fileID: 5936008093051040804}
   - {fileID: 973767439399094220}
   - {fileID: 3096096625007609263}
-  - {fileID: 5936008093051040804}
   - {fileID: 297898333574816254}
   - {fileID: 8466877206504666982}
   - {fileID: 332798581330707957}
@@ -21010,7 +21010,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 3
-  right: 1
+  weaponSlotType: 3
 --- !u!114 &1545607596479792804
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22411,7 +22411,7 @@ GameObject:
   - component: {fileID: 1689999430468122855}
   - component: {fileID: 4211054610384298212}
   m_Layer: 5
-  m_Name: EquipmentGrid_Quick
+  m_Name: EquipmentGrid_Sub_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22429,8 +22429,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1716969819206207978}
   - {fileID: 5439740157168552497}
+  - {fileID: 1716969819206207978}
   m_Father: {fileID: 1278351820891796724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -22494,8 +22494,8 @@ MonoBehaviour:
   totalItemValue:
     _value: 0
   _playerManager: {fileID: 0}
-  itemType: 5
-  right: 0
+  itemType: 0
+  weaponSlotType: 2
 --- !u!114 &4211054610384298212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23419,7 +23419,7 @@ GameObject:
   - component: {fileID: 6898466218533024580}
   - component: {fileID: 7664508228389657624}
   m_Layer: 0
-  m_Name: FoodMark
+  m_Name: WeaponMark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23472,7 +23472,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f5be191f6289a1c4994b2592ff32bbd8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f6935ab820e8a404182a8c6b4f7716e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25326,7 +25326,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 2
-  right: 0
+  weaponSlotType: 3
 --- !u!114 &5325094518924315648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25800,7 +25800,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 1
-  right: 0
+  weaponSlotType: 3
 --- !u!114 &1731771252151263587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28170,7 +28170,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 4
-  right: 0
+  weaponSlotType: 3
 --- !u!114 &3904404039665364156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33372,7 +33372,7 @@ GameObject:
   - component: {fileID: 6216540070661558978}
   - component: {fileID: 8119597704608777782}
   m_Layer: 5
-  m_Name: WeaponGrid
+  m_Name: EquipmentGrid_Right_Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33456,7 +33456,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 0
-  right: 1
+  weaponSlotType: 0
 --- !u!114 &8119597704608777782
 MonoBehaviour:
   m_ObjectHideFlags: 0

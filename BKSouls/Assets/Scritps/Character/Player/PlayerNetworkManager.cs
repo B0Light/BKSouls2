@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using Unity.Collections;
+using UnityEngine.Serialization;
 
 namespace BK
 {
@@ -34,6 +35,8 @@ namespace BK
         public NetworkVariable<int> currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> currentLeftHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> currentSubWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+
         public NetworkVariable<int> currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> currentQuickSlotItemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         
@@ -238,9 +241,9 @@ namespace BK
 
         public void OnCurrentRightHandWeaponIDChange(int oldID, int newID)
         {
+            Debug.Log($"Set New Weapon {oldID} -> {newID}");
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
             player.playerInventoryManager.currentRightHandWeapon = newWeapon;
-            
 
             player.playerEquipmentManager.LoadRightWeapon();
 
@@ -281,6 +284,15 @@ namespace BK
                     GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
                 }
             }
+        }
+        
+        public void OnCurrentSubWeaponIDChange(int oldID, int newID)
+        {
+            
+            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
+            player.playerInventoryManager.currentSubWeapon = newWeapon;
+            
+            // 등에 서브웨폰 무기 장비 
         }
 
         public void OnCurrentWeaponBeingUsedIDChange(int oldID, int newID)

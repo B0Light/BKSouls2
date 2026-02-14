@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BK
 {
@@ -20,8 +21,9 @@ namespace BK
         //arcane/luck/whatever other stats you want
 
         [Header("Class Weapons")]
-        public WeaponItem mainHandWeapons;
-        public WeaponItem offHandWeapons;
+        public WeaponItem mainHandWeapon;
+        public WeaponItem offHandWeapon;
+        public WeaponItem subWeapon;
 
         [Header("Class Armor")]
         public HeadEquipmentItem headEquipment;
@@ -30,18 +32,18 @@ namespace BK
         public LegEquipmentItem legEquipment;
         
         [Header("Quick Slot Items")]
-        public List<QuickSlotItem> quickSlotItems = new List<QuickSlotItem>();
+        public QuickSlotItem[] quickSlotItems = new QuickSlotItem[3];
 
         public void SetClass(PlayerManager player)
         {
-            TitleScreenManager.Instance.SetCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
-                mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems);
+            TitleScreenManager.Instance.SetCharacterClass(player, 
+                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment);
         }
 
         public void DecideClass(PlayerManager player)
         {
             TitleScreenManager.Instance.DecideCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
-                mainHandWeapons, offHandWeapons, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems);
+                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems);
         }
     }
 }
