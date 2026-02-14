@@ -27,9 +27,9 @@ namespace BK
 
             if (IsOwner)
             {
-                if (WorldSaveGameManager.instance.currentGameData.sitesOfGrace.ContainsKey(siteOfGraceID))
+                if (WorldSaveGameManager.instance.currentCharacterData.sitesOfGrace.ContainsKey(siteOfGraceID))
                 {
-                    isActivated.Value = WorldSaveGameManager.instance.currentGameData.sitesOfGrace[siteOfGraceID];
+                    isActivated.Value = WorldSaveGameManager.instance.currentCharacterData.sitesOfGrace[siteOfGraceID];
                 }
                 else
                 {
@@ -72,11 +72,11 @@ namespace BK
             isActivated.Value = true;
 
             //  IF OUR SAVE FILE CONTAINS INFO ON THIS SITE OF GRACE, REMOVE IT
-            if (WorldSaveGameManager.instance.currentGameData.sitesOfGrace.ContainsKey(siteOfGraceID))
-                WorldSaveGameManager.instance.currentGameData.sitesOfGrace.Remove(siteOfGraceID);
+            if (WorldSaveGameManager.instance.currentCharacterData.sitesOfGrace.ContainsKey(siteOfGraceID))
+                WorldSaveGameManager.instance.currentCharacterData.sitesOfGrace.Remove(siteOfGraceID);
 
             //  THEN RE-ADD IT WITH THE VALUE OF "TRUE" (IS ACTIVATED)
-            WorldSaveGameManager.instance.currentGameData.sitesOfGrace.Add(siteOfGraceID, true);
+            WorldSaveGameManager.instance.currentCharacterData.sitesOfGrace.Add(siteOfGraceID, true);
 
             player.playerAnimatorManager.PlayTargetActionAnimation("Activate_Site_Of_Grace_01", true);
             //  HIDE WEAPON MODELS WHILST PLAYING ANIMATION IF YOU DESIRE
@@ -131,7 +131,7 @@ namespace BK
             if (player.playerCombatManager.isUsingItem)
                 return;
 
-            WorldSaveGameManager.instance.currentGameData.lastSiteOfGraceRestedAt = siteOfGraceID;
+            WorldSaveGameManager.instance.currentCharacterData.lastSiteOfGraceRestedAt = siteOfGraceID;
 
             if (!isActivated.Value)
             {

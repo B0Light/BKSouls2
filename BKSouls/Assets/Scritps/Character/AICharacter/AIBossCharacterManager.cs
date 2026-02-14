@@ -56,16 +56,16 @@ namespace BK
             if (IsServer)
             {
                 //  IF OUR SAVE DATA DOES NOT CONTAIN INFORMATION ON THIS BOSS, ADD IT NOW
-                if (!WorldSaveGameManager.instance.currentGameData.bossesAwakened.ContainsKey(bossID))
+                if (!WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
                 {
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Add(bossID, false);
-                    WorldSaveGameManager.instance.currentGameData.bossesDefeated.Add(bossID, false);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Add(bossID, false);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesDefeated.Add(bossID, false);
                 }
                 //  OTHERWISE, LOAD THE DATA THAT ALREADY EXISTS ON THIS BOSS
                 else
                 {
-                    hasBeenDefeated.Value = WorldSaveGameManager.instance.currentGameData.bossesDefeated[bossID];
-                    hasBeenAwakened.Value = WorldSaveGameManager.instance.currentGameData.bossesAwakened[bossID];
+                    hasBeenDefeated.Value = WorldSaveGameManager.instance.currentCharacterData.bossesDefeated[bossID];
+                    hasBeenAwakened.Value = WorldSaveGameManager.instance.currentCharacterData.bossesAwakened[bossID];
                     sleepState.hasBeenAwakened = hasBeenAwakened.Value;
                 }
 
@@ -146,18 +146,18 @@ namespace BK
                 hasBeenDefeated.Value = true;
 
                 //  IF OUR SAVE DATA DOES NOT CONTAIN INFORMATION ON THIS BOSS, ADD IT NOW
-                if (!WorldSaveGameManager.instance.currentGameData.bossesAwakened.ContainsKey(bossID))
+                if (!WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
                 {
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Add(bossID, true);
-                    WorldSaveGameManager.instance.currentGameData.bossesDefeated.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesDefeated.Add(bossID, true);
                 }
                 //  OTHERWISE, LOAD THE DATA THAT ALREADY EXISTS ON THIS BOSS
                 else
                 {
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Remove(bossID);
-                    WorldSaveGameManager.instance.currentGameData.bossesDefeated.Remove(bossID);
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Add(bossID, true);
-                    WorldSaveGameManager.instance.currentGameData.bossesDefeated.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Remove(bossID);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesDefeated.Remove(bossID);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesDefeated.Add(bossID, true);
                 }
 
                 WorldSaveGameManager.instance.SaveGame();
@@ -184,14 +184,14 @@ namespace BK
                 aiCharacterNetworkManager.isAwake.Value = true;
                 currentState = idle;
 
-                if (!WorldSaveGameManager.instance.currentGameData.bossesAwakened.ContainsKey(bossID))
+                if (!WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
                 {
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Add(bossID, true);
                 }
                 else
                 {
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Remove(bossID);
-                    WorldSaveGameManager.instance.currentGameData.bossesAwakened.Add(bossID, true);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Remove(bossID);
+                    WorldSaveGameManager.instance.currentCharacterData.bossesAwakened.Add(bossID, true);
                 }
 
                 for (int i = 0; i < fogWalls.Count; i++)

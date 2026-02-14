@@ -79,12 +79,12 @@ namespace BK
             }
 
             // 1. COMPARE THE DATA OF LOOTED ITEMS I.D'S WITH THIS ITEM'S ID
-            if (!WorldSaveGameManager.instance.currentGameData.worldItemsLooted.ContainsKey(worldSpawnInteractableID))
+            if (!WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.ContainsKey(worldSpawnInteractableID))
             {
-                WorldSaveGameManager.instance.currentGameData.worldItemsLooted.Add(worldSpawnInteractableID, false);
+                WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.Add(worldSpawnInteractableID, false);
             }
 
-            hasBeenLooted = WorldSaveGameManager.instance.currentGameData.worldItemsLooted[worldSpawnInteractableID];
+            hasBeenLooted = WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted[worldSpawnInteractableID];
 
             // 2. IF IT HAS BEEN LOOTED, HIDE THE GAMEOBJECT
             if (hasBeenLooted)
@@ -116,12 +116,12 @@ namespace BK
             // 4. SAVE LOOT STATUS IF IT'S A WORLD SPAWN
             if (pickUpType == ItemPickUpType.WorldSpawn)
             {
-                if (WorldSaveGameManager.instance.currentGameData.worldItemsLooted.ContainsKey(worldSpawnInteractableID))
+                if (WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.ContainsKey(worldSpawnInteractableID))
                 {
-                    WorldSaveGameManager.instance.currentGameData.worldItemsLooted.Remove(worldSpawnInteractableID);
+                    WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.Remove(worldSpawnInteractableID);
                 }
 
-                WorldSaveGameManager.instance.currentGameData.worldItemsLooted.Add(worldSpawnInteractableID, true);
+                WorldSaveGameManager.instance.currentCharacterData.worldItemsLooted.Add(worldSpawnInteractableID, true);
             }
 
             // 5. HIDE OR DESTROY GAMEOBJECT

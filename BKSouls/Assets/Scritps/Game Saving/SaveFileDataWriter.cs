@@ -31,7 +31,7 @@ namespace BK
         }
 
         //  USED TO CREATE A SAVE FILE UPON STARTING A NEW GAME
-        public void CreateNewCharacterSaveFile(SaveGameData gameData)
+        public void CreateNewCharacterSaveFile(CharacterSaveData characterData)
         {
             //  MAKE A PATH TO SAVE THE FILE (A LOCATION ON THE MACHINE)
             string savePath = Path.Combine(saveDataDirectoryPath,saveFileName);
@@ -43,7 +43,7 @@ namespace BK
                 Debug.Log("CREATING SAVE FILE, AT SAVE PATH: " + savePath);
 
                 //  SERIALIZE THE C# GAME DATA OBJECT INTO JSON
-                string dataToStore = JsonUtility.ToJson(gameData, true);
+                string dataToStore = JsonUtility.ToJson(characterData, true);
 
                 //  WRITE THE FILE TO OUR SYSTEM
                 using (FileStream stream = new FileStream(savePath, FileMode.Create))
@@ -61,9 +61,9 @@ namespace BK
         }
 
         //  USED TO LOAD A SAVE FILE UPON LOADING A PREVIOUS GAME
-        public SaveGameData LoadSaveFile()
+        public CharacterSaveData LoadSaveFile()
         {
-            SaveGameData gameData = null;
+            CharacterSaveData characterData = null;
 
             //  MAKE A PATH TO LOAD THE FILE (A LOCATION ON THE MACHINE)
             string loadPath = Path.Combine(saveDataDirectoryPath, saveFileName);
@@ -83,7 +83,7 @@ namespace BK
                     }
 
                     //  DESERIALIZE THE DATA FROM JSON BACK TO UNITY
-                    gameData = JsonUtility.FromJson<SaveGameData>(dataToLoad);
+                    characterData = JsonUtility.FromJson<CharacterSaveData>(dataToLoad);
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +92,7 @@ namespace BK
                 }
             }
 
-            return gameData;
+            return characterData;
         }
     }
 }

@@ -46,7 +46,7 @@ namespace BK
             //  TODO SAVE LAST SITE OF GRACE VISITED, AND T.P THERE
             for (int i = 0; i < WorldObjectManager.instance.sitesOfGrace.Count; i++)
             {
-                if (WorldObjectManager.instance.sitesOfGrace[i].siteOfGraceID == WorldSaveGameManager.instance.currentGameData.lastSiteOfGraceRestedAt)
+                if (WorldObjectManager.instance.sitesOfGrace[i].siteOfGraceID == WorldSaveGameManager.instance.currentCharacterData.lastSiteOfGraceRestedAt)
                 {
                     WorldObjectManager.instance.sitesOfGrace[i].TeleportToSiteOfGrace();
                     break;

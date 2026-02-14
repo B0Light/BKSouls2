@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +7,7 @@ namespace BK
 {
     [System.Serializable]
     //  SINCE WE WANT TO REFERENCE THIS DATA FOR EVERY SAVE FILE, THIS SCRIPT IS NOT A MONOBEHAVIOUR AND IS INSTEAD SERIALIZABLE
-    public class SaveGameData
+    public class CharacterSaveData
     {
         [Header("SCENE INDEX")]
         public int sceneIndex = 1;
@@ -32,7 +31,6 @@ namespace BK
 
         [Header("Time Played")]
         public float secondsPlayed;
-        public string lastPlayTime;
 
         // QUESTION: WHY NOT USE A VECTOR3?
         // ANSWER: WE CAN ONLY SAVE DATA FROM "BASIC" VARIABLE TYPES (Float, Int, String, Bool, ect)
@@ -74,6 +72,9 @@ namespace BK
         public SerializableRangedProjectile mainProjectile;
         public SerializableRangedProjectile secondaryProjectile;
 
+        public int currentHealthFlasksRemaining = 3;
+        public int currentFocusPointsFlaskRemaining = 1;
+
         [Header("Inventory")]
         public List<SerializableRangedProjectile> projectilesInInventory;
         
@@ -110,10 +111,8 @@ namespace BK
         public int currentSpell;
 
 
-        public SaveGameData()
+        public CharacterSaveData()
         {
-            lastPlayTime = DateTime.Now.ToString("o");
-            
             rightWeaponBoxSize = new Vector2Int(1, 4);
             leftWeaponBoxSize = new Vector2Int(2, 2);
             helmetBoxSize = new Vector2Int(2, 2);

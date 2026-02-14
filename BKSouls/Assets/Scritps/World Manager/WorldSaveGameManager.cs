@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace BK
 {
@@ -21,11 +20,11 @@ namespace BK
 
         [Header("Current Character Data")]
         public CharacterSlot currentCharacterSlotBeingUsed;
-        [FormerlySerializedAs("currentCharacterData")] public SaveGameData currentGameData;
+        public CharacterSaveData currentCharacterData;
 
         [Header("Character Slots")]
         // 10개의 슬롯을 배열로 관리 (인스펙터에서도 확인 가능)
-        public SaveGameData[] allCharacterSlots = new SaveGameData[11]; 
+        public CharacterSaveData[] allCharacterSlots = new CharacterSaveData[11]; 
 
         private void Awake()
         {
@@ -96,7 +95,7 @@ namespace BK
         private void StartNewGameOnSlot(CharacterSlot slot)
         {
             currentCharacterSlotBeingUsed = slot;
-            currentGameData = new SaveGameData();
+            currentCharacterData = new CharacterSaveData();
             NewGame();
         }
 
@@ -114,7 +113,7 @@ namespace BK
         {
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
-            currentGameData = saveFileDataWriter.LoadSaveFile();
+            currentCharacterData = saveFileDataWriter.LoadSaveFile();
             WorldSceneManager.instance.LoadWorldScene(worldSceneIndex);
         }
 
@@ -122,11 +121,11 @@ namespace BK
         {
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
-            player.SaveGameDataToCurrentCharacterData(ref currentGameData);
-            saveFileDataWriter.CreateNewCharacterSaveFile(currentGameData);
+            player.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
+            saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
             
             // 저장 후 배열 데이터도 갱신 (선택 사항)
-            allCharacterSlots[(int)currentCharacterSlotBeingUsed] = currentGameData;
+            allCharacterSlots[(int)currentCharacterSlotBeingUsed] = currentCharacterData;
         }
 
         public void DeleteGame(CharacterSlot characterSlot)

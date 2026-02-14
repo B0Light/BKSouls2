@@ -8,7 +8,7 @@ namespace BK
 
         public override void Interact(PlayerManager player)
         {
-            WorldSaveGameManager.instance.currentGameData.hasDeadSpot = false;
+            WorldSaveGameManager.instance.currentCharacterData.hasDeadSpot = false;
             player.playerStatsManager.AddRunes(runeCount);
             Destroy(gameObject);
         }

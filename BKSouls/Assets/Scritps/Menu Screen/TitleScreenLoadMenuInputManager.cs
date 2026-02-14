@@ -35,7 +35,5 @@ namespace BK
         {
             playerControls.Disable();
         }
-        
-        
     }
 }
