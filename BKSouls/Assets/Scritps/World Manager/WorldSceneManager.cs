@@ -8,7 +8,7 @@ namespace BK
 {
     public class WorldSceneManager : NetworkBehaviour
     {
-        public static WorldSceneManager instance;
+        public static WorldSceneManager Instance;
 
         //  LOADED SCENES
         public List<Scene> loadedScenes = new List<Scene>();
@@ -39,9 +39,9 @@ namespace BK
 
         private void Awake()
         {
-            if (instance == null)
+            if (Instance == null)
             {
-                instance = this;
+                Instance = this;
             }
             else
             {
@@ -152,7 +152,7 @@ namespace BK
             NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
 
             //  3. LOAD OUR PLAYER SAVE DATA
-            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
+            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData);
         }
 
         //  USED TO LOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE

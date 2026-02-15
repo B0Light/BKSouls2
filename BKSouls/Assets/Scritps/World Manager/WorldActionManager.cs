@@ -5,26 +5,11 @@ using System.Linq;
 
 namespace BK
 {
-    public class WorldActionManager : MonoBehaviour
+    public class WorldActionManager : Singleton<WorldActionManager>
     {
-        public static WorldActionManager instance;
-
         [Header("Weapon Item Actions")]
         public WeaponItemAction[] weaponItemActions;
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
-            DontDestroyOnLoad(gameObject);
-        }
+        
 
         private void Start()
         {

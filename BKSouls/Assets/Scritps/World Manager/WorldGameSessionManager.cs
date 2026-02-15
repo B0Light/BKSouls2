@@ -4,26 +4,12 @@ using UnityEngine;
 
 namespace BK
 {
-    public class WorldGameSessionManager : MonoBehaviour
+    public class WorldGameSessionManager : Singleton<WorldGameSessionManager>
     {
-        public static WorldGameSessionManager instance;
-
         [Header("Active Players In Session")]
         public List<PlayerManager> players = new List<PlayerManager>();
 
         private Coroutine revivalCoroutien;
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
 
         public void WaitThenReviveHost()
         {
@@ -46,7 +32,7 @@ namespace BK
             //  TODO SAVE LAST SITE OF GRACE VISITED, AND T.P THERE
             for (int i = 0; i < WorldObjectManager.instance.sitesOfGrace.Count; i++)
             {
-                if (WorldObjectManager.instance.sitesOfGrace[i].siteOfGraceID == WorldSaveGameManager.instance.currentCharacterData.lastSiteOfGraceRestedAt)
+                if (WorldObjectManager.instance.sitesOfGrace[i].siteOfGraceID == WorldSaveGameManager.Instance.currentCharacterData.lastSiteOfGraceRestedAt)
                 {
                     WorldObjectManager.instance.sitesOfGrace[i].TeleportToSiteOfGrace();
                     break;

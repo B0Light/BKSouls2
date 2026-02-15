@@ -60,7 +60,7 @@ namespace BK
 
             base.LateUpdate();
 
-            PlayerCamera.instance.HandleAllCameraActions();
+            PlayerCamera.Instance.HandleAllCameraActions();
         }
 
         protected override void OnEnable()
@@ -82,10 +82,10 @@ namespace BK
             //  IF THIS IS THE PLAYER OBJECT OWNED BY THIS CLIENT
             if (IsOwner)
             {
-                PlayerCamera.instance.player = this;
-                PlayerInputManager.instance.player = this;
+                PlayerCamera.Instance.player = this;
+                PlayerInputManager.Instance.player = this;
                 GUIController.Instance.localPlayer = this;
-                WorldSaveGameManager.instance.player = this;
+                WorldSaveGameManager.Instance.player = this;
 
                 //  UPDATE THE TOTAL AMOUNT OF HEALTH OR STAMINA WHEN THE STAT LINKED TO EITHER CHANGES
                 playerNetworkManager.vigor.OnValueChanged += playerNetworkManager.SetNewMaxHealthValue;
@@ -176,7 +176,7 @@ namespace BK
             //  WE DONT RUN THIS IF WE ARE THE SERVER, BECAUSE SINCE THEY ARE THE HOST, THEY ARE ALREADY LOADED IN AND DON'T NEED TO RELOAD THEIR DATA
             if (IsOwner && !IsServer)
             {
-                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.instance.currentCharacterData);
+                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData);
             }
         }
 
@@ -271,13 +271,13 @@ namespace BK
 
         private void OnClientConnectedCallback(ulong clientID)
         {
-            WorldGameSessionManager.instance.AddPlayerToActivePlayersList(this);
+            WorldGameSessionManager.Instance.AddPlayerToActivePlayersList(this);
 
             //  IF WE ARE THE SERVER, WE ARE THE HOST, SO WE DONT NEED TO LOAD PLAYERS TO SYNC THEM
             //  YOU ONLY NEED TO LOAD OTHER PLAYERS GEAR TO SYNC IT IF YOU JOIN A GAME THATS ALREADY BEEN ACTIVE WITHOUT YOU BEING PRESENT
             if (!IsServer && IsOwner)
             {
-                foreach (var player in WorldGameSessionManager.instance.players)
+                foreach (var player in WorldGameSessionManager.Instance.players)
                 {
                     if (player != this)
                     {
@@ -295,11 +295,11 @@ namespace BK
 
             while (hostPlayer == null)
             {
-                for (int i = 0; i < WorldGameSessionManager.instance.players.Count; i++)
+                for (int i = 0; i < WorldGameSessionManager.Instance.players.Count; i++)
                 {
-                    if (WorldGameSessionManager.instance.players[i].IsHost)
+                    if (WorldGameSessionManager.Instance.players[i].IsHost)
                     {
-                        hostPlayer = WorldGameSessionManager.instance.players[i];
+                        hostPlayer = WorldGameSessionManager.Instance.players[i];
                     }
                 }
 
@@ -315,7 +315,7 @@ namespace BK
                 GUIController.Instance.playerUIPopUpManager.SendYouDiedPopUp();
 
             //  TODO KICK NON HOST PLAYERS FROM GAME IF HOST DIES
-            WorldGameSessionManager.instance.WaitThenReviveHost();
+            WorldGameSessionManager.Instance.WaitThenReviveHost();
 
             return base.ProcessDeathEvent(manuallySelectDeathAnimation);
         }
@@ -380,8 +380,8 @@ namespace BK
             currentGameData.gauntletItemCode = playerNetworkManager.handEquipmentID.Value;
             currentGameData.leggingsItemCode = playerNetworkManager.legEquipmentID.Value;
             
-            currentGameData.mainProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
-            currentGameData.secondaryProjectile = WorldSaveGameManager.instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
+            currentGameData.mainProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
+            currentGameData.secondaryProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
 
             if (playerInventoryManager.currentSpell != null)
                 currentGameData.currentSpell = playerInventoryManager.currentSpell.itemID;

@@ -78,9 +78,9 @@ namespace BK
 
         private void GetMovementValues()
         {
-            verticalMovement = PlayerInputManager.instance.vertical_Input;
-            horizontalMovement = PlayerInputManager.instance.horizontal_Input;
-            moveAmount = PlayerInputManager.instance.moveAmount;
+            verticalMovement = PlayerInputManager.Instance.vertical_Input;
+            horizontalMovement = PlayerInputManager.Instance.horizontal_Input;
+            moveAmount = PlayerInputManager.Instance.moveAmount;
             //  CLAMP THE MOVEMENTS
         }
 
@@ -105,8 +105,8 @@ namespace BK
             }
             else
             {
-                moveDirection = PlayerCamera.instance.transform.forward * verticalMovement;
-                moveDirection = moveDirection + PlayerCamera.instance.transform.right * horizontalMovement;
+                moveDirection = PlayerCamera.Instance.transform.forward * verticalMovement;
+                moveDirection = moveDirection + PlayerCamera.Instance.transform.right * horizontalMovement;
                 moveDirection.Normalize();
                 moveDirection.y = 0;
             }
@@ -117,11 +117,11 @@ namespace BK
             }
             else
             {
-                if (PlayerInputManager.instance.moveAmount > 0.5f)
+                if (PlayerInputManager.Instance.moveAmount > 0.5f)
                 {
                     player.characterController.Move(moveDirection * runningSpeed * Time.deltaTime);
                 }
-                else if (PlayerInputManager.instance.moveAmount <= 0.5f)
+                else if (PlayerInputManager.Instance.moveAmount <= 0.5f)
                 {
                     player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
                 }
@@ -142,8 +142,8 @@ namespace BK
             {
                 Vector3 freeFallDirection;
 
-                freeFallDirection = PlayerCamera.instance.transform.forward * PlayerInputManager.instance.vertical_Input;
-                freeFallDirection = freeFallDirection + PlayerCamera.instance.transform.right * PlayerInputManager.instance.horizontal_Input;
+                freeFallDirection = PlayerCamera.Instance.transform.forward * PlayerInputManager.Instance.vertical_Input;
+                freeFallDirection = freeFallDirection + PlayerCamera.Instance.transform.right * PlayerInputManager.Instance.horizontal_Input;
                 freeFallDirection.y = 0;
 
                 player.characterController.Move(freeFallDirection * freeFallSpeed * Time.deltaTime);
@@ -171,7 +171,7 @@ namespace BK
         private void HandleAimRotations()
         {
             Vector3 targetDirection;
-            targetDirection = PlayerCamera.instance.cameraObject.transform.forward;
+            targetDirection = PlayerCamera.Instance.cameraObject.transform.forward;
             targetDirection.y = 0;
             targetDirection.Normalize();
 
@@ -187,8 +187,8 @@ namespace BK
                 if (player.playerNetworkManager.isSprinting.Value || player.playerLocomotionManager.isRolling)
                 {
                     Vector3 targetDirection = Vector3.zero;
-                    targetDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
-                    targetDirection += PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+                    targetDirection = PlayerCamera.Instance.cameraObject.transform.forward * verticalMovement;
+                    targetDirection += PlayerCamera.Instance.cameraObject.transform.right * horizontalMovement;
                     targetDirection.Normalize();
                     targetDirection.y = 0;
 
@@ -217,8 +217,8 @@ namespace BK
             else
             {
                 targetRotationDirection = Vector3.zero;
-                targetRotationDirection = PlayerCamera.instance.cameraObject.transform.forward * verticalMovement;
-                targetRotationDirection = targetRotationDirection + PlayerCamera.instance.cameraObject.transform.right * horizontalMovement;
+                targetRotationDirection = PlayerCamera.Instance.cameraObject.transform.forward * verticalMovement;
+                targetRotationDirection = targetRotationDirection + PlayerCamera.Instance.cameraObject.transform.right * horizontalMovement;
                 targetRotationDirection.Normalize();
                 targetRotationDirection.y = 0;
 
@@ -272,10 +272,10 @@ namespace BK
                 return;
 
             //  IF WE ARE MOVING WHEN WE ATTEMPT TO DODGE, WE PERFORM A ROLL
-            if (PlayerInputManager.instance.moveAmount > 0)
+            if (PlayerInputManager.Instance.moveAmount > 0)
             {
-                rollDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.vertical_Input;
-                rollDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontal_Input;
+                rollDirection = PlayerCamera.Instance.cameraObject.transform.forward * PlayerInputManager.Instance.vertical_Input;
+                rollDirection += PlayerCamera.Instance.cameraObject.transform.right * PlayerInputManager.Instance.horizontal_Input;
                 rollDirection.y = 0;
                 rollDirection.Normalize();
 
@@ -324,8 +324,8 @@ namespace BK
 
             player.playerNetworkManager.currentStamina.Value -= jumpStaminaCost;
 
-            jumpDirection = PlayerCamera.instance.cameraObject.transform.forward * PlayerInputManager.instance.vertical_Input;
-            jumpDirection += PlayerCamera.instance.cameraObject.transform.right * PlayerInputManager.instance.horizontal_Input;
+            jumpDirection = PlayerCamera.Instance.cameraObject.transform.forward * PlayerInputManager.Instance.vertical_Input;
+            jumpDirection += PlayerCamera.Instance.cameraObject.transform.right * PlayerInputManager.Instance.horizontal_Input;
             jumpDirection.y = 0;
 
             if (jumpDirection != Vector3.zero)
@@ -336,12 +336,12 @@ namespace BK
                     jumpDirection *= 1;
                 }
                 //  IF WE ARE RUNNING, JUMP DIRECTION IS AT HALF DISTANCE
-                else if (PlayerInputManager.instance.moveAmount > 0.5)
+                else if (PlayerInputManager.Instance.moveAmount > 0.5)
                 {
                     jumpDirection *= 0.5f;
                 }
                 //  IF WE ARE WALKING, JUMP DIRECTION IS AT QUARTER DISTANCE
-                else if (PlayerInputManager.instance.moveAmount <= 0.5)
+                else if (PlayerInputManager.Instance.moveAmount <= 0.5)
                 {
                     jumpDirection *= 0.25f;
                 }

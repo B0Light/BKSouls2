@@ -4,9 +4,8 @@ using UnityEngine;
 
 namespace BK 
 {
-    public class PlayerCamera : MonoBehaviour
+    public class PlayerCamera : Singleton<PlayerCamera>
     {
-        public static PlayerCamera instance;
         public PlayerManager player;
         public Camera cameraObject;
         public Transform cameraPivotTransform;
@@ -47,22 +46,9 @@ namespace BK
         [Header("Ranged Aim")]
         private Transform followTransformWhenAiming;
         public Vector3 aimDirection;
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-
+        
         private void Start()
         {
-            DontDestroyOnLoad(gameObject);
             cameraZPosition = cameraObject.transform.localPosition.z;
         }
 
@@ -117,8 +103,8 @@ namespace BK
             //  UP AND DOWN LOOK
             Vector3 cameraRotationX = Vector3.zero;
 
-            leftAndRightLookAngle += (PlayerInputManager.instance.cameraHorizontal_Input * leftAndRightRotationSpeed) * Time.deltaTime;
-            upAndDownLookAngle -= (PlayerInputManager.instance.cameraVertical_Input * upAndDownRotationSpeed) * Time.deltaTime;
+            leftAndRightLookAngle += (PlayerInputManager.Instance.cameraHorizontal_Input * leftAndRightRotationSpeed) * Time.deltaTime;
+            upAndDownLookAngle -= (PlayerInputManager.Instance.cameraVertical_Input * upAndDownRotationSpeed) * Time.deltaTime;
             upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimumPivot, maximumPivot);
 
             cameraRotationY.y = leftAndRightLookAngle;
@@ -154,9 +140,9 @@ namespace BK
             else
             {
                 //  ROTATE LEFT AND RIGHT BASED ON HORIZONTAL MOVEMENT ON THE RIGHT JOYSTICK
-                leftAndRightLookAngle += (PlayerInputManager.instance.cameraHorizontal_Input * leftAndRightRotationSpeed) * Time.deltaTime;
+                leftAndRightLookAngle += (PlayerInputManager.Instance.cameraHorizontal_Input * leftAndRightRotationSpeed) * Time.deltaTime;
                 //  ROTATE UP AND DOWN BASED ON VERTICAL MOVEMENT ON THE RIGHT JOYSTICK
-                upAndDownLookAngle -= (PlayerInputManager.instance.cameraVertical_Input * upAndDownRotationSpeed) * Time.deltaTime;
+                upAndDownLookAngle -= (PlayerInputManager.Instance.cameraVertical_Input * upAndDownRotationSpeed) * Time.deltaTime;
                 //  CLAMP THE UP AND DOWN LOOK ANGLE BETWEEN A MIN AND MAX VALUE
                 upAndDownLookAngle = Mathf.Clamp(upAndDownLookAngle, minimumPivot, maximumPivot);
 

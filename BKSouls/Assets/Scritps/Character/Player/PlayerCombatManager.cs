@@ -45,15 +45,15 @@ namespace BK
             //  OPTIONALLY, ONLY CREATE THIS IF THE WORLD SCENE LOADS (NOT MAIN MENU SCENE)
 
             //  DEAD SPOT
-            if (WorldSaveGameManager.instance.currentCharacterData.hasDeadSpot)
+            if (WorldSaveGameManager.Instance.currentCharacterData.hasDeadSpot)
             {
                 Vector3 deadSpotPosition = new Vector3(
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionX, 
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionY, 
-                    WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionZ);
+                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionX, 
+                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionY, 
+                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionZ);
 
                 //  WE DONT REMOVE THE PLAYERS RUNES HERE BECAUSE IF YOU'RE LOADING A PREVIOUS SAVE THEY WERE ALREADY REMOVED WHEN THEY DIED
-                CreateDeadSpot(deadSpotPosition, WorldSaveGameManager.instance.currentCharacterData.deadSpotRuneCount, false);
+                CreateDeadSpot(deadSpotPosition, WorldSaveGameManager.Instance.currentCharacterData.deadSpotRuneCount, false);
             }
         }
 
@@ -63,7 +63,7 @@ namespace BK
                 return;
 
             //  SPAWN THE DEAD SPOT VFX
-            GameObject deadSpotFX = Instantiate(WorldCharacterEffectsManager.instance.deadSpotVFX);
+            GameObject deadSpotFX = Instantiate(WorldCharacterEffectsManager.Instance.deadSpotVFX);
             deadSpotFX.GetComponent<NetworkObject>().Spawn();
 
             //  SET ITS WORLD POSITION
@@ -76,11 +76,11 @@ namespace BK
             if (removePlayersRunes)
                 player.playerStatsManager.AddRunes(-player.playerStatsManager.runes);
 
-            WorldSaveGameManager.instance.currentCharacterData.hasDeadSpot = true;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotRuneCount = pickUpRunes.runeCount;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionX = position.x;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionY = position.y;
-            WorldSaveGameManager.instance.currentCharacterData.deadSpotPositionZ = position.z;
+            WorldSaveGameManager.Instance.currentCharacterData.hasDeadSpot = true;
+            WorldSaveGameManager.Instance.currentCharacterData.deadSpotRuneCount = pickUpRunes.runeCount;
+            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionX = position.x;
+            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionY = position.y;
+            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionZ = position.z;
         }
 
         public void PerformWeaponBasedAction(WeaponItemAction weaponAction, WeaponItem weaponPerformingAction)
@@ -140,7 +140,7 @@ namespace BK
                 character.characterNetworkManager.isInvulnerable.Value = true;
 
             // 1. CREATE A NEW DAMAGE EFFECT FOR THIS TYPE OF DAMAGE
-            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeCriticalDamageEffect);
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeCriticalDamageEffect);
 
             // 2. APPLY ALL OF THE DAMAGE STATS FROM THE COLLIDER TO THE DAMAGE EFFECT
             damageEffect.physicalDamage = riposteCollider.physicalDamage;
@@ -212,7 +212,7 @@ namespace BK
                 character.characterNetworkManager.isInvulnerable.Value = true;
 
             // 1. CREATE A NEW DAMAGE EFFECT FOR THIS TYPE OF DAMAGE
-            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeCriticalDamageEffect);
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeCriticalDamageEffect);
 
             // 2. APPLY ALL OF THE DAMAGE STATS FROM THE COLLIDER TO THE DAMAGE EFFECT
             damageEffect.physicalDamage = backstabCollider.physicalDamage;
@@ -319,7 +319,7 @@ namespace BK
 
             if (player.IsOwner)
             {
-                PlayerCamera.instance.SetLockCameraHeight();
+                PlayerCamera.Instance.SetLockCameraHeight();
             }
         }
 
@@ -433,7 +433,7 @@ namespace BK
             // AIMING
             if (player.playerNetworkManager.isAiming.Value)
             {
-                Ray newRay = new Ray(player.playerCombatManager.lockOnTransform.position, PlayerCamera.instance.aimDirection);
+                Ray newRay = new Ray(player.playerCombatManager.lockOnTransform.position, PlayerCamera.Instance.aimDirection);
                 projectileAimDirection = newRay.GetPoint(5);
                 projectileGameObject.transform.LookAt(projectileAimDirection);
             }

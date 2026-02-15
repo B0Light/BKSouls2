@@ -70,7 +70,7 @@ namespace BK
             if (damageTarget.characterNetworkManager.isBlocking.Value && angle > 145)
             {
                 charactersDamaged.Add(damageTarget);
-                TakeBlockedDamageEffect blockedDamageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeBlockedDamageEffect);
+                TakeBlockedDamageEffect blockedDamageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeBlockedDamageEffect);
 
                 if (characterShootingProjectile != null)
                     blockedDamageEffect.characterCausingDamage = characterShootingProjectile;

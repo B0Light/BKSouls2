@@ -181,7 +181,7 @@ namespace BK
             ChangeTextColorsDependingOnCosts();
 
             //  SAVE GAME AFTER SETTING STATS
-            WorldSaveGameManager.instance.SaveGame();
+            WorldSaveGameManager.Instance.SaveGame();
         }
 
         private void SetAllLevelsCost()

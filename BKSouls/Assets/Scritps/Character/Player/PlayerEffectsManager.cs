@@ -18,7 +18,7 @@ namespace BK
             if (applyPoisonBuildUp)
             {
                 applyPoisonBuildUp = false;
-                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.instance.takePoisonBuildUpEffect);
+                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
                 buildUp.buildUpAmount = 25;
                 character.characterEffectsManager.ProcessInstantEffect(buildUp);
             }
@@ -26,7 +26,7 @@ namespace BK
             if (applyBleedBuildUp)
             {
                 applyBleedBuildUp = false;
-                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.instance.takeBleedBuildUpEffect);
+                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.Instance.takeBleedBuildUpEffect);
                 buildUp.buildUpAmount = 25;
                 character.characterEffectsManager.ProcessInstantEffect(buildUp);
             }
@@ -34,7 +34,7 @@ namespace BK
             if (applyFrostBuildUp)
             {
                 applyFrostBuildUp = false;
-                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.instance.takeFrostBuildUpEffect);
+                TakeBuildUpEffect buildUp = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
                 buildUp.buildUpAmount = 25;
                 character.characterEffectsManager.ProcessInstantEffect(buildUp);
             }

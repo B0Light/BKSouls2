@@ -67,7 +67,7 @@ namespace BK {
 
                 charactersDamaged.Add(damageTarget);
 
-                TakeBlockedDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeBlockedDamageEffect);
+                TakeBlockedDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeBlockedDamageEffect);
 
                 damageEffect.physicalDamage = physicalDamage;
                 damageEffect.magicDamage = magicDamage;
@@ -102,7 +102,7 @@ namespace BK {
 
             charactersDamaged.Add(damageTarget);
 
-            TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
+            TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeDamageEffect);
             damageEffect.physicalDamage = physicalDamage;
             damageEffect.magicDamage = magicDamage;
             damageEffect.fireDamage = fireDamage;

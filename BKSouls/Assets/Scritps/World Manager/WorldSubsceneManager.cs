@@ -41,7 +41,7 @@ namespace BK
             List<string> doNotUnloadLocations = new List<string>();
 
             //  THE WORLD SCENE IS NEVER UNLOADED
-            doNotUnloadLocations.Add(WorldSceneManager.instance.world);
+            doNotUnloadLocations.Add(WorldSceneManager.Instance.world);
 
             int playersInScene;
 
@@ -59,9 +59,9 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_00);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_01);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_04);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_00);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_01);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_04);
             }
 
             //  SUB AREA 01
@@ -78,10 +78,10 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_01);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_00);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_02);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_04);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_01);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_00);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_02);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_04);
             }
 
             //  SUB AREA 02
@@ -98,9 +98,9 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_02);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_03);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_01);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_02);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_03);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_01);
             }
 
             //  SUB AREA 03
@@ -117,9 +117,9 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_03);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_02);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_04);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_03);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_02);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_04);
             }
 
             //  SUB AREA 04
@@ -136,11 +136,11 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_04);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_00);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_01);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_03);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_05);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_04);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_00);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_01);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_03);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_05);
             }
 
             //  SUB AREA 05
@@ -157,10 +157,10 @@ namespace BK
             //  IF THE PLAYERS IN THIS SCENE ARE GREATER THAN 0, KEEP SCENES LOADED THAT ARE REQUIRED FOR THIS SCENE
             if (playersInScene > 0)
             {
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_05);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_00);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_01);
-                doNotUnloadLocations.Add(WorldSceneManager.instance.area_01_Subarea_04);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_05);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_00);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_01);
+                doNotUnloadLocations.Add(WorldSceneManager.Instance.area_01_Subarea_04);
             }
 
             return doNotUnloadLocations;

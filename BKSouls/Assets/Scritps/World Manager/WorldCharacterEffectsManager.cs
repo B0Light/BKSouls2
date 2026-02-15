@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace BK
 {
-    public class WorldCharacterEffectsManager : MonoBehaviour
+    public class WorldCharacterEffectsManager : Singleton<WorldCharacterEffectsManager>
     {
-        public static WorldCharacterEffectsManager instance;
-
         [Header("VFX")]
         public GameObject bloodSplatterVFX;
         public GameObject criticalBloodSplatterVFX;
@@ -52,17 +50,10 @@ namespace BK
         [Header("Timed Effects")]
         [SerializeField] List<TimedCharacterEffect> timedEffects;
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
+            base.Awake();
+            
             GenerateEffectIDs();
         }
 

@@ -7,10 +7,8 @@ using BK.Inventory;
 
 namespace BK
 {
-    public class WorldItemDatabase : MonoBehaviour
+    public class WorldItemDatabase : Singleton<WorldItemDatabase>
     {
-        public static WorldItemDatabase Instance;
-
         public WeaponItem unarmedWeapon;
 
         public GameObject pickUpItemPrefab;
@@ -61,17 +59,10 @@ namespace BK
 
         #endregion
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-
+            base.Awake();
+            
             //  ADD ALL OF OUR WEAPONS TO THE LIST OF ITEMS
             foreach (var weapon in weapons)
             {

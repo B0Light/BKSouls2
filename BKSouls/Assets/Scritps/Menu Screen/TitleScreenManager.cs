@@ -84,7 +84,7 @@ namespace BK
 
         public void AttemptToCreateNewCharacter()
         {
-            if (WorldSaveGameManager.instance.HasFreeCharacterSlot())
+            if (WorldSaveGameManager.Instance.HasFreeCharacterSlot())
             {
                 OpenCharacterCreationMenu();
             }
@@ -97,7 +97,7 @@ namespace BK
 
         public void StartNewGame()
         {
-            WorldSaveGameManager.instance.AttemptToCreateNewGame();
+            WorldSaveGameManager.Instance.AttemptToCreateNewGame();
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             startingClasses[selectClass].DecideClass(player);
         }
@@ -370,7 +370,7 @@ namespace BK
         public void DeleteCharacterSlot()
         {
             deleteCharacterSlotPopUp.SetActive(false);
-            WorldSaveGameManager.instance.DeleteGame(currentSelectedSlot);
+            WorldSaveGameManager.Instance.DeleteGame(currentSelectedSlot);
 
             //  WE DISABLE AND THEN ENABLE THE LOAD MENU, TO REFRESH THE SLOTS (The deleted slots will now become inactive)
             titleScreenLoadMenu.SetActive(false);

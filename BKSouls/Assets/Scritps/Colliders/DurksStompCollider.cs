@@ -44,7 +44,7 @@ namespace BK
                     {
                         //  CHECK FOR BLOCK
 
-                        TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
+                        TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeDamageEffect);
                         damageEffect.physicalDamage = durkCharacterManager.durkCombatManager.stompDamage;
                         damageEffect.poiseDamage = durkCharacterManager.durkCombatManager.stompDamage;
 

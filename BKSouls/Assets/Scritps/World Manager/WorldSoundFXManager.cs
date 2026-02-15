@@ -25,11 +25,6 @@ namespace BK
         public AudioClip[] notchArrowSFX;
         public AudioClip healingFlaskSFX;
 
-        private void Start()
-        {
-            DontDestroyOnLoad(gameObject);
-        }
-
         public AudioClip ChooseRandomSfxFromArray(AudioClip[] array)
         {
             if (array.Length == 0) return emptySound;

@@ -111,7 +111,7 @@ namespace BK
                 if (character.characterEffectsManager.poisonedVFX != null)
                     return;
 
-                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.instance.poisonedVFX);
+                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.Instance.poisonedVFX);
                 poisonVFX.transform.parent = character.characterCombatManager.lockOnTransform;
                 poisonVFX.transform.localPosition = Vector3.zero;
                 poisonVFX.transform.localRotation = Quaternion.identity;
@@ -135,7 +135,7 @@ namespace BK
         {
             if (isBleeding.Value)
             {
-                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.instance.bloodLossVFX);
+                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.Instance.bloodLossVFX);
                 bloodLossVFX.transform.parent = character.characterCombatManager.lockOnTransform;
                 bloodLossVFX.transform.localPosition = Vector3.zero;
                 bloodLossVFX.transform.localRotation = Quaternion.identity;
@@ -158,7 +158,7 @@ namespace BK
                 if (character.characterEffectsManager.frostBiteVFX != null)
                     return;
 
-                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteVFX);
+                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.Instance.frostBiteVFX);
                 frostBite.transform.parent = character.characterCombatManager.lockOnTransform;
                 frostBite.transform.localPosition = Vector3.zero;
                 frostBite.transform.localRotation = Quaternion.identity;
@@ -393,19 +393,19 @@ namespace BK
         {
             if (!isAiming.Value)
             {
-                PlayerCamera.instance.cameraObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-                PlayerCamera.instance.cameraObject.fieldOfView = 60;
-                PlayerCamera.instance.cameraObject.nearClipPlane = 0.3f;
-                PlayerCamera.instance.cameraPivotTransform.localPosition = new Vector3(0, PlayerCamera.instance.cameraPivotYPositionOffSet, 0);
+                PlayerCamera.Instance.cameraObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+                PlayerCamera.Instance.cameraObject.fieldOfView = 60;
+                PlayerCamera.Instance.cameraObject.nearClipPlane = 0.3f;
+                PlayerCamera.Instance.cameraPivotTransform.localPosition = new Vector3(0, PlayerCamera.Instance.cameraPivotYPositionOffSet, 0);
                 GUIController.Instance.playerUIHudManager.crossHair.SetActive(false);
             }
             else
             {
-                PlayerCamera.instance.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
-                PlayerCamera.instance.cameraPivotTransform.localEulerAngles = new Vector3(0, 0, 0);
-                PlayerCamera.instance.cameraObject.fieldOfView = 40;
-                PlayerCamera.instance.cameraObject.nearClipPlane = 1.3f;
-                PlayerCamera.instance.cameraPivotTransform.localPosition = Vector3.zero;
+                PlayerCamera.Instance.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
+                PlayerCamera.Instance.cameraPivotTransform.localEulerAngles = new Vector3(0, 0, 0);
+                PlayerCamera.Instance.cameraObject.fieldOfView = 40;
+                PlayerCamera.Instance.cameraObject.nearClipPlane = 1.3f;
+                PlayerCamera.Instance.cameraPivotTransform.localPosition = Vector3.zero;
                 GUIController.Instance.playerUIHudManager.crossHair.SetActive(true);
             }
         }
@@ -446,11 +446,11 @@ namespace BK
                 }
 
                 player.playerEquipmentManager.UnTwoHandWeapon();
-                player.playerEffectsManager.RemoveStaticEffect(WorldCharacterEffectsManager.instance.twoHandingEffect.staticEffectID);
+                player.playerEffectsManager.RemoveStaticEffect(WorldCharacterEffectsManager.Instance.twoHandingEffect.staticEffectID);
             }
             else
             {
-                StaticCharacterEffect twoHandEffect = Instantiate(WorldCharacterEffectsManager.instance.twoHandingEffect);
+                StaticCharacterEffect twoHandEffect = Instantiate(WorldCharacterEffectsManager.Instance.twoHandingEffect);
                 player.playerEffectsManager.AddStaticEffect(twoHandEffect);
             }
 
@@ -557,7 +557,7 @@ namespace BK
 
         private void PerformWeaponBasedAction(int actionID, int weaponID)
         {
-            WeaponItemAction weaponAction = WorldActionManager.instance.GetWeaponItemActionByID(actionID);
+            WeaponItemAction weaponAction = WorldActionManager.Instance.GetWeaponItemActionByID(actionID);
 
             if (weaponAction != null)
             {

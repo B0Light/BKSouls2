@@ -73,7 +73,7 @@ namespace BK
             //  ELSE, USE THE GENERIC (DEFAULT VERSION) WE HAVE ELSEWHERE
             else
             {
-                GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.instance.bloodSplatterVFX, contactPoint, Quaternion.identity);
+                GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.Instance.bloodSplatterVFX, contactPoint, Quaternion.identity);
             }
         }
 
@@ -87,7 +87,7 @@ namespace BK
             //  ELSE, USE THE GENERIC (DEFAULT VERSION) WE HAVE ELSEWHERE
             else
             {
-                GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.instance.criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
+                GameObject bloodSplatter = Instantiate(WorldCharacterEffectsManager.Instance.criticalBloodSplatterVFX, contactPoint, Quaternion.identity);
             }
         }
 

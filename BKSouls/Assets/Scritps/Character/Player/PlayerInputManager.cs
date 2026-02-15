@@ -6,13 +6,10 @@ using Unity.Netcode;
 
 namespace BK
 {
-    public class PlayerInputManager : MonoBehaviour
+    public class PlayerInputManager : Singleton<PlayerInputManager>
     {
         //  INPUT CONTROLS
         private PlayerControls playerControls;
-
-        //  SINGLETON
-        public static PlayerInputManager instance;
 
         //  LOCAL PLAYER
         public PlayerManager player;
@@ -70,28 +67,14 @@ namespace BK
         private Vector2 _mousePos;
         [SerializeField] bool openCharacterMenuInput = false;
         [SerializeField] bool closeMenuInput = false;
-
-
-        private void Awake()
-        {
-            if (instance == null)
-            {
-                instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        
 
         private void Start()
         {
-            DontDestroyOnLoad(gameObject);
-
             //  WHEN THE SCENE CHANGES, RUN THIS LOGIC
             SceneManager.activeSceneChanged += OnSceneChange;
 
-            instance.enabled = false;
+            Instance.enabled = false;
 
             if (playerControls != null)
             {
@@ -102,9 +85,9 @@ namespace BK
         private void OnSceneChange(Scene oldScene, Scene newScene)
         {
             //  IF WE ARE LOADING INTO OUR WORLD SCENE, ENABLE OUR PLAYERS CONTROLS
-            if (newScene.buildIndex == WorldSaveGameManager.instance.GetWorldSceneIndex())
+            if (newScene.buildIndex == WorldSaveGameManager.Instance.GetWorldSceneIndex())
             {
-                instance.enabled = true;
+                Instance.enabled = true;
 
                 if (playerControls != null)
                 {
@@ -115,7 +98,7 @@ namespace BK
             //  THIS IS SO OUR PLAYER CANT MOVE AROUND IF WE ENTER THINGS LIKE A CHARACTER CREATION MENU ECT
             else
             {
-                instance.enabled = false;
+                Instance.enabled = false;
 
                 if (playerControls != null)
                 {
@@ -335,14 +318,14 @@ namespace BK
                 if (lockOnCoroutine != null)
                     StopCoroutine(lockOnCoroutine);
 
-                lockOnCoroutine = StartCoroutine(PlayerCamera.instance.WaitThenFindNewTarget());
+                lockOnCoroutine = StartCoroutine(PlayerCamera.Instance.WaitThenFindNewTarget());
             }
 
 
             if (lockOn_Input && player.playerNetworkManager.isLockedOn.Value)
             {
                 lockOn_Input = false;
-                PlayerCamera.instance.ClearLockOnTargets();
+                PlayerCamera.Instance.ClearLockOnTargets();
                 player.playerNetworkManager.isLockedOn.Value = false;
                 //  DISABLE LOCK ON
                 return;
@@ -354,11 +337,11 @@ namespace BK
 
                 //  IF WE ARE AIMING USING RANGED WEAPONS RETURN (DO NOT ALLOW LOCK WHILST AIMING)
 
-                PlayerCamera.instance.HandleLocatingLockOnTargets();
+                PlayerCamera.Instance.HandleLocatingLockOnTargets();
 
-                if (PlayerCamera.instance.nearestLockOnTarget != null)
+                if (PlayerCamera.Instance.nearestLockOnTarget != null)
                 {
-                    player.playerCombatManager.SetTarget(PlayerCamera.instance.nearestLockOnTarget);
+                    player.playerCombatManager.SetTarget(PlayerCamera.Instance.nearestLockOnTarget);
                     player.playerNetworkManager.isLockedOn.Value = true;
                 }
             }
@@ -372,11 +355,11 @@ namespace BK
 
                 if (player.playerNetworkManager.isLockedOn.Value)
                 {
-                    PlayerCamera.instance.HandleLocatingLockOnTargets();
+                    PlayerCamera.Instance.HandleLocatingLockOnTargets();
 
-                    if (PlayerCamera.instance.leftLockOnTarget != null)
+                    if (PlayerCamera.Instance.leftLockOnTarget != null)
                     {
-                        player.playerCombatManager.SetTarget(PlayerCamera.instance.leftLockOnTarget);
+                        player.playerCombatManager.SetTarget(PlayerCamera.Instance.leftLockOnTarget);
                     }
                 }
             }
@@ -387,11 +370,11 @@ namespace BK
 
                 if (player.playerNetworkManager.isLockedOn.Value)
                 {
-                    PlayerCamera.instance.HandleLocatingLockOnTargets();
+                    PlayerCamera.Instance.HandleLocatingLockOnTargets();
 
-                    if (PlayerCamera.instance.rightLockOnTarget != null)
+                    if (PlayerCamera.Instance.rightLockOnTarget != null)
                     {
-                        player.playerCombatManager.SetTarget(PlayerCamera.instance.rightLockOnTarget);
+                        player.playerCombatManager.SetTarget(PlayerCamera.Instance.rightLockOnTarget);
                     }
                 }
             }

@@ -42,12 +42,12 @@ namespace BK
                 return;
 
             // 2. CHECK FOR A "TIMED" BUILD UP EFFECT OF TYPE POISON (WE ADD A TIMED BUILD UP EFFECT SO THE BUILD UP CAN DECAY OVER TIME)
-            BuildUpEffect poisonBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradePoisonBuildUpEffect.effectID) as BuildUpEffect;
+            BuildUpEffect poisonBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.Instance.degradePoisonBuildUpEffect.effectID) as BuildUpEffect;
 
             // 3. IF THAT EFFECT DOES NOT EXIST MAKE ONE AND APPLY IT
             if (poisonBuildUp == null)
             {
-                poisonBuildUp = Instantiate(WorldCharacterEffectsManager.instance.degradePoisonBuildUpEffect);
+                poisonBuildUp = Instantiate(WorldCharacterEffectsManager.Instance.degradePoisonBuildUpEffect);
                 character.characterEffectsManager.AddTimedEffect(poisonBuildUp);
                 poisonBuildUp.ProcessEffect(character);
             }
@@ -61,7 +61,7 @@ namespace BK
                 character.characterNetworkManager.isPoisoned.Value = true;
 
                 //  CREATE THE POISONED EFFECT
-                PoisonedEffect poison = Instantiate(WorldCharacterEffectsManager.instance.poisonedEffect);
+                PoisonedEffect poison = Instantiate(WorldCharacterEffectsManager.Instance.poisonedEffect);
                 character.characterEffectsManager.AddTimedEffect(poison);
 
                 PlayerManager player = character as PlayerManager;
@@ -80,12 +80,12 @@ namespace BK
         private void CheckForBloodLossStatus(CharacterManager character)
         {
             // 1. CHECK FOR A "TIMED" BUILD UP EFFECT OF TYPE BLEED (WE ADD A TIMED BUILD UP EFFECT SO THE BUILD UP CAN DECAY OVER TIME)
-            BuildUpEffect bleedBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradeBleedBuildUpEffect.effectID) as BuildUpEffect;
+            BuildUpEffect bleedBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.Instance.degradeBleedBuildUpEffect.effectID) as BuildUpEffect;
 
             // 3. IF THAT EFFECT DOES NOT EXIST MAKE ONE AND APPLY IT
             if (bleedBuildUp == null)
             {
-                bleedBuildUp = Instantiate(WorldCharacterEffectsManager.instance.degradeBleedBuildUpEffect);
+                bleedBuildUp = Instantiate(WorldCharacterEffectsManager.Instance.degradeBleedBuildUpEffect);
                 character.characterEffectsManager.AddTimedEffect(bleedBuildUp);
                 bleedBuildUp.ProcessEffect(character);
             }
@@ -106,7 +106,7 @@ namespace BK
                 //character.characterNetworkManager.BleedCharacterServerRpc();
 
                 //  CREATE THE POISONED EFFECT
-                BloodLossEffect bloodLoss = Instantiate(WorldCharacterEffectsManager.instance.bloodLossEffect);
+                BloodLossEffect bloodLoss = Instantiate(WorldCharacterEffectsManager.Instance.bloodLossEffect);
                 character.characterEffectsManager.ProcessInstantEffect(bloodLoss);
 
                 PlayerManager player = character as PlayerManager;
@@ -126,11 +126,11 @@ namespace BK
         {
             if (character.characterNetworkManager.isFrostBitten.Value) return;
 
-            BuildUpEffect frostBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.instance.degradeFrostBiteBuildUpEffect.effectID) as BuildUpEffect;
+            BuildUpEffect frostBuildUp = character.characterEffectsManager.CheckForTimedEffect(WorldCharacterEffectsManager.Instance.degradeFrostBiteBuildUpEffect.effectID) as BuildUpEffect;
 
             if (frostBuildUp == null)
             {
-                frostBuildUp = Instantiate(WorldCharacterEffectsManager.instance.degradeFrostBiteBuildUpEffect);
+                frostBuildUp = Instantiate(WorldCharacterEffectsManager.Instance.degradeFrostBiteBuildUpEffect);
                 character.characterEffectsManager.AddTimedEffect(frostBuildUp);
                 frostBuildUp.ProcessEffect(character);
             }
@@ -142,7 +142,7 @@ namespace BK
                 character.characterNetworkManager.isFrostBitten.Value = true;
 
                 //  CREATE THE POISONED EFFECT
-                FrostBiteEffect frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteEffect);
+                FrostBiteEffect frostBite = Instantiate(WorldCharacterEffectsManager.Instance.frostBiteEffect);
                 character.characterEffectsManager.AddTimedEffect(frostBite);
 
                 PlayerManager player = character as PlayerManager;

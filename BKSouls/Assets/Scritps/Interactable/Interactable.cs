@@ -36,7 +36,7 @@ namespace BK
             GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
 
             //  SAVE GAME AFTER INTERACTING
-            WorldSaveGameManager.instance.SaveGame();
+            WorldSaveGameManager.Instance.SaveGame();
         }
 
         public virtual void OnTriggerEnter(Collider other)

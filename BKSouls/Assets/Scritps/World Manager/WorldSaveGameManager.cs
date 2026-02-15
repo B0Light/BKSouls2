@@ -3,10 +3,8 @@ using UnityEngine;
 
 namespace BK
 {
-    public class WorldSaveGameManager : MonoBehaviour
+    public class WorldSaveGameManager : Singleton<WorldSaveGameManager>
     {
-        public static WorldSaveGameManager instance;
-
         public PlayerManager player;
 
         [Header("SAVE/LOAD")]
@@ -25,16 +23,9 @@ namespace BK
         [Header("Character Slots")]
         // 10개의 슬롯을 배열로 관리 (인스펙터에서도 확인 가능)
         public CharacterSaveData[] allCharacterSlots = new CharacterSaveData[11]; 
-
-        private void Awake()
-        {
-            if (instance == null) { instance = this; }
-            else { Destroy(gameObject); }
-        }
-
+        
         private void Start()
         {
-            DontDestroyOnLoad(gameObject);
             SetupSaveWriter();
             LoadAllCharacterProfiles();
         }
@@ -106,7 +97,7 @@ namespace BK
             player.playerNetworkManager.mind.Value = 10;
 
             SaveGame();
-            WorldSceneManager.instance.LoadWorldScene(worldSceneIndex);
+            WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
         }
 
         public void LoadGame()
@@ -114,7 +105,7 @@ namespace BK
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
-            WorldSceneManager.instance.LoadWorldScene(worldSceneIndex);
+            WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
         }
 
         public void SaveGame()

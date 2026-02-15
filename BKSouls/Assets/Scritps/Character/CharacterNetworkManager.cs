@@ -143,7 +143,7 @@ namespace BK
                 if (character.characterEffectsManager.poisonedVFX != null)
                     return;
 
-                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.instance.poisonedVFX);
+                GameObject poisonVFX = Instantiate(WorldCharacterEffectsManager.Instance.poisonedVFX);
                 poisonVFX.transform.parent = character.characterCombatManager.lockOnTransform;
                 poisonVFX.transform.localPosition = Vector3.zero;
                 poisonVFX.transform.localRotation = Quaternion.identity;
@@ -166,7 +166,7 @@ namespace BK
         {
             if (isBleeding.Value)
             {
-                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.instance.bloodLossVFX);
+                GameObject bloodLossVFX = Instantiate(WorldCharacterEffectsManager.Instance.bloodLossVFX);
                 bloodLossVFX.transform.parent = character.characterCombatManager.lockOnTransform;
                 bloodLossVFX.transform.localPosition = Vector3.zero;
                 bloodLossVFX.transform.localRotation = Quaternion.identity;
@@ -180,7 +180,7 @@ namespace BK
                 if (character.characterEffectsManager.frostBiteVFX != null)
                     return;
 
-                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.instance.frostBiteVFX);
+                GameObject frostBite = Instantiate(WorldCharacterEffectsManager.Instance.frostBiteVFX);
                 frostBite.transform.parent = character.characterCombatManager.lockOnTransform;
                 frostBite.transform.localPosition = Vector3.zero;
                 frostBite.transform.localRotation = Quaternion.identity;
@@ -380,7 +380,7 @@ namespace BK
         {
             CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damagedCharacterID].gameObject.GetComponent<CharacterManager>();
             CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
-            TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeDamageEffect);
+            TakeDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeDamageEffect);
             damageEffect.physicalDamage = physicalDamage;
             damageEffect.magicDamage = magicDamage;
             damageEffect.fireDamage = fireDamage;
@@ -457,7 +457,7 @@ namespace BK
             CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damagedCharacterID].gameObject.GetComponent<CharacterManager>();
             CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
             WeaponItem weapon = WorldItemDatabase.Instance.GetWeaponByID(weaponID);
-            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeCriticalDamageEffect);
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeCriticalDamageEffect);
 
             if (damagedCharacter.IsOwner)
                 damagedCharacter.characterNetworkManager.isBeingCriticallyDamaged.Value = true;
@@ -543,7 +543,7 @@ namespace BK
             CharacterManager damagedCharacter = NetworkManager.Singleton.SpawnManager.SpawnedObjects[damagedCharacterID].gameObject.GetComponent<CharacterManager>();
             CharacterManager characterCausingDamage = NetworkManager.Singleton.SpawnManager.SpawnedObjects[characterCausingDamageID].gameObject.GetComponent<CharacterManager>();
             WeaponItem weapon = WorldItemDatabase.Instance.GetWeaponByID(weaponID);
-            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.instance.takeCriticalDamageEffect);
+            TakeCriticalDamageEffect damageEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeCriticalDamageEffect);
 
             if (damagedCharacter.IsOwner)
                 damagedCharacter.characterNetworkManager.isBeingCriticallyDamaged.Value = true;

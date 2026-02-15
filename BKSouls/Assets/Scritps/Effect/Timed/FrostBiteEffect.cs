@@ -37,7 +37,7 @@ namespace BK
 
         private void InflictStaminaRegenerationDebuff(CharacterManager character)
         {
-            ModifyStaminaRegenerationForATimeEffect staminaDebuff = Instantiate(WorldCharacterEffectsManager.instance.frostBiteStaminaRegenerationEffect);
+            ModifyStaminaRegenerationForATimeEffect staminaDebuff = Instantiate(WorldCharacterEffectsManager.Instance.frostBiteStaminaRegenerationEffect);
             character.characterEffectsManager.AddTimedEffect(staminaDebuff);
 
             if (!character.IsOwner)

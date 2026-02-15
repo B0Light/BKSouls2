@@ -46,7 +46,7 @@ namespace BK.Inventory
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
-            WorldSaveGameManager.instance.SaveGame();
+            WorldSaveGameManager.Instance.SaveGame();
         }
 
         protected override void ResetItemInfo()
