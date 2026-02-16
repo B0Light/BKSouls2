@@ -132,7 +132,7 @@ namespace BK
 
         private void PlayHealingFX(PlayerManager player)
         {
-            Instantiate(WorldCharacterEffectsManager.Instance.healingFlaskVFX, player.transform);
+            Instantiate(healthFlask ? WorldCharacterEffectsManager.Instance.hpFlaskVFX : WorldCharacterEffectsManager.Instance.mpFlaskVFX, player.transform);
             player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.healingFlaskSFX);
         }
 

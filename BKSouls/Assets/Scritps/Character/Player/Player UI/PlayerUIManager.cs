@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 namespace BK
 {
-    public class PlayerUIManager : Singleton<PlayerUIManager>
+    public class PlayerUIManager1 : Singleton<PlayerUIManager1>
     {
         [HideInInspector] public PlayerManager localPlayer;
 

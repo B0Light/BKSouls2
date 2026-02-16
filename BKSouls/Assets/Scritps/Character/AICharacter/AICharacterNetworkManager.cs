@@ -11,7 +11,7 @@ namespace BK
         AICharacterManager aiCharacter;
 
         [Header("Sleep")]
-        public NetworkVariable<bool> isAwake = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<bool> isAwake = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<FixedString64Bytes> sleepingAnimation = new NetworkVariable<FixedString64Bytes>("Sleep_01", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<FixedString64Bytes> wakingAnimation = new NetworkVariable<FixedString64Bytes>("Wake_01", NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
@@ -29,7 +29,7 @@ namespace BK
             if (aiCharacter.isDead.Value)
             {
                 aiCharacter.aiCharacterInventoryManager.DropItem();
-                aiCharacter.aiCharacterCombatManager.AwardRunesOnDeath(PlayerUIManager.Instance.localPlayer);
+                aiCharacter.aiCharacterCombatManager.AwardRunesOnDeath(GUIController.Instance.localPlayer);
             }
         }
     }

@@ -126,6 +126,19 @@ namespace BK
             saveFileDataWriter.DeleteSaveFile();
             allCharacterSlots[(int)characterSlot] = null;
         }
+        
+        public void DeleteAllGame()
+        {
+            foreach (CharacterSlot characterSlot in Enum.GetValues(typeof(CharacterSlot)))
+            {
+                saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
+
+                if (saveFileDataWriter.CheckToSeeIfFileExists())
+                {
+                    DeleteGame(characterSlot);
+                }
+            }
+        }
 
         private void LoadAllCharacterProfiles()
         {

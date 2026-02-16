@@ -46,7 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.WorldCharacterEffectsManager
   bloodSplatterVFX: {fileID: 739609601616693667, guid: 81150abb1a3e29a49a10f9b4f2e34dbc, type: 3}
   criticalBloodSplatterVFX: {fileID: 8447734644496239077, guid: 7d383e181bae4764f865c2db8e8690da, type: 3}
-  healingFlaskVFX: {fileID: 1587903466669714742, guid: 25109e5e8f88aad4ea9a7802ebc120f3, type: 3}
+  hpFlaskVFX: {fileID: 1587903466669714742, guid: 25109e5e8f88aad4ea9a7802ebc120f3, type: 3}
+  mpFlaskVFX: {fileID: 1587903466669714742, guid: fa3e2d6f27b57a441b1f68ba1e8297fd, type: 3}
   deadSpotVFX: {fileID: 5324397802511957224, guid: b4942b55e71430741b8cfca07e4846b2, type: 3}
   poisonedVFX: {fileID: 2141061633260675883, guid: 0a4513c9ba7d9724eb849e4bb6b34f90, type: 3}
   bloodLossVFX: {fileID: 176311210410475692, guid: 346f275f194a29f4e9c9dd9d3d5cff6a, type: 3}

@@ -49,7 +49,6 @@ namespace BK
                 sleepAnimationSet = true;
                 aiCharacter.aiCharacterNetworkManager.sleepingAnimation.Value = sleepAnimation;
                 aiCharacter.aiCharacterNetworkManager.wakingAnimation.Value = wakingAnimation;
-                Debug.Log($"Sleep : {aiCharacter.aiCharacterNetworkManager.sleepingAnimation.Value.ToString()}");
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation(aiCharacter.aiCharacterNetworkManager.sleepingAnimation.Value.ToString(), true);
             }
 

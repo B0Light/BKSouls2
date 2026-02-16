@@ -9,7 +9,8 @@ namespace BK
         [Header("VFX")]
         public GameObject bloodSplatterVFX;
         public GameObject criticalBloodSplatterVFX;
-        public GameObject healingFlaskVFX;
+        public GameObject hpFlaskVFX;
+        public GameObject mpFlaskVFX;
         public GameObject deadSpotVFX;
         public GameObject poisonedVFX;
         public GameObject bloodLossVFX;

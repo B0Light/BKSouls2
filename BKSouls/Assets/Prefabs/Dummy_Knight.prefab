@@ -2125,6 +2125,16 @@ MonoBehaviour:
     m_InternalValue: 0
   isBeingCriticallyDamaged:
     m_InternalValue: 0
+  isRolling:
+    m_InternalValue: 0
+  isPoisoned:
+    m_InternalValue: 0
+  isBleeding:
+    m_InternalValue: 0
+  isFrostBitten:
+    m_InternalValue: 0
+  isFrozen:
+    m_InternalValue: 0
   currentHealth:
     m_InternalValue: 400
   maxHealth:
@@ -2151,8 +2161,18 @@ MonoBehaviour:
     m_InternalValue: 1
   faith:
     m_InternalValue: 1
+  buildUpCapacity:
+    m_InternalValue: 100
+  poisonBuildUp:
+    m_InternalValue: 0
+  bleedBuildUp:
+    m_InternalValue: 0
+  frostBiteBuildUp:
+    m_InternalValue: 0
   strengthModifier:
     m_InternalValue: 1
+  staminaRegenerationModifier:
+    m_InternalValue: 0
   isAwake:
     m_InternalValue: 1
   sleepingAnimation:
@@ -2306,6 +2326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.CharacterManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isPerformingAction: 0
   isDead:
     m_InternalValue: 0
   characterController: {fileID: 0}
@@ -2319,8 +2340,8 @@ MonoBehaviour:
   characterLocomotionManager: {fileID: 0}
   characterUIManager: {fileID: 0}
   characterGroup: 1
-  isPerformingAction: 0
   characterName: 
+  aiCharacterSoundFXManager: {fileID: 0}
   aiCharacterNetworkManager: {fileID: 0}
   aiCharacterCombatManager: {fileID: 0}
   aiCharacterLocomotionManager: {fileID: 0}
@@ -2360,6 +2381,8 @@ MonoBehaviour:
   basePoiseDamage: 25
   actionRecoveryTimer: 0
   enablePivot: 0
+  canPerformCombo: 0
+  hasHitTargetDuringCombo: 0
   distanceFromTarget: 0
   viewableAngle: 0
   targetsDirection: {x: 0, y: 0, z: 0}
@@ -2390,7 +2413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.CharacterStatsManager
   runesDroppedOnDeath: 50
-  staminaRegenerationAmount: 2
+  baseStaminaRegenerationAmount: 2
   staminaRegenerationDelay: 2
   blockingPhysicalAbsorption: 0
   blockingFireAbsorption: 0
@@ -2472,7 +2495,12 @@ MonoBehaviour:
   activeDrawnProjectileFX: {fileID: 0}
   bloodSplatterVFX: {fileID: 0}
   criticalBloodSplatterVFX: {fileID: 0}
+  poisonedVFX: {fileID: 0}
+  frostBiteVFX: {fileID: 0}
   staticEffects: []
+  effectTickTimer: 0
+  defaultEffectTickTime: 1
+  timedEffects: []
 --- !u!114 &6991772914948340736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3261,7 +3289,7 @@ NavMeshAgent:
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
-  m_AngularSpeed: 120
+  m_AngularSpeed: 360
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1

@@ -10,13 +10,11 @@ namespace BK
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!NetworkManager.Singleton.IsServer)
-                return;
+            if (!NetworkManager.Singleton.IsServer) return;
 
             PlayerManager player = other.GetComponent<PlayerManager>();
 
-            if (player == null)
-                return;
+            if (player == null) return;
 
             //  TODO CHECK FOR FRIENDLY (NON INVADER)
 

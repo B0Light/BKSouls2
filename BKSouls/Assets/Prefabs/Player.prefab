@@ -74946,7 +74946,7 @@ MonoBehaviour:
   activeQuickSlotItemFX: {fileID: 0}
   activeSpellWarmUpFX: {fileID: 0}
   activeDrawnProjectileFX: {fileID: 0}
-  bloodSplatterVFX: {fileID: 3522028415154311413, guid: 4011e98ad166a054eba33d59b5d530d0, type: 3}
+  bloodSplatterVFX: {fileID: 0}
   criticalBloodSplatterVFX: {fileID: 0}
   poisonedVFX: {fileID: 0}
   frostBiteVFX: {fileID: 0}

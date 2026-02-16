@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BK.Inventory;
@@ -376,6 +377,16 @@ namespace BK
             titleScreenLoadMenu.SetActive(false);
             titleScreenLoadMenu.SetActive(true);
 
+            loadMenuReturnButton.Select();
+        }
+        
+        public void DeleteAllCharacterSlot()
+        {
+            WorldSaveGameManager.Instance.DeleteAllGame();
+            
+            titleScreenLoadMenu.SetActive(false);
+            titleScreenLoadMenu.SetActive(true);
+            
             loadMenuReturnButton.Select();
         }
 

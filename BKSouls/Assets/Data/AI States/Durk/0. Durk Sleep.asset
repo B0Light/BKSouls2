@@ -12,3 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ba287ef359a78468ded866699e531c, type: 3}
   m_Name: 0. Durk Sleep
   m_EditorClassIdentifier: Assembly-CSharp::BK.BossSleepState
+  sleepAnimation: Sleep_01
+  wakingAnimation: Awaken_01
+  hasBeenAwakened: 0

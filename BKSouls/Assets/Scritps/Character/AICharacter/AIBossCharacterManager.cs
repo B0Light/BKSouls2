@@ -92,7 +92,7 @@ namespace BK
                     aiCharacterNetworkManager.isActive.Value = false;
                 }
             }
-
+            
             if (!hasBeenAwakened.Value)
             {
                 animator.Play(sleepAnimation);

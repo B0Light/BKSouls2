@@ -9,13 +9,13 @@ namespace BK
         public void OpenTeleportLocationMenu()
         {
             CloseMenu();
-            PlayerUIManager.Instance.playerUITeleportLocationManager.OpenMenu();
+            GUIController.Instance.playerUITeleportLocationManager.OpenMenu();
         }
 
         public void OpenLevelUpMenu()
         {
             CloseMenu();
-            PlayerUIManager.Instance.playerUILevelUpManager.OpenMenu();
+            GUIController.Instance.playerUILevelUpManager.OpenMenu();
         }
     }
 }
