@@ -81,7 +81,8 @@ public enum WeaponModelSlot
     RightHand,
     LeftHandWeaponSlot,
     LeftHandShieldSlot,
-    BackSlot
+    BackSlot,
+    SubWeaponSlot,
     //Right Hips
     //Left Hips
 }

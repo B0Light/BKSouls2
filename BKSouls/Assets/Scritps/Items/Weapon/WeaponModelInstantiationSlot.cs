@@ -44,6 +44,7 @@ namespace BK
                     weaponModel.transform.localPosition = new Vector3(0f, 0.12f, 0.12f);
                     weaponModel.transform.localRotation = Quaternion.Euler(0, 30, -90f);
                     break;
+                case WeaponClass.LightShield:
                 case WeaponClass.MediumShield:
                     weaponModel.transform.localPosition = new Vector3(0.15f, 0.1f, 0.15f);
                     weaponModel.transform.localRotation = Quaternion.Euler(0, 30, 90f);

@@ -3936,6 +3936,52 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.24772, y: -0.0053296983, z: 0.0007826574}
     m_Extent: {x: 0.2701797, y: 0.22688775, z: 0.07919824}
   m_DirtyAABB: 0
+--- !u!1 &504690045428970606
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1739218804756829491}
+  - component: {fileID: 5448387143877073252}
+  m_Layer: 7
+  m_Name: Sub Weapon Slot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1739218804756829491
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504690045428970606}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.98390245, y: -0.11210164, z: -0.015754854, w: -0.13827847}
+  m_LocalPosition: {x: 0.03, y: 0.3, z: 0.1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5556717077784297275}
+  m_LocalEulerAnglesHint: {x: -16, y: -180, z: -167}
+--- !u!114 &5448387143877073252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504690045428970606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63a57a83afed9bd48bf688f549ef26b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BK.WeaponModelInstantiationSlot
+  weaponSlot: 4
+  currentWeaponModel: {fileID: 0}
 --- !u!1 &506308280017088178
 GameObject:
   m_ObjectHideFlags: 0
@@ -55990,8 +56036,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6998013809987602149}
   serializedVersion: 2
-  m_LocalRotation: {x: -3.5224868e-16, y: -1.8629647e-15, z: 0.000000007450581, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.04, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -73496,6 +73542,7 @@ Transform:
   - {fileID: 6897540799329684782}
   - {fileID: 6586964201917060059}
   - {fileID: 6761527038619030628}
+  - {fileID: 1739218804756829491}
   - {fileID: 6188521767121729929}
   m_Father: {fileID: 4636294243703170662}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -74307,6 +74354,16 @@ MonoBehaviour:
     m_InternalValue: 0
   isBeingCriticallyDamaged:
     m_InternalValue: 0
+  isRolling:
+    m_InternalValue: 0
+  isPoisoned:
+    m_InternalValue: 0
+  isBleeding:
+    m_InternalValue: 0
+  isFrostBitten:
+    m_InternalValue: 0
+  isFrozen:
+    m_InternalValue: 0
   currentHealth:
     m_InternalValue: 400
   maxHealth:
@@ -74333,12 +74390,18 @@ MonoBehaviour:
     m_InternalValue: 1
   faith:
     m_InternalValue: 1
+  buildUpCapacity:
+    m_InternalValue: 100
   poisonBuildUp:
     m_InternalValue: 0
   bleedBuildUp:
     m_InternalValue: 0
+  frostBiteBuildUp:
+    m_InternalValue: 0
   strengthModifier:
     m_InternalValue: 1
+  staminaRegenerationModifier:
+    m_InternalValue: 0
   characterName:
     m_InternalValue:
       utf8LengthInBytes: 9
@@ -74434,6 +74497,8 @@ MonoBehaviour:
     m_InternalValue: 0
   currentLeftHandWeaponID:
     m_InternalValue: 0
+  currentSubWeaponID:
+    m_InternalValue: 0
   currentSpellID:
     m_InternalValue: 0
   currentQuickSlotItemID:
@@ -74455,6 +74520,10 @@ MonoBehaviour:
   headEquipmentID:
     m_InternalValue: -1
   bodyEquipmentID:
+    m_InternalValue: -1
+  legEquipmentID:
+    m_InternalValue: -1
+  handEquipmentID:
     m_InternalValue: -1
   mainProjectileID:
     m_InternalValue: -1
@@ -74545,7 +74614,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerStatsManager
   runesDroppedOnDeath: 50
-  staminaRegenerationAmount: 2
+  baseStaminaRegenerationAmount: 2
   staminaRegenerationDelay: 2
   blockingPhysicalAbsorption: 0
   blockingFireAbsorption: 0
@@ -74622,6 +74691,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerInventoryManager
   currentRightHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
+  currentSubWeapon: {fileID: 0}
   currentTwoHandWeapon: {fileID: 0}
   currentSpell: {fileID: 0}
   quickSlotItemsInQuickSlots:
@@ -74632,6 +74702,8 @@ MonoBehaviour:
   currentQuickSlotItem: {fileID: 0}
   headEquipment: {fileID: 0}
   bodyEquipment: {fileID: 0}
+  legEquipment: {fileID: 0}
+  handEquipment: {fileID: 0}
   mainProjectile: {fileID: 0}
   secondaryProjectile: {fileID: 0}
 --- !u!114 &6474042748667512669
@@ -74701,10 +74773,13 @@ MonoBehaviour:
   leftHandWeaponSlot: {fileID: 0}
   leftHandShieldSlot: {fileID: 0}
   backSlot: {fileID: 0}
+  subWeaponSlot: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
+  subWeaponModel: {fileID: 0}
   rightWeaponManager: {fileID: 0}
   leftWeaponManager: {fileID: 0}
+  subWeaponManager: {fileID: 0}
   hatsObject: {fileID: 4711492420036956946}
   hats: []
   hoodsObject: {fileID: 6459361811349005999}
@@ -74873,10 +74948,15 @@ MonoBehaviour:
   activeDrawnProjectileFX: {fileID: 0}
   bloodSplatterVFX: {fileID: 3522028415154311413, guid: 4011e98ad166a054eba33d59b5d530d0, type: 3}
   criticalBloodSplatterVFX: {fileID: 0}
+  poisonedVFX: {fileID: 0}
+  frostBiteVFX: {fileID: 0}
   staticEffects: []
+  effectTickTimer: 0
+  defaultEffectTickTime: 1
   timedEffects: []
   applyPoisonBuildUp: 0
   applyBleedBuildUp: 0
+  applyFrostBuildUp: 0
 --- !u!114 &7879717960784766282
 MonoBehaviour:
   m_ObjectHideFlags: 0

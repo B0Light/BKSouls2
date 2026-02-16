@@ -291,7 +291,7 @@ namespace BK
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
             player.playerInventoryManager.currentSubWeapon = newWeapon;
             
-            // 등에 서브웨폰 무기 장비 
+            player.playerEquipmentManager.LoadSubWeapon();
         }
 
         public void OnCurrentWeaponBeingUsedIDChange(int oldID, int newID)

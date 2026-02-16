@@ -13,11 +13,12 @@ namespace BK
         [HideInInspector] public WeaponModelInstantiationSlot leftHandWeaponSlot;
         [HideInInspector] public WeaponModelInstantiationSlot leftHandShieldSlot;
         [HideInInspector] public WeaponModelInstantiationSlot backSlot;
+        [HideInInspector] public WeaponModelInstantiationSlot subWeaponSlot;
 
         [Header("Weapon Models")]
         [HideInInspector] public GameObject rightHandWeaponModel;
         [HideInInspector] public GameObject leftHandWeaponModel;
-        [HideInInspector] public GameObject rangeWeaponModel;
+        [HideInInspector] public GameObject subWeaponModel;
 
         [Header("Weapon Managers")]
         public WeaponManager rightWeaponManager;
@@ -425,6 +426,9 @@ namespace BK
                     case WeaponModelSlot.BackSlot:
                         backSlot = slot;
                         break;
+                    case WeaponModelSlot.SubWeaponSlot:
+                        subWeaponSlot = slot;
+                        break;
                 }
             }
         }
@@ -433,6 +437,7 @@ namespace BK
         {
             LoadRightWeapon();
             LoadLeftWeapon();
+            LoadSubWeapon();
         }
 
         public void SwitchMainWeapon()
@@ -493,6 +498,19 @@ namespace BK
 
             leftWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
             leftWeaponManager.SetWeaponDamage(player, weapon);
+        }
+        
+        public void LoadSubWeapon()
+        {
+            var subWeapon = player.playerInventoryManager.currentSubWeapon;
+            
+            if(subWeaponSlot.currentWeaponModel != null)
+                subWeaponSlot.UnloadWeapon();
+            
+            if (subWeapon == null) return;
+            
+            subWeaponModel = Instantiate(subWeapon.weaponModel);
+            subWeaponSlot.PlaceWeaponModelInUnequippedSlot(subWeaponModel, subWeapon.weaponClass, player);
         }
 
         #endregion
@@ -584,6 +602,7 @@ namespace BK
             var right = player.playerInventoryManager.currentRightHandWeapon;
             if (rightHandWeaponModel != null && right != null)
                 backSlot.PlaceWeaponModelInUnequippedSlot(rightHandWeaponModel, right.weaponClass, player);
+                //
 
             if (leftHandWeaponModel != null)
                 rightHandWeaponSlot.PlaceWeaponModelIntoSlot(leftHandWeaponModel);
