@@ -48,6 +48,10 @@ namespace BK
                     weaponModel.transform.localPosition = new Vector3(0.15f, 0.1f, 0.15f);
                     weaponModel.transform.localRotation = Quaternion.Euler(0, 30, 90f);
                     break;
+                case WeaponClass.Bow:
+                    weaponModel.transform.localPosition = new Vector3(0.073081851f, 0.172159016f, 0.0290511996f);
+                    weaponModel.transform.localRotation = Quaternion.Euler(42.1280632f, 32.0070724f, 91.0069504f);
+                    break;
                 default:
                     break;
             }

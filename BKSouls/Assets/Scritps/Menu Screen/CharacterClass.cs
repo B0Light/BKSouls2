@@ -34,6 +34,9 @@ namespace BK
         [Header("Quick Slot Items")]
         public QuickSlotItem[] quickSlotItems = new QuickSlotItem[3];
 
+        [Header("Projectile")] 
+        public RangedProjectileItem[] projectileItems = new RangedProjectileItem[2];
+
         public void SetClass(PlayerManager player)
         {
             TitleScreenManager.Instance.SetCharacterClass(player, 
@@ -43,7 +46,7 @@ namespace BK
         public void DecideClass(PlayerManager player)
         {
             TitleScreenManager.Instance.DecideCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
-                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems);
+                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems, projectileItems);
         }
     }
 }

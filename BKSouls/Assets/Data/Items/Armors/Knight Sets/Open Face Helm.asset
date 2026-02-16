@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
   itemID: 9
   itemName: Knight Open Helm
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
   itemTier: 0
   cost: 0
   itemDescription: 

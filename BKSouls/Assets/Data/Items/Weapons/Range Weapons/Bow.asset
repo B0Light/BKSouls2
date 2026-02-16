@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4bb1238a55aadd4bb8ace9de181dfa5, type: 3}
   m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::BK.RangedWeaponItem
+  itemID: 7
   itemName: Bow
   itemIcon: {fileID: 21300000, guid: 491ffb6fc9b45a04e967253d51794274, type: 3}
+  itemTier: 0
+  cost: 0
   itemDescription: Bow
-  itemID: 7
+  itemType: 0
+  width: 1
+  height: 4
+  weight: 0
+  itemAbilities: []
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: d3f2e012996f9b747b4ad69303221df2, type: 2}
   weaponModelType: 0
@@ -42,6 +49,12 @@ MonoBehaviour:
   running_Attack_01_Modifier: 1.1
   rolling_Attack_01_Modifier: 1.1
   backstep_Attack_01_Modifier: 1.1
+  dw_Attack_01_Modifier: 0.77
+  dw_Attack_02_Modifier: 0.87
+  dw_Jump_Attack_01_Modifier: 1.27
+  dw_Run_Attack_01_Modifier: 0.75
+  dw_Roll_Attack_01_Modifier: 0.72
+  dw_Backstep_Attack_01_Modifier: 0.77
   baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 1
   heavyAttackStaminaCostMultiplier: 1.3

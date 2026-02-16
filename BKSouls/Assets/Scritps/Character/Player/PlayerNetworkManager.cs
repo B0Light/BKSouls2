@@ -268,7 +268,6 @@ namespace BK
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
             player.playerInventoryManager.currentLeftHandWeapon = newWeapon;
             
-
             player.playerEquipmentManager.LoadLeftWeapon();
 
             if (player.IsOwner)

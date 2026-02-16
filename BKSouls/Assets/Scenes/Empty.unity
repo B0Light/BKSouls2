@@ -612,7 +612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1153232588900356, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1170900115859216, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
@@ -634,7 +634,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1238726237009114, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1266521113488248, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1314403313613844, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -648,7 +656,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1365321720900456, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1373368138400142, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
@@ -746,6 +754,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1808616282343244, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1847296409167632, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1850762798598726, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -754,7 +770,15 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1903644662838332, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1952991332796792, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1954177516467324, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -4745,7 +4769,15 @@ MonoBehaviour:
   activeDrawnProjectileFX: {fileID: 0}
   bloodSplatterVFX: {fileID: 0}
   criticalBloodSplatterVFX: {fileID: 0}
+  poisonedVFX: {fileID: 0}
+  frostBiteVFX: {fileID: 0}
   staticEffects: []
+  effectTickTimer: 0
+  defaultEffectTickTime: 1
+  timedEffects: []
+  applyPoisonBuildUp: 0
+  applyBleedBuildUp: 0
+  applyFrostBuildUp: 0
 --- !u!114 &1638063516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4837,8 +4869,10 @@ MonoBehaviour:
   backSlot: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
+  rangeWeaponModel: {fileID: 0}
   rightWeaponManager: {fileID: 0}
   leftWeaponManager: {fileID: 0}
+  subWeaponManager: {fileID: 0}
   hatsObject: {fileID: 0}
   hats: []
   hoodsObject: {fileID: 0}
@@ -4921,17 +4955,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerInventoryManager
   currentRightHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
+  currentSubWeapon: {fileID: 0}
   currentTwoHandWeapon: {fileID: 0}
-  weaponsInRightHandSlots:
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
-  - {fileID: 11400000, guid: 27d99b2910f5899449b2f4673399013c, type: 2}
-  rightHandWeaponIndex: 0
-  weaponsInLeftHandSlots:
-  - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
-  - {fileID: 11400000, guid: e62291c0476d3624d9140e8b62aa1d3a, type: 2}
-  leftHandWeaponIndex: 0
   currentSpell: {fileID: 0}
   quickSlotItemsInQuickSlots:
   - {fileID: 0}
@@ -4945,7 +4970,6 @@ MonoBehaviour:
   handEquipment: {fileID: 0}
   mainProjectile: {fileID: 0}
   secondaryProjectile: {fileID: 0}
-  itemsInInventory: []
 --- !u!114 &1638063521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4998,7 +5022,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72c6ff42fe4e54647b23d3b4d7a3e95f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerStatsManager
-  staminaRegenerationAmount: 2
+  runesDroppedOnDeath: 50
+  baseStaminaRegenerationAmount: 2
   staminaRegenerationDelay: 2
   blockingPhysicalAbsorption: 0
   blockingFireAbsorption: 0
@@ -5020,6 +5045,7 @@ MonoBehaviour:
   basePoiseDefense: 0
   defaultPoiseResetTime: 8
   poiseResetTimer: 0
+  runes: 0
 --- !u!114 &1638063523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5047,6 +5073,7 @@ MonoBehaviour:
   currentWeaponBeingUsed: {fileID: 0}
   currentProjectileBeingUsed: 0
   canComboWithMainHandWeapon: 0
+  canComboWithOffHandWeapon: 0
   isUsingItem: 0
 --- !u!114 &1638063524
 MonoBehaviour:
@@ -5061,6 +5088,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerManager
   ShowTopMostFoldoutHeaderGroup: 1
+  isPerformingAction: 0
   isDead:
     m_InternalValue: 0
   characterController: {fileID: 357901246}
@@ -5074,7 +5102,6 @@ MonoBehaviour:
   characterLocomotionManager: {fileID: 0}
   characterUIManager: {fileID: 0}
   characterGroup: 0
-  isPerformingAction: 0
   playerAnimatorManager: {fileID: 0}
   playerLocomotionManager: {fileID: 0}
   playerNetworkManager: {fileID: 0}
@@ -5139,6 +5166,16 @@ MonoBehaviour:
     m_InternalValue: 0
   isBeingCriticallyDamaged:
     m_InternalValue: 0
+  isRolling:
+    m_InternalValue: 0
+  isPoisoned:
+    m_InternalValue: 0
+  isBleeding:
+    m_InternalValue: 0
+  isFrostBitten:
+    m_InternalValue: 0
+  isFrozen:
+    m_InternalValue: 0
   currentHealth:
     m_InternalValue: 400
   maxHealth:
@@ -5151,7 +5188,7 @@ MonoBehaviour:
     m_InternalValue: 400
   maxFocusPoints:
     m_InternalValue: 400
-  vitality:
+  vigor:
     m_InternalValue: 1
   endurance:
     m_InternalValue: 1
@@ -5165,8 +5202,18 @@ MonoBehaviour:
     m_InternalValue: 1
   faith:
     m_InternalValue: 1
+  buildUpCapacity:
+    m_InternalValue: 100
+  poisonBuildUp:
+    m_InternalValue: 0
+  bleedBuildUp:
+    m_InternalValue: 0
+  frostBiteBuildUp:
+    m_InternalValue: 0
   strengthModifier:
     m_InternalValue: 1
+  staminaRegenerationModifier:
+    m_InternalValue: 0
   characterName:
     m_InternalValue:
       utf8LengthInBytes: 9
@@ -5236,6 +5283,8 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+  lastSiteOfGraceUsed:
+    m_InternalValue: 0
   remainingHealthFlasks:
     m_InternalValue: 3
   remainingFocusPointsFlasks:
@@ -5259,6 +5308,8 @@ MonoBehaviour:
   currentRightHandWeaponID:
     m_InternalValue: 0
   currentLeftHandWeaponID:
+    m_InternalValue: 0
+  currentSubWeaponID:
     m_InternalValue: 0
   currentSpellID:
     m_InternalValue: 0

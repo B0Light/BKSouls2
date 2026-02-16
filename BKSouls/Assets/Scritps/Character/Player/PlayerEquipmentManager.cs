@@ -455,10 +455,10 @@ namespace BK
         public void LoadRightWeapon()
         {
             var weapon = player.playerInventoryManager.currentRightHandWeapon;
-            if (weapon == null) return;
-
             rightHandWeaponSlot.UnloadWeapon();
-
+            
+            if (weapon == null) return;
+            
             rightHandWeaponModel = Instantiate(weapon.weaponModel);
             rightHandWeaponSlot.PlaceWeaponModelIntoSlot(rightHandWeaponModel);
 
@@ -471,7 +471,6 @@ namespace BK
         public void LoadLeftWeapon()
         {
             var weapon = player.playerInventoryManager.currentLeftHandWeapon;
-            if (weapon == null) return;
 
             if (leftHandWeaponSlot.currentWeaponModel != null)
                 leftHandWeaponSlot.UnloadWeapon();
@@ -479,6 +478,7 @@ namespace BK
             if (leftHandShieldSlot.currentWeaponModel != null)
                 leftHandShieldSlot.UnloadWeapon();
 
+            if (weapon == null) return;
             leftHandWeaponModel = Instantiate(weapon.weaponModel);
 
             switch (weapon.weaponModelType)

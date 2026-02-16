@@ -430,7 +430,8 @@ namespace BK
         
         public void DecideCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
             WeaponItem mainHandWeapon, WeaponItem offHandWeapon, WeaponItem subWeapon, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment, QuickSlotItem[] quickSlotItems)
+            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment,
+            QuickSlotItem[] quickSlotItems, RangedProjectileItem[] rangedProjectileItems)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -448,9 +449,12 @@ namespace BK
             WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetSubWeaponInventory().ResetItemGrid();
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightWeaponInventory(), mainHandWeapon);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftWeaponInventory(), offHandWeapon);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetSubWeaponInventory(), subWeapon);
+            if(mainHandWeapon)
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightWeaponInventory(), mainHandWeapon);
+            if(offHandWeapon)
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftWeaponInventory(), offHandWeapon);
+            if(subWeapon)
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetSubWeaponInventory(), subWeapon);
             
             // 3. Set the armor
             WorldPlayerInventory.Instance.GetHelmetInventory().ResetItemGrid();
@@ -473,6 +477,12 @@ namespace BK
                 player.playerInventoryManager.quickSlotItemsInQuickSlots[2] = Instantiate(quickSlotItems[2]);
 
             player.playerEquipmentManager.LoadQuickSlotEquipment(player.playerInventoryManager.quickSlotItemsInQuickSlots[player.playerInventoryManager.quickSlotItemIndex]);
+            
+            // 5. Set Projectile
+            player.playerInventoryManager.mainProjectile = rangedProjectileItems[0];
+            player.playerInventoryManager.secondaryProjectile = rangedProjectileItems[1];
+            
+            GUIController.Instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(player.playerInventoryManager.mainProjectile);
         }
 
         //  CHARACTER HAIR
