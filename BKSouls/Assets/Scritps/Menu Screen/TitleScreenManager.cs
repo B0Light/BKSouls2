@@ -421,7 +421,7 @@ namespace BK
         }
 
         public void SetCharacterClass(PlayerManager player,
-            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, WeaponItem subWeapon,
+            WeaponItem mainHandWeapon, WeaponItem offHandWeapon,
             HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
@@ -433,16 +433,15 @@ namespace BK
             player.playerInventoryManager.legEquipment = legEquipment != null ? Instantiate(legEquipment) : null;
             player.playerInventoryManager.currentRightHandWeapon = mainHandWeapon != null ? Instantiate(mainHandWeapon) : null;
             player.playerInventoryManager.currentLeftHandWeapon = offHandWeapon != null ? Instantiate(offHandWeapon) : null;
-            player.playerInventoryManager.currentSubWeapon = subWeapon != null ? Instantiate(subWeapon) : null;
             
             player.playerEquipmentManager.EquipArmor();
             player.playerEquipmentManager.EquipWeapons();
         }
         
         public void DecideCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
-            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, WeaponItem subWeapon, 
+            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, WeaponItem rightSubWeapon, WeaponItem leftSubWeapon, 
             HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment,
-            QuickSlotItem[] quickSlotItems, RangedProjectileItem[] rangedProjectileItems)
+            QuickSlotItem[] quickSlotItems, RangedProjectileItem[] rangedProjectileItems, SpellItem spellItem)
         {
             // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
             hiddenHelmet = null;
@@ -459,13 +458,16 @@ namespace BK
             // 2. Set the weapons
             WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetSubWeaponInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetRightSubWeaponInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().ResetItemGrid();
             if(mainHandWeapon)
                 WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightWeaponInventory(), mainHandWeapon);
             if(offHandWeapon)
                 WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftWeaponInventory(), offHandWeapon);
-            if(subWeapon)
-                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetSubWeaponInventory(), subWeapon);
+            if(rightSubWeapon)
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightSubWeaponInventory(), rightSubWeapon);
+            if(leftSubWeapon)
+                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftSubWeaponInventory(), leftSubWeapon);
             
             // 3. Set the armor
             WorldPlayerInventory.Instance.GetHelmetInventory().ResetItemGrid();
@@ -492,6 +494,9 @@ namespace BK
             // 5. Set Projectile
             player.playerInventoryManager.mainProjectile = rangedProjectileItems[0];
             player.playerInventoryManager.secondaryProjectile = rangedProjectileItems[1];
+
+            if(spellItem)
+                player.playerNetworkManager.currentSpellID.Value = spellItem.itemID;
             
             GUIController.Instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(player.playerInventoryManager.mainProjectile);
         }

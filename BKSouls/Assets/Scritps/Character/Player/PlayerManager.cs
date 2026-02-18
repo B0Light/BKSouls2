@@ -145,7 +145,9 @@ namespace BK
             //  EQUIPMENT
             playerNetworkManager.currentRightHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             playerNetworkManager.currentLeftHandWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
-            playerNetworkManager.currentSubWeaponID.OnValueChanged += playerNetworkManager.OnCurrentSubWeaponIDChange;
+            playerNetworkManager.currentRightSubWeaponID.OnValueChanged += playerNetworkManager.OnCurrentRightSubWeaponIDChange;
+            playerNetworkManager.currentLeftSubWeaponID.OnValueChanged += playerNetworkManager.OnCurrentLeftSubWeaponIDChange;
+            
             playerNetworkManager.currentWeaponBeingUsed.OnValueChanged += playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             playerNetworkManager.currentQuickSlotItemID.OnValueChanged += playerNetworkManager.OnCurrentQuickSlotItemIDChange;
             playerNetworkManager.isChugging.OnValueChanged += playerNetworkManager.OnIsChuggingChanged;
@@ -243,6 +245,9 @@ namespace BK
             //  EQUIPMENT
             playerNetworkManager.currentRightHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightHandWeaponIDChange;
             playerNetworkManager.currentLeftHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentLeftHandWeaponIDChange;
+            playerNetworkManager.currentRightSubWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightSubWeaponIDChange;
+            playerNetworkManager.currentLeftSubWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentLeftSubWeaponIDChange;
+            
             playerNetworkManager.currentWeaponBeingUsed.OnValueChanged -= playerNetworkManager.OnCurrentWeaponBeingUsedIDChange;
             playerNetworkManager.currentQuickSlotItemID.OnValueChanged -= playerNetworkManager.OnCurrentQuickSlotItemIDChange;
             playerNetworkManager.isChugging.OnValueChanged -= playerNetworkManager.OnIsChuggingChanged;
@@ -371,9 +376,10 @@ namespace BK
             currentGameData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
 
             //  EQUIPMENT
-            currentGameData.rightWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
-            currentGameData.leftWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
-            currentGameData.rangeWeaponItemCode = playerNetworkManager.currentSubWeaponID.Value;
+            currentGameData.rightMainWeaponItemCode = playerNetworkManager.currentRightHandWeaponID.Value;
+            currentGameData.leftMainWeaponItemCode = playerNetworkManager.currentLeftHandWeaponID.Value;
+            currentGameData.rightSubWeaponItemCode = playerNetworkManager.currentRightSubWeaponID.Value;
+            currentGameData.leftSubWeaponItemCode = playerNetworkManager.currentLeftSubWeaponID.Value;
             
             currentGameData.helmetItemCode = playerNetworkManager.headEquipmentID.Value;
             currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
@@ -528,38 +534,40 @@ namespace BK
                 playerInventoryManager.AddItemToInventory(projectile);
             }
             
+            // ARMOR
             WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(currentCharacterData.helmetBoxSize);
             var helmetItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.helmetItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem))
-            {
-                Debug.LogError($"helmetCode : {currentCharacterData.helmetItemCode}");
-                Debug.LogError($"helmetData : {helmetItem}");
-                Debug.LogError("helmet : Reload Error");
-            }
+            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem)) Debug.LogError("Reload Error : Helmet");
             
             WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(currentCharacterData.armorBoxSize);
             var armorItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.armorItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemArmor(armorItem)) Debug.LogError("Reload Error");
-            
-            WorldPlayerInventory.Instance.GetRightWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
-            var rightWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemRightWeapon(rightWeaponItem)) Debug.LogError("Reload Error");
-            
-            WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
-            var leftWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemLeftWeapon(leftWeaponItem)) Debug.LogError("Reload Error");
-            
-            // QuickSlot 인벤토리 
-            WorldPlayerInventory.Instance.GetSubWeaponInventory().UpdateItemGridSize(currentCharacterData.consumableBoxSize);
-            
+            if (!WorldPlayerInventory.Instance.ReloadItemArmor(armorItem)) Debug.LogError("Reload Error : Armor");
             
             WorldPlayerInventory.Instance.GetGauntletInventory().UpdateItemGridSize(currentCharacterData.gauntletBoxSize);
             var gauntletItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.gauntletItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError("Reload Error : Gauntlet");
             
             WorldPlayerInventory.Instance.GetLeggingsInventory().UpdateItemGridSize(currentCharacterData.leggingsBoxSize);
             var leggingsItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leggingsItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemLeggings(leggingsItem)) Debug.LogError("Reload Error");
+            if (!WorldPlayerInventory.Instance.ReloadItemLeggings(leggingsItem)) Debug.LogError("Reload Error : Leggings");
+            
+            
+            // WEAPON
+            WorldPlayerInventory.Instance.GetRightWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
+            var rightMainWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightMainWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemRightMainWeapon(rightMainWeaponItem)) Debug.LogError("Reload Error : Right Main");
+            
+            WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
+            var leftMainWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftMainWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemLeftMainWeapon(leftMainWeaponItem)) Debug.LogError("Reload Error : Left Main");
+            
+            WorldPlayerInventory.Instance.GetRightSubWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
+            var rightSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightMainWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemRightSubWeapon(rightSubWeaponItem)) Debug.LogError("Reload Error : Right Sub");
+            
+            WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
+            var leftSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftMainWeaponItemCode);
+            if (!WorldPlayerInventory.Instance.ReloadItemLeftSubWeapon(leftSubWeaponItem)) Debug.LogError("Reload Error : Left Sub");
             
             WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.shareInventoryItems)

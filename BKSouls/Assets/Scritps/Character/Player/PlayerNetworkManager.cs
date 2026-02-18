@@ -33,10 +33,12 @@ namespace BK
 
         [Header("Equipment")]
         public NetworkVariable<int> currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         public NetworkVariable<int> currentRightHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> currentLeftHandWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<int> currentSubWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-
+        public NetworkVariable<int> currentRightSubWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        public NetworkVariable<int> currentLeftSubWeaponID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
+        
         public NetworkVariable<int> currentSpellID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> currentQuickSlotItemID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         
@@ -264,7 +266,6 @@ namespace BK
 
         public void OnCurrentLeftHandWeaponIDChange(int oldID, int newID)
         {
-            
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
             player.playerInventoryManager.currentLeftHandWeapon = newWeapon;
             
@@ -285,13 +286,16 @@ namespace BK
             }
         }
         
-        public void OnCurrentSubWeaponIDChange(int oldID, int newID)
+        public void OnCurrentRightSubWeaponIDChange(int oldID, int newID)
         {
-            
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
-            player.playerInventoryManager.currentSubWeapon = newWeapon;
-            
-            player.playerEquipmentManager.LoadSubWeapon();
+            player.playerInventoryManager.currentRightSubWeapon = newWeapon;
+        }
+        
+        public void OnCurrentLeftSubWeaponIDChange(int oldID, int newID)
+        {
+            WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
+            player.playerInventoryManager.currentLeftSubWeapon = newWeapon;
         }
 
         public void OnCurrentWeaponBeingUsedIDChange(int oldID, int newID)

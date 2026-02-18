@@ -13,17 +13,14 @@ namespace BK
         [HideInInspector] public WeaponModelInstantiationSlot leftHandWeaponSlot;
         [HideInInspector] public WeaponModelInstantiationSlot leftHandShieldSlot;
         [HideInInspector] public WeaponModelInstantiationSlot backSlot;
-        [HideInInspector] public WeaponModelInstantiationSlot subWeaponSlot;
 
         [Header("Weapon Models")]
         [HideInInspector] public GameObject rightHandWeaponModel;
         [HideInInspector] public GameObject leftHandWeaponModel;
-        [HideInInspector] public GameObject subWeaponModel;
 
         [Header("Weapon Managers")]
         public WeaponManager rightWeaponManager;
         public WeaponManager leftWeaponManager;
-        public WeaponManager subWeaponManager;
 
         #region Equipment Model Groups
 
@@ -426,9 +423,6 @@ namespace BK
                     case WeaponModelSlot.BackSlot:
                         backSlot = slot;
                         break;
-                    case WeaponModelSlot.SubWeaponSlot:
-                        subWeaponSlot = slot;
-                        break;
                 }
             }
         }
@@ -437,24 +431,44 @@ namespace BK
         {
             LoadRightWeapon();
             LoadLeftWeapon();
-            LoadSubWeapon();
         }
 
-        public void SwitchMainWeapon()
+        public void SwitchRightWeapon()
         {
             if (!player.IsOwner) return;
 
             player.playerNetworkManager.isTwoHandingWeapon.Value = false;
             player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false, false, true, true);
 
-            int selectedWeaponID = player.playerInventoryManager.currentSubWeapon.itemID;
-            int changedWeaponID = player.playerInventoryManager.currentRightHandWeapon.itemID;
-
+            int selectedWeaponID = player.playerInventoryManager.currentRightSubWeapon?.itemID ?? 0;
+            int changedWeaponID = player.playerInventoryManager.currentRightHandWeapon?.itemID ?? 0;
+            
             WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetSubWeaponInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetRightSubWeaponInventory().ResetItemGrid();
+            
+            if(selectedWeaponID != 0)
+                WorldPlayerInventory.Instance.GetRightWeaponInventory().AddItemById(selectedWeaponID);
+            if(changedWeaponID != 0)
+                WorldPlayerInventory.Instance.GetRightSubWeaponInventory().AddItemById(changedWeaponID);
+        }
+        
+        public void SwitchLeftWeapon()
+        {
+            if (!player.IsOwner) return;
 
-            WorldPlayerInventory.Instance.GetRightWeaponInventory().AddItemById(selectedWeaponID);
-            WorldPlayerInventory.Instance.GetSubWeaponInventory().AddItemById(changedWeaponID);
+            player.playerNetworkManager.isTwoHandingWeapon.Value = false;
+            player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Left_Weapon_01", false, false, true, true);
+
+            int selectedWeaponID = player.playerInventoryManager.currentLeftSubWeapon?.itemID ?? 0;
+            int changedWeaponID = player.playerInventoryManager.currentLeftHandWeapon?.itemID ?? 0;
+
+            WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
+            WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().ResetItemGrid();
+            
+            if(selectedWeaponID != 0)
+                WorldPlayerInventory.Instance.GetLeftWeaponInventory().AddItemById(selectedWeaponID);
+            if(changedWeaponID != 0)
+                WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().AddItemById(changedWeaponID);
         }
 
         public void LoadRightWeapon()
@@ -498,19 +512,6 @@ namespace BK
 
             leftWeaponManager = leftHandWeaponModel.GetComponent<WeaponManager>();
             leftWeaponManager.SetWeaponDamage(player, weapon);
-        }
-        
-        public void LoadSubWeapon()
-        {
-            var subWeapon = player.playerInventoryManager.currentSubWeapon;
-            
-            if(subWeaponSlot.currentWeaponModel != null)
-                subWeaponSlot.UnloadWeapon();
-            
-            if (subWeapon == null) return;
-            
-            subWeaponModel = Instantiate(subWeapon.weaponModel);
-            subWeaponSlot.PlaceWeaponModelInUnequippedSlot(subWeaponModel, subWeapon.weaponClass, player);
         }
 
         #endregion

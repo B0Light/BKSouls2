@@ -67,7 +67,6 @@ MonoBehaviour:
   ashesOfWar:
   - {fileID: 11400000, guid: 731783f4c95c68046a658840ae86ab2d, type: 2}
   spells:
-  - {fileID: 11400000, guid: 4603b3b8206ef3c4383e89b951acf351, type: 2}
   - {fileID: 11400000, guid: fcf83980cd05c53429f165fd558dc5a9, type: 2}
   projectiles:
   - {fileID: 11400000, guid: 13f5f19384420a94bb41f1db5d717acd, type: 2}

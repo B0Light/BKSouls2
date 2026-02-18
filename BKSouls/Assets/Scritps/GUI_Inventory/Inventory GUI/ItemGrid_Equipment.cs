@@ -22,7 +22,8 @@ namespace BK.Inventory
                 // Weapon
                 [(ItemType.Weapon, WeaponSlotType.Right)] = (pm, id) => pm.playerNetworkManager.currentRightHandWeaponID.Value = id,
                 [(ItemType.Weapon, WeaponSlotType.Left)]  = (pm, id) => pm.playerNetworkManager.currentLeftHandWeaponID.Value = id,
-                [(ItemType.Weapon, WeaponSlotType.Sub)]   = (pm, id) => pm.playerNetworkManager.currentSubWeaponID.Value = id,
+                [(ItemType.Weapon, WeaponSlotType.RightSub)]   = (pm, id) => pm.playerNetworkManager.currentRightSubWeaponID.Value = id,
+                [(ItemType.Weapon, WeaponSlotType.LeftSub)]   = (pm, id) => pm.playerNetworkManager.currentLeftSubWeaponID.Value = id,
 
                 // Armor
                 [(ItemType.Armor,    WeaponSlotType.None)] = (pm, id) => pm.playerNetworkManager.bodyEquipmentID.Value = id,

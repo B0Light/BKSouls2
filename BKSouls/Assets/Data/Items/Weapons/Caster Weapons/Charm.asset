@@ -12,10 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33484c03d91e4954694e6c0e3a343684, type: 3}
   m_Name: Charm
   m_EditorClassIdentifier: Assembly-CSharp::BK.CasterWeaponItem
-  itemName: Charm
-  itemIcon: {fileID: 21300000, guid: 70692c0086224cd44b39d3dde755474e, type: 3}
-  itemDescription: 
   itemID: 6
+  itemName: Charm
+  itemIcon: {fileID: 21300000, guid: ea3867f22af07b44693308c55d9f0795, type: 3}
+  itemTier: 0
+  cost: 0
+  itemDescription: 
+  itemType: 0
+  width: 1
+  height: 1
+  weight: 0
+  itemAbilities: []
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 02a61b0e559c6d64f9a92ed1cc8b9707, type: 2}
   weaponModelType: 0
@@ -33,13 +40,21 @@ MonoBehaviour:
   poiseDamage: 10
   light_Attack_01_Modifier: 1
   light_Attack_02_Modifier: 1.2
+  light_Jumping_Attack_01_Modifier: 1
   heavy_Attack_01_Modifier: 1.4
   heavy_Attack_02_Modifier: 1.6
+  heavy_Jumping_Attack_01_Modifier: 1.8
   charge_Attack_01_Modifier: 2
   charge_Attack_02_Modifier: 2.2
   running_Attack_01_Modifier: 1.1
   rolling_Attack_01_Modifier: 1.1
   backstep_Attack_01_Modifier: 1.1
+  dw_Attack_01_Modifier: 0.77
+  dw_Attack_02_Modifier: 0.87
+  dw_Jump_Attack_01_Modifier: 1.27
+  dw_Run_Attack_01_Modifier: 0.75
+  dw_Roll_Attack_01_Modifier: 0.72
+  dw_Backstep_Attack_01_Modifier: 0.77
   baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 1
   heavyAttackStaminaCostMultiplier: 1.3

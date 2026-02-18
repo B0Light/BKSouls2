@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dee5fa8f57c76f48b29a3edef255777, type: 3}
   m_Name: Fire Ball Spell
   m_EditorClassIdentifier: Assembly-CSharp::BK.FireBallSpell
-  itemName: Fire Ball
-  itemIcon: {fileID: 21300000, guid: caaa8e0cb627d844c95cc3c917bf7a89, type: 3}
-  itemDescription: 
   itemID: 14
+  itemName: Fire Ball
+  itemIcon: {fileID: 21300000, guid: dc6213b9fa835694a9f6ab694cf5bab8, type: 3}
+  itemTier: 0
+  cost: 0
+  itemDescription: 
   SpellClass: 0
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1

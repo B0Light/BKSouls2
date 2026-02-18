@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace BK.Inventory
 {
@@ -13,12 +14,23 @@ namespace BK.Inventory
         [Header("Player Equipment Inventory")] 
         public ItemGrid_Equipment playerRightWeapon;
         public ItemGrid_Equipment playerLeftWeapon;
-        public ItemGrid_Equipment playerSubWeapon;
+        public ItemGrid_Equipment playerRightSubWeapon;
+        public ItemGrid_Equipment playerLeftSubWeapon;
         public ItemGrid_Equipment playerHelmet;
         public ItemGrid_Equipment playerArmor;
         public ItemGrid_Equipment playerGauntlet;
         public ItemGrid_Equipment playerLeggings;
-       
+
+        [Header("Weapon Grid Canvas Group")] 
+        [SerializeField] private CanvasGroup rightMainWeaponCanvasGroup;
+        [SerializeField] private CanvasGroup rightSubWeaponCanvasGroup;
+        [SerializeField] private CanvasGroup leftMainWeaponCanvasGroup;
+        [SerializeField] private CanvasGroup leftSubWeaponCanvasGroup;
+
+        [SerializeField] private Button activeRightMain;
+        [SerializeField] private Button activeRightSub;
+        [SerializeField] private Button activeLeftMain;
+        [SerializeField] private Button activeLeftSub;
 
         [Header("Player Inventory")] 
         public ItemGrid playerInventoryItemGrid;
@@ -57,6 +69,19 @@ namespace BK.Inventory
             _isOpen = false;
             CloseInteractionInventory();
             CloseItemToolTip();
+
+            InitWeaponGridButton();
+        }
+
+        private void InitWeaponGridButton()
+        {
+            activeRightMain.onClick.AddListener(OpenRightMainWeaponGrid);
+            activeRightSub.onClick.AddListener(OpenRightSubWeaponGrid);
+            activeLeftMain.onClick.AddListener(OpenLeftMainWeaponGrid);
+            activeLeftSub.onClick.AddListener(OpenLeftSubWeaponGrid);
+            
+            OpenRightMainWeaponGrid();
+            OpenLeftMainWeaponGrid();
         }
 
         public override void OpenGUI()
@@ -157,6 +182,62 @@ namespace BK.Inventory
             WorldPlayerInventory.Instance.curOpenedInventory = ItemGridType.InteractableInventory;
 
             WorldPlayerInventory.Instance.curInteractItemGrid = forgeGUIManager.GetItemGrid;
+        }
+
+        private void OpenRightMainWeaponGrid()
+        {
+            rightMainWeaponCanvasGroup.alpha = 1;
+            rightMainWeaponCanvasGroup.interactable = true;
+            rightMainWeaponCanvasGroup.blocksRaycasts = true;
+            
+            rightSubWeaponCanvasGroup.alpha = 0;
+            rightSubWeaponCanvasGroup.interactable = false;
+            rightSubWeaponCanvasGroup.blocksRaycasts = false;
+
+            activeRightMain.interactable = false;
+            activeRightSub.interactable = true;
+        }
+        
+        private void OpenRightSubWeaponGrid()
+        {
+            rightMainWeaponCanvasGroup.alpha = 0;
+            rightMainWeaponCanvasGroup.interactable = false;
+            rightMainWeaponCanvasGroup.blocksRaycasts = false;
+            
+            rightSubWeaponCanvasGroup.alpha = 1;
+            rightSubWeaponCanvasGroup.interactable = true;
+            rightSubWeaponCanvasGroup.blocksRaycasts = true;
+            
+            activeRightMain.interactable = true;
+            activeRightSub.interactable = false;
+        }
+        
+        private void OpenLeftMainWeaponGrid()
+        {
+            leftMainWeaponCanvasGroup.alpha = 1;
+            leftMainWeaponCanvasGroup.interactable = true;
+            leftMainWeaponCanvasGroup.blocksRaycasts = true;
+            
+            leftSubWeaponCanvasGroup.alpha = 0;
+            leftSubWeaponCanvasGroup.interactable = false;
+            leftSubWeaponCanvasGroup.blocksRaycasts = false;
+            
+            activeLeftMain.interactable = false;
+            activeLeftSub.interactable = true;
+        }
+        
+        private void OpenLeftSubWeaponGrid()
+        {
+            leftMainWeaponCanvasGroup.alpha = 0;
+            leftMainWeaponCanvasGroup.interactable = false;
+            leftMainWeaponCanvasGroup.blocksRaycasts = false;
+            
+            leftSubWeaponCanvasGroup.alpha = 1;
+            leftSubWeaponCanvasGroup.interactable = true;
+            leftSubWeaponCanvasGroup.blocksRaycasts = true;
+            
+            activeLeftMain.interactable = true;
+            activeLeftSub.interactable = false;
         }
 
         public void ToggleBackpackInventory(bool isActive)

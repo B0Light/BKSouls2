@@ -24,7 +24,8 @@ namespace BK.Inventory
 
         private ItemGrid_Equipment _rightWeapon;
         private ItemGrid_Equipment _leftWeapon;
-        private ItemGrid_Equipment _subWeapon;
+        private ItemGrid_Equipment _rightSubWeapon;
+        private ItemGrid_Equipment _leftSubWeapon;
 
         private ItemGrid_Equipment _helmet;
         private ItemGrid_Equipment _armor;
@@ -91,7 +92,8 @@ namespace BK.Inventory
 
             _rightWeapon = gui.playerRightWeapon;
             _leftWeapon = gui.playerLeftWeapon;
-            _subWeapon = gui.playerSubWeapon;
+            _rightSubWeapon = gui.playerRightSubWeapon;
+            _leftSubWeapon = gui.playerLeftSubWeapon;
 
             _helmet = gui.playerHelmet;
             _armor = gui.playerArmor;
@@ -125,7 +127,8 @@ namespace BK.Inventory
             AddIfNotNull(_weightGrids, _backpackGrid);
             AddIfNotNull(_weightGrids, _rightWeapon);
             AddIfNotNull(_weightGrids, _leftWeapon);
-            AddIfNotNull(_weightGrids, _subWeapon);
+            AddIfNotNull(_weightGrids, _rightSubWeapon);
+            AddIfNotNull(_weightGrids, _leftSubWeapon);
             AddIfNotNull(_weightGrids, _helmet);
             AddIfNotNull(_weightGrids, _armor);
             AddIfNotNull(_weightGrids, _gauntlet);
@@ -274,8 +277,8 @@ namespace BK.Inventory
 
         public ItemGrid_Equipment GetRightWeaponInventory() => _rightWeapon ??= GUIController.Instance.inventoryGUIManager.playerRightWeapon;
         public ItemGrid_Equipment GetLeftWeaponInventory() => _leftWeapon ??= GUIController.Instance.inventoryGUIManager.playerLeftWeapon;
-        public ItemGrid_Equipment GetSubWeaponInventory() => _subWeapon ??= GUIController.Instance.inventoryGUIManager.playerSubWeapon;
-
+        public ItemGrid_Equipment GetRightSubWeaponInventory() => _rightSubWeapon ??= GUIController.Instance.inventoryGUIManager.playerRightSubWeapon;
+        public ItemGrid_Equipment GetLeftSubWeaponInventory() => _leftSubWeapon ??= GUIController.Instance.inventoryGUIManager.playerLeftSubWeapon;
         public ItemGrid_Equipment GetHelmetInventory() => _helmet ??= GUIController.Instance.inventoryGUIManager.playerHelmet;
         public ItemGrid_Equipment GetArmorInventory() => _armor ??= GUIController.Instance.inventoryGUIManager.playerArmor;
         public ItemGrid_Equipment GetGauntletInventory() => _gauntlet ??= GUIController.Instance.inventoryGUIManager.playerGauntlet;
@@ -330,9 +333,11 @@ namespace BK.Inventory
         public bool ReloadItemInventory(Item itemInfoData) => ReloadToGrid(GetInventory(), itemInfoData, skipIfZeroId: false);
         public bool ReloadItemBackpack(Item itemInfoData) => ReloadToGrid(GetBackpackInventory(), itemInfoData, skipIfZeroId: false);
 
-        public bool ReloadItemRightWeapon(Item itemInfoData) => ReloadToGrid(GetRightWeaponInventory(), itemInfoData, skipIfZeroId: true);
-        public bool ReloadItemLeftWeapon(Item itemInfoData) => ReloadToGrid(GetLeftWeaponInventory(), itemInfoData, skipIfZeroId: true);
-        public bool ReloadItemQuickSlot(Item itemInfoData) => ReloadToGrid(GetSubWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemRightMainWeapon(Item itemInfoData) => ReloadToGrid(GetRightWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemLeftMainWeapon(Item itemInfoData) => ReloadToGrid(GetLeftWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        public bool ReloadItemRightSubWeapon(Item itemInfoData) => ReloadToGrid(GetRightSubWeaponInventory(), itemInfoData, skipIfZeroId: true);
+        
+        public bool ReloadItemLeftSubWeapon(Item itemInfoData) => ReloadToGrid(GetLeftSubWeaponInventory(), itemInfoData, skipIfZeroId: true);
 
         public bool ReloadItemHelmet(Item itemInfoData) => ReloadToGrid(GetHelmetInventory(), itemInfoData, skipIfZeroId: true);
         public bool ReloadItemArmor(Item itemInfoData) => ReloadToGrid(GetArmorInventory(), itemInfoData, skipIfZeroId: true);

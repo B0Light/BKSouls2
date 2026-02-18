@@ -85,16 +85,17 @@ namespace BK
         public Vector2Int armorBoxSize;
         public Vector2Int gauntletBoxSize;
         public Vector2Int leggingsBoxSize;
-        public Vector2Int consumableBoxSize;
+       
     
         public Vector2Int inventoryBoxSize;
         public Vector2Int shareBoxSize;
         public Vector2Int safeBoxSize;
         
         [Header("New Inventory")] 
-        public int rightWeaponItemCode;
-        public int leftWeaponItemCode;
-        public int rangeWeaponItemCode;
+        public int rightMainWeaponItemCode;
+        public int leftMainWeaponItemCode;
+        public int rightSubWeaponItemCode;
+        public int leftSubWeaponItemCode;
         public int helmetItemCode;
         public int armorItemCode;
         public int gauntletItemCode;
@@ -119,7 +120,6 @@ namespace BK
             armorBoxSize = new Vector2Int(2, 2);
             gauntletBoxSize = new Vector2Int(2, 2);
             leggingsBoxSize = new Vector2Int(2, 2);
-            consumableBoxSize = new Vector2Int(4, 1);
 
             inventoryBoxSize = new Vector2Int(6, 3);
             safeBoxSize = new Vector2Int(2, 2);

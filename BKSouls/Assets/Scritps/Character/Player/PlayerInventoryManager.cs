@@ -10,10 +10,13 @@ namespace BK
     {
         PlayerManager player;
         
-        [Header("Weapons")]
+        [Header("Weapons")] 
+        // 인벤토리 상태가 아닌 현재 장비한 아이템을 기준으로 삼음 
         public WeaponItem currentRightHandWeapon;
         public WeaponItem currentLeftHandWeapon;
-        public WeaponItem currentSubWeapon;
+        public WeaponItem currentRightSubWeapon;
+        public WeaponItem currentLeftSubWeapon;
+        
         public WeaponItem currentTwoHandWeapon;
         
         [Header("Quick Slots")]

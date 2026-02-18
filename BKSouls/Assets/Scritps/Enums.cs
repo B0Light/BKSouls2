@@ -72,7 +72,8 @@ public enum WeaponSlotType
 {
     Right,
     Left,
-    Sub,
+    RightSub,
+    LeftSub,
     None
 }
 //  USED AS A TAG FOR EACH WEAPON MODEL INSTANTIATION SLOT
@@ -82,7 +83,6 @@ public enum WeaponModelSlot
     LeftHandWeaponSlot,
     LeftHandShieldSlot,
     BackSlot,
-    SubWeaponSlot,
     //Right Hips
     //Left Hips
 }

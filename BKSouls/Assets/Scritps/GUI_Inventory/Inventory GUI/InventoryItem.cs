@@ -47,6 +47,7 @@ namespace BK.Inventory
             if (uiImage == null || newSprite == null)
             {
                 Debug.LogError("UI Image 또는 새로운 스프라이트가 설정되지 않았습니다!");
+                
                 return;
             }
 

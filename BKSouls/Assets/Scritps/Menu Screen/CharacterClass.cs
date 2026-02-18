@@ -23,7 +23,8 @@ namespace BK
         [Header("Class Weapons")]
         public WeaponItem mainHandWeapon;
         public WeaponItem offHandWeapon;
-        public WeaponItem subWeapon;
+        public WeaponItem rightSubWeapon;
+        public WeaponItem leftSubWeapon;
 
         [Header("Class Armor")]
         public HeadEquipmentItem headEquipment;
@@ -37,16 +38,20 @@ namespace BK
         [Header("Projectile")] 
         public RangedProjectileItem[] projectileItems = new RangedProjectileItem[2];
 
+        [Header("Magic")] 
+        public SpellItem spellItem;
+
         public void SetClass(PlayerManager player)
         {
             TitleScreenManager.Instance.SetCharacterClass(player, 
-                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment);
+                mainHandWeapon, offHandWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment);
         }
 
         public void DecideClass(PlayerManager player)
         {
             TitleScreenManager.Instance.DecideCharacterClass(player, vitality, endurance, mind, strength, dexterity, intelligence, faith,
-                mainHandWeapon, offHandWeapon, subWeapon, headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems, projectileItems);
+                mainHandWeapon, offHandWeapon, rightSubWeapon, leftSubWeapon,
+                headEquipment, bodyEquipment, legEquipment, handEquipment, quickSlotItems, projectileItems, spellItem);
         }
     }
 }
