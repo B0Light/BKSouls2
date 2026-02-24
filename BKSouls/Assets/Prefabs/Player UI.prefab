@@ -7351,7 +7351,7 @@ MonoBehaviour:
     _value: 0
   _playerManager: {fileID: 0}
   itemType: 0
-  weaponSlotType: 2
+  weaponSlotType: 3
 --- !u!114 &898309802608251852
 MonoBehaviour:
   m_ObjectHideFlags: 0

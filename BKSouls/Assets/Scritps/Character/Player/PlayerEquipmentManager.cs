@@ -440,16 +440,16 @@ namespace BK
             player.playerNetworkManager.isTwoHandingWeapon.Value = false;
             player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Right_Weapon_01", false, false, true, true);
 
-            int selectedWeaponID = player.playerInventoryManager.currentRightSubWeapon?.itemID ?? 0;
             int changedWeaponID = player.playerInventoryManager.currentRightHandWeapon?.itemID ?? 0;
+            int selectedWeaponID = player.playerInventoryManager.currentRightSubWeapon?.itemID ?? 0;
+            
+            Debug.Log($"RIGHT :  {changedWeaponID} -> {selectedWeaponID}");
             
             WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetRightSubWeaponInventory().ResetItemGrid();
             
-            if(selectedWeaponID != 0)
-                WorldPlayerInventory.Instance.GetRightWeaponInventory().AddItemById(selectedWeaponID);
-            if(changedWeaponID != 0)
-                WorldPlayerInventory.Instance.GetRightSubWeaponInventory().AddItemById(changedWeaponID);
+            WorldPlayerInventory.Instance.GetRightWeaponInventory().AddItemById(selectedWeaponID);
+            WorldPlayerInventory.Instance.GetRightSubWeaponInventory().AddItemById(changedWeaponID);
         }
         
         public void SwitchLeftWeapon()
@@ -459,16 +459,16 @@ namespace BK
             player.playerNetworkManager.isTwoHandingWeapon.Value = false;
             player.playerAnimatorManager.PlayTargetActionAnimation("Swap_Left_Weapon_01", false, false, true, true);
 
-            int selectedWeaponID = player.playerInventoryManager.currentLeftSubWeapon?.itemID ?? 0;
             int changedWeaponID = player.playerInventoryManager.currentLeftHandWeapon?.itemID ?? 0;
+            int selectedWeaponID = player.playerInventoryManager.currentLeftSubWeapon?.itemID ?? 0;
 
+            Debug.Log($"LEFT :  {changedWeaponID} -> {selectedWeaponID}");
+            
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
             WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().ResetItemGrid();
             
-            if(selectedWeaponID != 0)
-                WorldPlayerInventory.Instance.GetLeftWeaponInventory().AddItemById(selectedWeaponID);
-            if(changedWeaponID != 0)
-                WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().AddItemById(changedWeaponID);
+            WorldPlayerInventory.Instance.GetLeftWeaponInventory().AddItemById(selectedWeaponID);
+            WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().AddItemById(changedWeaponID);
         }
 
         public void LoadRightWeapon()

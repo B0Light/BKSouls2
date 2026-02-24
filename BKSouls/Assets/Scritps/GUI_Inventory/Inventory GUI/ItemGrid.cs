@@ -116,6 +116,7 @@ namespace BK.Inventory
 
         public bool AddItemById(int itemCode, int count = 1, bool isLoad = true)
         {
+            if (itemCode == 0) return true;
             bool allAdded = true;
 
             for (int i = 0; i < count; i++)
