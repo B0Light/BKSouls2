@@ -1,0 +1,292 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-7189728646310142434
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
+  m_Name: ColorAdjustments
+  m_EditorClassIdentifier: 
+  active: 1
+  postExposure:
+    m_OverrideState: 1
+    m_Value: 0
+  contrast:
+    m_OverrideState: 1
+    m_Value: 0
+  colorFilter:
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  hueShift:
+    m_OverrideState: 1
+    m_Value: 0
+  saturation:
+    m_OverrideState: 1
+    m_Value: -15
+--- !u!114 &-1914035048589883352
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899c54efeace73346a0a16faa3afe726, type: 3}
+  m_Name: Vignette
+  m_EditorClassIdentifier: 
+  active: 1
+  color:
+    m_OverrideState: 0
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
+  center:
+    m_OverrideState: 0
+    m_Value: {x: 0.5, y: 0.5}
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  smoothness:
+    m_OverrideState: 0
+    m_Value: 0.2
+  rounded:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &-1356899809219660650
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
+  m_Name: Bloom
+  m_EditorClassIdentifier: 
+  active: 1
+  threshold:
+    m_OverrideState: 1
+    m_Value: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 0
+  scatter:
+    m_OverrideState: 0
+    m_Value: 0.7
+  clamp:
+    m_OverrideState: 0
+    m_Value: 65472
+  tint:
+    m_OverrideState: 0
+    m_Value: {r: 1, g: 1, b: 1, a: 1}
+  highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  skipIterations:
+    m_OverrideState: 0
+    m_Value: 1
+  dirtTexture:
+    m_OverrideState: 0
+    m_Value: {fileID: 0}
+  dirtIntensity:
+    m_OverrideState: 0
+    m_Value: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Desert
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 7486193409014931379}
+  - {fileID: 7729032644505127353}
+  - {fileID: -1356899809219660650}
+  - {fileID: -1914035048589883352}
+  - {fileID: -7189728646310142434}
+--- !u!114 &7486193409014931379
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
+  m_Name: Tonemapping
+  m_EditorClassIdentifier: 
+  active: 1
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
+--- !u!114 &7729032644505127353
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a258d3a940c87041bdcfc9bd9324346, type: 3}
+  m_Name: MKEdgeDetection
+  m_EditorClassIdentifier: 
+  active: 1
+  _propertiesInitialized: 1
+  shader:
+    m_OverrideState: 1
+    m_Value:
+      _value: {fileID: 4800000, guid: f751bd9ddf5a13a45abbf01f030ee1e1, type: 3}
+  precision:
+    m_OverrideState: 1
+    m_Value:
+      _value: 0
+  largeKernel:
+    m_OverrideState: 1
+    m_Value:
+      _value: 0
+  mediumKernel:
+    m_OverrideState: 1
+    m_Value:
+      _value: 0
+  smallKernel:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1
+  inputData:
+    m_OverrideState: 1
+    m_Value:
+      _value: -1
+  lineHardness:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1
+      _minValue: 0
+      _maxValue: 1
+  fade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1
+  lineSizeMatchFactor:
+    m_OverrideState: 1
+    m_Value:
+      _value: 0.5
+      _minValue: 0
+      _maxValue: 1
+  globalLineSize:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1.5
+      _minValue: 0
+      _maxValue: 3
+  depthLineSize:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1.25
+      _minValue: 0
+      _maxValue: 2
+  normalLineSize:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1.25
+      _minValue: 0
+      _maxValue: 2
+  depthFadeLimits:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0.5342313
+      _maxValue: 1
+      _minLimit: 0
+      _maxLimit: 1
+  normalFadeLimits:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0.1
+      _maxValue: 1
+      _minLimit: 0
+      _maxLimit: 1
+  depthThreshold:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0.26481774
+      _maxValue: 1
+      _minLimit: 0
+      _maxLimit: 1
+  lineColor:
+    m_OverrideState: 1
+    m_Value:
+      _value: {r: 0, g: 0, b: 0, a: 1}
+  overlayColor:
+    m_OverrideState: 1
+    m_Value:
+      _value: {r: 1, g: 1, b: 1, a: 0}
+  depthNearFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 50
+  depthFarFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 100
+  normalNearFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 50
+  normalsFarFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 100
+  normalThreshold:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0.1
+      _maxValue: 1
+      _minLimit: 0
+      _maxLimit: 1
+  sceneColorThreshold:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0
+      _maxValue: 0.3082645
+      _minLimit: 0
+      _maxLimit: 1
+  sceneColorLineSize:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1.25
+      _minValue: 0
+      _maxValue: 2
+  sceneColorNearFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 50
+  sceneColorFarFade:
+    m_OverrideState: 1
+    m_Value:
+      _value: 100
+  sceneColorFadeLimits:
+    m_OverrideState: 1
+    m_Value:
+      _minValue: 0.23946121
+      _maxValue: 1
+      _minLimit: 0
+      _maxLimit: 1
+  visualizeEdges:
+    m_OverrideState: 1
+    m_Value:
+      _value: 0
+  enhanceDetails:
+    m_OverrideState: 1
+    m_Value:
+      _value: 1
