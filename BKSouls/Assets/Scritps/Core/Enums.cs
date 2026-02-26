@@ -229,3 +229,26 @@ public enum IdleStateMode
         //FOLLOW
         //WANDER
 }
+
+public enum BoxOpenType
+{
+    TopLid,        // 위에 뚜껑이 열리는 것
+    SideSliding,   // 컨테이너 박스처럼 양 옆으로 열리는 상자
+    SideRotating   // 일반 문처럼 90도 회전하며 열리는 상자
+}
+
+public enum LidRotationAxis
+{
+    X,  // X축 회전 (앞뒤로 열림)
+    Y,  // Y축 회전 (좌우로 열림)
+    Z   // Z축 회전 (시계/반시계 방향)
+}
+
+public enum BoxType
+{
+    WeaponBox,
+    FoodBox,
+    SupplyBox,
+    MiscBox,
+    Safe,
+}

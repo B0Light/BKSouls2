@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using BK.Inventory;
@@ -385,6 +386,10 @@ namespace BK
             currentGameData.armorItemCode = playerNetworkManager.bodyEquipmentID.Value;
             currentGameData.gauntletItemCode = playerNetworkManager.handEquipmentID.Value;
             currentGameData.leggingsItemCode = playerNetworkManager.legEquipmentID.Value;
+
+            currentGameData.quickSlotItemIDs[0] = playerInventoryManager.quickSlotItemsInQuickSlots[0]?.itemID ?? -1;
+            currentGameData.quickSlotItemIDs[1] = playerInventoryManager.quickSlotItemsInQuickSlots[1]?.itemID ?? -1;
+            currentGameData.quickSlotItemIDs[2] = playerInventoryManager.quickSlotItemsInQuickSlots[2]?.itemID ?? -1;
             
             currentGameData.mainProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.mainProjectile);
             currentGameData.secondaryProjectile = WorldSaveGameManager.Instance.GetSerializableRangedProjectileFromRangedProjectileItem(playerInventoryManager.secondaryProjectile);
@@ -495,6 +500,7 @@ namespace BK
             else
             {
                 playerInventoryManager.bodyEquipment = null;
+                WorldPlayerInventory.Instance.GetBackpackInventory().gameObject.SetActive(false);
             }
             
             if (WorldItemDatabase.Instance.GetHandEquipmentByID(currentCharacterData.helmetItemCode))
@@ -534,40 +540,50 @@ namespace BK
                 playerInventoryManager.AddItemToInventory(projectile);
             }
             
+            if(currentCharacterData.quickSlotItemIDs[0] != -1)
+                playerInventoryManager.quickSlotItemsInQuickSlots[0] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[0]));
+            if(currentCharacterData.quickSlotItemIDs[1] != -1)
+                playerInventoryManager.quickSlotItemsInQuickSlots[1] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[1]));
+            if(currentCharacterData.quickSlotItemIDs[2] != -1)    
+                playerInventoryManager.quickSlotItemsInQuickSlots[2] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[2]));
+            
+            playerEquipmentManager.LoadQuickSlotEquipment(playerInventoryManager.quickSlotItemsInQuickSlots[0]);
+
+            
             // ARMOR
             WorldPlayerInventory.Instance.GetHelmetInventory().UpdateItemGridSize(currentCharacterData.helmetBoxSize);
             var helmetItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.helmetItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem)) Debug.LogError("Reload Error : Helmet");
+            if (helmetItem && !WorldPlayerInventory.Instance.ReloadItemHelmet(helmetItem)) Debug.LogError($"Reload Error : Helmet - {helmetItem.itemID}");
             
             WorldPlayerInventory.Instance.GetArmorInventory().UpdateItemGridSize(currentCharacterData.armorBoxSize);
             var armorItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.armorItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemArmor(armorItem)) Debug.LogError("Reload Error : Armor");
+            if (armorItem && !WorldPlayerInventory.Instance.ReloadItemArmor(armorItem)) Debug.LogError($"Reload Error : Armor - {armorItem.itemID}");
             
             WorldPlayerInventory.Instance.GetGauntletInventory().UpdateItemGridSize(currentCharacterData.gauntletBoxSize);
             var gauntletItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.gauntletItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError("Reload Error : Gauntlet");
+            if (gauntletItem && !WorldPlayerInventory.Instance.ReloadItemGauntlet(gauntletItem)) Debug.LogError($"Reload Error : Gauntlet - {gauntletItem.itemID}");
             
             WorldPlayerInventory.Instance.GetLeggingsInventory().UpdateItemGridSize(currentCharacterData.leggingsBoxSize);
             var leggingsItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leggingsItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemLeggings(leggingsItem)) Debug.LogError("Reload Error : Leggings");
+            if (leggingsItem && !WorldPlayerInventory.Instance.ReloadItemLeggings(leggingsItem)) Debug.LogError($"Reload Error : Leggings - {leggingsItem.itemID}");
             
             
             // WEAPON
             WorldPlayerInventory.Instance.GetRightWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
             var rightMainWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightMainWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemRightMainWeapon(rightMainWeaponItem)) Debug.LogError("Reload Error : Right Main");
+            if (!WorldPlayerInventory.Instance.ReloadItemRightMainWeapon(rightMainWeaponItem)) Debug.LogError($"Reload Error : Right Main - {rightMainWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetLeftWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
             var leftMainWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftMainWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemLeftMainWeapon(leftMainWeaponItem)) Debug.LogError("Reload Error : Left Main");
+            if (!WorldPlayerInventory.Instance.ReloadItemLeftMainWeapon(leftMainWeaponItem)) Debug.LogError($"Reload Error : Left Main - {leftMainWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetRightSubWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
             var rightSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightMainWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemRightSubWeapon(rightSubWeaponItem)) Debug.LogError("Reload Error : Right Sub");
+            if (!WorldPlayerInventory.Instance.ReloadItemRightSubWeapon(rightSubWeaponItem)) Debug.LogError($"Reload Error : Right Sub - {rightSubWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
             var leftSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftMainWeaponItemCode);
-            if (!WorldPlayerInventory.Instance.ReloadItemLeftSubWeapon(leftSubWeaponItem)) Debug.LogError("Reload Error : Left Sub");
+            if (!WorldPlayerInventory.Instance.ReloadItemLeftSubWeapon(leftSubWeaponItem)) Debug.LogError($"Reload Error : Left Sub - {leftSubWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
             foreach (KeyValuePair<int,int> item in currentCharacterData.shareInventoryItems)
@@ -611,6 +627,9 @@ namespace BK
             
             playerEquipmentManager.LoadMainProjectileEquipment(currentCharacterData.mainProjectile.GetProjectile());
             playerEquipmentManager.LoadSecondaryProjectileEquipment(currentCharacterData.secondaryProjectile.GetProjectile());
+            
+            // 마지막 플레이 타임 저장 
+            currentCharacterData.lastPlayTime = DateTime.Now.ToString("o");
         }
 
         public void LoadOtherPlayerCharacterWhenJoiningServer()

@@ -260,9 +260,9 @@ namespace BK.Inventory
 
                     break;
                 case ItemGrid.ItemGridType.EquipmentInventory:
-                    if (!backpack.AddItem(pickUpItem.gameObject, false))
+                    if (!inventory.AddItem(pickUpItem.gameObject, false))
                     {
-                        if (!inventory.AddItem(pickUpItem.gameObject, false))
+                        if (!backpack.AddItem(pickUpItem.gameObject, false))
                         {
                             _selectedItemGrid.AddItem(pickUpItem.gameObject, false);
                         }

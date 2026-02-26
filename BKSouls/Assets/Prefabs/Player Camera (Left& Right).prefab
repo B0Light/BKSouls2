@@ -73,7 +73,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 3221257463
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -185,6 +185,8 @@ MonoBehaviour:
   player: {fileID: 0}
   cameraObject: {fileID: 1728620797186191210}
   cameraPivotTransform: {fileID: 5955310251351831112}
+  cameraPivotYPositionOffSet: 1.5
+  cameraSmoothSpeed: 1
   leftAndRightRotationSpeed: 220
   upAndDownRotationSpeed: 220
   minimumPivot: -30
@@ -195,6 +197,17 @@ MonoBehaviour:
     m_Bits: 1
   leftAndRightLookAngle: 0
   upAndDownLookAngle: 0
+  lockOnRadius: 20
+  minimumViewableAngle: -50
+  maximumViewableAngle: 50
+  lockOnTargetFollowSpeed: 0.2
+  setCameraHeightSpeed: 1
+  unlockedCameraHeight: 1.65
+  lockedCameraHeight: 2
+  nearestLockOnTarget: {fileID: 0}
+  leftLockOnTarget: {fileID: 0}
+  rightLockOnTarget: {fileID: 0}
+  aimDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &7458433849306944688
 GameObject:
   m_ObjectHideFlags: 0

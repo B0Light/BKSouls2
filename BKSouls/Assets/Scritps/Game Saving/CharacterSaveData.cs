@@ -31,6 +31,7 @@ namespace BK
 
         [Header("Time Played")]
         public float secondsPlayed;
+        public string lastPlayTime; // ISO 8601 형식으로 시간 저장
 
         // QUESTION: WHY NOT USE A VECTOR3?
         // ANSWER: WE CAN ONLY SAVE DATA FROM "BASIC" VARIABLE TYPES (Float, Int, String, Bool, ect)
@@ -72,6 +73,9 @@ namespace BK
         public SerializableRangedProjectile mainProjectile;
         public SerializableRangedProjectile secondaryProjectile;
 
+        [Header("Quick Slot Items")]
+        public int[] quickSlotItemIDs = new int[3];
+        
         public int currentHealthFlasksRemaining = 3;
         public int currentFocusPointsFlaskRemaining = 1;
 

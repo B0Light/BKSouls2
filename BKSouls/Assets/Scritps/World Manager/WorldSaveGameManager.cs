@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BK
@@ -14,19 +15,30 @@ namespace BK
         [Header("World Scene Index")]
         [SerializeField] int worldSceneIndex = 1;
 
+        [Header("Init Position")] 
+        [SerializeField] private Vector3 initPosition = new Vector3();
+
         private SaveFileDataWriter saveFileDataWriter;
 
         [Header("Current Character Data")]
         public CharacterSlot currentCharacterSlotBeingUsed;
         public CharacterSaveData currentCharacterData;
-
+        private string _saveFileName;
+        
         [Header("Character Slots")]
-        // 10개의 슬롯을 배열로 관리 (인스펙터에서도 확인 가능)
-        public CharacterSaveData[] allCharacterSlots = new CharacterSaveData[11]; 
+        public List<CharacterSaveData> characterSlots = new List<CharacterSaveData>();
+        private readonly int _maxCharacterSlots = 5; // 슬롯 수를 쉽게 조정 가능
         
         private void Start()
         {
             SetupSaveWriter();
+            
+            // 슬롯 데이터 초기화
+            for (int i = 0; i < _maxCharacterSlots; i++)
+            {
+                characterSlots.Add(null);
+            }
+            
             LoadAllCharacterProfiles();
         }
 
@@ -51,7 +63,8 @@ namespace BK
         {
             if (characterSlot == CharacterSlot.NO_SLOT) return "";
             // Enum 이름을 기반으로 파일명 생성 (예: "CharacterSlot_01")
-            return characterSlot.ToString();
+            var slotIndex = (int)characterSlot;
+            return $"characterSlot_{slotIndex + 1:00}";
         }
 
         public bool HasFreeCharacterSlot()
@@ -76,27 +89,28 @@ namespace BK
 
                 if (!saveFileDataWriter.CheckToSeeIfFileExists())
                 {
-                    StartNewGameOnSlot(slot);
+                    currentCharacterSlotBeingUsed = slot;
+                    currentCharacterData = new CharacterSaveData();
+                    NewGame();
                     return;
                 }
             }
             TitleScreenManager.Instance.DisplayNoFreeCharacterSlotsPopUp();
         }
-
-        private void StartNewGameOnSlot(CharacterSlot slot)
-        {
-            currentCharacterSlotBeingUsed = slot;
-            currentCharacterData = new CharacterSaveData();
-            NewGame();
-        }
+        
 
         private void NewGame()
         {
             player.playerNetworkManager.vigor.Value = 15;
             player.playerNetworkManager.endurance.Value = 10;
             player.playerNetworkManager.mind.Value = 10;
-
+            
             SaveGame();
+
+            currentCharacterData.xPosition = initPosition.x;
+            currentCharacterData.yPosition = initPosition.y + 4f;
+            currentCharacterData.zPosition = initPosition.z;
+            
             WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
         }
 
@@ -107,6 +121,30 @@ namespace BK
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
             WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
         }
+        
+        public bool LoadLastGame()
+        {
+            currentCharacterSlotBeingUsed = FindMostRecentlyPlayedSlot();
+        
+            if (currentCharacterSlotBeingUsed == CharacterSlot.NO_SLOT)
+            {
+                return false;
+            }
+        
+            saveFileDataWriter = new SaveFileDataWriter();
+            saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+            saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
+        
+            if (saveFileDataWriter.CheckToSeeIfFileExists())
+            {
+                LoadGame();
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public void SaveGame()
         {
@@ -114,9 +152,6 @@ namespace BK
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
             player.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
             saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
-            
-            // 저장 후 배열 데이터도 갱신 (선택 사항)
-            allCharacterSlots[(int)currentCharacterSlotBeingUsed] = currentCharacterData;
         }
 
         public void DeleteGame(CharacterSlot characterSlot)
@@ -124,7 +159,7 @@ namespace BK
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(characterSlot);
             saveFileDataWriter.DeleteSaveFile();
-            allCharacterSlots[(int)characterSlot] = null;
+            characterSlots[(int)characterSlot] = null;
         }
         
         public void DeleteAllGame()
@@ -143,18 +178,84 @@ namespace BK
         private void LoadAllCharacterProfiles()
         {
             SetupSaveWriter();
-            foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
+            
+            for (int i = 0; i < _maxCharacterSlots; i++)
             {
-                if (slot == CharacterSlot.NO_SLOT) continue;
+                CharacterSlot slot = (CharacterSlot)i;
                 saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
-                // 배열 인덱스에 맞춰 데이터 로드
-                allCharacterSlots[(int)slot] = saveFileDataWriter.LoadSaveFile();
+            
+                // 파일이 존재하는지 먼저 확인
+                if (saveFileDataWriter.CheckToSeeIfFileExists())
+                {
+                    characterSlots[i] = saveFileDataWriter.LoadSaveFile();
+                    //Debug.Log($"슬롯 {i} 로드 성공: {saveFileDataWriter.saveFileName}");
+                }
+                else
+                {
+                    characterSlots[i] = null;
+                    //Debug.Log($"슬롯 {i} 파일 없음: {saveFileDataWriter.saveFileName}");
+                }
             }
         }
 
         public int GetWorldSceneIndex()
         {
             return worldSceneIndex;
+        }
+        
+        private CharacterSlot FindMostRecentlyPlayedSlot()
+        {
+            DateTime mostRecentTime = DateTime.MinValue;
+            CharacterSlot mostRecentSlot = CharacterSlot.NO_SLOT; // 기본값 설정
+            bool foundAnySave = false;
+            
+            saveFileDataWriter = new SaveFileDataWriter();
+            saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+            
+            // 모든 슬롯을 확인
+            for (int i = 0; i < characterSlots.Count; i++)
+            {
+                CharacterSaveData slotData = characterSlots[i];
+                CharacterSlot currentSlot = (CharacterSlot)i;
+                
+                // 슬롯에 저장된 데이터가 있는지 확인
+                if (slotData != null && !string.IsNullOrEmpty(slotData.lastPlayTime))
+                {
+                    // 실제 파일이 존재하는지도 확인
+                    saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentSlot);
+                    if (saveFileDataWriter.CheckToSeeIfFileExists())
+                    {
+                        foundAnySave = true;
+                        // ISO 8601 형식의 문자열을 DateTime으로 변환
+                        DateTime slotDateTime = DateTime.Parse(slotData.lastPlayTime);
+                    
+                        // 현재까지 발견한 가장 최근 시간보다 더 최근인지 확인
+                        if (slotDateTime > mostRecentTime)
+                        {
+                            mostRecentTime = slotDateTime;
+                            mostRecentSlot = currentSlot;
+                        }
+                        
+                        //Debug.Log($"슬롯 {i} 확인됨: {slotData.characterName}, 시간: {slotDateTime}");
+                    }
+                    else
+                    {
+                        //Debug.LogWarning($"슬롯 {i}에 데이터가 있지만 파일이 존재하지 않습니다: {saveFileDataWriter.saveFileName}");
+                    }
+                }
+            }
+        
+            // 저장된 게임을 찾았는지 여부를 로그로 출력
+            if (foundAnySave)
+            {
+                //Debug.Log($"가장 최근 플레이: 슬롯 {(int)mostRecentSlot}, 시간: {mostRecentTime}");
+                return mostRecentSlot;
+            }
+            else
+            {
+                //Debug.Log("저장된 게임이 없습니다.");
+                return CharacterSlot.NO_SLOT; // 저장된 게임이 없으면 NO_SLOT 반환
+            }
         }
 
         public SerializableWeapon GetSerializableWeaponFromWeaponItem(WeaponItem weapon)

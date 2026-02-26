@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -7,71 +5,96 @@ namespace BK
 {
     public class Interactable : NetworkBehaviour
     {
-        public string interactableText; //  TEXT PROMPT WHEN ENTERING THE INTERACTION COLLIDER (PICK UP ITEM, PULL LEVER ECT)
-        [SerializeField] protected Collider interactableCollider;   //  COLLIDER THAT CHECKS FOR PLAYER INTERACTION
-        [SerializeField] protected bool hostOnlyInteractable = true;    //  WHEN ENABLED, OBJECT CANNOT BE INTERACTED WITH BY CO-OP PLAYERS
+        [Header("UI")]
+        public string interactableText; // Text prompt when player enters collider
+
+        [Header("Interaction")]
+        [SerializeField] protected Collider interactableCollider;
+        [SerializeField] protected bool hostOnlyInteractable = true;
 
         protected virtual void Awake()
         {
-            //  CHECK IF ITS NULL, IN SOME CASES YOU MAY WANT TO MANUALLY ASIGN A COLLIDER AS A CHILD OBJECT (DEPENDING ON INTERACTABLE)
             if (interactableCollider == null)
                 interactableCollider = GetComponent<Collider>();
         }
-
-        protected virtual void Start()
-        {
-
-        }
+        
+        protected virtual void Start() { }
 
         public virtual void Interact(PlayerManager player)
         {
             Debug.Log("YOU HAVE INTERACTED!");
 
-            if (!player.IsOwner)
+            if (!IsEligibleInteractor(player))
                 return;
 
-            //  REMOVE THE INTERACTION FROM THE PLAYER
-            interactableCollider.enabled = false;
-            player.playerInteractionManager.RemoveInteractionFromList(this);
-            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            // Disable further interaction locally for this player
+            if (interactableCollider != null)
+                interactableCollider.enabled = false;
 
-            //  SAVE GAME AFTER INTERACTING
-            WorldSaveGameManager.Instance.SaveGame();
+            CleanupInteraction(player);
+
+            // Save after interacting
+            WorldSaveGameManager.Instance?.SaveGame();
         }
 
         public virtual void OnTriggerEnter(Collider other)
         {
-            PlayerManager player = other.GetComponent<PlayerManager>();
+            if (!TryGetEligiblePlayer(other, out var player))
+                return;
 
-            if (player != null)
-            {
-                if (!player.playerNetworkManager.IsHost && hostOnlyInteractable)
-                    return;
-
-                if (!player.IsOwner)
-                    return;
-
-                //  PASS THE INTERACTION TO THE PLAYER
-                player.playerInteractionManager.AddInteractionToList(this);
-            }
+            player.playerInteractionManager?.AddInteractionToList(this);
         }
 
         public virtual void OnTriggerExit(Collider other)
         {
-            PlayerManager player = other.GetComponent<PlayerManager>();
+            if (!TryGetEligiblePlayer(other, out var player))
+                return;
 
-            if (player != null)
-            {
-                if (!player.playerNetworkManager.IsHost && hostOnlyInteractable)
-                    return;
-
-                if (!player.IsOwner)
-                    return;
-
-                //  REMOVE THE INTERACTION FROM THE PLAYER
-                player.playerInteractionManager.RemoveInteractionFromList(this);
-                GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
-            }
+            CleanupInteraction(player);
         }
+
+        // --------------------
+        // Helpers
+        // --------------------
+
+        protected bool TryGetEligiblePlayer(Collider other, out PlayerManager player)
+        {
+            player = other.GetComponent<PlayerManager>();
+            if (player == null) return false;
+
+            if (hostOnlyInteractable && player.playerNetworkManager != null && !player.playerNetworkManager.IsHost)
+                return false;
+
+            if (!player.IsOwner)
+                return false;
+
+            return true;
+        }
+
+        protected bool IsEligibleInteractor(PlayerManager player)
+        {
+            if (player == null) return false;
+
+            if (hostOnlyInteractable && player.playerNetworkManager != null && !player.playerNetworkManager.IsHost)
+                return false;
+
+            return player.IsOwner;
+        }
+
+        protected void CleanupInteraction(PlayerManager player)
+        {
+            player.playerInteractionManager?.RemoveInteractionFromList(this);
+            GUIController.Instance?.playerUIPopUpManager?.CloseAllPopUpWindows();
+
+            ResetInteraction();
+        }
+        
+        public virtual void ResetInteraction()
+        {
+            if (interactableCollider != null)
+                interactableCollider.enabled = true;
+        }
+        
+        public virtual void SetToSpecificLevel(int level) {}
     }
 }
