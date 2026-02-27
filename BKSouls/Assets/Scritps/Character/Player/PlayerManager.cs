@@ -20,6 +20,13 @@ namespace BK
         [HideInInspector] public PlayerInteractionManager playerInteractionManager;
         [HideInInspector] public PlayerEffectsManager playerEffectsManager;
         [HideInInspector] public PlayerBodyManager playerBodyManager;
+        
+        [Header("Spawn Protection")]
+        [SerializeField] private LayerMask groundMask = ~0;
+        [SerializeField] private float probeUp = 3f;
+        [SerializeField] private float probeDown = 80f;
+        [SerializeField] private float groundOffset = 0.05f;
+        [SerializeField] private int maxFramesToWait = 180; // 약 3초(60fps) 정도
 
         protected override void Awake()
         {
@@ -427,10 +434,10 @@ namespace BK
         {
             playerNetworkManager.characterName.Value = currentCharacterData.characterName;
             playerNetworkManager.isMale.Value = currentCharacterData.isMale;
-            playerBodyManager.ToggleBodyType(currentCharacterData.isMale); //   TOGGLE INCASE THE VALUE IS THE SAME AS DEFAULT (ONVALUECHANGED ONLY WORKS WHEN VALUE IS CHANGED)
-            Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition + 5f, currentCharacterData.zPosition);
-            transform.position = myPosition;
-
+            playerBodyManager.ToggleBodyType(currentCharacterData.isMale);
+            Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition + 1f, currentCharacterData.zPosition);
+            // transform.position = myPosition;
+            StartSpawnProtectionSnap(myPosition);
             //  STATS 
             playerNetworkManager.vigor.Value = currentCharacterData.vitality;
             playerNetworkManager.endurance.Value = currentCharacterData.endurance;
@@ -578,11 +585,11 @@ namespace BK
             if (!WorldPlayerInventory.Instance.ReloadItemLeftMainWeapon(leftMainWeaponItem)) Debug.LogError($"Reload Error : Left Main - {leftMainWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetRightSubWeaponInventory().UpdateItemGridSize(currentCharacterData.rightWeaponBoxSize);
-            var rightSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightMainWeaponItemCode);
+            var rightSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.rightSubWeaponItemCode);
             if (!WorldPlayerInventory.Instance.ReloadItemRightSubWeapon(rightSubWeaponItem)) Debug.LogError($"Reload Error : Right Sub - {rightSubWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().UpdateItemGridSize(currentCharacterData.leftWeaponBoxSize);
-            var leftSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftMainWeaponItemCode);
+            var leftSubWeaponItem = WorldItemDatabase.Instance.GetItemByID(currentCharacterData.leftSubWeaponItemCode);
             if (!WorldPlayerInventory.Instance.ReloadItemLeftSubWeapon(leftSubWeaponItem)) Debug.LogError($"Reload Error : Left Sub - {leftSubWeaponItem.itemID}");
             
             WorldPlayerInventory.Instance.GetShareInventory().UpdateItemGridSize(currentCharacterData.shareBoxSize);
@@ -675,5 +682,60 @@ namespace BK
             }
         }
 
+        // SpawnProtect
+        public void StartSpawnProtectionSnap(Vector3 desiredPos)
+        {
+            StopCoroutine(nameof(CoSpawnProtectSnap));
+            StartCoroutine(CoSpawnProtectSnap(desiredPos));
+        }
+
+        private IEnumerator CoSpawnProtectSnap(Vector3 desiredPos)
+        {
+            // 1) 스폰 보호 ON
+            if (playerLocomotionManager != null)
+                playerLocomotionManager.isSpawnProtected = true;
+
+            // 2) 컨트롤러 잠깐 OFF (텔레포트/스냅 시 충돌 계산 꼬임 방지)
+            if (characterController != null)
+                characterController.enabled = false;
+
+            // 3) 일단 위로 띄워서 “바닥이 생기는 순간”을 기다리며 스냅
+            Vector3 probeStart = desiredPos + Vector3.up * probeUp;
+            transform.SetPositionAndRotation(probeStart, Quaternion.identity);
+
+            // 콜라이더/지형 생성 타이밍 확보
+            yield return null;
+
+            bool grounded = false;
+            Vector3 snappedPos = desiredPos;
+
+            for (int i = 0; i < maxFramesToWait; i++)
+            {
+                // 매 프레임 바닥을 찾는다
+                if (Physics.Raycast(probeStart, Vector3.down, out RaycastHit hit, probeUp + probeDown, groundMask, QueryTriggerInteraction.Ignore))
+                {
+                    snappedPos = hit.point + Vector3.up * groundOffset;
+                    grounded = true;
+                    break;
+                }
+
+                // 바닥이 없으면 계속 “원하는 위치 주변”에 고정(추락 방지)
+                transform.SetPositionAndRotation(probeStart, Quaternion.identity);
+                yield return null;
+            }
+
+            // 4) 최종 위치 세팅
+            transform.SetPositionAndRotation(grounded ? snappedPos : desiredPos, Quaternion.identity);
+
+            // 5) 컨트롤러 ON
+            if (characterController != null)
+                characterController.enabled = true;
+
+            // 6) 낙하 속도 리셋 (중요)
+            if (playerLocomotionManager != null)
+            {
+                playerLocomotionManager.ResetSpawnProtect();
+            }
+        }
     }
 }

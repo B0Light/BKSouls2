@@ -11,6 +11,8 @@ namespace BK
         [HideInInspector] public float verticalMovement;
         [HideInInspector] public float horizontalMovement;
         [HideInInspector] public float moveAmount;
+        
+        public bool isSpawnProtected;
 
         [Header("Movement Settings")]
         private Vector3 moveDirection;
@@ -41,6 +43,8 @@ namespace BK
 
         protected override void Update()
         {
+            if(isSpawnProtected) return;
+            
             base.Update();
 
             if (player.IsOwner)
@@ -70,6 +74,13 @@ namespace BK
 
         public void HandleAllMovement()
         {
+            if (isSpawnProtected)
+            {
+                // 스폰 보호 중엔 낙하 누적을 막는다
+                yVelocity = Vector3.zero;
+                return;
+            }
+            
             HandleGroundedMovement();
             HandleRotation();
             HandleJumpingMovement();
@@ -351,6 +362,12 @@ namespace BK
         public void ApplyJumpingVelocity()
         {
             yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
+        }
+
+        public void ResetSpawnProtect()
+        {
+            yVelocity = Vector3.zero;
+            isSpawnProtected = false;
         }
     }
 }

@@ -104,14 +104,16 @@ namespace BK
             player.playerNetworkManager.vigor.Value = 15;
             player.playerNetworkManager.endurance.Value = 10;
             player.playerNetworkManager.mind.Value = 10;
-            
-            SaveGame();
 
+            SaveGame();
+            
             currentCharacterData.xPosition = initPosition.x;
-            currentCharacterData.yPosition = initPosition.y + 4f;
+            currentCharacterData.yPosition = initPosition.y;
             currentCharacterData.zPosition = initPosition.z;
             
             WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
+            
+            
         }
 
         public void LoadGame()

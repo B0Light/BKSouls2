@@ -27,10 +27,6 @@ namespace BK
             if (!IsEligibleInteractor(player))
                 return;
 
-            // Disable further interaction locally for this player
-            if (interactableCollider != null)
-                interactableCollider.enabled = false;
-
             CleanupInteraction(player);
 
             // Save after interacting

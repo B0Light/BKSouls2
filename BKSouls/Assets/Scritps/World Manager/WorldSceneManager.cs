@@ -140,40 +140,27 @@ namespace BK
         }
 
         //  SCENE LOADING
-
-        //  USED TO LOAD OUR MAIN WORLD SCENE
         public void LoadWorldScene(int buildIndex)
         {
-            //  1. ACTIVATE OUR LOADING SCREEN
             GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
-
-            //  2. GET WORLD SCENE, AND LOAD IT
+            
             string worldScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
             NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
-
-            //  3. LOAD OUR PLAYER SAVE DATA
+            
             GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData);
         }
 
         //  USED TO LOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE
         private void LoadAdditiveScene(string sceneName)
         {
-            //  1. MAKE SURE THE SCENE IS NOT ALREADY LOADED
-            for (int i = 0; i < loadedScenes.Count; i++)
+            foreach (var loadedScene in loadedScenes)
             {
-                //  IF THE SCENE IN THE LIST IS NULL, CONTINUE TO LOOK AT OTHER SCENES
-                if (loadedScenes[i] == null)
-                    continue;
-
-                //  IF THE SCENE IS ALREADY LOADED, ABORT
-                if (loadedScenes[i].name == sceneName && loadedScenes[i].isLoaded)
+                if (loadedScene.name == sceneName && loadedScene.isLoaded)
                     return;
             }
-
-            //  2. LOAD THE SCENE
             var loadSceneStatus = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
 
-            //  3. LOAD EXTRAS IN THE SCENE (SUCH AS MONSTERS OR BREAKABLE OBJECTS)
+            //  LOAD EXTRAS IN THE SCENE (SUCH AS MONSTERS OR BREAKABLE OBJECTS)
         }
 
         //  USED TO LOAD MULTIPLE ADDITIVE SCENES AT ONCE WHEN ENTERING NEW AREA
