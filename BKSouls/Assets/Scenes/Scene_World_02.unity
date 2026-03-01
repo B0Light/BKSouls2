@@ -119,6 +119,111 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &442718592
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 442718594}
+  - component: {fileID: 442718593}
+  - component: {fileID: 442718595}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &442718593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442718592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593a2fe42fa9d37498c96f9a383b6521, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkManager
+  NetworkManagerExpanded: 0
+  NetworkConfig:
+    ProtocolVersion: 0
+    NetworkTransport: {fileID: 442718595}
+    PlayerPrefab: {fileID: 0}
+    Prefabs:
+      NetworkPrefabsLists:
+      - {fileID: 11400000, guid: a4ba08215c4d7fe4892c8db8c9f40625, type: 2}
+    TickRate: 30
+    ClientConnectionBufferTimeout: 10
+    ConnectionApproval: 0
+    ConnectionData: 
+    EnableTimeResync: 0
+    TimeResyncInterval: 30
+    EnsureNetworkVariableLengthSafety: 0
+    EnableSceneManagement: 1
+    ForceSamePrefabs: 1
+    RecycleNetworkIds: 1
+    NetworkIdRecycleDelay: 120
+    RpcHashSize: 0
+    LoadSceneTimeOut: 120
+    SpawnTimeout: 10
+    EnableNetworkLogs: 1
+    NetworkTopology: 0
+    UseCMBService: 0
+    AutoSpawnPlayerPrefabClientSide: 1
+    NetworkProfilingMetrics: 1
+    OldPrefabList: []
+  RunInBackground: 1
+  LogLevel: 1
+--- !u!4 &442718594
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442718592}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &442718595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 442718592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6960e84d07fb87f47956e7a81d71c4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Transports.UTP.UnityTransport
+  m_ProtocolType: 0
+  m_UseWebSockets: 0
+  m_UseEncryption: 0
+  m_MaxPacketQueueSize: 128
+  m_MaxPayloadSize: 6144
+  m_HeartbeatTimeoutMS: 500
+  m_ConnectTimeoutMS: 1000
+  m_MaxConnectAttempts: 60
+  m_DisconnectTimeoutMS: 30000
+  ConnectionData:
+    Address: 127.0.0.1
+    Port: 7777
+    ServerListenAddress: 
+    ClientBindPort: 0
+  DebugSimulator:
+    PacketDelayMS: 0
+    PacketJitterMS: 0
+    PacketDropRate: 0
 --- !u!1 &531272199
 GameObject:
   m_ObjectHideFlags: 0
@@ -256,7 +361,7 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &682775934
+--- !u!1 &630907041
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -264,138 +369,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 682775939}
-  - component: {fileID: 682775938}
-  - component: {fileID: 682775937}
-  - component: {fileID: 682775936}
-  - component: {fileID: 682775935}
+  - component: {fileID: 630907043}
+  - component: {fileID: 630907042}
+  - component: {fileID: 630907044}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MapSync
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &682775935
+--- !u!114 &630907042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682775934}
+  m_GameObject: {fileID: 630907041}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb3d92b650bd57468f485af315c10f7, type: 3}
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RunDirector
-  stageGenerator: {fileID: 682775936}
-  stages:
-  - sizeX: 8
-    sizeZ: 8
-    cellSize: 20
-    minStartExitDistance: 5
-    maxAttempts: 20
-    forceTreeNoLoops: 0
-    forceDoorsOnStartExit: 1
-    wfcMaxRestartsPerAttempt: 5
-    wDeadEnd: 0
-    wStraight: 0
-    wCorner: 0
-    wTJunction: 0
-    wCross: 0
-    wClosed: 0
-    shopChance: 1
-    eliteChance: 1
-    eventChance: 0
-    treasureLeafMin: 5
-    treasureLeafMax: 20
-  bossStage:
-    sizeX: 8
-    sizeZ: 8
-    cellSize: 20
-    minStartExitDistance: 5
-    maxAttempts: 20
-    forceTreeNoLoops: 1
-    forceDoorsOnStartExit: 1
-    wfcMaxRestartsPerAttempt: 10
-    wDeadEnd: 2.8
-    wStraight: 2.2
-    wCorner: 2
-    wTJunction: 0.9
-    wCross: 0.15
-    wClosed: 0.05
-    shopChance: 0.7
-    eliteChance: 0.5
-    eventChance: 0.25
-    treasureLeafMin: 1
-    treasureLeafMax: 3
---- !u!114 &682775936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682775934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dde584db6f44a0a41993fb194b0fa215, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StageGenerator
-  baseRoomPrefab: {fileID: 5728587325484262068, guid: cd75b8850672f1d4bb2adac379cfbdfa, type: 3}
-  doorPrefab: {fileID: 2650640775411030278, guid: a1c7b898afa29054d9f34fc65bd23e31, type: 3}
-  wallPrefab: {fileID: 5528290515640257236, guid: 95226e13170b3bf43a4f6606c51f4567, type: 3}
-  core: {fileID: 682775938}
-  contentLibrary: {fileID: 682775937}
---- !u!114 &682775937
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682775934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b367953bc2fe39440ba8c6af621c99b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RoomContentLibrary
-  startMarker: {fileID: 1940735383463732661, guid: 212925f89c9f5d242a3084956ea07416, type: 3}
-  exitPortal: {fileID: 4263488364816887282, guid: 93ea837ae93670347a1a6041a9205405, type: 3}
-  bossPortal: {fileID: 3462274806241147677, guid: 0416618c0f506af488d744555ba232eb, type: 3}
-  shopPrefab: {fileID: 494964755957031611, guid: fac6b010bb355074ab2f2c9d41b9dc19, type: 3}
-  eliteMarker: {fileID: 2804277830935715758, guid: c684c4bef53c7d04d8f977e0ca8d3ae1, type: 3}
-  eventPrefab: {fileID: 3825150770171229107, guid: 532772649fc47784a8826ab078347f00, type: 3}
-  treasurePrefab: {fileID: 339677603337211124, guid: 029c2a131e951bf418d43e3d2d96e2ef, type: 3}
-  combatSpawnerPrefab: {fileID: 3302767180199612865, guid: e1b130181fe93fb45961705c1ccc0efe, type: 3}
-  eliteSpawnerPrefab: {fileID: 145620401818693933, guid: 3bf6dad9830e828469696375ade52d9d, type: 3}
---- !u!114 &682775938
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682775934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10acc2462299e63498ccdec568dbaf50, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonGraphWfcCore
-  useSeed: 0
-  seed: 0
---- !u!4 &682775939
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 3677969941
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
+--- !u!4 &630907043
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682775934}
+  m_GameObject: {fileID: 630907041}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 53.16829, y: 106.88079, z: 5.01873}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &630907044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630907041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cf191e0730719740ad712ed4ee2794d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IsaacMapSyncController
+  ShowTopMostFoldoutHeaderGroup: 1
+  tileSlot: {fileID: 1415795399}
+  tileMappingData: {fileID: 11400000, guid: 24eedc04ed8003b4cac8cdfb0296e93b, type: 2}
+  gridSize: {x: 64, y: 64}
+  cubeSize: {x: 2, y: 2, z: 2}
+  maxRooms: 15
+  specialRoomCount: 3
+  horizontalSize: 11
+  verticalSize: 11
+  spacing: 3
 --- !u!1 &1247246114
 GameObject:
   m_ObjectHideFlags: 0
@@ -523,10 +568,43 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!1 &1415795398
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1415795399}
+  m_Layer: 0
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1415795399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1415795398}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 531272202}
   - {fileID: 1247246116}
-  - {fileID: 682775939}
+  - {fileID: 442718594}
+  - {fileID: 630907043}
+  - {fileID: 1415795399}

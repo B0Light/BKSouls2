@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 104abc759d417fb488533d6b2f4b0307, type: 3}
+  m_Name: TileData_04
+  m_EditorClassIdentifier: 
+  tilePrefab: {fileID: 1691581078342472967, guid: 9fcbe83f809291344848cdf335cd3f66, type: 3}
+  objectPercent: 0
+  treePercent: 0
+  grassPercent: 0
+  objectPrefabs: []
+  treePrefabs: []
+  grassPrefabs: []
