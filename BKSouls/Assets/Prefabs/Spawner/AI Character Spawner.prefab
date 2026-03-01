@@ -1134,7 +1134,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9145648414156429628}
-  - component: {fileID: 3420847207309462310}
   - component: {fileID: 4480162283366872156}
   m_Layer: 0
   m_Name: AI Character Spawner
@@ -1160,28 +1159,6 @@ Transform:
   - {fileID: 8460667287791423779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &3420847207309462310
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5629762381924410861}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: e1567ee678a049240897ab987ca233c8, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &4480162283366872156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1194,8 +1171,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683246800056f3748a89b2c277f6ab25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterSpawner
-  characterGameObject: {fileID: 3099451054637410320, guid: 2b51e42e8a554c04bb5c93e0fb7b2d58, type: 3}
+  characterGameObject: {fileID: 6609826214687163364, guid: 092a7674548a7b04abaaf73c2d20cd1d, type: 3}
   instantiatedGameObject: {fileID: 0}
+  hasPatrolPath: 0
+  patrolPathID: 1
+  isSleeping: 1
+  manuallySetStats: 1
+  stamina: 150
+  health: 400
 --- !u!1 &5928022937215628451
 GameObject:
   m_ObjectHideFlags: 0

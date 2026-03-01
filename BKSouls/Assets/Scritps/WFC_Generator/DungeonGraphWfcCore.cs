@@ -134,7 +134,7 @@ public class DungeonGraphWfcCore : MonoBehaviour
         RepairFullyConnected(cfg.sizeX, cfg.sizeZ);
         graph.ClampBordersClosed();
 
-        // 4) 로그라이크: 트리 강제(루프 제거)
+        // 4) 루프 제거 
         if (cfg.forceTreeNoLoops)
         {
             MakeSpanningTreeFromStart(cfg.sizeX, cfg.sizeZ);

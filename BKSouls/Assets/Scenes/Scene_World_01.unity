@@ -85241,22 +85241,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4480162283366872156, guid: 9cdfa39ea9fd7ff41a52ceb41d256862, type: 3}
-      propertyPath: isSleeping
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4480162283366872156, guid: 9cdfa39ea9fd7ff41a52ceb41d256862, type: 3}
-      propertyPath: patrolPathID
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4480162283366872156, guid: 9cdfa39ea9fd7ff41a52ceb41d256862, type: 3}
-      propertyPath: hasPatrolPath
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4480162283366872156, guid: 9cdfa39ea9fd7ff41a52ceb41d256862, type: 3}
-      propertyPath: characterGameObject
-      value: 
-      objectReference: {fileID: 6609826214687163364, guid: 092a7674548a7b04abaaf73c2d20cd1d, type: 3}
     - target: {fileID: 5629762381924410861, guid: 9cdfa39ea9fd7ff41a52ceb41d256862, type: 3}
       propertyPath: m_Name
       value: AI Character Spawner

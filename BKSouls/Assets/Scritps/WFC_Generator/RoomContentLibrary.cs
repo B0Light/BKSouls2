@@ -11,8 +11,7 @@ public class RoomContentLibrary : MonoBehaviour
     public GameObject eliteMarker;
     public GameObject eventPrefab;
     public GameObject treasurePrefab;
-
-    // 여기에 네 전투 스포너(소울라이크 전투) 연결
+    
     public GameObject combatSpawnerPrefab;
     public GameObject eliteSpawnerPrefab;
 

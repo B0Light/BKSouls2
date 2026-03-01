@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,11 @@ public class RunDirector : MonoBehaviour
     public StageConfig bossStage;
 
     private int stageIndex = -1;
+
+    private void Start()
+    {
+        StartRun();
+    }
 
     [ContextMenu("StartRun")]
     public void StartRun()

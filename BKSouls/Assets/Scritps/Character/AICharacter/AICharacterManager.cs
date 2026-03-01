@@ -19,6 +19,7 @@ namespace BK
 
         [Header("Navmesh Agent")]
         public NavMeshAgent navMeshAgent;
+        public NavMeshPath runtimePath;
 
         [Header("Current State")]
         public AIState currentState;
@@ -44,6 +45,7 @@ namespace BK
             aiCharacterInventoryManager = GetComponent<AICharacterInventoryManager>();
 
             navMeshAgent = GetComponentInChildren<NavMeshAgent>();
+            runtimePath = new NavMeshPath();
         }
 
         protected override void Start()

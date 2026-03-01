@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.CombatStanceState
   aiCharacterAttacks:
   - {fileID: 11400000, guid: 46f2b4ced7807224490fe313cb6afc6c, type: 2}
+  - {fileID: 11400000, guid: 9630214e3c3533742b14766cfece37a9, type: 2}
+  - {fileID: 11400000, guid: 76db583d55e25984e88f091b9ac844b8, type: 2}
   potentialAttacks: []
-  choosenAttack: {fileID: 0}
+  chosenAttack: {fileID: 0}
   previousAttack: {fileID: 0}
   canPerformCombo: 0
   percentageOfTimeWillPerformCombo: 25
@@ -25,4 +27,4 @@ MonoBehaviour:
   canBlock: 0
   percentageOfTimeWillBlock: 100
   canEvade: 1
-  percentageOfTimeWillEvade: 100
+  percentageOfTimeWillEvade: 30

@@ -12,7 +12,7 @@ namespace BK
         {
             AIBossCharacterManager boss = WorldAIManager.instance.GetBossCharacterByID(bossID);
 
-            if (boss != null)
+            if (boss != null && boss.isDead.Value == false)
             {
                 boss.WakeBoss();
             }

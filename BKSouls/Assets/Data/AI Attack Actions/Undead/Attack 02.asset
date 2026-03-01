@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Attack 02
   m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterAttackAction
   attackAnimation: Attack_02
+  isParryable: 1
   comboAction: {fileID: 0}
   attackType: 0
   attackWeight: 50
   actionRecoveryTime: 1.5
-  minimumAttackAngle: -35
-  maximumAttackAngle: 35
+  minimumAttackAngle: -90
+  maximumAttackAngle: 90
   minimumAttackDistance: 0
   maximumAttackDistance: 3

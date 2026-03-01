@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 531272202}
   - component: {fileID: 531272201}
   - component: {fileID: 531272200}
+  - component: {fileID: 531272203}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -211,6 +212,190 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &531272203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 531272199}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalCameraData
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
+--- !u!1 &682775934
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 682775939}
+  - component: {fileID: 682775938}
+  - component: {fileID: 682775937}
+  - component: {fileID: 682775936}
+  - component: {fileID: 682775935}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &682775935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682775934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb3d92b650bd57468f485af315c10f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RunDirector
+  stageGenerator: {fileID: 682775936}
+  stages:
+  - sizeX: 8
+    sizeZ: 8
+    cellSize: 20
+    minStartExitDistance: 5
+    maxAttempts: 20
+    forceTreeNoLoops: 0
+    forceDoorsOnStartExit: 1
+    wfcMaxRestartsPerAttempt: 5
+    wDeadEnd: 0
+    wStraight: 0
+    wCorner: 0
+    wTJunction: 0
+    wCross: 0
+    wClosed: 0
+    shopChance: 1
+    eliteChance: 1
+    eventChance: 0
+    treasureLeafMin: 5
+    treasureLeafMax: 20
+  bossStage:
+    sizeX: 8
+    sizeZ: 8
+    cellSize: 20
+    minStartExitDistance: 5
+    maxAttempts: 20
+    forceTreeNoLoops: 1
+    forceDoorsOnStartExit: 1
+    wfcMaxRestartsPerAttempt: 10
+    wDeadEnd: 2.8
+    wStraight: 2.2
+    wCorner: 2
+    wTJunction: 0.9
+    wCross: 0.15
+    wClosed: 0.05
+    shopChance: 0.7
+    eliteChance: 0.5
+    eventChance: 0.25
+    treasureLeafMin: 1
+    treasureLeafMax: 3
+--- !u!114 &682775936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682775934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde584db6f44a0a41993fb194b0fa215, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StageGenerator
+  baseRoomPrefab: {fileID: 5728587325484262068, guid: cd75b8850672f1d4bb2adac379cfbdfa, type: 3}
+  doorPrefab: {fileID: 2650640775411030278, guid: a1c7b898afa29054d9f34fc65bd23e31, type: 3}
+  wallPrefab: {fileID: 5528290515640257236, guid: 95226e13170b3bf43a4f6606c51f4567, type: 3}
+  core: {fileID: 682775938}
+  contentLibrary: {fileID: 682775937}
+--- !u!114 &682775937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682775934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b367953bc2fe39440ba8c6af621c99b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomContentLibrary
+  startMarker: {fileID: 1940735383463732661, guid: 212925f89c9f5d242a3084956ea07416, type: 3}
+  exitPortal: {fileID: 4263488364816887282, guid: 93ea837ae93670347a1a6041a9205405, type: 3}
+  bossPortal: {fileID: 3462274806241147677, guid: 0416618c0f506af488d744555ba232eb, type: 3}
+  shopPrefab: {fileID: 494964755957031611, guid: fac6b010bb355074ab2f2c9d41b9dc19, type: 3}
+  eliteMarker: {fileID: 2804277830935715758, guid: c684c4bef53c7d04d8f977e0ca8d3ae1, type: 3}
+  eventPrefab: {fileID: 3825150770171229107, guid: 532772649fc47784a8826ab078347f00, type: 3}
+  treasurePrefab: {fileID: 339677603337211124, guid: 029c2a131e951bf418d43e3d2d96e2ef, type: 3}
+  combatSpawnerPrefab: {fileID: 3302767180199612865, guid: e1b130181fe93fb45961705c1ccc0efe, type: 3}
+  eliteSpawnerPrefab: {fileID: 145620401818693933, guid: 3bf6dad9830e828469696375ade52d9d, type: 3}
+--- !u!114 &682775938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682775934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10acc2462299e63498ccdec568dbaf50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonGraphWfcCore
+  useSeed: 0
+  seed: 0
+--- !u!4 &682775939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 682775934}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1247246114
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,6 +406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1247246116}
   - component: {fileID: 1247246115}
+  - component: {fileID: 1247246117}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -308,9 +494,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &1247246117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247246114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 531272202}
   - {fileID: 1247246116}
+  - {fileID: 682775939}

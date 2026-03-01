@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 723313e09223a0645a315c9c58066adf, type: 3}
   m_Name: 1. Knight Idle State
   m_EditorClassIdentifier: Assembly-CSharp::BK.IdleState
-  idleStateMode: 0
+  idleStateMode: 2
   aiPatrolPath: {fileID: 0}
   hasFoundClosestPointNearCharacterSpawn: 0
   patrolComplete: 0
