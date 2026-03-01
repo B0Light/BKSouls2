@@ -1,50 +1,124 @@
+using System;
 using Unity.Netcode;
 using UnityEngine;
 
-/// <summary>
-/// "맵 생성 동기화"만 담당.
-/// - Host가 seed/payload 결정
-/// - Clients는 받은 payload로 로컬 생성
-/// </summary>
+/// - Host가 runSeed/stageIndex 기반으로 stageSeed를 파생
+/// - payload(Seed + 파라미터)만 전송 → 각 클라가 로컬로 동일 맵 생성
+
 public class IsaacMapSyncController : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform tileSlot;
     [SerializeField] private TileMappingDataSO tileMappingData;
 
-    [Header("Default Config (Host가 결정)")]
+    [Header("Generator Base Settings")]
     [SerializeField] private Vector2Int gridSize = new Vector2Int(64, 64);
-    [SerializeField] private Vector3 cubeSize = new Vector3(2, 2, 2);
+    [SerializeField] private Vector3 cubeSize = new Vector3(2f, 2f, 2f);
 
+    [Header("Isaac Style Settings (Host decides)")]
     [SerializeField] private int maxRooms = 15;
     [SerializeField] private int specialRoomCount = 3;
     [SerializeField] private int horizontalSize = 11;
     [SerializeField] private int verticalSize = 11;
     [SerializeField] private int spacing = 3;
 
+    [Header("Run State (Host)")]
+    [SerializeField] private int runSeed = 0;
+    [SerializeField] private int stageIndex = 0;
+
     private IsaacMapGenerator _generator;
 
     public override void OnNetworkSpawn()
     {
-        // 로컬 생성기 준비(호스트/클라 둘 다)
         EnsureGenerator();
     }
 
-    [ContextMenu("Host: Generate & Sync")]
-    public void HostGenerateAndSync()
+    // -----------------------------
+    // Public Host Controls (Context Menu)
+    // -----------------------------
+
+    [ContextMenu("Host: Start Run (Init Seed)")]
+    public void HostStartRun()
     {
         if (!IsServer)
         {
-            Debug.LogWarning("HostGenerateAndSync는 Host(서버)에서만 호출하세요.");
+            Debug.LogWarning("[IsaacMapSync] HostStartRun: Host(서버)에서만 호출하세요.");
             return;
         }
 
-        // ✅ Host가 이번 스테이지 seed 결정
-        int seed = System.Environment.TickCount; // 테스트용. 실제론 runSeed/roomIndex 기반 추천
+        if (runSeed == 0)
+            runSeed = Environment.TickCount;
 
-        var payload = new IsaacMapGenPayload
+        stageIndex = 0;
+        HostGenerateStageAndSync();
+    }
+
+    [ContextMenu("Host: Regenerate Current Stage")]
+    public void HostRegenerateCurrentStage()
+    {
+        if (!IsServer)
         {
-            seed = seed,
+            Debug.LogWarning("[IsaacMapSync] HostRegenerateCurrentStage: Host(서버)에서만 호출하세요.");
+            return;
+        }
+
+        HostGenerateStageAndSync();
+    }
+
+    [ContextMenu("Host: Next Stage")]
+    public void HostNextStage()
+    {
+        if (!IsServer)
+        {
+            Debug.LogWarning("[IsaacMapSync] HostNextStage: Host(서버)에서만 호출하세요.");
+            return;
+        }
+
+        stageIndex++;
+        HostGenerateStageAndSync();
+    }
+
+    [ContextMenu("Host: Set New RunSeed (Random)")]
+    public void HostSetNewRunSeed()
+    {
+        if (!IsServer)
+        {
+            Debug.LogWarning("[IsaacMapSync] HostSetNewRunSeed: Host(서버)에서만 호출하세요.");
+            return;
+        }
+
+        runSeed = Environment.TickCount;
+        stageIndex = 0;
+        HostGenerateStageAndSync();
+    }
+
+    // -----------------------------
+    // Core
+    // -----------------------------
+
+    private void HostGenerateStageAndSync()
+    {
+        EnsureGenerator();
+        if (_generator == null) return;
+
+        int stageSeed = HashSeed(runSeed, stageIndex);
+
+        var payload = BuildPayload(stageSeed);
+
+        // Host 로컬 생성
+        GenerateLocal(payload);
+
+        // Clients 생성
+        GenerateStageRpc(payload);
+
+        Debug.Log($"[IsaacMapSync] Generated & synced. runSeed={runSeed}, stageIndex={stageIndex}, stageSeed={stageSeed}");
+    }
+
+    private IsaacMapGenPayload BuildPayload(int stageSeed)
+    {
+        return new IsaacMapGenPayload
+        {
+            seed = stageSeed,
             gridSize = gridSize,
             cubeSize = cubeSize,
             maxRooms = maxRooms,
@@ -53,12 +127,6 @@ public class IsaacMapSyncController : NetworkBehaviour
             verticalSize = verticalSize,
             spacing = spacing
         };
-
-        // Host도 로컬 생성
-        GenerateLocal(payload);
-
-        // Clients에게 전송(Host 포함 송신 필요 없음, 이미 로컬 생성했으니까 Clients만 보내도 됨)
-        GenerateMapRpc(payload);
     }
 
     private void EnsureGenerator()
@@ -67,10 +135,11 @@ public class IsaacMapSyncController : NetworkBehaviour
 
         if (tileSlot == null || tileMappingData == null)
         {
-            Debug.LogError("tileSlot / tileMappingData가 비어있습니다.");
+            Debug.LogError("[IsaacMapSync] tileSlot 또는 tileMappingData가 비어있습니다.");
             return;
         }
 
+        // 생성기 인스턴스(설정값은 GenerateLocal에서 payload로 매번 갱신)
         _generator = new IsaacMapGenerator(
             tileSlot,
             tileMappingData,
@@ -95,25 +164,44 @@ public class IsaacMapSyncController : NetworkBehaviour
 
         // payload 적용
         _generator.seed = payload.seed;
-        // grid/cube는 생성기 생성자에서 세팅됐지만, 혹시 변경될 수 있으니 새로 만들고 싶으면
-        // generator를 새로 생성하는 쪽이 안전(여기선 grid/cube는 고정이라 가정)
-
         _generator.maxRooms = payload.maxRooms;
         _generator.specialRoomCount = payload.specialRoomCount;
         _generator.horizontalSize = payload.horizontalSize;
         _generator.verticalSize = payload.verticalSize;
         _generator.spacing = payload.spacing;
 
+        // gridSize / cubeSize를 런타임에 바꿀 계획이 있다면,
+        // BaseMapGenerator가 이를 변경 가능하게 설계되어 있어야 함.
+        // (일단은 고정값 가정)
+
         _generator.GenerateMap();
+
         Debug.Log($"[IsaacMapSync] Local map generated. seed={payload.seed}");
     }
 
-    [Rpc(SendTo.NotServer)]
-    private void GenerateMapRpc(IsaacMapGenPayload payload)
-    {
-        // Host는 이미 생성했으니, 여기서는 클라만 실행됨(Clients)
-        if (IsServer) return;
+    // -----------------------------
+    // RPC
+    // -----------------------------
 
+    // Host 제외한 모든 클라이언트에서 실행
+    [Rpc(SendTo.NotServer)]
+    private void GenerateStageRpc(IsaacMapGenPayload payload)
+    {
         GenerateLocal(payload);
+    }
+
+    // -----------------------------
+    // Utils
+    // -----------------------------
+
+    private static int HashSeed(int baseSeed, int salt)
+    {
+        unchecked
+        {
+            int h = 17;
+            h = h * 31 + baseSeed;
+            h = h * 31 + salt;
+            return h;
+        }
     }
 }

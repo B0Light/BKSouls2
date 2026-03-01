@@ -139,6 +139,7 @@ public enum CellType
     Wall,
     Path,
     ExpandedPath,
+    Gate,
 }
 
 

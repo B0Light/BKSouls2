@@ -54,7 +54,6 @@ public class IsaacMapGenerator : BaseMapGenerator
     protected override void InitializeGenerator()
     {
         rooms = new Dictionary<Vector2Int, Room>();
-        pathType = PathType.Straight; // Isaac은 기본 직선 복도
     }
 
     public override void GenerateMap()
@@ -204,7 +203,7 @@ public class IsaacMapGenerator : BaseMapGenerator
         int endX = startX + direction.x * corridorLength;
         int endY = startY + direction.y * corridorLength;
 
-        CreatePathBetweenPoints(new Vector2Int(startX, startY), new Vector2Int(endX, endY));
+        CreateStraightPath(new Vector2Int(startX, startY), new Vector2Int(endX, endY));
     }
 
     private void PlaceSpecialRoomsDeterministic()
