@@ -2,11 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
+using UnityEngine.Audio;
 
 namespace BK
 {
     public class WorldSoundFXManager : Singleton<WorldSoundFXManager>
     {
+        [Header("Audio Sources")]
+        [SerializeField] private AudioSource bgmAudioSource;
+        
+        [Header("Audio Mixer")]
+        [SerializeField] private AudioMixer audioMixer;
+        
+        [Header("Mixer Group Parameters")]
+        [SerializeField] private string bgmVolumeParameter = "BGMVolume";
+        [SerializeField] private string sfxVolumeParameter = "SFXVolume";
+        [SerializeField] private string masterVolumeParameter = "MasterVolume";
+        
         [Header("Boss Track")]
         [SerializeField] AudioSource bossIntroPlayer;
         [SerializeField] AudioSource bossLoopPlayer;
@@ -24,6 +36,9 @@ namespace BK
         public AudioClip[] releaseArrowSFX;
         public AudioClip[] notchArrowSFX;
         public AudioClip healingFlaskSFX;
+        
+        private const float MIN_VOLUME = 0.0001f; // -80dB
+        private const float MAX_VOLUME = 1f; // 0dB
 
         public AudioClip ChooseRandomSfxFromArray(AudioClip[] array)
         {
@@ -91,5 +106,50 @@ namespace BK
                 charactersToAlert[i].aiCharacterCombatManager.AlertCharacterToSound(positionOfSound);
             }
         }
+        
+        
+        public void PlayBGM(AudioClip clip)
+        {
+            if (clip == null) return;
+
+            bgmAudioSource.clip = clip;
+            bgmAudioSource.Play();
+        }
+
+        public void StopBGM()
+        {
+            bgmAudioSource.Stop();
+        }
+        
+        public float GetBGMVolume()
+        {
+            return PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+        }
+        
+        public void SetBGMVolume(float normalizedVolume)
+        {
+            // Clamp between 0 and 1
+            normalizedVolume = Mathf.Clamp01(normalizedVolume);
+        
+            // Convert to decibels (logarithmic scale)
+            float decibelValue = ConvertToDecibels(normalizedVolume);
+        
+            // Set mixer value
+            audioMixer.SetFloat(bgmVolumeParameter, decibelValue);
+        
+            // Save the setting
+            PlayerPrefs.SetFloat("BGMVolume", normalizedVolume);
+            PlayerPrefs.Save();
+        }
+        
+        private float ConvertToDecibels(float normalizedVolume)
+        {
+            // Prevent log(0) which would give -infinity
+            normalizedVolume = Mathf.Max(normalizedVolume, MIN_VOLUME);
+        
+            // Convert to decibels (logarithmic scale)
+            return Mathf.Log10(normalizedVolume) * 20f;
+        }
+        
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseMapGenerator : IMapGenerator
+public abstract class BaseMapGenerator
 {
     [Header("기본 설정")]
     public int seed = 0;
@@ -20,9 +20,6 @@ public abstract class BaseMapGenerator : IMapGenerator
     protected List<RectInt> _floorList;
 
     protected Transform _slot;
-    
-    // 프로퍼티
-    public bool IsMapGenerated => isMapGenerated;
 
     public BaseMapGenerator(Transform slot, TileMappingDataSO tileMappingData)
     {
@@ -86,8 +83,7 @@ public abstract class BaseMapGenerator : IMapGenerator
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                if (_grid[x, y] == CellType.Floor || _grid[x, y] == CellType.FloorCenter || 
-                    _grid[x, y] == CellType.Path || _grid[x, y] == CellType.ExpandedPath)
+                if (_grid[x, y] == CellType.Floor || _grid[x, y] == CellType.Path)
                 {
                     // 상하좌우 체크 (경계 범위 내에서만)
                     if (x > 0 && _grid[x - 1, y] == CellType.Empty) _grid[x - 1, y] = CellType.Wall;
@@ -121,17 +117,6 @@ public abstract class BaseMapGenerator : IMapGenerator
     protected virtual bool TryGetTileData(int x, int y, out TileDataSO tileData)
     {
         return tileDataDict.TryGetValue(_grid[x, y], out tileData) && tileData != null;
-    }
-    
-    public virtual MapData GetMapData()
-    {
-        return new MapData
-        {
-            grid = _grid,
-            floorList = _floorList,
-            gridSize = gridSize,
-            isGenerated = isMapGenerated
-        };
     }
     
     protected virtual void OnMapGenerationComplete()
@@ -238,8 +223,8 @@ public abstract class BaseMapGenerator : IMapGenerator
                 current.y += direction.y;
             }
         }
-        _grid[startPos.x, startPos.y] = CellType.Gate;
-        _grid[endPos.x, endPos.y] = CellType.Gate;
+        _grid[startPos.x, startPos.y] = CellType.MainGate;
+        _grid[endPos.x, endPos.y] = CellType.MainGate;
         
     }
 }

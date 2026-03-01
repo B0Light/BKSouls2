@@ -114,7 +114,11 @@ namespace BK
 
         //  THIS WILL CHANGE A LITTLE WHEN WE ADD MULTIPLE SPELL SLOTS, IT WILL BE SOMEWHAT SIMILAR TO HOW WEAPONS ARE SAVED
         public int currentSpell;
-
+        
+        // Shelter
+        public int shelterLevel;
+        [SerializeReference]
+        public List<SaveBuildingData> buildings;
 
         public CharacterSaveData()
         {
@@ -141,6 +145,9 @@ namespace BK
             safeItems = new SerializableDictionary<int, int>();
             shareInventoryItems = new SerializableDictionary<int, int>();
 
+            // Shelter
+            shelterLevel = 1;
+            buildings = new List<SaveBuildingData>();
         }
     }
 }

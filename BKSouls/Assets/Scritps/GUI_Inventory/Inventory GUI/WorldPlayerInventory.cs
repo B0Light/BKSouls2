@@ -197,6 +197,21 @@ namespace BK.Inventory
 
         #region Transaction Remove (Method 1 유지)
 
+        public bool RemoveItemInInventory(int itemId, int requiredCount = 1)
+        {
+            var transaction = new Dictionary<ItemGrid, Dictionary<int, int>>();
+
+            try
+            {
+                return RemoveItemInInventory(itemId, requiredCount, transaction);
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning($"자동 복구 수행 중: {ex.Message}");
+                RollbackTransaction(transaction);
+                return false;
+            }
+        }
         private bool RemoveItemInInventory(int itemId, int requiredCount,
             Dictionary<ItemGrid, Dictionary<int, int>> transaction)
         {
@@ -227,22 +242,7 @@ namespace BK.Inventory
 
             return true;
         }
-
-        public bool RemoveItemInInventory(int itemId, int requiredCount = 1)
-        {
-            var transaction = new Dictionary<ItemGrid, Dictionary<int, int>>();
-
-            try
-            {
-                return RemoveItemInInventory(itemId, requiredCount, transaction);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogWarning($"자동 복구 수행 중: {ex.Message}");
-                RollbackTransaction(transaction);
-                return false;
-            }
-        }
+        
 
         private void RollbackTransaction(Dictionary<ItemGrid, Dictionary<int, int>> transaction)
         {
@@ -255,7 +255,7 @@ namespace BK.Inventory
             }
         }
 
-        public bool CheckItemInInventory(int itemCode) => GetItemCountInAllInventory(itemCode) > 0;
+        public bool CheckItemInInventory(int itemCode, int amount = 1) => GetItemCountInAllInventory(itemCode) >= amount;
 
         public int GetItemCountInAllInventory(int itemCode)
         {

@@ -2,11 +2,6 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Isaac 스타일의 던전 맵 생성기 (Deterministic 버전)
-/// - 난수는 System.Random 단 하나만 사용
-/// - 재생성은 재귀 대신 "시도 루프 + 파생 시드"
-/// </summary>
 public class IsaacMapGenerator : BaseMapGenerator
 {
     [Header("맵 설정")]
@@ -71,10 +66,6 @@ public class IsaacMapGenerator : BaseMapGenerator
         PlaceSpecialRoomsDeterministic();
         BuildWalls();
         RenderGrid();
-
-        var mapData = GetMapData();
-        mapData.roomCount = rooms.Count;
-        mapData.seed = seed;
 
         OnMapGenerationComplete();
     }
@@ -173,10 +164,7 @@ public class IsaacMapGenerator : BaseMapGenerator
             {
                 if (x >= 0 && x < gridSize.x && y >= 0 && y < gridSize.y)
                 {
-                    if (x == gridX + width / 2 && y == gridY + height / 2)
-                        _grid[x, y] = CellType.FloorCenter;
-                    else
-                        _grid[x, y] = CellType.Floor;
+                    _grid[x, y] = CellType.Floor;
                 }
             }
         }

@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104abc759d417fb488533d6b2f4b0307, type: 3}
+  m_Script: {fileID: 11500000, guid: 717afb860b820f34dad0a16743110b75, type: 3}
   m_Name: TileData_06
   m_EditorClassIdentifier: 
-  tilePrefab: {fileID: 1691581078342472967, guid: 3e1b28443a4985347a9ea77a1c8b6424, type: 3}
+  tilePrefab: {fileID: 1691581078342472967, guid: d792f5e5c7f31f9428c558a50f2dde50, type: 3}
   objectPercent: 0
   treePercent: 0
   grassPercent: 0

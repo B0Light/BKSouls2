@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 104abc759d417fb488533d6b2f4b0307, type: 3}
+  m_Script: {fileID: 11500000, guid: 717afb860b820f34dad0a16743110b75, type: 3}
   m_Name: TileData_04
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 1691581078342472967, guid: 9fcbe83f809291344848cdf335cd3f66, type: 3}

@@ -252,3 +252,11 @@ public enum BoxType
     MiscBox,
     Safe,
 }
+
+public enum Dir
+{
+    Down,
+    Left,
+    Up,
+    Right,
+}
