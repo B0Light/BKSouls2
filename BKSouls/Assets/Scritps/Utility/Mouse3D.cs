@@ -1,18 +1,33 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;   // ✅ New Input System
 
-public class Mouse3D : MonoBehaviour
+public class Mouse3D : Singleton<Mouse3D>
 {
-    private static Mouse3D Instance { get; set; }
-    
     [SerializeField] private LayerMask layerMask;
     private readonly Vector3 _defaultPosition = new Vector3(-100, -100, -100);
-
-    private void Awake()
+    
+    PlayerControls playerControls;
+    [Header("Input")]
+    [SerializeField] private Vector2 mouseInput;
+    
+    private void OnEnable()
     {
-        Instance = this;
+        if (playerControls == null)
+        {
+            playerControls = new PlayerControls();
+
+            playerControls.UI.MousePosition.performed += i => mouseInput = i.ReadValue<Vector2>();
+        }
+
+        playerControls.Enable();
     }
 
+    private void OnDisable()
+    {
+        playerControls.Disable();
+    }
+    
     public static Vector3 GetMouseWorldPosition()
     {
         if (Instance == null)
@@ -25,31 +40,16 @@ public class Mouse3D : MonoBehaviour
 
     private Vector3 GetMouseWorldPosition_Instance()
     {
-        Ray ray = Camera.main?.ScreenPointToRay(Input.mousePosition) ?? default;
-        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layerMask))
-        {
-            return raycastHit.point;
-        }
-        else
-        {
+        Camera cam = Camera.main;
+        if (cam == null)
             return _defaultPosition;
-        }
-    }
 
-    public static bool GetRaycastHit(Vector3 screenPosition, out RaycastHit hit)
-    {
-        if (Instance == null)
-        {
-            Debug.LogError("Mouse3D Instance is null. Ensure Mouse3D is attached to an active GameObject.");
-            hit = default;
-            return false;
-        }
-        return Instance.GetRaycastHit_Instance(screenPosition, out hit);
-    }
+        Vector2 mouseScreenPos = mouseInput;
+        Ray ray = cam.ScreenPointToRay(mouseScreenPos);
 
-    private bool GetRaycastHit_Instance(Vector3 screenPosition, out RaycastHit hit)
-    {
-        Ray ray = Camera.main?.ScreenPointToRay(screenPosition) ?? default;
-        return Physics.Raycast(ray, out hit, float.MaxValue, layerMask);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, float.MaxValue, layerMask))
+            return raycastHit.point;
+
+        return _defaultPosition;
     }
 }

@@ -13401,6 +13401,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1532544447}
     m_Modifications:
+    - target: {fileID: 1728620797186191210, guid: 8daf5932190d8cb4bb34d8979351bfc1, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 3221322999
+      objectReference: {fileID: 0}
     - target: {fileID: 2938116320348784356, guid: 8daf5932190d8cb4bb34d8979351bfc1, type: 3}
       propertyPath: cameraPivotTransform
       value: 

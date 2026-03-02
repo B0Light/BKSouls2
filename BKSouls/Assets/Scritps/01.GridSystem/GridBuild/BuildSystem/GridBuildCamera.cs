@@ -24,10 +24,42 @@ public class GridBuildCamera : MonoBehaviour
     private bool _isTopDownMode = false;
     private Quaternion _beforeTopDownRotation; // 탑다운 진입 전 회전값 저장
     private CinemachineCamera _vCam;
+    
+    PlayerControls playerControls;
+    private Vector2 movement;
+    private bool projectileInput;
+    private float scrollValue;
+    private bool upInput;
+    private bool downInput;
+    private bool fastInput;
 
     private void Awake()
     {
         _vCam = GetComponent<CinemachineCamera>();
+    }
+    
+    private void OnEnable()
+    {
+        if (playerControls == null)
+        {
+            playerControls = new PlayerControls();
+
+            playerControls.BuildCamera.Movement.performed += i => movement = i.ReadValue<Vector2>();
+            playerControls.BuildCamera.Scroll.performed += i => scrollValue = i.ReadValue<float>();
+            playerControls.BuildCamera.ProjectileInput.performed += i => projectileInput = true;
+            playerControls.BuildCamera.ProjectileInput.canceled += i => projectileInput = false;
+            
+            playerControls.BuildCamera.upInput.performed += i => upInput = true;
+            playerControls.BuildCamera.upInput.canceled += i => upInput = false;
+            
+            playerControls.BuildCamera.downInput.performed += i => downInput = true;
+            playerControls.BuildCamera.downInput.canceled += i => downInput= false;
+            
+            playerControls.BuildCamera.fastInput.performed += i => fastInput = true;
+            playerControls.BuildCamera.fastInput.canceled += i => fastInput = false;
+        }
+
+        playerControls.Enable();
     }
 
     private void Start()
@@ -51,10 +83,10 @@ public class GridBuildCamera : MonoBehaviour
 
     private void HandleMovement()
     {
-        if (Input.GetMouseButton(2)) // 중간 버튼으로 이동
+        if (projectileInput) // 중간 버튼으로 이동
         {
-            float moveX = -Input.GetAxis("Mouse X") * moveSpeed * Time.deltaTime;
-            float moveY = -Input.GetAxis("Mouse Y") * moveSpeed * Time.deltaTime;
+            float moveX = -movement.x * moveSpeed * Time.deltaTime;
+            float moveY = -movement.y * moveSpeed * Time.deltaTime;
 
             Vector3 move;
 
@@ -77,7 +109,7 @@ public class GridBuildCamera : MonoBehaviour
 
     private void HandleZoom()
     {
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float scroll = scrollValue;
         if (scroll != 0f)
         {
             if (_isTopDownMode)
@@ -110,8 +142,8 @@ public class GridBuildCamera : MonoBehaviour
 
         if (Input.GetMouseButton(1)) // 오른쪽 버튼으로 회전
         {
-            float rotX = Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime;
-            float rotY = -Input.GetAxis("Mouse Y") * rotationSpeed * Time.deltaTime;
+            float rotX = movement.x * rotationSpeed * Time.deltaTime;
+            float rotY = -movement.y * rotationSpeed * Time.deltaTime;
 
             transform.RotateAround(_targetPosition, Vector3.up, rotX);
             transform.RotateAround(_targetPosition, transform.right, rotY);
@@ -126,13 +158,13 @@ public class GridBuildCamera : MonoBehaviour
     {
         float currentSpeed = moveSpeed;
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (fastInput)
         {
             currentSpeed *= boostMultiplier;
         }
 
-        float moveX = Input.GetAxis("Horizontal") * currentSpeed * Time.deltaTime; // A/D
-        float moveZ = Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime;   // W/S
+        float moveX = movement.x * currentSpeed * Time.deltaTime; // A/D
+        float moveZ = movement.y * currentSpeed * Time.deltaTime;   // W/S
         
         Vector3 move;
 
@@ -150,8 +182,8 @@ public class GridBuildCamera : MonoBehaviour
         {
             // 기존 방식: 3D 자유 시점 이동
             float moveY = 0f;
-            if (Input.GetKey(KeyCode.Q)) moveY -= currentSpeed * Time.deltaTime;
-            if (Input.GetKey(KeyCode.E)) moveY += currentSpeed * Time.deltaTime;
+            if (upInput) moveY -= currentSpeed * Time.deltaTime;
+            if (downInput) moveY += currentSpeed * Time.deltaTime;
 
             move = transform.forward * moveZ + transform.right * moveX + transform.up * moveY;
         }

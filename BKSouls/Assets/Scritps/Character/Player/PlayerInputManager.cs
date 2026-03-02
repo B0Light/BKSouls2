@@ -87,24 +87,22 @@ namespace BK
         private void OnSceneChange(Scene oldScene, Scene newScene)
         {
             //  IF WE ARE LOADING INTO OUR WORLD SCENE, ENABLE OUR PLAYERS CONTROLS
-            if (newScene.buildIndex == WorldSaveGameManager.Instance.GetWorldSceneIndex())
-            {
-                Instance.enabled = true;
-
-                if (playerControls != null)
-                {
-                    playerControls.Enable();
-                }
-            }
-            //  OTHERWISE WE MUST BE AT THE MAIN MENU, DISABLE OUR PLAYERS CONTROLS
-            //  THIS IS SO OUR PLAYER CANT MOVE AROUND IF WE ENTER THINGS LIKE A CHARACTER CREATION MENU ECT
-            else
+            if (newScene.buildIndex == 0)
             {
                 Instance.enabled = false;
 
                 if (playerControls != null)
                 {
                     playerControls.Disable();
+                }
+            }
+            else
+            {
+                Instance.enabled = true;
+
+                if (playerControls != null)
+                {
+                    playerControls.Enable();
                 }
             }
         }

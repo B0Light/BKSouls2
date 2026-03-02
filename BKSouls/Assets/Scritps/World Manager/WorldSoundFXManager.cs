@@ -16,8 +16,8 @@ namespace BK
         
         [Header("Mixer Group Parameters")]
         [SerializeField] private string bgmVolumeParameter = "BGMVolume";
-        [SerializeField] private string sfxVolumeParameter = "SFXVolume";
-        [SerializeField] private string masterVolumeParameter = "MasterVolume";
+        //[SerializeField] private string sfxVolumeParameter = "SFXVolume";
+        //[SerializeField] private string masterVolumeParameter = "MasterVolume";
         
         [Header("Boss Track")]
         [SerializeField] AudioSource bossIntroPlayer;

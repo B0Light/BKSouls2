@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BK
 {
@@ -13,7 +14,9 @@ namespace BK
         [SerializeField] bool loadGame;
 
         [Header("World Scene Index")]
-        [SerializeField] int worldSceneIndex = 1;
+        [SerializeField] private string tutorialSceneIndex = "Scene_World_00_Tutorial";
+        [SerializeField] private string holdSceneIndex = "Scene_RoundTableHold";
+        public Vector3 holdSceneSpawnPos = new Vector3(0,0,0);
 
         [Header("Init Position")] 
         [SerializeField] private Vector3 initPosition = new Vector3();
@@ -111,7 +114,7 @@ namespace BK
             currentCharacterData.yPosition = initPosition.y;
             currentCharacterData.zPosition = initPosition.z;
             
-            WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
+            WorldSceneManager.Instance.LoadWorldScene(tutorialSceneIndex);
             
             
         }
@@ -121,7 +124,7 @@ namespace BK
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
-            WorldSceneManager.Instance.LoadWorldScene(worldSceneIndex);
+            WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
         }
         
         public bool LoadLastGame()
@@ -198,11 +201,6 @@ namespace BK
                     //Debug.Log($"슬롯 {i} 파일 없음: {saveFileDataWriter.saveFileName}");
                 }
             }
-        }
-
-        public int GetWorldSceneIndex()
-        {
-            return worldSceneIndex;
         }
         
         private CharacterSlot FindMostRecentlyPlayedSlot()

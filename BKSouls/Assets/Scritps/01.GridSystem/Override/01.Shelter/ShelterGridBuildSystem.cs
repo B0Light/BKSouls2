@@ -78,7 +78,11 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
     private void LoadEntrance()
     {
         ObjectToPlace = WorldDatabase_Build.Instance.GetBuildingByID(entranceTile);
-        if(ObjectToPlace == null) return;
+        if(ObjectToPlace == null)
+        {
+            Debug.Log("Object is null");
+            return;
+        }
         var placedObject = PlaceTile(_entrancePos.x,_entrancePos.y,Dir.Down, 0,true);
         //CheckPointList.Add(placedObject.GetEntrance());
         ObjectToPlace = null;

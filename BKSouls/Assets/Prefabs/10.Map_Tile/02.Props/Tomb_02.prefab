@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 9190772320771185015}
   - component: {fileID: 3317807532667451788}
   - component: {fileID: 2526612188017480073}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: SM_Tile_Cube_Flat_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee84646ef8e27804680c367d45ae2432, type: 2}
+  - {fileID: 2100000, guid: d906c091ff8fb854ba970209226cd22b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -89,6 +89,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2526612188017480073
 BoxCollider:
@@ -123,7 +124,7 @@ GameObject:
   - component: {fileID: 7288716622043771141}
   - component: {fileID: 1653200321673396399}
   - component: {fileID: 3123520652905634379}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -200,6 +201,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3123520652905634379
 BoxCollider:
@@ -232,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1528818639043606945}
   - component: {fileID: 1471805428828907936}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: Tomb_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +283,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3580092039268810369}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -313,7 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8925321115784050255}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,7 +347,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2797472247945824040}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Props
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -379,6 +381,10 @@ PrefabInstance:
     - target: {fileID: 289434336781960493, guid: c08b40bbbb802c84986e9f88310d00ee, type: 3}
       propertyPath: m_Name
       value: SM_Prop_Tomb_Stone_02
+      objectReference: {fileID: 0}
+    - target: {fileID: 289434336781960493, guid: c08b40bbbb802c84986e9f88310d00ee, type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 1103265714657091479, guid: c08b40bbbb802c84986e9f88310d00ee, type: 3}
       propertyPath: m_LocalScale.x

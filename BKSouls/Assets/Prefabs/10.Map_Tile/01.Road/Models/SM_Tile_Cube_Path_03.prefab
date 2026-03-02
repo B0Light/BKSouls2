@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33694266972643360}
   - component: {fileID: 23017498003644086}
   - component: {fileID: 3053305944006291822}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Path_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

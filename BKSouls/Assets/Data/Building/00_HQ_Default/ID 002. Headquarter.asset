@@ -12,20 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 002. Headquarter
   m_EditorClassIdentifier: 
-  itemCode: 2
+  itemID: 2
   itemName: "\uAC74\uC124\uBCF8\uBD80"
   itemIcon: {fileID: 0}
   itemTier: 5
+  cost: 0
   itemDescription: 'Build Control
 
 '
-  purchaseCost: 1000
-  costItemList: 
+  itemType: 0
   width: 2
   height: 2
+  weight: 0
+  itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: f85498859c0f2d444aa1c64b1578e573, type: 3}
-  baseTileType: 0
-  tileType: 6
+  cellType: 6
   maxLevel: 10
   baseFee: 100
   upgradeStages: []

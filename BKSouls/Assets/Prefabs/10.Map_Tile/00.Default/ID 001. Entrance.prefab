@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4809916779958587067}
   - component: {fileID: 3916487228974974832}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 9190772320771185015}
   - component: {fileID: 3317807532667451788}
   - component: {fileID: 981404438148134609}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Flat_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -231,7 +231,7 @@ GameObject:
   - component: {fileID: 1203534018184267331}
   - component: {fileID: 5273500173680934098}
   - component: {fileID: 3600040399611489032}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8496318811190422004}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1528818639043606945}
   - component: {fileID: 8027054537972169745}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ID 001. Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -428,7 +428,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3580092039268810369}
-  m_Layer: 14
+  m_Layer: 16
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}

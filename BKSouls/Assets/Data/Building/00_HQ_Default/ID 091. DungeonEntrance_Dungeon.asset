@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 091. DungeonEntrance_Dungeon
   m_EditorClassIdentifier: 
-  itemCode: 91
+  itemID: 91
   itemName: Dungeon Entrance
   itemIcon: {fileID: 21300000, guid: 13845c034a9beae4bb0a70e8068fafd4, type: 3}
   itemTier: 5
+  cost: 0
   itemDescription: Dungeon Entrance
-  purchaseCost: 0
-  costItemList: 
+  itemType: 0
   width: 1
   height: 1
+  weight: 0
+  itemAbilities: []
   prefab: {fileID: 5182557877217463400, guid: 5f16c5df0f33f544fae92d7428b63581, type: 3}
   baseCellType: 0
   cellType: 6

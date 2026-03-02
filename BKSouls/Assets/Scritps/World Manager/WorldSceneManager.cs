@@ -1,8 +1,8 @@
+using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
-using System.Collections.Generic;
-using System.Collections;
 
 namespace BK
 {
@@ -10,268 +10,58 @@ namespace BK
     {
         public static WorldSceneManager Instance;
 
-        //  LOADED SCENES
-        public List<Scene> loadedScenes = new List<Scene>();
-
-        //  DO NOT UNLOAD
-        public List<string> doNotUnloadList = new List<string>();
-
-        //  QUED SCENES
-        private List<string> quedSceneIDs = new List<string>();
-        private List<string> quedUnloadSceneIDs = new List<string>();
-        private int quedScenesToUnload = 0;
-        private int quedScenesToLoad = 0;
-        private Coroutine loadingAdditiveScenesCoroutine;
-        private Coroutine unloadAdditiveScenesCoroutine;
-
-        //  LOADING STATUS
-        private bool sceneIsLoading = false;
-        private bool sceneIsUnloading = false;
-
-        [Header("Scene I.Ds")]
-        public string world = "World_01";
-        public string area_01_Subarea_00 = "Area_01_Subarea_00";
-        public string area_01_Subarea_01 = "Area_01_Subarea_01";
-        public string area_01_Subarea_02 = "Area_01_Subarea_02";
-        public string area_01_Subarea_03 = "Area_01_Subarea_03";
-        public string area_01_Subarea_04 = "Area_01_Subarea_04";
-        public string area_01_Subarea_05 = "Area_01_Subarea_05";
-
+        public SerializedDictionary<string, Vector3> sceneInfos = new SerializedDictionary<string, Vector3>();
+        
         private void Awake()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            if (Instance == null) Instance = this;
+            else { Destroy(gameObject); return; }
         }
 
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
 
-            NetworkManager.SceneManager.OnSceneEvent += OnSceneEvent;        
+            if (NetworkManager != null && NetworkManager.SceneManager != null)
+                NetworkManager.SceneManager.OnSceneEvent += OnSceneEvent;
         }
 
         public override void OnNetworkDespawn()
         {
             base.OnNetworkDespawn();
 
-            NetworkManager.SceneManager.OnSceneEvent -= OnSceneEvent;
-
-            //  UNLOAD ALL SCENES
+            if (NetworkManager != null && NetworkManager.SceneManager != null)
+                NetworkManager.SceneManager.OnSceneEvent -= OnSceneEvent;
         }
 
         private void OnSceneEvent(SceneEvent sceneEvent)
         {
-            if (!NetworkManager.IsServer)
-                return;
-
-            switch (sceneEvent.SceneEventType)
-            {
-                case SceneEventType.Load:
-                    sceneIsLoading = true;
-                    break;
-
-                case SceneEventType.Unload:
-                    sceneIsUnloading = true;
-                    break;
-
-                case SceneEventType.Synchronize:
-                    break;
-
-                case SceneEventType.ReSynchronize:
-                    break;
-
-                case SceneEventType.LoadEventCompleted:
-                    break;
-
-                case SceneEventType.UnloadEventCompleted:
-                    sceneIsUnloading = false;
-                    break;
-
-                case SceneEventType.LoadComplete:
-
-                    //  CALLED WHEN THE SCENE IS FINISHED LOADING, ADDS OUR SCENE TO OUR LOADED SCENES LIST
-                    loadedScenes.Add(sceneEvent.Scene);
-                    
-                    //  CLEAR THE LIST IDS IF THE SCENES TO LOAD COUNT IS 0
-                    if (quedScenesToLoad <= 0)
-                        quedSceneIDs.Clear();
-
-                    //  DOUBLE CHECK LOADED SCENES TO MAKE SURE THEY ARE LOADED, IF NOT REMOVE THEM FROM THE LOADED LIST
-                    for (int i = 0; i < loadedScenes.Count; i++)
-                    {
-                        if (!loadedScenes[i].isLoaded)
-                            loadedScenes.RemoveAt(i);
-                    }
-
-                    sceneIsLoading = false;
-                    break;
-
-                case SceneEventType.UnloadComplete:
-                    if (quedScenesToUnload <= 0)
-                        quedUnloadSceneIDs.Clear();
-
-                    for (int i = 0; i < loadedScenes.Count; i++)
-                    {
-                        if (!loadedScenes[i].isLoaded)
-                            loadedScenes.RemoveAt(i);
-                    }
-
-                    sceneIsUnloading = false;
-                    break;
-
-                case SceneEventType.SynchronizeComplete:
-                    break;
-
-                case SceneEventType.ActiveSceneChanged:
-                    break;
-
-                case SceneEventType.ObjectSceneChanged:
-                    break;
-
-                default:
-                    break;
-            }
-        }
-
-        //  SCENE LOADING
-        public void LoadWorldScene(int buildIndex)
-        {
-            GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
+            if (!IsServer) return;
             
-            string worldScene = SceneUtility.GetScenePathByBuildIndex(buildIndex);
-            NetworkManager.Singleton.SceneManager.LoadScene(worldScene, LoadSceneMode.Single);
+            if (sceneEvent.SceneEventType == SceneEventType.LoadEventCompleted)
+            {
+            }
+        }
+        
+        public void LoadWorldScene(string sceneName)
+        {
+            if (!IsServer) return;
             
-            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData);
-        }
-
-        //  USED TO LOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE
-        private void LoadAdditiveScene(string sceneName)
-        {
-            foreach (var loadedScene in loadedScenes)
+            if (string.IsNullOrWhiteSpace(sceneName))
             {
-                if (loadedScene.name == sceneName && loadedScene.isLoaded)
-                    return;
-            }
-            var loadSceneStatus = NetworkManager.Singleton.SceneManager.LoadScene(sceneName, LoadSceneMode.Additive);
-
-            //  LOAD EXTRAS IN THE SCENE (SUCH AS MONSTERS OR BREAKABLE OBJECTS)
-        }
-
-        //  USED TO LOAD MULTIPLE ADDITIVE SCENES AT ONCE WHEN ENTERING NEW AREA
-        public void LoadAdditiveScenes(List<string> scenesToLoad)
-        {
-            if (!NetworkManager.IsServer)
+                Debug.LogError($"Invalid path: {sceneName}");
                 return;
-
-            //  PASS ALL OF OUR SCENES TO LOAD TO OUR QUED SCENE LIST
-            for (int i = 0; i < scenesToLoad.Count; i++)
-            {
-                quedSceneIDs.Add(scenesToLoad[i]);
             }
 
-            quedScenesToLoad = quedSceneIDs.Count;
-
-            if (loadingAdditiveScenesCoroutine != null)
-                StopCoroutine(loadingAdditiveScenesCoroutine);
-
-            loadingAdditiveScenesCoroutine = StartCoroutine(LoadAdditiveScenesCoroutine());
+            NetworkManager.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
+            GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, GetSpawnPos());
         }
-
-        private IEnumerator LoadAdditiveScenesCoroutine()
+        
+        public Vector3 GetSpawnPos()
         {
-            // 1. CHECK TO SEE IF A SCENE IS CURRENTLY BEING LOADED/UNLOADED AND IF IT IS, WAIT
-            for (int i = 0; i < quedSceneIDs.Count; i++)
-            {
-                while (sceneIsLoading || sceneIsLoading)
-                {
-                    yield return null;
-                }
+            string sceneName = SceneManager.GetActiveScene().name;
 
-                if (quedSceneIDs[i] == null)
-                    continue;
-
-                // 2. SORT THROUGH A "QUED" LIST OF SCENES, AND LOAD THEM ONE BY ONE
-                LoadAdditiveScene(quedSceneIDs[i]);
-                quedScenesToLoad--;
-
-                yield return new WaitForFixedUpdate();
-            }
-
-            quedScenesToLoad = 0;
-            loadingAdditiveScenesCoroutine = null;
-
-            yield return null;
-        }
-
-        //  SCENE UNLOADING
-
-        //  USED TO UNLOAD ADDITIVE SCENES IN OUR MAIN WORLD SCENE
-        private void UnloadAdditiveScene(string sceneName)
-        {
-            if (!NetworkManager.Singleton.IsServer)
-                return;
-
-            //  CHECK THE DO NOT UNLOAD LIST, BECAUSE ANOTHER PLAYER MAY STILL NEED A SPECIFIC SCENE LOADED FROM THEIR POV
-            for (int i = 0; i < doNotUnloadList.Count; i++)
-            {
-                if (sceneName == doNotUnloadList[i])
-                    return;
-            }
-
-            for (int i = 0; i < loadedScenes.Count; i++)
-            {
-                if (loadedScenes[i] == null)
-                    continue;
-
-                if (loadedScenes[i].name == sceneName && loadedScenes[i].isLoaded)
-                {
-                    var sceneLoad = NetworkManager.SceneManager.UnloadScene(loadedScenes[i]);
-                    break;
-                }
-            }
-        }
-
-        public void UnloadAdditiveScenes(List<string> sceneList)
-        {
-            if (!NetworkManager.Singleton.IsServer)
-                return;
-
-            for (int i = 0; i < sceneList.Count; i++)
-            {
-                quedUnloadSceneIDs.Add(sceneList[i]);
-            }
-
-            quedScenesToUnload = quedUnloadSceneIDs.Count;
-
-            if (unloadAdditiveScenesCoroutine != null)
-                StopCoroutine(unloadAdditiveScenesCoroutine);
-
-            unloadAdditiveScenesCoroutine = StartCoroutine(UnloadAdditiveScenesCoroutine());
-        }
-
-        private IEnumerator UnloadAdditiveScenesCoroutine()
-        {
-            for (int i = 0; i < quedUnloadSceneIDs.Count; i++)
-            {
-                while (sceneIsLoading || sceneIsUnloading)
-                {
-                    yield return new WaitForFixedUpdate();
-                }
-
-                UnloadAdditiveScene(quedUnloadSceneIDs[i]);
-                quedScenesToUnload--;
-
-                yield return null;
-            }
-
-            quedScenesToUnload = 0;
-            unloadAdditiveScenesCoroutine = null;
+            return sceneInfos.TryGetValue(sceneName, out Vector3 spawnPos) ? spawnPos : Vector3.zero;
         }
     }
 }

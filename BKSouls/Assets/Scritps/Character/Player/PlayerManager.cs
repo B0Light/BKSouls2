@@ -186,7 +186,7 @@ namespace BK
             //  WE DONT RUN THIS IF WE ARE THE SERVER, BECAUSE SINCE THEY ARE THE HOST, THEY ARE ALREADY LOADED IN AND DON'T NEED TO RELOAD THEIR DATA
             if (IsOwner && !IsServer)
             {
-                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData);
+                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, WorldSceneManager.Instance.GetSpawnPos());
             }
         }
 
@@ -430,14 +430,13 @@ namespace BK
             }
         }
 
-        public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData)
+        public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData, Vector3 position)
         {
             playerNetworkManager.characterName.Value = currentCharacterData.characterName;
             playerNetworkManager.isMale.Value = currentCharacterData.isMale;
             playerBodyManager.ToggleBodyType(currentCharacterData.isMale);
-            Vector3 myPosition = new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition + 1f, currentCharacterData.zPosition);
-            // transform.position = myPosition;
-            StartSpawnProtectionSnap(myPosition);
+            
+            StartSpawnProtectionSnap(position + Vector3.up);
             //  STATS 
             playerNetworkManager.vigor.Value = currentCharacterData.vitality;
             playerNetworkManager.endurance.Value = currentCharacterData.endurance;

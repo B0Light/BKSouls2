@@ -19,7 +19,6 @@ namespace BK.Inventory
         public Dictionary<int,int> costItemDic = new Dictionary<int,int>();
 
         [Space(10)] 
-        [SerializeField] private CellType baseCellType; // 건설이 가능한 타일의 타입 (base tile type 이 floor 인 경우 floor 타일 위에만 건설 가능 )
         [SerializeField] private CellType cellType; // 건설할 타일의 타입
 
         public int maxLevel = 10;
@@ -62,7 +61,5 @@ namespace BK.Inventory
         public int GetHeight(Dir dir) => dir is Dir.Down or Dir.Up ? height : width;
 
         public CellType GetCellType() => cellType;
-
-        public CellType GetBaseCellType() => baseCellType;
     }
 }

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33050907618187434}
   - component: {fileID: 23563939612876008}
   - component: {fileID: 2944391310426316362}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Flat_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}

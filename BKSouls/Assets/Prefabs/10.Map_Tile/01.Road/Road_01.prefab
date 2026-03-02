@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8272895785946752749}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 7666040442700506339}
   - component: {fileID: 8658367637067691096}
   - component: {fileID: 2108138552525223343}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,6 +121,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2108138552525223343
 BoxCollider:
@@ -153,7 +154,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1528818639043606945}
   - component: {fileID: 1677644050165087854}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Road_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +187,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4992911712181626642}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7aee4254c41c4e539da07830762a178, type: 3}
+  m_Script: {fileID: 11500000, guid: 8d2da8d3513a21f48bee86d473e8ab3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   exitDir: 0
@@ -206,7 +207,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3580092039268810369}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -241,7 +242,7 @@ GameObject:
   - component: {fileID: 8257538673189814696}
   - component: {fileID: 8268177131594565098}
   - component: {fileID: 2233116026619124944}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Flat_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +297,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ee84646ef8e27804680c367d45ae2432, type: 2}
+  - {fileID: 2100000, guid: d906c091ff8fb854ba970209226cd22b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -318,6 +319,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &2233116026619124944
 BoxCollider:
