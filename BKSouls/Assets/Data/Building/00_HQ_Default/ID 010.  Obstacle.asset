@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
+  m_Name: ID 010.  Obstacle
+  m_EditorClassIdentifier: 
+  itemCode: 10
+  itemName: Obstacle
+  itemIcon: {fileID: 0}
+  itemTier: 6
+  itemDescription: 'Obstacle
+
+'
+  purchaseCost: 0
+  costItemList: 
+  width: 1
+  height: 1
+  prefab: {fileID: 1528818639043606945, guid: b235849c669a39c429e68ca1beb56bd1, type: 3}
+  baseTileType: 4
+  tileType: 4
+  maxLevel: 0
+  baseFee: 0
+  upgradeStages: []

@@ -443,7 +443,9 @@ namespace BK
             HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment,
             QuickSlotItem[] quickSlotItems, RangedProjectileItem[] rangedProjectileItems, SpellItem spellItem)
         {
-            // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
+            Debug.Log("Set Item");
+            
+            // 0. Clear the hidden helmet
             hiddenHelmet = null;
 
             // 1. Set the stats

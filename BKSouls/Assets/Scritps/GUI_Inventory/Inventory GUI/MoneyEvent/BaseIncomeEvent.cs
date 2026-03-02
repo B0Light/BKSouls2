@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace BK.Inventory
 {
-
     public class BaseIncomeEvent : ScriptableObject
     {
         // 이벤트 정의 - 수입 발생시 호출될 이벤트

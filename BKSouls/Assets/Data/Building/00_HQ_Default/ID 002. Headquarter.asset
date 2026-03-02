@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
+  m_Name: ID 002. Headquarter
+  m_EditorClassIdentifier: 
+  itemCode: 2
+  itemName: "\uAC74\uC124\uBCF8\uBD80"
+  itemIcon: {fileID: 0}
+  itemTier: 5
+  itemDescription: 'Build Control
+
+'
+  purchaseCost: 1000
+  costItemList: 
+  width: 2
+  height: 2
+  prefab: {fileID: 1528818639043606945, guid: f85498859c0f2d444aa1c64b1578e573, type: 3}
+  baseTileType: 0
+  tileType: 6
+  maxLevel: 10
+  baseFee: 100
+  upgradeStages: []

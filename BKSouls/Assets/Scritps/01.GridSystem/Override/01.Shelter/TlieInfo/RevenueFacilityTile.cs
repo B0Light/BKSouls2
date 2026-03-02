@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 
 public class RevenueFacilityTile : PlacedObject, IRevenueFacility
