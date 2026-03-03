@@ -327,25 +327,46 @@ namespace BK.Inventory
         private void DiscardItem()
         {
             if (!SelectedItem) return;
+
+            int itemId = SelectedItem.itemData.itemID;
             
-            DropItem(SelectedItem.itemData.itemID);
-            
-            // 손에 들고 있는 아이템 제거 
+            // - Host/Server면 서버에서 바로 처리 가능
+            // - Client면 ServerRpc로 요청
+            RequestDropItem(itemId);
+
+            // 손에 들고 있는 UI 아이템 제거 (로컬 UI)
             Destroy(SelectedItem.gameObject);
             _lastSelectedItemGrid = null;
             SelectedItem = null;
         }
-        
-        public static void DropItem(int itemCode)
-        {
-            PlayerManager player = GUIController.Instance.localPlayer;
 
-            GameObject itemPickUpInteractableGameObject = Instantiate(WorldItemDatabase.Instance.pickUpItemPrefab);
-            PickUpItemInteractable pickUpInteractable = itemPickUpInteractableGameObject.GetComponent<PickUpItemInteractable>();
-            itemPickUpInteractableGameObject.GetComponent<NetworkObject>().Spawn();
-            pickUpInteractable.itemID.Value = itemCode;
-            pickUpInteractable.networkPosition.Value = player.transform.position;
-            pickUpInteractable.droppingCreatureID.Value = player.NetworkObjectId;
+        public static void RequestDropItem(int itemId)
+        {
+            var nm = NetworkManager.Singleton;
+            if (nm == null || !nm.IsListening)
+            {
+                // 네트워크 안 쓰는 순수 싱글이면 기존 로컬 드랍 로직으로 처리하거나 무시
+                Debug.LogWarning("[Inventory] Network not running, cannot drop network item.");
+                return;
+            }
+
+            // 로컬 플레이어 오브젝트에서 Dropper 찾기
+            var playerObj = nm.LocalClient?.PlayerObject;
+            if (playerObj == null)
+            {
+                Debug.LogWarning("[Inventory] Local player object not ready.");
+                return;
+            }
+
+            var dropper = playerObj.GetComponent<PlayerItemDropper>();
+            if (dropper == null)
+            {
+                Debug.LogError("[Inventory] PlayerItemDropper not found on local player.");
+                return;
+            }
+
+            // 서버는 직접 호출해도 되나 일관성을 위해 rpc 호출
+            dropper.RequestDropItemServerRpc(itemId);
         }
     }
 }

@@ -74180,6 +74180,7 @@ GameObject:
   - component: {fileID: 1946026918952715864}
   - component: {fileID: 2733565217244405719}
   - component: {fileID: 1642118626428639799}
+  - component: {fileID: 6661129789852878782}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -74240,7 +74241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2553100818
+  GlobalObjectIdHash: 3463523004
   InScenePlacedSourceGlobalObjectIdHash: 2077680157
   DeferredDespawnTick: 0
   Ownership: 1
@@ -75081,6 +75082,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &6661129789852878782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9134651282765023895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7a485ae92d9bf44bb4cf2d5e7fe4ba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory.PlayerItemDropper
+  ShowTopMostFoldoutHeaderGroup: 1
+  dropForwardOffset: 1
+  dropUpOffset: 0.25
 --- !u!1 &9135280193529963604
 GameObject:
   m_ObjectHideFlags: 0

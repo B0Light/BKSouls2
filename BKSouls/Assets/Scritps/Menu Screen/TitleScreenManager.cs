@@ -81,7 +81,12 @@ namespace BK
 
         public void StartNetworkAsHost() => NetworkManager.Singleton.StartHost();
         
-        public void StartNetworkAsClient() => NetworkManager.Singleton.StartClient();
+        public void StartNetworkAsClient()
+        {
+            NetworkManager.Singleton.StartClient();
+
+            WorldSaveGameManager.Instance.LoadLastGame();
+        }
 
         public void AttemptToCreateNewCharacter()
         {

@@ -85,7 +85,7 @@ namespace BK.Inventory
             {
                 // 플레이어가 없으면 그냥 드랍 + 내부 상태 정리
                 foreach (var itemCode in setItemList)
-                    InventoryController.DropItem(itemCode);
+                    InventoryController.RequestDropItem(itemCode);
 
                 _equippedItem = null;
                 return;
@@ -96,7 +96,7 @@ namespace BK.Inventory
                 if (AddItemById(itemCode, isLoad: isLoad))
                     continue;
 
-                InventoryController.DropItem(itemCode);
+                InventoryController.RequestDropItem(itemCode);
 
                 // 자동 로드 실패 시 해제
                 UnequipCurrent(pm);
@@ -231,17 +231,16 @@ namespace BK.Inventory
                 pm = _playerManager;
                 return true;
             }
+            
+            if (GUIController.Instance.localPlayer != null)
+            {
+                _playerManager = GUIController.Instance.localPlayer;
+                pm = _playerManager;
+                return true;
+            }
 
             pm = null;
-
-            var nm = NetworkManager.Singleton;
-            if (nm == null || nm.LocalClient?.PlayerObject == null)
-                return false;
-
-            _playerManager = nm.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-            pm = _playerManager;
-
-            return pm != null;
+            return false;
         }
 
         #endregion

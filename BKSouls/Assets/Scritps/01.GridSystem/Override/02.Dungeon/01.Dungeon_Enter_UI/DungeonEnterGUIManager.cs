@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using BK;
 using TMPro;
@@ -6,7 +7,8 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class DungeonEnterGUIManager : GUIComponent
 {
@@ -21,6 +23,9 @@ public class DungeonEnterGUIManager : GUIComponent
     
     [SerializeField] private Button enterDungeonButton;
     [SerializeField] private Button joinDungeonButton;
+
+    [SerializeField] private TMP_InputField ipField;
+    [SerializeField] private TMP_InputField portField;
     
     [SerializeField] private GameObject available;
     [SerializeField] private GameObject disable;
@@ -108,6 +113,8 @@ public class DungeonEnterGUIManager : GUIComponent
         enterDungeonButton.interactable = true;
         available.SetActive(true);
         enterDungeonButton.onClick.AddListener(EnterDungeonAsHost);
+        
+        joinDungeonButton.onClick.AddListener(() =>JoinRoomAsClient());
     }
 
     #endregion
@@ -126,18 +133,29 @@ public class DungeonEnterGUIManager : GUIComponent
             return;
         }
     }
-
-    public void JoinRoomAsClient(string addressOrJoinCode)
+    
+    public void JoinRoomAsClient()
+    {
+        StartCoroutine(JoinRoomAsClientCo());
+    }
+    
+    // TODO -> Relay 방식으로 변경 
+    private IEnumerator JoinRoomAsClientCo()
     {
         CleanupBeforeStartNetwork();
-
+        
+        yield return null;
+        
+        string address = ipField.text;
+        int port = int.Parse(portField.text);
+        
         var utp = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        utp.ConnectionData.Address = addressOrJoinCode;
+        utp.ConnectionData.Address = address;
+        utp.ConnectionData.Port = (ushort)port;
 
         if (!NetworkManager.Singleton.StartClient())
         {
             Debug.LogError("StartClient failed");
-            return;
         }
     }
 

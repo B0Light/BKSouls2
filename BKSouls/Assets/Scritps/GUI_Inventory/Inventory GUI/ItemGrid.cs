@@ -104,7 +104,7 @@ namespace BK.Inventory
             {
                 if (AddItemById(itemCode, isLoad: isLoad)) continue;
                 
-                InventoryController.DropItem(itemCode);
+                InventoryController.RequestDropItem(itemCode);
             }
         }
 

@@ -155,6 +155,7 @@ namespace BK
 
         protected IEnumerator TrackDroppingCreaturesPosition()
         {
+            if(droppingCreatureID.Value == 0) yield break;
             AICharacterManager droppingCreature = NetworkManager.Singleton.SpawnManager.SpawnedObjects[droppingCreatureID.Value].gameObject.GetComponent<AICharacterManager>();
             bool trackCreature = droppingCreature != null;
 

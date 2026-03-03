@@ -129,20 +129,20 @@ namespace BK
         
         public bool LoadLastGame()
         {
+            SetupSaveWriter();
+            
             currentCharacterSlotBeingUsed = FindMostRecentlyPlayedSlot();
         
             if (currentCharacterSlotBeingUsed == CharacterSlot.NO_SLOT)
             {
                 return false;
             }
-        
-            saveFileDataWriter = new SaveFileDataWriter();
-            saveFileDataWriter.saveDataDirectoryPath = Application.persistentDataPath;
+            
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
         
             if (saveFileDataWriter.CheckToSeeIfFileExists())
             {
-                LoadGame();
+                currentCharacterData = saveFileDataWriter.LoadSaveFile();
                 return true;
             }
             else
