@@ -397,8 +397,8 @@ namespace BK
             if (!isAiming.Value)
             {
                 PlayerCamera.Instance.cameraObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-                PlayerCamera.Instance.cameraObject.fieldOfView = 60;
-                PlayerCamera.Instance.cameraObject.nearClipPlane = 0.3f;
+                PlayerCamera.Instance.cameraObject.Lens.FieldOfView = 60;
+                PlayerCamera.Instance.cameraObject.Lens.NearClipPlane = 0.3f;
                 PlayerCamera.Instance.cameraPivotTransform.localPosition = new Vector3(0, PlayerCamera.Instance.cameraPivotYPositionOffSet, 0);
                 GUIController.Instance.playerUIHudManager.crossHair.SetActive(false);
             }
@@ -406,8 +406,8 @@ namespace BK
             {
                 PlayerCamera.Instance.gameObject.transform.eulerAngles = new Vector3(0, 0, 0);
                 PlayerCamera.Instance.cameraPivotTransform.localEulerAngles = new Vector3(0, 0, 0);
-                PlayerCamera.Instance.cameraObject.fieldOfView = 40;
-                PlayerCamera.Instance.cameraObject.nearClipPlane = 1.3f;
+                PlayerCamera.Instance.cameraObject.Lens.FieldOfView = 40;
+                PlayerCamera.Instance.cameraObject.Lens.NearClipPlane = 1.3f;
                 PlayerCamera.Instance.cameraPivotTransform.localPosition = Vector3.zero;
                 GUIController.Instance.playerUIHudManager.crossHair.SetActive(true);
             }

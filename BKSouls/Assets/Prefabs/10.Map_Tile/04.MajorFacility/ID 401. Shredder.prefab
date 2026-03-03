@@ -121,6 +121,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &8544797368742686326
 BoxCollider:
@@ -258,7 +259,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7505611150825966065}
-  - component: {fileID: 3501568180344573586}
   m_Layer: 14
   m_Name: ID 401. Shredder
   m_TagString: Untagged
@@ -289,26 +289,6 @@ Transform:
   - {fileID: 8463911197719329336}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3501568180344573586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2957539119465194704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f0de8abb7481042987ffc1c1fcc3a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exitDir: 0
-  entrancePos: 0
-  exitPos: 0
-  cycleTime: 10
-  queueStartPoint: {fileID: 4759119440362107624}
-  maxColumns: 1
-  incomeEventChannel: {fileID: 11400000, guid: be0c8f8789cf88b459b4a23e998bfc44, type: 2}
-  actionPoint: {fileID: 1414653755221965367}
 --- !u!1 &5065668794410156210
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +440,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &289539181139910328
 BoxCollider:

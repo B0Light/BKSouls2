@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7272330743813659123}
-  - component: {fileID: 7446160123385555958}
   m_Layer: 14
   m_Name: ID 1100. Base Herb
   m_TagString: Untagged
@@ -40,28 +39,6 @@ Transform:
   - {fileID: 4378833460755291916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7446160123385555958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 659962869065567334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b47005c8ef66e41b8e4b41f8f096b2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DungeonResourceTile
-  exitDir: 0
-  entrancePos: 0
-  exitPos: 0
-  cycleTime: 10
-  queueStartPoint: {fileID: 2278352330520137068}
-  maxColumns: 8
-  maxCapacity: 10
-  incomeEventChannel: {fileID: 11400000, guid: be0c8f8789cf88b459b4a23e998bfc44, type: 2}
-  resourceType: 0
-  resourceItem: {fileID: 11400000, guid: fd3eb00483fc25e4bb23422da7a48c06, type: 2}
 --- !u!1 &1647012312897113997
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,6 +284,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &4133151299854698678
 GameObject:
@@ -429,6 +407,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &6239739142872338690
 BoxCollider:
@@ -764,6 +743,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &3009708310011960001
 BoxCollider:

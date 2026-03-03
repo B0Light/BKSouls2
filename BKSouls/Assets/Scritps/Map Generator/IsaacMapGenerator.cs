@@ -213,6 +213,17 @@ public class IsaacMapGenerator : BaseMapGenerator
         }
     }
 
+    public Vector3 GetRoomWorldCenter()
+    {
+        var room = _floorList[0];
+        return GridToWorld(new Vector2Int(room.x+room.width/2, room.y+room.height/2));
+    }
+
+    private Vector3 GridToWorld(Vector2Int grid)
+    {
+        return new Vector3(grid.x * cubeSize.x, cubeSize.y + 1f, grid.y * cubeSize.z);
+    }
+
     private static int HashSeed(int baseSeed, int salt)
     {
         unchecked

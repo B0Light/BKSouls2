@@ -1,9 +1,8 @@
 using System;
+using System.Collections.Generic;
+using BK;
 using Unity.Netcode;
 using UnityEngine;
-
-/// - Host가 runSeed/stageIndex 기반으로 stageSeed를 파생
-/// - payload(Seed + 파라미터)만 전송 → 각 클라가 로컬로 동일 맵 생성
 
 public class IsaacMapSyncController : NetworkBehaviour
 {
@@ -26,69 +25,41 @@ public class IsaacMapSyncController : NetworkBehaviour
     [SerializeField] private int runSeed = 0;
     [SerializeField] private int stageIndex = 0;
 
+    [Header("Spawn After Generate")]
+    [SerializeField] private float spawnHeightOffset = 1.0f;
+    [SerializeField] private float groundCheckRayHeight = 20f;
+    [SerializeField] private LayerMask groundMask = ~0; // 필요하면 Ground 레이어로 제한
+
     private IsaacMapGenerator _generator;
 
     public override void OnNetworkSpawn()
     {
         EnsureGenerator();
+        
+        if (IsServer)
+            HostStartRun();
     }
 
     // -----------------------------
-    // Public Host Controls (Context Menu)
+    // Host controls (context menu)
     // -----------------------------
 
     [ContextMenu("Host: Start Run (Init Seed)")]
     public void HostStartRun()
     {
-        if (!IsServer)
-        {
-            Debug.LogWarning("[IsaacMapSync] HostStartRun: Host(서버)에서만 호출하세요.");
-            return;
-        }
+        if (!IsServer) { Debug.LogWarning("[IsaacMapSync] HostStartRun: Host(서버)에서만 호출하세요."); return; }
 
-        if (runSeed == 0)
-            runSeed = Environment.TickCount;
-
+        if (runSeed == 0) runSeed = Environment.TickCount;
         stageIndex = 0;
-        HostGenerateStageAndSync();
-    }
-
-    [ContextMenu("Host: Regenerate Current Stage")]
-    public void HostRegenerateCurrentStage()
-    {
-        if (!IsServer)
-        {
-            Debug.LogWarning("[IsaacMapSync] HostRegenerateCurrentStage: Host(서버)에서만 호출하세요.");
-            return;
-        }
-
         HostGenerateStageAndSync();
     }
 
     [ContextMenu("Host: Next Stage")]
     public void HostNextStage()
     {
-        if (!IsServer)
-        {
-            Debug.LogWarning("[IsaacMapSync] HostNextStage: Host(서버)에서만 호출하세요.");
-            return;
-        }
+        if (!IsServer) { Debug.LogWarning("[IsaacMapSync] HostNextStage: Host(서버)에서만 호출하세요."); return; }
 
         stageIndex++;
-        HostGenerateStageAndSync();
-    }
-
-    [ContextMenu("Host: Set New RunSeed (Random)")]
-    public void HostSetNewRunSeed()
-    {
-        if (!IsServer)
-        {
-            Debug.LogWarning("[IsaacMapSync] HostSetNewRunSeed: Host(서버)에서만 호출하세요.");
-            return;
-        }
-
-        runSeed = Environment.TickCount;
-        stageIndex = 0;
         HostGenerateStageAndSync();
     }
 
@@ -102,7 +73,6 @@ public class IsaacMapSyncController : NetworkBehaviour
         if (_generator == null) return;
 
         int stageSeed = HashSeed(runSeed, stageIndex);
-
         var payload = BuildPayload(stageSeed);
 
         // Host 로컬 생성
@@ -139,7 +109,6 @@ public class IsaacMapSyncController : NetworkBehaviour
             return;
         }
 
-        // 생성기 인스턴스(설정값은 GenerateLocal에서 payload로 매번 갱신)
         _generator = new IsaacMapGenerator(
             tileSlot,
             tileMappingData,
@@ -159,10 +128,8 @@ public class IsaacMapSyncController : NetworkBehaviour
         EnsureGenerator();
         if (_generator == null) return;
 
-        // 이전 맵 제거
         _generator.ClearMap();
 
-        // payload 적용
         _generator.seed = payload.seed;
         _generator.maxRooms = payload.maxRooms;
         _generator.specialRoomCount = payload.specialRoomCount;
@@ -170,20 +137,63 @@ public class IsaacMapSyncController : NetworkBehaviour
         _generator.verticalSize = payload.verticalSize;
         _generator.spacing = payload.spacing;
 
-        // gridSize / cubeSize를 런타임에 바꿀 계획이 있다면,
-        // BaseMapGenerator가 이를 변경 가능하게 설계되어 있어야 함.
-        // (일단은 고정값 가정)
-
         _generator.GenerateMap();
 
+        // ✅ 맵 생성 완료 후: 랜덤 방으로 플레이어 이동
+        TryMovePlayerToRandomRoom();
+
         Debug.Log($"[IsaacMapSync] Local map generated. seed={payload.seed}");
+    }
+
+    // -----------------------------
+    // Spawn logic
+    // -----------------------------
+
+    private void TryMovePlayerToRandomRoom()
+    {
+        Transform player = ResolvePlayer();
+        if (player == null)
+        {
+            Debug.LogWarning("[IsaacMapSync] Player Transform not found.");
+            return;
+        }
+
+        Vector3 target = _generator.GetRoomWorldCenter();
+
+        // 바닥 찾기(위에서 아래로 레이캐스트)
+        Vector3 rayOrigin = target + Vector3.up * groundCheckRayHeight;
+        if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, groundCheckRayHeight * 2f, groundMask, QueryTriggerInteraction.Ignore))
+        {
+            target = hit.point;
+        }
+
+        target += Vector3.up * spawnHeightOffset;
+
+        // CharacterController/NavMeshAgent가 있으면 안전하게 껐다 켜는 게 좋음
+        var cc = player.GetComponent<CharacterController>();
+        if (cc != null) cc.enabled = false;
+
+        var agent = player.GetComponent<UnityEngine.AI.NavMeshAgent>();
+        if (agent != null) agent.enabled = false;
+
+        player.SetPositionAndRotation(target, Quaternion.identity);
+
+        if (agent != null) agent.enabled = true;
+        if (cc != null) cc.enabled = true;
+    }
+
+    private Transform ResolvePlayer()
+    {
+        
+        // 싱글: Player 태그로 찾기
+        var go = GUIController.Instance.localPlayer.gameObject;
+        return go != null ? go.transform : null;
     }
 
     // -----------------------------
     // RPC
     // -----------------------------
 
-    // Host 제외한 모든 클라이언트에서 실행
     [Rpc(SendTo.NotServer)]
     private void GenerateStageRpc(IsaacMapGenPayload payload)
     {

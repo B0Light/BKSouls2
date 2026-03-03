@@ -26,7 +26,7 @@ namespace BK
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
         [HideInInspector] public InventoryGUIManager inventoryGUIManager;
         [HideInInspector] public ItemShopUIManager itemShopUIManager;
-        //[HideInInspector] public DungeonEnterGUIManager dungeonEnterGUIManager;
+        [HideInInspector] public DungeonEnterGUIManager dungeonEnterGUIManager;
         //[HideInInspector] public DialogueGUIManager dialogueGUIManager;
         [HideInInspector] public UI_InteractionCountDown interactionCountDown;
         
@@ -58,7 +58,7 @@ namespace BK
             
             inventoryGUIManager = GetComponentInChildren<InventoryGUIManager>();
             itemShopUIManager = GetComponentInChildren<ItemShopUIManager>();
-            //dungeonEnterGUIManager = GetComponentInChildren<DungeonEnterGUIManager>();
+            dungeonEnterGUIManager = GetComponentInChildren<DungeonEnterGUIManager>();
             //dialogueGUIManager = GetComponentInChildren<DialogueGUIManager>();
             interactionCountDown = GetComponentInChildren<UI_InteractionCountDown>();
             //mapGUIManager = GetComponentInChildren<MapGUIManager>();
@@ -116,6 +116,14 @@ namespace BK
             //settingGUIManager.OpenDisplaySetter();
         }
 
+        public void HandleEscape()
+        {
+            if(_activeMainHud == false) return;
+            if (!TryCloseActiveUI())
+            {
+                OpenPauseMenu();
+            }
+        }
         
         public void HandleTab()
         {
@@ -195,13 +203,13 @@ namespace BK
             inventoryGUIManager.OpenInteractionInventory(true, width, height, itemIdList, interactable);
         }
 
-        /*
+
         public void OpenDungeonEntrance(DungeonInfoData dungeonInfoData, Interactable interactable)
         {
             OpenGUI(dungeonEnterGUIManager);
             dungeonEnterGUIManager.InitDungeonEnterHUD(dungeonInfoData, interactable);
         }
-        */
+
 
         public void OpenForge(Interactable interactable)
         {

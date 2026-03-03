@@ -186,7 +186,7 @@ namespace BK
             //  WE DONT RUN THIS IF WE ARE THE SERVER, BECAUSE SINCE THEY ARE THE HOST, THEY ARE ALREADY LOADED IN AND DON'T NEED TO RELOAD THEIR DATA
             if (IsOwner && !IsServer)
             {
-                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, WorldSceneManager.Instance.GetSpawnPos());
+                LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, new Vector3());
             }
         }
 

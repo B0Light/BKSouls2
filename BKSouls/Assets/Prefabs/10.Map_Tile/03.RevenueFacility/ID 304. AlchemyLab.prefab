@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8628288047014487024}
-  - component: {fileID: 1041065405476872286}
   m_Layer: 14
   m_Name: ID 304. AlchemyLab
   m_TagString: Untagged
@@ -40,26 +39,6 @@ Transform:
   - {fileID: 2126633932334163024}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1041065405476872286
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 379047340230152746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 36f0de8abb7481042987ffc1c1fcc3a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  exitDir: 0
-  entrancePos: 0
-  exitPos: 0
-  cycleTime: 10
-  queueStartPoint: {fileID: 3388814634242345912}
-  maxColumns: 1
-  incomeEventChannel: {fileID: 11400000, guid: be0c8f8789cf88b459b4a23e998bfc44, type: 2}
-  actionPoint: {fileID: 9193006935229709017}
 --- !u!1 &645047996073095701
 GameObject:
   m_ObjectHideFlags: 0
@@ -149,6 +128,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &1239696567403287099
 BoxCollider:
@@ -480,6 +460,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &1047779816595530574
 BoxCollider:
@@ -870,9 +851,6 @@ PrefabInstance:
       addedObject: {fileID: 5085373425027751240}
     - targetCorrespondingSourceObject: {fileID: 4272969643474329549, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5603285063532241478}
-    - targetCorrespondingSourceObject: {fileID: 4272969643474329549, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 345412120301340083}
     - targetCorrespondingSourceObject: {fileID: 4272969643474329549, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
       insertIndex: -1
@@ -880,6 +858,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4272969643474329549, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4179461116017059632}
+    - targetCorrespondingSourceObject: {fileID: 4272969643474329549, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5603285063532241478}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
 --- !u!4 &2178297886693732842 stripped
@@ -889,7 +870,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &5672074037315717847 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 7764553665337550064, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 1974776928318274745, guid: 05a6723df75b1b0408ce0a353f9260a9, type: 3}
   m_PrefabInstance: {fileID: 2699482617544027687}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2849968686929073693

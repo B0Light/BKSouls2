@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 namespace BK 
@@ -7,7 +8,7 @@ namespace BK
     public class PlayerCamera : Singleton<PlayerCamera>
     {
         public PlayerManager player;
-        public Camera cameraObject;
+        public CinemachineCamera cameraObject;
         public Transform cameraPivotTransform;
         public float cameraPivotYPositionOffSet = 1.5f;
 
