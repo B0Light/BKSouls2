@@ -324,7 +324,7 @@ namespace BK.Inventory
             if (targetGrid == null) return false;
             if (itemInfoData == null) return false;
             if (skipIfZeroId && itemInfoData.itemID == 0) return true;
-
+            targetGrid.ResetItemGrid();
             var invItem = CreateInventoryItem(itemInfoData);
             return targetGrid.AddItem(invItem.gameObject);
         }

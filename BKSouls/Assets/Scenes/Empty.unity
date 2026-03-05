@@ -702,7 +702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2468808709027527358, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2783460320490302254, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -786,22 +786,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8566945742741920733, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9134651282765023895, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 9134651282765023895, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1739218804756829491, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2783460320490302254, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1284462343}
-    - targetCorrespondingSourceObject: {fileID: 1739218804756829491, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2783460320490302254, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1622005987}
-    - targetCorrespondingSourceObject: {fileID: 1739218804756829491, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 2783460320490302254, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1566802841}
     - targetCorrespondingSourceObject: {fileID: 6188521767121729929, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
@@ -818,11 +822,6 @@ PrefabInstance:
 --- !u!4 &1249857176 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6188521767121729929, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
-  m_PrefabInstance: {fileID: 1249857175}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1249857177 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1739218804756829491, guid: ef805cb1e46a59445aac2613fcc303c1, type: 3}
   m_PrefabInstance: {fileID: 1249857175}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1259864114
@@ -979,7 +978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1752634011024786, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1766084927210270, guid: 3f581b8f5dacdc54b8e405d2157e1d8b, type: 3}
       propertyPath: m_IsActive
@@ -1218,7 +1217,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1249857177}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2276305552935293728, guid: cb68f6eadade6614fb7a57142d9cfb60, type: 3}
       propertyPath: m_Name
@@ -1315,7 +1314,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1249857177}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2456186867962784618, guid: 141d3dfd635469c4c995101999b3fd59, type: 3}
       propertyPath: m_Name
@@ -1493,7 +1492,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1249857177}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 488118882624758345, guid: 4711e4119a6df66458a2ecaad73389a5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5370,13 +5369,10 @@ MonoBehaviour:
   leftHandWeaponSlot: {fileID: 0}
   leftHandShieldSlot: {fileID: 0}
   backSlot: {fileID: 0}
-  subWeaponSlot: {fileID: 0}
   rightHandWeaponModel: {fileID: 0}
   leftHandWeaponModel: {fileID: 0}
-  subWeaponModel: {fileID: 0}
   rightWeaponManager: {fileID: 0}
   leftWeaponManager: {fileID: 0}
-  subWeaponManager: {fileID: 0}
   hatsObject: {fileID: 0}
   hats: []
   hoodsObject: {fileID: 0}
@@ -5459,7 +5455,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerInventoryManager
   currentRightHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
   currentLeftHandWeapon: {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  currentSubWeapon: {fileID: 0}
+  currentRightSubWeapon: {fileID: 0}
+  currentLeftSubWeapon: {fileID: 0}
   currentTwoHandWeapon: {fileID: 0}
   currentSpell: {fileID: 0}
   quickSlotItemsInQuickSlots:
@@ -5504,6 +5501,7 @@ MonoBehaviour:
   verticalMovement: 0
   horizontalMovement: 0
   moveAmount: 0
+  isSpawnProtected: 0
   walkingSpeed: 2
   runningSpeed: 5
   sprintingSpeed: 6.5
@@ -5616,6 +5614,13 @@ MonoBehaviour:
   playerInteractionManager: {fileID: 0}
   playerEffectsManager: {fileID: 0}
   playerBodyManager: {fileID: 0}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  probeUp: 3
+  probeDown: 80
+  groundOffset: 0.05
+  maxFramesToWait: 180
 --- !u!114 &1638063525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5813,7 +5818,9 @@ MonoBehaviour:
     m_InternalValue: 0
   currentLeftHandWeaponID:
     m_InternalValue: 0
-  currentSubWeaponID:
+  currentRightSubWeaponID:
+    m_InternalValue: 0
+  currentLeftSubWeaponID:
     m_InternalValue: 0
   currentSpellID:
     m_InternalValue: 0

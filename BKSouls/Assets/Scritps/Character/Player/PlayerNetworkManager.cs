@@ -389,6 +389,7 @@ namespace BK
 
         public void OnIsHoldingArrowChanged(bool oldStatus, bool newStatus)
         {
+            player.isPerformingAction = true;
             player.animator.SetBool("isHoldingArrow", isHoldingArrow.Value);
         }
 

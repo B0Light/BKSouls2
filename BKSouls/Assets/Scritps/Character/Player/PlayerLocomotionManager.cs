@@ -122,7 +122,11 @@ namespace BK
                 moveDirection.y = 0;
             }
 
-            if (player.playerNetworkManager.isSprinting.Value)
+            if (player.playerNetworkManager.isHoldingArrow.Value)
+            {
+                player.characterController.Move(moveDirection * walkingSpeed * Time.deltaTime);
+            }
+            else if (player.playerNetworkManager.isSprinting.Value)
             {
                 player.characterController.Move(moveDirection * sprintingSpeed * Time.deltaTime);
             }

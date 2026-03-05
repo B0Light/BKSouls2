@@ -1950,8 +1950,8 @@ MonoBehaviour:
   stanceRegenerationTimer: 0
   defaultTimeUntilStanceRegenerationBegins: 15
   playersWithinActivationRange: []
-  rightHandDamageCollider: {fileID: 0}
-  leftHandDamageCollider: {fileID: 0}
+  rightHandDamageCollider: {fileID: 8767160635916093345}
+  leftHandDamageCollider: {fileID: 8298640565448949874}
   attack01DamageModifier: 1
   attack02DamageModifier: 1.4
 --- !u!114 &8654894695461447379

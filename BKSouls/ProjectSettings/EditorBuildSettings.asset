@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene_World_02.unity
     guid: f3a5672faebdb9040af40fe0e5f72ca2
+  - enabled: 1
+    path: Assets/Scenes/SceneMaker.unity
+    guid: 169e5aa9da27f9e4abab2145b7a07272
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 7432cd3fe56fbea4d87a31bfe7ba9bd1, type: 3}
   m_UseUCBPForAssetBundles: 0

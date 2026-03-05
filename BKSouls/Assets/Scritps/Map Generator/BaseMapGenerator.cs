@@ -225,6 +225,5 @@ public abstract class BaseMapGenerator
         }
         _grid[startPos.x, startPos.y] = CellType.MainGate;
         _grid[endPos.x, endPos.y] = CellType.MainGate;
-        
     }
 }

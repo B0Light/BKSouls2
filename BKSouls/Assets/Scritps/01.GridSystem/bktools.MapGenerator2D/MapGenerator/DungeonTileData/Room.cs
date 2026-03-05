@@ -98,7 +98,7 @@ public class RoomNode
 
 public class Room
 {
-    public Vector2Int Position;
+    public Vector2Int GridPos;
     public int Width;
     public int Height;
     public RoomType Type;
@@ -106,7 +106,7 @@ public class Room
 
     public Room(Vector2Int pos, int width, int height, RoomType type)
     {
-        Position = pos;
+        GridPos = pos;
         Width = width;
         Height = height;
         Type = type;
@@ -128,7 +128,8 @@ public enum RoomType
 {
     Start,
     Normal,
-    Special
+    Special,
+    Boss
 }
 
 

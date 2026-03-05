@@ -22,7 +22,7 @@ namespace BK
             player.playerLocomotionManager.canMove = allowMovement;
             player.playerLocomotionManager.canRotate = allowMovement;
             player.playerLocomotionManager.canRun = !allowMovement;
-            player.isPerformingAction = !allowMovement;
+            player.isPerformingAction = true;
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
