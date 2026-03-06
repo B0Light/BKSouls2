@@ -1042,7 +1042,7 @@ GameObject:
   - component: {fileID: 1779194639274480464}
   - component: {fileID: 8298640565448949874}
   - component: {fileID: 5860319583908279925}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Finger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3465,7 +3465,7 @@ GameObject:
   - component: {fileID: 6389300755503874153}
   - component: {fileID: 8767160635916093345}
   - component: {fileID: 7125058269826608194}
-  m_Layer: 7
+  m_Layer: 10
   m_Name: Finger_01 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

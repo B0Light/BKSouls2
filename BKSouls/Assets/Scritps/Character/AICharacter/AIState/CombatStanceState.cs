@@ -50,7 +50,9 @@ namespace BK
             // 타겟이 없으면 바로 Idle로 복귀 (아래에서 null 참조 방지)
             if (aiCharacter.aiCharacterCombatManager.currentTarget == null)
                 return SwitchState(aiCharacter, aiCharacter.idle);
-
+            
+            var targetPos = aiCharacter.aiCharacterCombatManager.currentTarget.transform.position;
+            
             // NavMeshAgent가 꺼져있으면 켠다
             if (!aiCharacter.navMeshAgent.enabled)
                 aiCharacter.navMeshAgent.enabled = true;
@@ -110,7 +112,7 @@ namespace BK
                 return SwitchState(aiCharacter, aiCharacter.pursueTarget);
 
             // 타겟 위치로 경로 계산 및 적용
-            var targetPos = aiCharacter.aiCharacterCombatManager.currentTarget.transform.position;
+            
             
             if (aiCharacter.navMeshAgent.CalculatePath(targetPos, aiCharacter.runtimePath))
             {
