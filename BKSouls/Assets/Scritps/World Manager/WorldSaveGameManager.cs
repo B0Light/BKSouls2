@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -30,14 +31,12 @@ namespace BK
         
         [Header("Character Slots")]
         public List<CharacterSaveData> characterSlots = new List<CharacterSaveData>();
-        private readonly int _maxCharacterSlots = 5; // 슬롯 수를 쉽게 조정 가능
         
         private void Start()
         {
             SetupSaveWriter();
             
-            // 슬롯 데이터 초기화
-            for (int i = 0; i < _maxCharacterSlots; i++)
+            foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
             {
                 characterSlots.Add(null);
             }
@@ -143,6 +142,8 @@ namespace BK
             if (saveFileDataWriter.CheckToSeeIfFileExists())
             {
                 currentCharacterData = saveFileDataWriter.LoadSaveFile();
+                if(NetworkManager.Singleton.IsHost)
+                    WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
                 return true;
             }
             else
@@ -183,27 +184,26 @@ namespace BK
         private void LoadAllCharacterProfiles()
         {
             SetupSaveWriter();
-            
-            for (int i = 0; i < _maxCharacterSlots; i++)
+
+            foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
             {
-                CharacterSlot slot = (CharacterSlot)i;
                 saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(slot);
             
                 // 파일이 존재하는지 먼저 확인
                 if (saveFileDataWriter.CheckToSeeIfFileExists())
                 {
-                    characterSlots[i] = saveFileDataWriter.LoadSaveFile();
+                    characterSlots[(int)slot] = saveFileDataWriter.LoadSaveFile();
                     //Debug.Log($"슬롯 {i} 로드 성공: {saveFileDataWriter.saveFileName}");
                 }
                 else
                 {
-                    characterSlots[i] = null;
+                    characterSlots[(int)slot] = null;
                     //Debug.Log($"슬롯 {i} 파일 없음: {saveFileDataWriter.saveFileName}");
                 }
             }
         }
         
-        private CharacterSlot FindMostRecentlyPlayedSlot()
+        public CharacterSlot FindMostRecentlyPlayedSlot()
         {
             DateTime mostRecentTime = DateTime.MinValue;
             CharacterSlot mostRecentSlot = CharacterSlot.NO_SLOT; // 기본값 설정

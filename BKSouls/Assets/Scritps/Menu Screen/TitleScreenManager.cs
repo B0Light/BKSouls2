@@ -19,7 +19,8 @@ namespace BK
         [SerializeField] GameObject titleScreenLoadMenu;
         [SerializeField] GameObject titleScreenCharacterCreationMenu;
 
-        [Header("Main Menu Buttons")]
+        [Header("Main Menu Buttons")] 
+        [SerializeField] Button continueGameButton;
         [SerializeField] Button loadMenuReturnButton;
         [SerializeField] Button mainMenuLoadGameButton;
         [SerializeField] Button mainMenuNewGameButton;
@@ -79,7 +80,11 @@ namespace BK
             }
         }
 
-        public void StartNetworkAsHost() => NetworkManager.Singleton.StartHost();
+        // Press to Start 
+        public void StartNetworkAsHost()
+        {
+            NetworkManager.Singleton.StartHost();
+        }
         
         public void StartNetworkAsClient()
         {
@@ -106,6 +111,12 @@ namespace BK
             WorldSaveGameManager.Instance.AttemptToCreateNewGame();
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
             startingClasses[selectClass].DecideClass(player);
+        }
+
+        public void ContinueLastGame()
+        {
+            var play = WorldSaveGameManager.Instance.LoadLastGame();
+            if(play == false) continueGameButton.interactable = false;
         }
 
         public void OpenLoadGameMenu()

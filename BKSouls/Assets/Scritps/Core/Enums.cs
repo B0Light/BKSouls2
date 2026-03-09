@@ -10,11 +10,6 @@ public enum CharacterSlot
     CharacterSlot_03,
     CharacterSlot_04,
     CharacterSlot_05,
-    CharacterSlot_06,
-    CharacterSlot_07,
-    CharacterSlot_08,
-    CharacterSlot_09,
-    CharacterSlot_10,
     NO_SLOT
 }
 

@@ -81,10 +81,6 @@ public class IsaacMapSyncController : NetworkBehaviour
         }
     }
 
-    // -----------------------------
-    // Host controls (context menu)
-    // -----------------------------
-
     [ContextMenu("Host: Start Run (Init Seed)")]
     public void HostStartRun()
     {
@@ -103,11 +99,7 @@ public class IsaacMapSyncController : NetworkBehaviour
         stageIndex++;
         HostGenerateStageAndSync();
     }
-
-    // -----------------------------
-    // Core
-    // -----------------------------
-
+    
     private void HostGenerateStageAndSync()
     {
         EnsureGenerator();
