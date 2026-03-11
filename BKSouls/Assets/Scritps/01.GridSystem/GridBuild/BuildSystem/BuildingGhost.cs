@@ -78,7 +78,6 @@ public class BuildingGhost : MonoBehaviour
         {
             _visual = Instantiate(placedObjectData.prefab, Vector3.zero, Quaternion.identity);
             _visual.parent = transform;
-            _visual.gameObject.layer = LayerMask.NameToLayer("Wireframe");
             _visual.localPosition = Vector3.zero;
             _visual.localEulerAngles = Vector3.zero;
             MeshRenderer[] mrs = _visual.GetComponentsInChildren<MeshRenderer>();

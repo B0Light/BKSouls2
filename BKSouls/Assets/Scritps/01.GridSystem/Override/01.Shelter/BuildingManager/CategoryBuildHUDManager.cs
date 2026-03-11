@@ -14,6 +14,8 @@ public class CategoryBuildHUDManager : GridBuildHUDManager
     [SerializeField] private CanvasGroup buildingSelectionCanvasGroup;
 
     [SerializeField] private List<CellType> activeTileType;
+    
+    [Header("Debug")]
     public SerializableDictionary<CellType, HashSet<BuildObjData>> unlockedBuildingByCategory;
     
     protected override void Awake()
@@ -69,7 +71,7 @@ public class CategoryBuildHUDManager : GridBuildHUDManager
     {
         CellType tileCategory = buildObjData.GetCellType(); 
         
-        // 추가 할 수 없는 건물 계열 (터렛류)
+        // 추가 할 수 없는 건물 계열
         if(unlockedBuildingByCategory.ContainsKey(tileCategory) == false) return;
         
         unlockedBuildingByCategory[tileCategory].Add(buildObjData);
@@ -92,6 +94,7 @@ public class CategoryBuildHUDManager : GridBuildHUDManager
     
     public void SelectCategory(CellType id)
     {
+        Debug.LogWarning($"Select Category : {id}");
         BaseGridBuildSystem.Instance.SelectToBuild(null);
         StartCoroutine(gridBuildingSelector.InitBtnSlot(id));
     }

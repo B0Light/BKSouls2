@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 000. EmptyPlace
   m_EditorClassIdentifier: 
-  itemCode: 0
+  itemID: 0
   itemName: EmptyPlace
   itemIcon: {fileID: 0}
   itemTier: 0
+  cost: 0
   itemDescription: EmptyPlace
-  purchaseCost: 0
-  costItemList: 
+  itemType: 7
   width: 1
   height: 1
+  weight: 0
+  itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: 9698b0eea8f10954aa657ecb0d1898d4, type: 3}
-  baseTileType: 4
-  tileType: 0
+  cellType: 0
   maxLevel: 0
   baseFee: 0
   upgradeStages: []

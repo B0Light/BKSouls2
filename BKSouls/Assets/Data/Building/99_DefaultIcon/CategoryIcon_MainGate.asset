@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 924cd93b63ad13f4aad007e42105964f, type: 3}
   m_Name: CategoryIcon_MainGate
   m_EditorClassIdentifier: Assembly-CSharp::CategoryIconData
-  cellType: 3
-  cellIcon: {fileID: 21300000, guid: 5c8c95384cf2b494894d05418fb8c8b6, type: 3}
+  cellType: 2
+  cellIcon: {fileID: 21300000, guid: 33f876c1b02670c4e8c2c8fe382361be, type: 3}

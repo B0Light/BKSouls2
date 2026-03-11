@@ -47,9 +47,9 @@ namespace BK.Inventory
             if (uiImage == null || newSprite == null)
             {
                 if (uiImage == null)
-                    Debug.LogError("NO UI IMAGE");
+                    Debug.LogWarning($"NO UI IMAGE : {itemData.itemName}");
                 else
-                    Debug.LogError("NO SPRITE");
+                    Debug.LogWarning($"NO SPRITE : {itemData.itemName}");
                 return;
             }
 

@@ -20,13 +20,13 @@ MonoBehaviour:
   itemDescription: 'Obstacle
 
 '
-  itemType: 0
+  itemType: 7
   width: 1
   height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: b235849c669a39c429e68ca1beb56bd1, type: 3}
-  cellType: 8
+  cellType: 5
   maxLevel: 0
   baseFee: 0
   upgradeStages: []

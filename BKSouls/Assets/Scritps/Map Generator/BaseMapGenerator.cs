@@ -83,7 +83,7 @@ public abstract class BaseMapGenerator
         {
             for (int y = 0; y < gridSize.y; y++)
             {
-                if (_grid[x, y] == CellType.Floor || _grid[x, y] == CellType.Path)
+                if (_grid[x, y] == CellType.Floor || _grid[x, y] == CellType.Road)
                 {
                     // 상하좌우 체크 (경계 범위 내에서만)
                     if (x > 0 && _grid[x - 1, y] == CellType.Empty) _grid[x - 1, y] = CellType.Wall;
@@ -208,7 +208,7 @@ public abstract class BaseMapGenerator
             {
                 if (_grid[current.x, current.y] == CellType.Empty)
                 {
-                    _grid[current.x, current.y] = CellType.Path;
+                    _grid[current.x, current.y] = CellType.Road;
                 }
             }
             

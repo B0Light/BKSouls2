@@ -4,7 +4,6 @@ public enum CellType
 {
     Empty,
     Floor,
-    Path,
     MainGate,
     Wall,
     Road,

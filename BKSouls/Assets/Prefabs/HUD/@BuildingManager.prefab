@@ -102,7 +102,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3816805151059780596
 CanvasRenderer:
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e40cc4e94325e1b4ab4bcbfb86008f2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 643dd8e09a998dd42971a26c6e017dfd, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2415,6 +2415,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 65536
+  mouseInput: {x: 0, y: 0}
 --- !u!1 &1908245208602133365
 GameObject:
   m_ObjectHideFlags: 0
@@ -4264,7 +4265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 964dd64123f00494e8aebf4af850eda1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 643dd8e09a998dd42971a26c6e017dfd, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4681,7 +4682,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37d521597be8c3b43bc84fce4eab0951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selectPrefab: {fileID: 882407731090068064, guid: ed5514afa89838649af22d905e5491d1, type: 3}
+  selectPrefab: {fileID: 882407731090068064, guid: 3f1a08c144bc8fa43b92a468b36f5418, type: 3}
   selectButtonSlot: {fileID: 388884559738157345}
 --- !u!225 &5717117222987885348
 CanvasGroup:
@@ -5459,7 +5460,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7039982246060816781
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8313,7 +8314,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 14d150a8dc80e5143acf692a4f789fb1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -10110,8 +10111,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7.5}
-  m_SizeDelta: {x: 40, y: 55.000027}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1505645011926931623
 CanvasGroup:
@@ -10579,7 +10580,7 @@ MonoBehaviour:
   gridBuildCategorySelector: {fileID: 4786171845903465623}
   gridBuildingSelector: {fileID: 9007748694493700452}
   buildingSelectionCanvasGroup: {fileID: 4257711549977892108}
-  activeTileType: 
+  activeTileType: 040000000500000006000000
   unlockedBuildingByCategory:
     keys: 
 --- !u!1 &8323562984848528421

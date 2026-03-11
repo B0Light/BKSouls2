@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - FxTemporaire
+  - Ignore_CamCollision
   layers:
   - Default
   - TransparentFX

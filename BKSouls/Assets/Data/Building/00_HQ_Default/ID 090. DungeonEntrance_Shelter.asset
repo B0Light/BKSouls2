@@ -18,14 +18,13 @@ MonoBehaviour:
   itemTier: 5
   cost: 0
   itemDescription: Dungeon Entrance
-  itemType: 0
+  itemType: 7
   width: 1
   height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 5182557877217463400, guid: 3aa2fc8c83bf49b4f97513e805432cd8, type: 3}
-  baseCellType: 0
-  cellType: 6
+  cellType: 5
   maxLevel: 0
   baseFee: 50
   upgradeStages: []

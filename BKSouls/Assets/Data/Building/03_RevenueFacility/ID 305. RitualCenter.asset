@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 305. RitualCenter
   m_EditorClassIdentifier: 
-  itemCode: 305
+  itemID: 0
   itemName: RitualCenter
   itemIcon: {fileID: 21300000, guid: f9b2df08936497946a4296ebb8eaeaa5, type: 3}
   itemTier: 1
+  cost: 0
   itemDescription: "\uD2B9\uC804\uC744 \uD65C\uC131\uD654 \uD558\uB294 \uAC74\uBB3C\uC785\uB2C8\uB2E4."
-  purchaseCost: 50000
-  costItemList: e8030000e9030000380400004204000043040000
+  itemType: 7
   width: 2
   height: 2
+  weight: 0
+  itemAbilities: []
   prefab: {fileID: 5182557877217463400, guid: 512ab81de883d8d40a58f94c25cf4fca, type: 3}
-  baseTileType: 0
-  tileType: 7
+  cellType: 6
   maxLevel: 10
   baseFee: 100
   upgradeStages: []

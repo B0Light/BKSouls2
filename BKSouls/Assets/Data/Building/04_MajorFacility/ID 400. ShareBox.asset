@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 400. ShareBox
   m_EditorClassIdentifier: 
-  itemCode: 400
+  itemID: 0
   itemName: "\uCEE8\uD14C\uC774\uB108"
   itemIcon: {fileID: 21300000, guid: a4b2f64db24a96546a59e2318e0d5e20, type: 3}
   itemTier: 1
+  cost: 0
   itemDescription: "\uC544\uC774\uD15C\uC744 \uBCF4\uAD00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n"
-  purchaseCost: 1000
-  costItemList: e8030000f2030000
+  itemType: 7
   width: 2
   height: 2
+  weight: 0
+  itemAbilities: []
   prefab: {fileID: 8505302688112017437, guid: 2689a2aa3fb71ba4e91dcf1f920d0af6, type: 3}
-  tileType: 3
+  cellType: 6
   maxLevel: 10
   baseFee: 100
   upgradeStages:

@@ -147,7 +147,7 @@ public class GridPathfinder : PathfindingBase<GridCell>
         switch (to.CellType)
         {
             case CellType.Floor:
-            case CellType.Path:
+            case CellType.Road:
                 terrainMultiplier = 0.5f;
                 break;
             case CellType.Empty:

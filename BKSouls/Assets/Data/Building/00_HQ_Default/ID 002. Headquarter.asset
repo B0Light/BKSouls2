@@ -20,13 +20,13 @@ MonoBehaviour:
   itemDescription: 'Build Control
 
 '
-  itemType: 0
+  itemType: 7
   width: 2
   height: 2
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: f85498859c0f2d444aa1c64b1578e573, type: 3}
-  cellType: 6
+  cellType: 5
   maxLevel: 10
   baseFee: 100
   upgradeStages: []

@@ -15,16 +15,16 @@ MonoBehaviour:
   itemID: 1
   itemName: "\uC785\uAD6C"
   itemIcon: {fileID: 0}
-  itemTier: 5
+  itemTier: 6
   cost: 0
   itemDescription: ENTRANCE
-  itemType: 0
+  itemType: 7
   width: 1
   height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: 39347e033ebcec44da046393996cd733, type: 3}
-  cellType: 5
+  cellType: 4
   maxLevel: 10
   baseFee: 100
   upgradeStages: []

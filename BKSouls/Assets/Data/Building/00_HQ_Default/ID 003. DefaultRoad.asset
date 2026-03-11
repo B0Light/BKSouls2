@@ -15,16 +15,16 @@ MonoBehaviour:
   itemID: 3
   itemName: "\uAE30\uBCF8\uB3C4\uB85C"
   itemIcon: {fileID: 21300000, guid: 67fdc91acd8a4b240a1a5c5d4fabc97d, type: 3}
-  itemTier: 0
+  itemTier: 6
   cost: 0
   itemDescription: Default road to get HQ
-  itemType: 0
+  itemType: 7
   width: 1
   height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: 9c14bbed5a19d450295e19722b94fe0c, type: 3}
-  cellType: 5
+  cellType: 4
   maxLevel: 0
   baseFee: 50
   upgradeStages: []

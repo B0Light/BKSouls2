@@ -24,7 +24,7 @@ MonoBehaviour:
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: 9c14bbed5a19d450295e19722b94fe0c, type: 3}
-  cellType: 5
+  cellType: 4
   maxLevel: 0
   baseFee: 50
   upgradeStages: []
