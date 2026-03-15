@@ -1,0 +1,11 @@
+Category,ItemID_NONE,ItemName,ItemTier,Item Description,Cost,Height,Width,Weight,PhysicalDeff,MagicalDeff,backpackX,backpackY
+Armor,기사 세트,Knigh Armor,0,,1000,2,2,10.6,12.4,10.9,0,0
+Armor,방랑기사,Vagabond Knight,,,,,,,,,,
+Armor,야만 전사 ,,,,,,,,,,,
+Armor,판금 기사,,,,,,,,,,,
+Armor,은사자 기사,,,,,,,,,,,
+Armor,성수 기사,,,,,,,,,,,
+Armor,영묘 기사,,,,,,,,,,,
+Armor,흑기사,,,,,,,,,,,
+Armor,귀부기사,,,,,,,,,,,
+Armor,신수 전사,,,,,,,,,,,

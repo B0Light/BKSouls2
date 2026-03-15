@@ -60,6 +60,8 @@ public enum ItemType
     Consumables,
     Misc,
     Blueprint,
+    Spell,
+    Potion,
     None,
 }
 

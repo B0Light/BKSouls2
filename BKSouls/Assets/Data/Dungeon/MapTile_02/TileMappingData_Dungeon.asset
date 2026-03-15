@@ -18,16 +18,14 @@ MonoBehaviour:
   - cellType: 1
     tileData: {fileID: 11400000, guid: e318a06001f58744a99f1fbd4ea7bc64, type: 2}
   - cellType: 2
-    tileData: {fileID: 11400000, guid: caf1d6fd8c9ec104bb7539e1b3702dab, type: 2}
-  - cellType: 3
     tileData: {fileID: 11400000, guid: 66127b104d4cccb4591566da04cea4d9, type: 2}
-  - cellType: 4
+  - cellType: 3
     tileData: {fileID: 11400000, guid: 288d3fce119f8b24fb160243eefe10c5, type: 2}
+  - cellType: 4
+    tileData: {fileID: 11400000, guid: caf1d6fd8c9ec104bb7539e1b3702dab, type: 2}
   - cellType: 5
     tileData: {fileID: 11400000, guid: 8f4f1b4d00c87734980227d1146be5f6, type: 2}
   - cellType: 6
     tileData: {fileID: 11400000, guid: 8f4f1b4d00c87734980227d1146be5f6, type: 2}
   - cellType: 7
-    tileData: {fileID: 11400000, guid: 8f4f1b4d00c87734980227d1146be5f6, type: 2}
-  - cellType: 8
     tileData: {fileID: 11400000, guid: 8f4f1b4d00c87734980227d1146be5f6, type: 2}

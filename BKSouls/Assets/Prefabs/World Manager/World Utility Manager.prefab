@@ -50,3 +50,9 @@ MonoBehaviour:
   enviroLayers:
     serializedVersion: 2
     m_Bits: 1
+  slipperyEnviroLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  poisonedColor: {r: 0.52251375, g: 0.12549019, b: 0.8156863, a: 1}
+  frozenMaterial: {fileID: 2100000, guid: 5c065b471906f184aa6c247551a2beeb, type: 2}
+  slopeSlideForce: -15

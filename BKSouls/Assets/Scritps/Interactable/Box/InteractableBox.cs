@@ -6,33 +6,30 @@ namespace BK
 {
     public class InteractableBox : Interactable
     {
-        [Header("Box Info")] [SerializeField] [Range(1, 6)]
-        private int boxWidth;
-
+        [Header("Box Info")] 
+        [SerializeField] [Range(1, 6)] private int boxWidth;
         [SerializeField] [Range(1, 10)] private int boxHeight;
-
-        [SerializeField] protected BoxType boxType;
-        [SerializeField] [Range(0, 5)] protected int boxTier = 0;
+        
         [SerializeField] protected List<int> itemIdList = new List<int>();
 
-        [Header("Box Animation Settings")] [SerializeField]
-        private BoxOpenType openType = BoxOpenType.TopLid;
+        [Header("Box Animation Settings")] 
+        [SerializeField] private BoxOpenType openType = BoxOpenType.TopLid;
 
         [SerializeField] private float animationDuration = 1.0f;
         [SerializeField] private AnimationCurve animationCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-        [Header("Movement Settings")] [SerializeField]
-        private float slideDistance = 1.0f; // 슬라이딩 거리
+        [Header("Movement Settings")] 
+        [SerializeField] private float slideDistance = 1.0f; 
 
-        [SerializeField] private float rotationAngle = 90.0f; // 회전 각도
-        [SerializeField] private float lidOpenAngle = -120.0f; // 뚜껑 열림 각도
-        [SerializeField] private LidRotationAxis lidRotationAxis = LidRotationAxis.X; // 뚜껑 회전 축
+        [SerializeField] private float rotationAngle = 90.0f; 
+        [SerializeField] private float lidOpenAngle = -120.0f;
+        [SerializeField] private LidRotationAxis lidRotationAxis = LidRotationAxis.X;
 
         [Header("Box Components")] [SerializeField]
         private Transform lid; // 뚜껑 (TopLid용)
 
-        [SerializeField] private Transform leftDoor; // 왼쪽 문/도어
-        [SerializeField] private Transform rightDoor; // 오른쪽 문/도어
+        [SerializeField] private Transform leftDoor; 
+        [SerializeField] private Transform rightDoor;
 
         protected bool isOpen;
         private bool _isDoorOpened;

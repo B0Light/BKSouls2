@@ -133,8 +133,7 @@ namespace BK.Inventory
             safeInventoryCanvasGroup.blocksRaycasts = isActive;
         }
 
-        public void OpenInteractionInventory(bool isShareInventory, int width, int height, List<int> itemIdList,
-            Interactable interactable)
+        public void OpenInteractionInventory(bool isShareInventory, int width, int height, List<int> itemIdList, Interactable interactable)
         {
             _interactableObject = interactable;
 

@@ -11,6 +11,7 @@ namespace BK
         public string itemName;
         public Sprite itemIcon;
         public ItemTier itemTier;
+        public ItemType itemType;
         public int cost = 0;
         [TextArea] public string itemDescription;
         
