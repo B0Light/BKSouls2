@@ -23,7 +23,6 @@ namespace BK
         public int deadSpotRuneCount;
 
         [Header("Body Type")]
-        public bool isMale = true;
         public int hairStyleID;
         public float hairColorRed;
         public float hairColorGreen;

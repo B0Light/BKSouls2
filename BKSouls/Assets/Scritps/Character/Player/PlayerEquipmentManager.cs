@@ -22,50 +22,6 @@ namespace BK
         public WeaponManager rightWeaponManager;
         public WeaponManager leftWeaponManager;
 
-        #region Equipment Model Groups
-
-        [Header("General Equipment Models")]
-        public GameObject hatsObject;                 [HideInInspector] public GameObject[] hats;
-        public GameObject hoodsObject;                [HideInInspector] public GameObject[] hoods;
-        public GameObject faceCoversObject;           [HideInInspector] public GameObject[] faceCovers;
-        public GameObject helmetAccessoriesObject;    [HideInInspector] public GameObject[] helmetAccessories;
-        public GameObject backAccessoriesObject;      [HideInInspector] public GameObject[] backAccessories;
-        public GameObject hipAccessoriesObject;       [HideInInspector] public GameObject[] hipAccessories;
-        public GameObject rightShoulderObject;        [HideInInspector] public GameObject[] rightShoulder;
-        public GameObject rightElbowObject;           [HideInInspector] public GameObject[] rightElbow;
-        public GameObject rightKneeObject;            [HideInInspector] public GameObject[] rightKnee;
-        public GameObject leftShoulderObject;         [HideInInspector] public GameObject[] leftShoulder;
-        public GameObject leftElbowObject;            [HideInInspector] public GameObject[] leftElbow;
-        public GameObject leftKneeObject;             [HideInInspector] public GameObject[] leftKnee;
-
-        [Header("Male Equipment Models")]
-        public GameObject maleFullHelmetObject;       [HideInInspector] public GameObject[] maleHeadFullHelmets;
-        public GameObject maleFullBodyObject;         [HideInInspector] public GameObject[] maleBodies;
-        public GameObject maleRightUpperArmObject;    [HideInInspector] public GameObject[] maleRightUpperArms;
-        public GameObject maleRightLowerArmObject;    [HideInInspector] public GameObject[] maleRightLowerArms;
-        public GameObject maleRightHandObject;        [HideInInspector] public GameObject[] maleRightHands;
-        public GameObject maleLeftUpperArmObject;     [HideInInspector] public GameObject[] maleLeftUpperArms;
-        public GameObject maleLeftLowerArmObject;     [HideInInspector] public GameObject[] maleLeftLowerArms;
-        public GameObject maleLeftHandObject;         [HideInInspector] public GameObject[] maleLeftHands;
-        public GameObject maleHipsObject;             [HideInInspector] public GameObject[] maleHips;
-        public GameObject maleRightLegObject;         [HideInInspector] public GameObject[] maleRightLegs;
-        public GameObject maleLeftLegObject;          [HideInInspector] public GameObject[] maleLeftLegs;
-
-        [Header("Female Equipment Models")]
-        public GameObject femaleFullHelmetObject;     [HideInInspector] public GameObject[] femaleHeadFullHelmets;
-        public GameObject femaleFullBodyObject;       [HideInInspector] public GameObject[] femaleBodies;
-        public GameObject femaleRightUpperArmObject;  [HideInInspector] public GameObject[] femaleRightUpperArms;
-        public GameObject femaleRightLowerArmObject;  [HideInInspector] public GameObject[] femaleRightLowerArms;
-        public GameObject femaleRightHandObject;      [HideInInspector] public GameObject[] femaleRightHands;
-        public GameObject femaleLeftUpperArmObject;   [HideInInspector] public GameObject[] femaleLeftUpperArms;
-        public GameObject femaleLeftLowerArmObject;   [HideInInspector] public GameObject[] femaleLeftLowerArms;
-        public GameObject femaleLeftHandObject;       [HideInInspector] public GameObject[] femaleLeftHands;
-        public GameObject femaleHipsObject;           [HideInInspector] public GameObject[] femaleHips;
-        public GameObject femaleRightLegObject;       [HideInInspector] public GameObject[] femaleRightLegs;
-        public GameObject femaleLeftLegObject;        [HideInInspector] public GameObject[] femaleLeftLegs;
-
-        #endregion
-
         protected override void Awake()
         {
             base.Awake();
@@ -73,7 +29,6 @@ namespace BK
             player = GetComponent<PlayerManager>();
 
             InitializeWeaponSlots();
-            InitializeArmorModels();
         }
 
         protected override void Start()
@@ -86,8 +41,6 @@ namespace BK
         {
             LoadHeadEquipment(player.playerInventoryManager.headEquipment);
             LoadBodyEquipment(player.playerInventoryManager.bodyEquipment);
-            LoadLegEquipment(player.playerInventoryManager.legEquipment);
-            LoadHandEquipment(player.playerInventoryManager.handEquipment);
         }
 
         #region Quick Slot
@@ -128,15 +81,6 @@ namespace BK
             return arr;
         }
 
-        private static void SetActiveAll(GameObject[] models, bool active)
-        {
-            if (models == null) return;
-            foreach (var go in models)
-            {
-                if (go != null) go.SetActive(active);
-            }
-        }
-
         private void RecalculateArmorAbsorption()
         {
             player.playerStatsManager.CalculateTotalArmorAbsorption();
@@ -150,49 +94,6 @@ namespace BK
 
         #endregion
 
-        #region Armor Init
-
-        private void InitializeArmorModels()
-        {
-            hats = ChildrenToArray(hatsObject);
-            hoods = ChildrenToArray(hoodsObject);
-            faceCovers = ChildrenToArray(faceCoversObject);
-            helmetAccessories = ChildrenToArray(helmetAccessoriesObject);
-            backAccessories = ChildrenToArray(backAccessoriesObject);
-            hipAccessories = ChildrenToArray(hipAccessoriesObject);
-            rightShoulder = ChildrenToArray(rightShoulderObject);
-            rightElbow = ChildrenToArray(rightElbowObject);
-            rightKnee = ChildrenToArray(rightKneeObject);
-            leftShoulder = ChildrenToArray(leftShoulderObject);
-            leftElbow = ChildrenToArray(leftElbowObject);
-            leftKnee = ChildrenToArray(leftKneeObject);
-
-            maleHeadFullHelmets = ChildrenToArray(maleFullHelmetObject);
-            maleBodies = ChildrenToArray(maleFullBodyObject);
-            maleRightUpperArms = ChildrenToArray(maleRightUpperArmObject);
-            maleRightLowerArms = ChildrenToArray(maleRightLowerArmObject);
-            maleRightHands = ChildrenToArray(maleRightHandObject);
-            maleLeftUpperArms = ChildrenToArray(maleLeftUpperArmObject);
-            maleLeftLowerArms = ChildrenToArray(maleLeftLowerArmObject);
-            maleLeftHands = ChildrenToArray(maleLeftHandObject);
-            maleHips = ChildrenToArray(maleHipsObject);
-            maleRightLegs = ChildrenToArray(maleRightLegObject);
-            maleLeftLegs = ChildrenToArray(maleLeftLegObject);
-
-            femaleHeadFullHelmets = ChildrenToArray(femaleFullHelmetObject);
-            femaleBodies = ChildrenToArray(femaleFullBodyObject);
-            femaleRightUpperArms = ChildrenToArray(femaleRightUpperArmObject);
-            femaleRightLowerArms = ChildrenToArray(femaleRightLowerArmObject);
-            femaleRightHands = ChildrenToArray(femaleRightHandObject);
-            femaleLeftUpperArms = ChildrenToArray(femaleLeftUpperArmObject);
-            femaleLeftLowerArms = ChildrenToArray(femaleLeftLowerArmObject);
-            femaleLeftHands = ChildrenToArray(femaleLeftHandObject);
-            femaleHips = ChildrenToArray(femaleHipsObject);
-            femaleRightLegs = ChildrenToArray(femaleRightLegObject);
-            femaleLeftLegs = ChildrenToArray(femaleLeftLegObject);
-        }
-
-        #endregion
 
         #region Armor Load/Unload
 
@@ -218,13 +119,9 @@ namespace BK
                 case HeadEquipmentType.Hood:
                     player.playerBodyManager.DisableHair();
                     break;
-                case HeadEquipmentType.FaceCover:
-                    player.playerBodyManager.DisableFacialHair();
+                case HeadEquipmentType.Hat:
                     break;
             }
-
-            foreach (var model in equipment.equipmentModels)
-                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
 
             RecalculateArmorAbsorption();
             SetNetworkIdIfOwner(player.playerNetworkManager.headEquipmentID, equipment.itemID);
@@ -232,21 +129,12 @@ namespace BK
 
         private void UnloadHeadEquipmentModels()
         {
-            SetActiveAll(maleHeadFullHelmets, false);
-            SetActiveAll(femaleHeadFullHelmets, false);
-            SetActiveAll(hats, false);
-            SetActiveAll(faceCovers, false);
-            SetActiveAll(hoods, false);
-            SetActiveAll(helmetAccessories, false);
-
             player.playerBodyManager.EnableHead();
             player.playerBodyManager.EnableHair();
         }
 
         public void LoadBodyEquipment(BodyEquipmentItem equipment)
         {
-            UnloadBodyEquipmentModels();
-
             if (equipment == null)
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.bodyEquipmentID, -1);
@@ -255,75 +143,15 @@ namespace BK
             }
 
             player.playerInventoryManager.bodyEquipment = equipment;
-
-            player.playerBodyManager.DisableBody();
-
-            foreach (var model in equipment.equipmentModels)
-                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
+            
+            // 현재 캐릭터의 body model 변경 
 
             RecalculateArmorAbsorption();
             SetNetworkIdIfOwner(player.playerNetworkManager.bodyEquipmentID, equipment.itemID);
         }
-
-        private void UnloadBodyEquipmentModels()
-        {
-            SetActiveAll(rightShoulder, false);
-            SetActiveAll(rightElbow, false);
-            SetActiveAll(leftShoulder, false);
-            SetActiveAll(leftElbow, false);
-            SetActiveAll(backAccessories, false);
-
-            SetActiveAll(maleBodies, false);
-            SetActiveAll(maleRightUpperArms, false);
-            SetActiveAll(maleLeftUpperArms, false);
-
-            SetActiveAll(femaleBodies, false);
-            SetActiveAll(femaleRightUpperArms, false);
-            SetActiveAll(femaleLeftUpperArms, false);
-
-            player.playerBodyManager.EnableBody();
-        }
-
-        public void LoadLegEquipment(LegEquipmentItem equipment)
-        {
-            UnloadLegEquipmentModels();
-
-            if (equipment == null)
-            {
-                SetNetworkIdIfOwner(player.playerNetworkManager.legEquipmentID, -1);
-                player.playerInventoryManager.legEquipment = null;
-                return;
-            }
-
-            player.playerInventoryManager.legEquipment = equipment;
-
-            player.playerBodyManager.DisableLowerBody();
-
-            foreach (var model in equipment.equipmentModels)
-                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
-
-            RecalculateArmorAbsorption();
-            SetNetworkIdIfOwner(player.playerNetworkManager.legEquipmentID, equipment.itemID);
-        }
-
-        private void UnloadLegEquipmentModels()
-        {
-            SetActiveAll(maleHips, false);
-            SetActiveAll(femaleHips, false);
-            SetActiveAll(leftKnee, false);
-            SetActiveAll(rightKnee, false);
-            SetActiveAll(maleLeftLegs, false);
-            SetActiveAll(maleRightLegs, false);
-            SetActiveAll(femaleLeftLegs, false);
-            SetActiveAll(femaleRightLegs, false);
-
-            player.playerBodyManager.EnableLowerBody();
-        }
-
+        
         public void LoadHandEquipment(HandEquipmentItem equipment)
         {
-            UnloadHandEquipmentModels();
-
             if (equipment == null)
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.handEquipmentID, -1);
@@ -333,27 +161,23 @@ namespace BK
 
             player.playerInventoryManager.handEquipment = equipment;
 
-            player.playerBodyManager.DisableArms();
-
-            foreach (var model in equipment.equipmentModels)
-                model.LoadModel(player, player.playerNetworkManager.isMale.Value);
-
             RecalculateArmorAbsorption();
             SetNetworkIdIfOwner(player.playerNetworkManager.handEquipmentID, equipment.itemID);
         }
-
-        private void UnloadHandEquipmentModels()
+        
+        public void LoadLegEquipment(LegEquipmentItem equipment)
         {
-            SetActiveAll(maleLeftLowerArms, false);
-            SetActiveAll(maleRightLowerArms, false);
-            SetActiveAll(femaleLeftLowerArms, false);
-            SetActiveAll(femaleRightLowerArms, false);
-            SetActiveAll(maleLeftHands, false);
-            SetActiveAll(maleRightHands, false);
-            SetActiveAll(femaleLeftHands, false);
-            SetActiveAll(femaleRightHands, false);
+            if (equipment == null)
+            {
+                SetNetworkIdIfOwner(player.playerNetworkManager.legEquipmentID, -1);
+                player.playerInventoryManager.legEquipment = null;
+                return;
+            }
 
-            player.playerBodyManager.EnableArms();
+            player.playerInventoryManager.legEquipment = equipment;
+
+            RecalculateArmorAbsorption();
+            SetNetworkIdIfOwner(player.playerNetworkManager.legEquipmentID, equipment.itemID);
         }
 
         #endregion

@@ -21,7 +21,5 @@ namespace BK
 
         [Header("Poise")]
         public float poise;
-
-        public EquipmentModel[] equipmentModels;
     }
 }

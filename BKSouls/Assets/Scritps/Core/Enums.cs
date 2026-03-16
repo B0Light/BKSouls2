@@ -172,10 +172,10 @@ public enum EquipmentType
 //  USED TO TAG HELMET TYPE, SO SPECIFIC HEAD PORTIONS CAN BE HIDDEN DURING EQUIP PROCESS (HAIR, BEARD, ECT)
 public enum HeadEquipmentType
 {
-    FullHelmet, // HIDE ENTIRE HEAD + FEATURES
-    Hat,        // DOES NOT HIDE ANYTHING
-    Hood,       // HIDES HAIR
-    FaceCover   // HIDES BEARD
+    FullHelmet, 
+    Hat,        
+    Hood,       
+    FaceCover
 }
 
 //  USED TO CALCULATE DAMAGE BASED ON ATTACK TYPE

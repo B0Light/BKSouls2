@@ -53,7 +53,6 @@ namespace BK
         public NetworkVariable<bool> isChargingLeftSpell = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Armor")]
-        public NetworkVariable<bool> isMale = new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> headEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> bodyEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<int> legEquipmentID = new NetworkVariable<int>(-1, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -533,11 +532,6 @@ namespace BK
             HandEquipmentItem equipment = WorldItemDatabase.Instance.GetHandEquipmentByID(handEquipmentID.Value);
 
             player.playerEquipmentManager.LoadHandEquipment(equipment != null ? Instantiate(equipment) : null);
-        }
-
-        public void OnIsMaleChanged(bool oldStatus, bool newStatus)
-        {
-            player.playerBodyManager.ToggleBodyType(isMale.Value);
         }
 
         //  ITEM ACTIONS

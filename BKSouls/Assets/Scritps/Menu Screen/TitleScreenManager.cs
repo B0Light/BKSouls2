@@ -143,22 +143,6 @@ namespace BK
             mainMenuLoadGameButton.Select();
         }
 
-        public void ToggleBodyType()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            player.playerNetworkManager.isMale.Value = !player.playerNetworkManager.isMale.Value;
-
-            if (player.playerNetworkManager.isMale.Value)
-            {
-                characterSexText.text = "MALE";
-            }
-            else
-            {
-                characterSexText.text = "FEMALE";
-            }
-        }
-
         public void OpenTitleScreenMainMenu()
         {
             titleScreenMainMenu.SetActive(true);
@@ -174,11 +158,6 @@ namespace BK
             CloseTitleScreenMainMenu();
 
             titleScreenCharacterCreationMenu.SetActive(true);
-
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            //  SETS DEFAULT BODY TYPE
-            player.playerBodyManager.ToggleBodyType(true);
         }
 
         public void CloseCharacterCreationMenu()

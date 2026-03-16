@@ -118,7 +118,6 @@ namespace BK
             if (!IsOwner)
                 characterNetworkManager.currentHealth.OnValueChanged += characterUIManager.OnHPChanged;
             
-            playerNetworkManager.isMale.OnValueChanged += playerNetworkManager.OnIsMaleChanged;
             playerNetworkManager.hairColorRed.OnValueChanged += playerNetworkManager.OnHairColorRedChanged;
             playerNetworkManager.hairColorGreen.OnValueChanged += playerNetworkManager.OnHairColorGreenChanged;
             playerNetworkManager.hairColorBlue.OnValueChanged += playerNetworkManager.OnHairColorBlueChanged;
@@ -207,7 +206,6 @@ namespace BK
                 characterNetworkManager.currentHealth.OnValueChanged -= characterUIManager.OnHPChanged;
 
             //  BODY TYPE
-            playerNetworkManager.isMale.OnValueChanged -= playerNetworkManager.OnIsMaleChanged;
 
             //  STATS
             playerNetworkManager.currentHealth.OnValueChanged -= playerNetworkManager.OnHpChanged;
@@ -336,7 +334,6 @@ namespace BK
             currentGameData.sceneIndex = SceneManager.GetActiveScene().buildIndex;
 
             currentGameData.characterName = playerNetworkManager.characterName.Value.ToString();
-            currentGameData.isMale = playerNetworkManager.isMale.Value;
             currentGameData.xPosition = transform.position.x;
             currentGameData.yPosition = transform.position.y;
             currentGameData.zPosition = transform.position.z;
@@ -415,8 +412,6 @@ namespace BK
         public void LoadGameDataFromCurrentCharacterData(ref CharacterSaveData currentCharacterData, Vector3 position)
         {
             playerNetworkManager.characterName.Value = currentCharacterData.characterName;
-            playerNetworkManager.isMale.Value = currentCharacterData.isMale;
-            playerBodyManager.ToggleBodyType(currentCharacterData.isMale);
             
             StartSpawnProtectionSnap(position + Vector3.up);
             //  STATS 
@@ -623,7 +618,6 @@ namespace BK
         public void LoadOtherPlayerCharacterWhenJoiningServer()
         {
             //  SYNC BODY TYPE
-            playerNetworkManager.OnIsMaleChanged(false, playerNetworkManager.isMale.Value);
             playerNetworkManager.OnHairStyleIDChanged(0, playerNetworkManager.hairStyleID.Value);
             playerNetworkManager.OnHairColorRedChanged(0, playerNetworkManager.hairColorRed.Value);
             playerNetworkManager.OnHairColorGreenChanged(0, playerNetworkManager.hairColorGreen.Value);
