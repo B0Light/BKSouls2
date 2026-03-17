@@ -5,28 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b0927e70-250a-4144-87b2-5681393255a0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/TileData_DungeonPath.asset" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/TileData_DungeonPath.asset.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/TileMappingData_Dungeon.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/TileMappingData_Dungeon.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Load/Sheets/01.EquipmentItemData/~$Armor.csv.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/HUD/HUD_ExpendingButton.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/HUD/HUD_ExpendingButton.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/World Manager/World Utility Manager.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/World Manager/World Utility Manager.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Empty.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Empty.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SceneMaker.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SceneMaker.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Scene_Main_Menu_01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Scene_Main_Menu_01.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Scene_RoundTableHold.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Scene_RoundTableHold.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Scene_World_00_Tutorial.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Scene_World_00_Tutorial.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Core/Enums.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Core/Enums.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/GUI_Inventory/Inventory GUI/InventoryGUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/GUI_Inventory/Inventory GUI/InventoryGUIManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Interactable/Box/InteractableBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Interactable/Box/InteractableBox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Interactable/Box/InteractableItemBox.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Interactable/Box/InteractableItemBox.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Items/GridItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Items/GridItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Items/Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Items/Item.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/World Manager/WorldItemDatabase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/World Manager/WorldItemDatabase.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Character/Player/PlayerBodyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Character/Player/PlayerBodyManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,6 +22,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Editor/ArmorDataImporter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@a6e30d1f59f5/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -51,7 +36,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;newBodyEquipment&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -115,6 +100,8 @@
       <updated>1773499967553</updated>
       <workItem from="1773499969305" duration="3401000" />
       <workItem from="1773572636048" duration="9384000" />
+      <workItem from="1773675174631" duration="4045000" />
+      <workItem from="1773729289415" duration="8147000" />
     </task>
     <servers />
   </component>
