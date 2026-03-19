@@ -396,7 +396,6 @@ public class IsaacMapGenerator : BaseMapGenerator
         if (!_roomRects.TryGetValue(roomPos, out var rect))
         {
             Debug.LogWarning($"[IsaacMapGenerator] GetRoomWorldAnchor failed: rect not found. roomPos={roomPos}");
-            // fallback: 논리 좌표로 대충 계산 (권장하지 않음)
             int gridX = (gridSize.x / 2) + (roomPos.x * (horizontalSize + spacing));
             int gridY = (gridSize.y / 2) + (roomPos.y * (verticalSize + spacing));
             return GridToWorld(new Vector2Int(gridX, gridY));
@@ -423,9 +422,7 @@ public class IsaacMapGenerator : BaseMapGenerator
 
     private Vector3 GridToWorld(Vector2Int grid)
     {
-        // 타일 생성 방식에 따라 +0.5f 오프셋이 필요할 수도 있음.
-        // 지금 프로젝트가 grid.x * cubeSize.x 로 바닥을 깔고 있다면 그대로 두면 됨.
-        return new Vector3(grid.x * cubeSize.x, cubeSize.y + 1f, grid.y * cubeSize.z);
+        return new Vector3(grid.x * cubeSize.x + 1, 0, grid.y * cubeSize.z + 1);
     }
 
     private static int HashSeed(int baseSeed, int salt)

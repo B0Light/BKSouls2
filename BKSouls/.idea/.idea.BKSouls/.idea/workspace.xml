@@ -6,11 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="b0927e70-250a-4144-87b2-5681393255a0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.BKSouls/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Data/Load/Sheets/01.EquipmentItemData/~$Armor.csv.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/SpawnRoomInstInfo.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Data/Dungeon/MapTile_02/SpawnRoomInstInfo.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/DefaultNetworkPrefabs.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Player.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Empty.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Empty.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Character/Player/PlayerBodyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Character/Player/PlayerBodyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Dungeon/DungeonInst_Normal_01.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Dungeon/DungeonInst_Normal_01.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player 1.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Player 1.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/SceneMaker.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/SceneMaker.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Scene_Main_Menu_01.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Scene_Main_Menu_01.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scritps/01.GridSystem/Override/02.Dungeon/01.Dungeon_Enter_UI/DungeonEnterGUIManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/01.GridSystem/Override/02.Dungeon/01.Dungeon_Enter_UI/DungeonEnterGUIManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scritps/Map Generator/IsaacMapGenerator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scritps/Map Generator/IsaacMapGenerator.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +27,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Editor/ArmorDataImporter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.netcode.gameobjects@02e4aaa4170c/Runtime/Spawning/NetworkSpawnManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@a6e30d1f59f5/Shaders/Lit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
@@ -102,6 +108,8 @@
       <workItem from="1773572636048" duration="9384000" />
       <workItem from="1773675174631" duration="4045000" />
       <workItem from="1773729289415" duration="8147000" />
+      <workItem from="1773823822804" duration="1424000" />
+      <workItem from="1773917303869" duration="2122000" />
     </task>
     <servers />
   </component>

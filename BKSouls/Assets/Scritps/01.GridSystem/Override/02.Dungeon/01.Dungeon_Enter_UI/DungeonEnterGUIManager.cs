@@ -23,9 +23,6 @@ public class DungeonEnterGUIManager : GUIComponent
     
     [SerializeField] private Button enterDungeonButton;
     [SerializeField] private Button joinDungeonButton;
-
-    [SerializeField] private TMP_InputField ipField;
-    [SerializeField] private TMP_InputField portField;
     
     [SerializeField] private GameObject available;
     [SerializeField] private GameObject disable;
@@ -113,8 +110,6 @@ public class DungeonEnterGUIManager : GUIComponent
         enterDungeonButton.interactable = true;
         available.SetActive(true);
         enterDungeonButton.onClick.AddListener(EnterDungeonAsHost);
-        
-        joinDungeonButton.onClick.AddListener(() =>JoinRoomAsClient());
     }
 
     #endregion
@@ -131,31 +126,6 @@ public class DungeonEnterGUIManager : GUIComponent
         {
             Debug.LogError("StartHost failed");
             return;
-        }
-    }
-    
-    public void JoinRoomAsClient()
-    {
-        StartCoroutine(JoinRoomAsClientCo());
-    }
-    
-    // TODO -> Relay 방식으로 변경 
-    private IEnumerator JoinRoomAsClientCo()
-    {
-        CleanupBeforeStartNetwork();
-        
-        yield return null;
-        
-        string address = ipField.text;
-        int port = int.Parse(portField.text);
-        
-        var utp = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        utp.ConnectionData.Address = address;
-        utp.ConnectionData.Port = (ushort)port;
-
-        if (!NetworkManager.Singleton.StartClient())
-        {
-            Debug.LogError("StartClient failed");
         }
     }
 

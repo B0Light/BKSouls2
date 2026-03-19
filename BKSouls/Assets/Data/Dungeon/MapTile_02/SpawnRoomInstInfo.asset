@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: SpawnRoomInstInfo
   m_EditorClassIdentifier: Assembly-CSharp::SpawnRoomInstInfo
   normalRoomPrefabs:
-  - {fileID: 5260362914131488586, guid: 1ff1a30d83e740d4eac57605f656be56, type: 3}
+  - {fileID: 5223867355489892501, guid: 8d3cf1f3aaa23b94dad329015c71cad2, type: 3}
+  - {fileID: -4564445668060772216, guid: e79a1452350507749b77aa97e4bcd880, type: 3}
+  - {fileID: 8263380917206775451, guid: fa987badfe246834e979c96f906a647e, type: 3}
   specialRoomPrefabs:
   - {fileID: -5446012320820360360, guid: 0ff755acb07d4ef4abf700218e1c7287, type: 3}
   startRoomPrefab: {fileID: 2294433544061284684, guid: 8cb0fe443a749ba4c851dc4a1f9264c1, type: 3}
-  bossRoomPrefab: {fileID: 2294433544061284684, guid: c56aafa37754fc943b8d6a152a72f088, type: 3}
+  bossRoomPrefab: {fileID: -6059477413070682788, guid: bf040b6d615a7244f937f4d7d5ab0962, type: 3}
