@@ -24,9 +24,6 @@ namespace BK
 
         [Header("Body Type")]
         public int hairStyleID;
-        public float hairColorRed;
-        public float hairColorGreen;
-        public float hairColorBlue;
 
         [Header("Time Played")]
         public float secondsPlayed;

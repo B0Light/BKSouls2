@@ -36,9 +36,6 @@ namespace BK
         [SerializeField] Button characterNameButton;
         [SerializeField] Button characterClassButton;
         [SerializeField] Button characterHairButton;
-        [SerializeField] Button characterHairColorButton;
-        [SerializeField] Button characterSexButton;
-        [SerializeField] TextMeshProUGUI characterSexText;
         [SerializeField] Button startGameButton;
 
         [Header("Character Creation Class Panel Buttons")]
@@ -268,26 +265,6 @@ namespace BK
             player.playerEquipmentManager.EquipArmor();
         }
 
-        public void CloseChooseHairColorSubMenu()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            //  1. RE-ENABLE ALL MAIN MENU BUTTONS
-            ToggleCharacterCreationScreenMainMenuButtons(true);
-
-            //  2. DISABLE SUB MENU OBJECT
-            characterHairColorMenu.SetActive(false);
-
-            //  3. AUTO SELECT "CHOOSE CLASS BUTTON" (SINCE IT WAS THE LAST BUTTON YOU HIT DURING THE MAIN MENU
-            characterHairColorButton.Select();
-            characterHairColorButton.OnSelect(null);
-
-            if (hiddenHelmet != null)
-                player.playerInventoryManager.headEquipment = hiddenHelmet;
-
-            player.playerEquipmentManager.EquipArmor();
-        }
-
         public void OpenChooseNameSubMenu()
         {
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
@@ -325,8 +302,6 @@ namespace BK
             characterNameButton.enabled = status;
             characterClassButton.enabled = status;
             characterHairButton.enabled = status;
-            characterHairColorButton.enabled = status;
-            characterSexButton.enabled = status;
             startGameButton.enabled = status;
         }
 
@@ -513,41 +488,6 @@ namespace BK
             PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
 
             player.playerNetworkManager.hairStyleID.Value = hairID;
-        }
-
-        public void SelectHairColor()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            player.playerNetworkManager.hairColorRed.Value = redSlider.value;
-            player.playerNetworkManager.hairColorGreen.Value = greenSlider.value;
-            player.playerNetworkManager.hairColorBlue.Value = blueSlider.value;
-
-            CloseChooseHairColorSubMenu();
-        }
-
-        public void PreviewHairColor()
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            player.playerNetworkManager.hairColorRed.Value = redSlider.value;
-            player.playerNetworkManager.hairColorGreen.Value = greenSlider.value;
-            player.playerNetworkManager.hairColorBlue.Value = blueSlider.value;
-        }
-
-        public void SetRedColorSlider(float redValue)
-        {
-            redSlider.value = redValue;
-        }
-
-        public void SetGreenColorSlider(float greenValue)
-        {
-            greenSlider.value = greenValue;
-        }
-
-        public void SetBlueColorSlider(float blueValue)
-        {
-            blueSlider.value = blueValue;
         }
     }
 }

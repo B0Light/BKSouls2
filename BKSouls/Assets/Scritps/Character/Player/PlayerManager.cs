@@ -118,10 +118,6 @@ namespace BK
             if (!IsOwner)
                 characterNetworkManager.currentHealth.OnValueChanged += characterUIManager.OnHPChanged;
             
-            playerNetworkManager.hairColorRed.OnValueChanged += playerNetworkManager.OnHairColorRedChanged;
-            playerNetworkManager.hairColorGreen.OnValueChanged += playerNetworkManager.OnHairColorGreenChanged;
-            playerNetworkManager.hairColorBlue.OnValueChanged += playerNetworkManager.OnHairColorBlueChanged;
-            
             playerNetworkManager.currentHealth.OnValueChanged += playerNetworkManager.OnHpChanged;
             playerNetworkManager.currentFocusPoints.OnValueChanged += playerNetworkManager.OnFocusPointsChanged;
             playerNetworkManager.maxFocusPoints.OnValueChanged += playerNetworkManager.OnMaxFocusPointsChanged;
@@ -226,9 +222,6 @@ namespace BK
 
             //  BODY
             playerNetworkManager.hairStyleID.OnValueChanged -= playerNetworkManager.OnHairStyleIDChanged;
-            playerNetworkManager.hairColorRed.OnValueChanged -= playerNetworkManager.OnHairColorRedChanged;
-            playerNetworkManager.hairColorGreen.OnValueChanged -= playerNetworkManager.OnHairColorGreenChanged;
-            playerNetworkManager.hairColorBlue.OnValueChanged -= playerNetworkManager.OnHairColorBlueChanged;
 
             //  EQUIPMENT
             playerNetworkManager.currentRightHandWeaponID.OnValueChanged -= playerNetworkManager.OnCurrentRightHandWeaponIDChange;
@@ -355,9 +348,6 @@ namespace BK
 
             //  BODY
             currentGameData.hairStyleID = playerNetworkManager.hairStyleID.Value;
-            currentGameData.hairColorRed = playerNetworkManager.hairColorRed.Value;
-            currentGameData.hairColorGreen = playerNetworkManager.hairColorGreen.Value;
-            currentGameData.hairColorBlue = playerNetworkManager.hairColorBlue.Value;
 
             currentGameData.currentHealthFlasksRemaining = playerNetworkManager.remainingHealthFlasks.Value;
             currentGameData.currentFocusPointsFlaskRemaining = playerNetworkManager.remainingFocusPointsFlasks.Value;
@@ -438,9 +428,6 @@ namespace BK
 
             //  BODY
             playerNetworkManager.hairStyleID.Value = currentCharacterData.hairStyleID;
-            playerNetworkManager.hairColorRed.Value = currentCharacterData.hairColorRed;
-            playerNetworkManager.hairColorGreen.Value = currentCharacterData.hairColorGreen;
-            playerNetworkManager.hairColorBlue.Value = currentCharacterData.hairColorBlue;
 
             //  EQUIPMENT
             if (WorldItemDatabase.Instance.GetHeadEquipmentByID(currentCharacterData.helmetItemCode))
@@ -619,9 +606,6 @@ namespace BK
         {
             //  SYNC BODY TYPE
             playerNetworkManager.OnHairStyleIDChanged(0, playerNetworkManager.hairStyleID.Value);
-            playerNetworkManager.OnHairColorRedChanged(0, playerNetworkManager.hairColorRed.Value);
-            playerNetworkManager.OnHairColorGreenChanged(0, playerNetworkManager.hairColorGreen.Value);
-            playerNetworkManager.OnHairColorBlueChanged(0, playerNetworkManager.hairColorBlue.Value);
 
             //  SYNC WEAPONS
             playerNetworkManager.OnCurrentRightHandWeaponIDChange(0, playerNetworkManager.currentRightHandWeaponID.Value);

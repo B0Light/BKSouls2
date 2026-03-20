@@ -27,9 +27,6 @@ namespace BK
 
         [Header("Body")]
         public NetworkVariable<int> hairStyleID = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<float> hairColorRed = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<float> hairColorGreen = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        public NetworkVariable<float> hairColorBlue = new NetworkVariable<float>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
         [Header("Equipment")]
         public NetworkVariable<int> currentWeaponBeingUsed = new NetworkVariable<int>(0, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
@@ -223,21 +220,6 @@ namespace BK
         public void OnHairStyleIDChanged(int oldID, int newID)
         {
             player.playerBodyManager.ToggleHairType(hairStyleID.Value);
-        }
-
-        public void OnHairColorRedChanged(float oldValue, float newValue)
-        {
-            player.playerBodyManager.SetHairColor();
-        }
-
-        public void OnHairColorGreenChanged(float oldValue, float newValue)
-        {
-            player.playerBodyManager.SetHairColor();
-        }
-
-        public void OnHairColorBlueChanged(float oldValue, float newValue)
-        {
-            player.playerBodyManager.SetHairColor();
         }
 
         public void OnCurrentRightHandWeaponIDChange(int oldID, int newID)
