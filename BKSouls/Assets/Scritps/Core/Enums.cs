@@ -257,3 +257,25 @@ public enum Dir
     Up,
     Right,
 }
+
+public enum RoomType
+{
+    Start,
+    Battle,
+    Event,
+    Shop,
+    Rest,
+    Elite,
+    Boss
+}
+
+public enum RoomState
+{
+    None,
+    Loading,
+    WaitingPlayers,
+    Combat,
+    Reward,
+    Cleared,
+    Transition
+}
