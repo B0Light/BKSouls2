@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -27,22 +28,28 @@ namespace BK
             Instance = this;
         }
 
-        private void Start()
-        {
-            TryStartRun();
-        }
-
         public override void OnNetworkSpawn()
         {
             base.OnNetworkSpawn();
             Debug.Log($"[RunManager] OnNetworkSpawn | IsServer:{IsServer} IsHost:{IsHost}");
-            TryStartRun();
+
+            if (!IsServer)
+                return;
+
+            StartCoroutine(CoWaitAndStartRun());
         }
 
-        private void TryStartRun()
+        private IEnumerator CoWaitAndStartRun()
         {
-            if (hasStartedRun) return;
-            if (!IsServer) return;
+            yield return null;
+
+            while (roomManager == null || !roomManager.IsSpawned)
+            {
+                yield return null;
+            }
+
+            if (hasStartedRun)
+                yield break;
 
             hasStartedRun = true;
             StartRun();
@@ -52,7 +59,8 @@ namespace BK
         {
             Debug.Log("[RunManager] StartRun called");
 
-            if (!IsServer) return;
+            if (!IsServer)
+                return;
 
             runSeed = Random.Range(int.MinValue, int.MaxValue);
             GenerateFloorPlan(runSeed);
@@ -102,7 +110,8 @@ namespace BK
         {
             Debug.Log($"[RunManager] LoadNextRoom | IsServer:{IsServer}");
 
-            if (!IsServer) return;
+            if (!IsServer)
+                return;
 
             currentRoomIndex++;
 
@@ -122,7 +131,9 @@ namespace BK
 
         public void RequestNextRoomFromRoomManager()
         {
-            if (!IsServer) return;
+            if (!IsServer)
+                return;
+
             LoadNextRoom();
         }
     }

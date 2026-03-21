@@ -167,6 +167,14 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   roomRoot: {fileID: 883069422}
   networkRuntimeRoot: {fileID: 883069422}
+  roomTemplates:
+  - {fileID: 11400000, guid: 144f0602c1b74d04aa96e0dd227929f9, type: 2}
+  - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
+  - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
+  - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}
+  - {fileID: 11400000, guid: 8e42cd4a49166b247920eee8b055ad61, type: 2}
+  - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
+  - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   doorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
   baseBattleEnemyCount: 3
   eliteEnemyCount: 5
