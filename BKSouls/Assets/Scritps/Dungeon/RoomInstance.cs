@@ -7,9 +7,9 @@ public class RoomInstance : MonoBehaviour
     [SerializeField] private Transform[] playerSpawnPoints;
     [SerializeField] private Transform[] enemySpawnPoints;
 
-    [Header("Doors")]
-    [SerializeField] private NetworkRoomDoor entryDoor;
-    [SerializeField] private NetworkRoomDoor exitDoor;
+    [Header("Door Anchors")]
+    [SerializeField] private Transform entryDoorAnchor;
+    [SerializeField] private Transform exitDoorAnchor;
 
     [Header("Reward Point")]
     [SerializeField] private Transform rewardSpawnPoint;
@@ -17,8 +17,8 @@ public class RoomInstance : MonoBehaviour
     public IReadOnlyList<Transform> PlayerSpawnPoints => playerSpawnPoints;
     public IReadOnlyList<Transform> EnemySpawnPoints => enemySpawnPoints;
 
-    public NetworkRoomDoor EntryDoor => entryDoor;
-    public NetworkRoomDoor ExitDoor => exitDoor;
+    public Transform EntryDoorAnchor => entryDoorAnchor;
+    public Transform ExitDoorAnchor => exitDoorAnchor;
     public Transform RewardSpawnPoint => rewardSpawnPoint;
 
     public Transform GetPlayerSpawnPoint(int playerIndex)

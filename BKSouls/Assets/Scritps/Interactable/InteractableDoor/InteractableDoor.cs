@@ -64,6 +64,9 @@ namespace BK
         private Vector3 _rightDoorInitialPosition;
         private Quaternion _leftDoorInitialRotation;
         private Quaternion _rightDoorInitialRotation;
+        
+        public bool DoorIsOpen => _netIsOpen.Value;
+        public bool DoorIsLocked => _netIsLocked.Value;
 
         protected override void Awake()
         {
@@ -486,6 +489,23 @@ namespace BK
 
             if (leftDoor != null) leftDoor.gameObject.SetActive(false);
             if (rightDoor != null) rightDoor.gameObject.SetActive(false);
+        }
+        
+        protected void ForceSetDoorOpenServer(bool open)
+        {
+            if (!IsServer) return;
+
+            if (openOnly && _netIsOpen.Value && !open)
+                return;
+
+            _netIsOpen.Value = open;
+        }
+
+        protected void ForceSetDoorLockedServer(bool locked)
+        {
+            if (!IsServer) return;
+
+            _netIsLocked.Value = locked;
         }
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -8,76 +6,83 @@ namespace BK
     public class AICharacterSpawner : MonoBehaviour
     {
         [Header("Character")]
-        [SerializeField] GameObject characterGameObject;
-        [SerializeField] GameObject instantiatedGameObject;
+        [SerializeField] private GameObject characterGameObject;
+        [SerializeField] private GameObject instantiatedGameObject;
         private AICharacterManager aiCharacter;
 
         [Header("Patrol")]
-        [SerializeField] bool hasPatrolPath = false;
-        [SerializeField] int patrolPathID = 0;
+        [SerializeField] private bool hasPatrolPath = false;
+        [SerializeField] private int patrolPathID = 0;
 
         [Header("Sleep")]
-        [SerializeField] bool isSleeping = false;
+        [SerializeField] private bool isSleeping = false;
 
         [Header("Stats")]
-        [SerializeField] bool manuallySetStats = true;
-        [SerializeField] int stamina = 150;
-        [SerializeField] int health = 400;
+        [SerializeField] private bool manuallySetStats = true;
+        [SerializeField] private int stamina = 150;
+        [SerializeField] private int health = 400;
 
-        private void Awake()
+        public AICharacterManager SpawnedAICharacter => aiCharacter;
+        public GameObject SpawnedGameObject => instantiatedGameObject;
+
+        public AICharacterManager AttemptToSpawnCharacter()
         {
-
-        }
-
-        private void Start()
-        {
-            WorldAIManager.instance.SpawnCharacter(this);
-            gameObject.SetActive(false);
-        }
-
-        public void AttemptToSpawnCharacter()
-        {
-            if (characterGameObject != null)
+            if (characterGameObject == null)
             {
-                instantiatedGameObject = Instantiate(characterGameObject);
-                instantiatedGameObject.transform.position = transform.position;
-                instantiatedGameObject.transform.rotation = transform.rotation;
-                instantiatedGameObject.GetComponent<NetworkObject>().Spawn();
-                aiCharacter = instantiatedGameObject.GetComponent<AICharacterManager>();
+                Debug.LogWarning("[AICharacterSpawner] characterGameObject is null.");
+                return null;
+            }
 
-                if (aiCharacter == null)
-                    return;
+            instantiatedGameObject = Instantiate(characterGameObject, transform.position, transform.rotation);
 
+            NetworkObject networkObject = instantiatedGameObject.GetComponent<NetworkObject>();
+            if (networkObject == null)
+            {
+                Debug.LogError("[AICharacterSpawner] Spawned character has no NetworkObject.");
+                Destroy(instantiatedGameObject);
+                return null;
+            }
+
+            networkObject.Spawn();
+
+            aiCharacter = instantiatedGameObject.GetComponent<AICharacterManager>();
+            if (aiCharacter == null)
+            {
+                Debug.LogError("[AICharacterSpawner] Spawned character has no AICharacterManager.");
+                networkObject.Despawn(true);
+                return null;
+            }
+
+            if (WorldAIManager.instance != null)
+            {
                 WorldAIManager.instance.AddCharacterToSpawnedCharactersList(aiCharacter);
 
                 if (hasPatrolPath)
                     aiCharacter.idle.aiPatrolPath = WorldAIManager.instance.GetAIPatrolPathByID(patrolPathID);
-
-                if (isSleeping)
-                    aiCharacter.aiCharacterNetworkManager.isAwake.Value = false;
-
-                if (manuallySetStats)
-                {
-                    aiCharacter.aiCharacterNetworkManager.maxHealth.Value = health;
-                    aiCharacter.aiCharacterNetworkManager.currentHealth.Value = health;
-                    aiCharacter.aiCharacterNetworkManager.maxStamina.Value = stamina;
-                    aiCharacter.aiCharacterNetworkManager.currentStamina.Value = stamina;
-                }
-
-                aiCharacter.aiCharacterNetworkManager.isActive.Value = false;
             }
+
+            if (isSleeping)
+                aiCharacter.aiCharacterNetworkManager.isAwake.Value = false;
+
+            if (manuallySetStats)
+            {
+                aiCharacter.aiCharacterNetworkManager.maxHealth.Value = health;
+                aiCharacter.aiCharacterNetworkManager.currentHealth.Value = health;
+                aiCharacter.aiCharacterNetworkManager.maxStamina.Value = stamina;
+                aiCharacter.aiCharacterNetworkManager.currentStamina.Value = stamina;
+            }
+
+            aiCharacter.aiCharacterNetworkManager.isActive.Value = false;
+
+            return aiCharacter;
         }
 
         public void ResetCharacter()
         {
-            if (instantiatedGameObject == null)
+            if (instantiatedGameObject == null || aiCharacter == null)
                 return;
 
-            if (aiCharacter == null)
-                return;
-
-            instantiatedGameObject.transform.position = transform.position;
-            instantiatedGameObject.transform.rotation = transform.rotation;
+            instantiatedGameObject.transform.SetPositionAndRotation(transform.position, transform.rotation);
             aiCharacter.aiCharacterNetworkManager.currentHealth.Value = aiCharacter.aiCharacterNetworkManager.maxHealth.Value;
             aiCharacter.aiCharacterCombatManager.SetTarget(null);
 
@@ -90,10 +95,8 @@ namespace BK
 
             aiCharacter.characterUIManager.ResetCharacterHPBar();
 
-            if (aiCharacter is AIBossCharacterManager)
+            if (aiCharacter is AIBossCharacterManager boss)
             {
-
-                AIBossCharacterManager boss = aiCharacter as AIBossCharacterManager;
                 boss.aiCharacterNetworkManager.isAwake.Value = false;
                 boss.sleepState.hasBeenAwakened = boss.hasBeenAwakened.Value;
                 boss.currentState = boss.currentState.SwitchState(boss, boss.sleepState);
