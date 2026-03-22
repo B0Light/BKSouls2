@@ -26,18 +26,8 @@ namespace BK
             GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
             GUIController.Instance.localPlayer.ReviveCharacter();
-            
-            WorldAIManager.instance.ResetAllCharacters();
 
-            //  TODO SAVE LAST SITE OF GRACE VISITED, AND T.P THERE
-            for (int i = 0; i < WorldObjectManager.instance.sitesOfGrace.Count; i++)
-            {
-                if (WorldObjectManager.instance.sitesOfGrace[i].siteOfGraceID == WorldSaveGameManager.Instance.currentCharacterData.lastSiteOfGraceRestedAt)
-                {
-                    WorldObjectManager.instance.sitesOfGrace[i].TeleportToSiteOfGrace();
-                    break;
-                }
-            }
+            WorldSceneManager.Instance.LoadWorldScene("Scene_RoundTableHold");
         }
 
         public void AddPlayerToActivePlayersList(PlayerManager player)

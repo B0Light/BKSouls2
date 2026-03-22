@@ -21,7 +21,7 @@ MonoBehaviour:
   percentageOfTimeWillPerformCombo: 25
   onlyPerformComboIfInitialAttackHits: 0
   maximumEngagementDistance: 30
-  willCircleTarget: 1
+  willCircleTarget: 0
   canBlock: 0
   percentageOfTimeWillBlock: 75
   canEvade: 1

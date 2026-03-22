@@ -35,7 +35,10 @@ namespace BK
                 return;
 
             if (currentTarget == null)
+            {
+                aiCharacter.animator.SetBool("isAttacking", false);
                 return;
+            }
 
             if (projectilePrefab == null)
             {

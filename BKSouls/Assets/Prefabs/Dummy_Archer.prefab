@@ -41,7 +41,7 @@ Transform:
   m_GameObject: {fileID: 198379182085928216}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 243855635
+  GlobalObjectIdHash: 1358634210
   InScenePlacedSourceGlobalObjectIdHash: 1358634210
   DeferredDespawnTick: 0
   Ownership: 1
@@ -382,7 +382,7 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
   idle: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
   pursueTarget: {fileID: 11400000, guid: ae152aca9e3a2b04d936a51669ca09f9, type: 2}
-  combatStance: {fileID: 11400000, guid: 3a49ccd9a3cc238409be31033d01b893, type: 2}
+  combatStance: {fileID: 11400000, guid: 57f460f3a1ee4404f817bd55b4539627, type: 2}
   attack: {fileID: 11400000, guid: 8a9f441e00334eb43a952888c145bb77, type: 2}
   investigateSound: {fileID: 11400000, guid: 746a8c10aaa11624b99e3fe48db0ba42, type: 2}
 --- !u!114 &6829529853198918634
@@ -2167,8 +2167,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3648268699521699585}
-  - component: {fileID: 1748731021958452259}
-  - component: {fileID: 3821651449488457526}
   m_Layer: 7
   m_Name: SM_Chr_Skeleton_01
   m_TagString: Untagged
@@ -2193,54 +2191,6 @@ Transform:
   - {fileID: 6833055384814713988}
   m_Father: {fileID: 3683026490494795418}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &1748731021958452259
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2600438460095414181}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 0dcad412e4df7364880958fbda1ede6b, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3821651449488457526
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2600438460095414181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fab5212c04fb442799fa9f3f33247ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Synty.Tools.SyntyPropBoneTool.PropBoneBinder
-  animator: {fileID: 7226443467014368559}
-  propBoneConfig: {fileID: 11400000, guid: 84db98e5d16ecc1449c79c43f03662b8, type: 2}
-  updateType: 2
-  updateInEditMode: 1
-  rebindOnAwake: 0
-  _propBoneBindings:
-  - bone: {fileID: 5673445829699624480}
-    socket: {fileID: 8514271298793417638}
-    rotationOffset: {x: 0.0000038260173, y: 0.000004915283, z: 270.14746}
-    scale: 1
-  - bone: {fileID: 5838774680453993173}
-    socket: {fileID: 1857671379354115268}
-    rotationOffset: {x: 0.0000038260173, y: 0.000004915283, z: 90.1475}
-    scale: 1
 --- !u!1 &2637745636569421829
 GameObject:
   m_ObjectHideFlags: 0
@@ -3719,7 +3669,7 @@ Transform:
   m_GameObject: {fileID: 5138763328333415185}
   serializedVersion: 2
   m_LocalRotation: {x: 0.00000008009375, y: -0.000000081956394, z: 0.70619637, w: -0.70801604}
-  m_LocalPosition: {x: -0.0000001067393, y: 0.000000005893526, z: 0.00000017795107}
+  m_LocalPosition: {x: -0.00000005459938, y: 0.000000007763447, z: 0.00000007184836}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4123,7 +4073,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 1
+  m_StoppingDistance: 5
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -4939,7 +4889,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5838774680453993173}
-  - component: {fileID: 7243445540870742993}
   m_Layer: 0
   m_Name: Prop_L
   m_TagString: Untagged
@@ -4963,19 +4912,6 @@ Transform:
   - {fileID: 1857671379354115268}
   m_Father: {fileID: 4776095258158159391}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7243445540870742993
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7916701259216442199}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04570063543744548b5cc95cea8bbff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Synty.Tools.SyntyPropBoneTool.PropBone
-  _wasSpawnedBySyntyTool: 1
 --- !u!1 &8143851664282985026
 GameObject:
   m_ObjectHideFlags: 0
@@ -5049,7 +4985,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1857671379354115268}
-  - component: {fileID: 2676768771309065463}
   m_Layer: 0
   m_Name: Prop_L_Socket
   m_TagString: Untagged
@@ -5066,7 +5001,7 @@ Transform:
   m_GameObject: {fileID: 8202441456373405704}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000055879354, y: 0.000000044703484, z: 0.7080164, w: 0.70619607}
-  m_LocalPosition: {x: -0.000000073412146, y: 0.00000001621811, z: -0.00000019016831}
+  m_LocalPosition: {x: -0.00000003267298, y: 0.000000073785486, z: -0.00000003891284}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5074,19 +5009,6 @@ Transform:
   - {fileID: 8326512541782582382}
   m_Father: {fileID: 5838774680453993173}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2676768771309065463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8202441456373405704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 04570063543744548b5cc95cea8bbff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Synty.Tools.SyntyPropBoneTool.PropBone
-  _wasSpawnedBySyntyTool: 1
 --- !u!1 &8299129400322176117
 GameObject:
   m_ObjectHideFlags: 0
@@ -5816,23 +5738,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.060682867
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.100524485
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.015826248
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalRotation.y
@@ -5844,7 +5766,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1699967515455105884, guid: 23ff855f75aa1854cb430f9be604d89e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y

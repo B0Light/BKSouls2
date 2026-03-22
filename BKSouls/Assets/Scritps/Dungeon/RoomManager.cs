@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
@@ -15,6 +16,9 @@ namespace BK
         [Header("Room Template Database")]
         [SerializeField] private List<RoomTemplateSO> roomTemplates = new();
 
+        [Header("NavMesh")]
+        [SerializeField] private DungeonNavMeshBuilder navMeshBuilder;
+
         [Header("Runtime Prefabs")]
         [SerializeField] private GameObject doorPrefab;
 
@@ -28,6 +32,7 @@ namespace BK
         private RoomTemplateSO currentTemplate;
 
         private readonly List<AICharacterManager> aliveEnemies = new();
+        private readonly List<AICharacterManager> spawnedEnemies = new();
         private readonly List<AICharacterSpawner> runtimeSpawners = new();
 
         private NetworkObject currentRewardObject;
@@ -83,11 +88,15 @@ namespace BK
 
             if (newValue < 0)
             {
+                navMeshBuilder?.Clear();
                 DestroyRoomGeometry();
                 return;
             }
 
             LoadRoomGeometryLocalByIndex(newValue);
+
+            // 클라이언트는 AI를 직접 실행하지 않으므로 fire-and-forget으로 재빌드한다.
+            navMeshBuilder?.Rebuild();
         }
 
         public void LoadRoom(RoomPlan plan, RoomTemplateSO template)
@@ -95,23 +104,28 @@ namespace BK
             if (!IsServer)
                 return;
 
+            StartCoroutine(CoLoadRoom(plan, template));
+        }
+
+        private IEnumerator CoLoadRoom(RoomPlan plan, RoomTemplateSO template)
+        {
             if (plan == null)
             {
                 Debug.LogError("[RoomManager] LoadRoom failed: plan is null.");
-                return;
+                yield break;
             }
 
             if (template == null)
             {
                 Debug.LogError("[RoomManager] LoadRoom failed: template is null.");
-                return;
+                yield break;
             }
 
             int templateIndex = roomTemplates.IndexOf(template);
             if (templateIndex < 0)
             {
                 Debug.LogError($"[RoomManager] Template '{template.name}' is not registered in roomTemplates.");
-                return;
+                yield break;
             }
 
             currentPlan = plan;
@@ -125,6 +139,22 @@ namespace BK
             SpawnDoors();
             WarpAllPlayersToRoom();
             PrepareRoom();
+
+            // ── NavMesh 재빌드 ──────────────────────────────────────
+            // 지오메트리 로드 후 NavMesh를 서버에서 빌드한다.
+            // NavMesh Agent(적 AI)는 이 완료 후에 스폰해야 경로 탐색 오류가 없다.
+            if (navMeshBuilder != null)
+            {
+                bool navMeshReady = false;
+                navMeshBuilder.Rebuild(() => navMeshReady = true);
+                yield return new WaitUntil(() => navMeshReady);
+            }
+            else
+            {
+                Debug.LogWarning("[RoomManager] DungeonNavMeshBuilder가 할당되지 않았습니다. NavMesh 없이 진행합니다.");
+                yield return null;
+            }
+            // ────────────────────────────────────────────────────────
 
             switch (plan.roomType)
             {
@@ -166,9 +196,9 @@ namespace BK
 
         private void DespawnAllEnemies()
         {
-            for (int i = aliveEnemies.Count - 1; i >= 0; i--)
+            for (int i = spawnedEnemies.Count - 1; i >= 0; i--)
             {
-                AICharacterManager enemy = aliveEnemies[i];
+                AICharacterManager enemy = spawnedEnemies[i];
                 if (enemy == null)
                     continue;
 
@@ -179,6 +209,7 @@ namespace BK
                     Destroy(enemy.gameObject);
             }
 
+            spawnedEnemies.Clear();
             aliveEnemies.Clear();
         }
 
@@ -262,6 +293,9 @@ namespace BK
         {
             if (currentRoomInstance == null)
                 return;
+
+            // 지오메트리 제거 전 NavMesh 데이터도 함께 클리어한다.
+            navMeshBuilder?.Clear();
 
             Destroy(currentRoomInstance.gameObject);
             currentRoomInstance = null;
@@ -558,6 +592,9 @@ namespace BK
 
             if (!aliveEnemies.Contains(aiCharacter))
                 aliveEnemies.Add(aiCharacter);
+
+            if (!spawnedEnemies.Contains(aiCharacter))
+                spawnedEnemies.Add(aiCharacter);
 
             RoguelikeAIReporter reporter = aiCharacter.GetComponent<RoguelikeAIReporter>();
             if (reporter == null)
