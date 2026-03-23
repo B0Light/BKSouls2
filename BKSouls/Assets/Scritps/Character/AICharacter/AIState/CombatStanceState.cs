@@ -87,7 +87,7 @@ namespace BK
                 aiCharacter.aiCharacterNetworkManager.isBlocking.Value = true;
 
             // 회피: 타겟이 공격 중이고 아직 회피하지 않았다면 1회 수행
-            if (willEvadeDuringThisCombatRotation &&
+            if (willEvadeDuringThisCombatRotation && aiCharacter.aiCharacterCombatManager.currentTarget != null &&
                 aiCharacter.aiCharacterCombatManager.currentTarget.characterNetworkManager.isAttacking.Value &&
                 !hasEvaded)
             {

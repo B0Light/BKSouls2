@@ -32,5 +32,5 @@ MonoBehaviour:
   fireDamage: 0
   holyDamage: 0
   lightningDamage: 0
-  drawProjectileModel: {fileID: 2457057456649950796, guid: 8c924cf76d83a6b4985095af572d05b7, type: 3}
+  drawProjectileModel: {fileID: 2457057456649950796, guid: d30b0979d73e0ad4cafe884973b03c5b, type: 3}
   releaseProjectileModel: {fileID: 56618127834119678, guid: bad7c165e4fa8a64893b9c5a37dd669d, type: 3}

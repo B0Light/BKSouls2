@@ -25,8 +25,11 @@ namespace BK
 
             // 기본 로직이 다른 상태로 전환을 결정했으면 그대로 따른다
             if (nextState != this)
+            {
+                aiCharacter.animator.SetBool("isAttacking", false);
                 return nextState;
-
+            }
+                
             // 행동 중(공격·피격 등)이면 간섭하지 않는다
             if (aiCharacter.isPerformingAction)
                 return this;
@@ -38,6 +41,7 @@ namespace BK
                 BackAwayFromTarget(aiCharacter);
             }
 
+            aiCharacter.animator.SetBool("isAttacking", true);
             return this;
         }
 

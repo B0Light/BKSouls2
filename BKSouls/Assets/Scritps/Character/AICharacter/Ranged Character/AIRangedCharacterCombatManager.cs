@@ -12,7 +12,7 @@ namespace BK
     {
         [Header("Bow Settings")]
         [SerializeField] private Animator bowAnimator;
-    
+        [SerializeField] private Transform arrowSpawnPoint;
 
         [Header("Projectile Settings")]
         [SerializeField] private RangedProjectileItem projectileItem;
@@ -22,6 +22,22 @@ namespace BK
         // ─────────────────────────────────────────────────────────
         //  애니메이션 이벤트에서 호출
         // ─────────────────────────────────────────────────────────
+
+        public void DrawBow()
+        {
+            if (aiCharacter.IsOwner)
+                aiCharacter.aiCharacterNetworkManager.hasArrowNotched.Value = true;
+
+            //  PLAY DRAW BOW SFX
+            aiCharacter.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.notchArrowSFX));
+
+            GameObject arrow = Instantiate(projectileItem.drawProjectileModel, arrowSpawnPoint);
+            aiCharacter.characterEffectsManager.activeDrawnProjectileFX = arrow;
+
+            //  ANIMATE THE BOW
+            bowAnimator.SetBool("isDrawn", true);
+            bowAnimator.Play("Bow_Draw_01");
+        }
 
         /// <summary>
         /// 애니메이션 이벤트로 호출됩니다.
@@ -61,7 +77,8 @@ namespace BK
             projectileRigidbody = projectileGameObject.GetComponent<Rigidbody>();
 
             //  (TODO MAKE FORMULA TO SET RANGE PROJECTILE DAMAGE)
-            projectileDamageCollider.physicalDamage = 100;
+            projectileDamageCollider.physicalDamage = baseDamage;
+            projectileDamageCollider.poiseDamage = basePoiseDamage;
             projectileDamageCollider.characterShootingProjectile = aiCharacter;
 
             //  FIRE AN ARROW BASED ON 1 OF 3 VARIATIONS
