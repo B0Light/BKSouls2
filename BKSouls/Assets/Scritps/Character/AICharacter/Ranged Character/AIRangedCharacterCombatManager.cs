@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BK
@@ -9,16 +10,13 @@ namespace BK
     /// </summary>
     public class AIRangedCharacterCombatManager : AICharacterCombatManager
     {
-        [Header("Projectile Spawn")]
-        [Tooltip("투사체가 생성될 위치 (없으면 캐릭터 루트 기준)")]
-        [SerializeField] private Transform projectileSpawnPoint;
+        [Header("Bow Settings")]
+        [SerializeField] private Animator bowAnimator;
+    
 
         [Header("Projectile Settings")]
-        [Tooltip("발사할 투사체 프리팹 (SpellProjectileDamageCollider 또는 Rigidbody 포함)")]
-        [SerializeField] private GameObject projectilePrefab;
-        [Tooltip("투사체 직진 속도")]
+        [SerializeField] private RangedProjectileItem projectileItem;
         [SerializeField] private float projectileSpeed = 15f;
-        [Tooltip("투사체 상향 속도 (포물선 보정)")]
         [SerializeField] private float projectileUpwardVelocity = 0.5f;
 
         // ─────────────────────────────────────────────────────────
@@ -29,53 +27,71 @@ namespace BK
         /// 애니메이션 이벤트로 호출됩니다.
         /// 현재 타겟을 향해 투사체를 발사합니다.
         /// </summary>
-        public void FireProjectile()
+        public void ReleaseArrow()
         {
+            if (aiCharacter.IsOwner)
+                aiCharacter.aiCharacterNetworkManager.hasArrowNotched.Value = false;
+
+            //  DESTROY THE "WARM UP" PROJECTILE
+            if (aiCharacter.characterEffectsManager.activeDrawnProjectileFX != null)
+                Destroy(aiCharacter.characterEffectsManager.activeDrawnProjectileFX);
+
+            //  PLAY RELEASE ARROW SFX
+            aiCharacter.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.releaseArrowSFX));
+
+            //  ANIMATE THE BOW
+            bowAnimator.SetBool("isDrawn", false);
+            bowAnimator.Play("Bow_Fire_01");
+
             if (!aiCharacter.IsOwner)
                 return;
 
-            if (currentTarget == null)
-            {
-                aiCharacter.animator.SetBool("isAttacking", false);
+            if (projectileItem == null)
                 return;
-            }
 
-            if (projectilePrefab == null)
-            {
-                Debug.LogWarning($"[AIRangedCharacterCombatManager] {aiCharacter.name}: 투사체 프리팹이 할당되지 않았습니다.");
-                return;
-            }
+            Transform projectileInstantiationLocation;
+            GameObject projectileGameObject;
+            Rigidbody projectileRigidbody;
+            RangedProjectileDamageCollider projectileDamageCollider;
+    
 
-            Transform spawnPoint = projectileSpawnPoint != null
-                ? projectileSpawnPoint
-                : aiCharacter.transform;
+            projectileInstantiationLocation = aiCharacter.aiCharacterCombatManager.lockOnTransform;
+            projectileGameObject = Instantiate(projectileItem.releaseProjectileModel, projectileInstantiationLocation);
+            projectileDamageCollider = projectileGameObject.GetComponent<RangedProjectileDamageCollider>();
+            projectileRigidbody = projectileGameObject.GetComponent<Rigidbody>();
 
-            // 타겟의 잠금 포인트(Lock-on 위치)를 조준점으로 사용
-            Vector3 aimPosition = currentTarget.characterCombatManager.lockOnTransform != null
-                ? currentTarget.characterCombatManager.lockOnTransform.position
-                : currentTarget.transform.position;
+            //  (TODO MAKE FORMULA TO SET RANGE PROJECTILE DAMAGE)
+            projectileDamageCollider.physicalDamage = 100;
+            projectileDamageCollider.characterShootingProjectile = aiCharacter;
 
-            // 투사체 생성 및 방향 설정
-            GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, Quaternion.identity);
-            Vector3 direction = (aimPosition - spawnPoint.position).normalized;
-            projectile.transform.forward = direction;
+            //  FIRE AN ARROW BASED ON 1 OF 3 VARIATIONS
 
-            // 데미지 콜라이더 초기화
-            SpellProjectileDamageCollider damageCollider = projectile.GetComponentInChildren<SpellProjectileDamageCollider>();
-            if (damageCollider != null)
-            {
-                damageCollider.physicalDamage = baseDamage;
-                damageCollider.poiseDamage    = basePoiseDamage;
-                damageCollider.spellCaster    = aiCharacter;
-            }
+            float yRotationDuringFire = aiCharacter.transform.localEulerAngles.y;
 
-            // 물리 속도 적용
-            Rigidbody rb = projectile.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.linearVelocity = direction * projectileSpeed
-                                  + Vector3.up * projectileUpwardVelocity;
-            }
+            // AIMING
+
+            // LOCKED AND NOT AIMING
+            Quaternion arrowRotation = Quaternion.LookRotation(aiCharacter.aiCharacterCombatManager.currentTarget.characterCombatManager.lockOnTransform.position
+                    - projectileGameObject.transform.position);
+            projectileGameObject.transform.rotation = arrowRotation;
+
+            //  GET ALL CHARACTER COLLIDERS AND IGNORE SELF
+            Collider[] characterColliders = aiCharacter.GetComponentsInChildren<Collider>();
+            List<Collider> collidersArrowWillIgnore = new List<Collider>();
+
+            foreach (var item in characterColliders)
+                collidersArrowWillIgnore.Add(item);
+
+            foreach (Collider hitBox in collidersArrowWillIgnore)
+                Physics.IgnoreCollision(projectileDamageCollider.damageCollider, hitBox, true);
+
+            projectileRigidbody.AddForce(projectileGameObject.transform.forward * projectileItem.forwardVelocity);
+            projectileGameObject.transform.parent = null;
+
+            aiCharacter.aiCharacterNetworkManager.NotifyServerOfReleasedProjectileServerRpc(
+                aiCharacter.OwnerClientId, 
+                projectileItem.itemID, 
+                0, 0, 0, yRotationDuringFire); // 사용하지 않는 필드 
         }
     }
 }

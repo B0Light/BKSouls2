@@ -177,7 +177,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   navMeshBuilder: {fileID: 851285321}
   doorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
-  baseBattleEnemyCount: 3
+  baseBattleEnemyCount: 1
   eliteEnemyCount: 5
   bossEnemyCount: 1
 --- !u!114 &197127177

@@ -644,24 +644,7 @@ namespace BK
             player.characterSoundFXManager.PlaySoundFX(WorldSoundFXManager.Instance.ChooseRandomSfxFromArray(WorldSoundFXManager.Instance.notchArrowSFX));
         }
 
-        //  RELEASE PROJECTILE
-        [ServerRpc]
-        public void NotifyServerOfReleasedProjectileServerRpc(ulong playerClientID, int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
-        {
-            if (IsServer)
-            {
-                NotifyServerOfReleasedProjectileClientRpc(playerClientID, projectileID, xPosition, yPosition, zPosition, yCharacterRotation);
-            }
-        }
-
-        [ClientRpc]
-        public void NotifyServerOfReleasedProjectileClientRpc(ulong playerClientID, int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
-        {
-            if (playerClientID != NetworkManager.Singleton.LocalClientId)
-                PerformReleasedProjectileFromRpc(projectileID, xPosition, yPosition, zPosition, yCharacterRotation);
-        }
-
-        private void PerformReleasedProjectileFromRpc(int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
+        protected override void PerformReleasedProjectileFromRpc(int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
         {
             RangedProjectileItem projectileItem = null;
 

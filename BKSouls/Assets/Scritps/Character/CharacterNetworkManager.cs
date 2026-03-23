@@ -593,5 +593,24 @@ namespace BK
                 parriedCharacter.characterAnimatorManager.PlayTargetActionAnimationInstantly("Parried_01", true);
             }
         }
+
+         //  RELEASE PROJECTILE
+        [ServerRpc]
+        public void NotifyServerOfReleasedProjectileServerRpc(ulong playerClientID, int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
+        {
+            if (IsServer)
+            {
+                NotifyServerOfReleasedProjectileClientRpc(playerClientID, projectileID, xPosition, yPosition, zPosition, yCharacterRotation);
+            }
+        }
+
+        [ClientRpc]
+        public void NotifyServerOfReleasedProjectileClientRpc(ulong playerClientID, int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation)
+        {
+            if (playerClientID != NetworkManager.Singleton.LocalClientId)
+                PerformReleasedProjectileFromRpc(projectileID, xPosition, yPosition, zPosition, yCharacterRotation);
+        }
+
+        protected virtual void PerformReleasedProjectileFromRpc(int projectileID, float xPosition, float yPosition, float zPosition, float yCharacterRotation){}
     }
 }

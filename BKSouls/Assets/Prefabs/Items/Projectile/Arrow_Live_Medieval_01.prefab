@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7525845252234106020}
   - component: {fileID: 6899189968056071305}
   m_Layer: 14
-  m_Name: Arrow_Live_Md_01
+  m_Name: Arrow_Live_Medieval_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
