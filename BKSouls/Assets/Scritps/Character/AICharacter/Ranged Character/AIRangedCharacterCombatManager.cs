@@ -16,8 +16,6 @@ namespace BK
 
         [Header("Projectile Settings")]
         [SerializeField] private RangedProjectileItem projectileItem;
-        [SerializeField] private float projectileSpeed = 15f;
-        [SerializeField] private float projectileUpwardVelocity = 0.5f;
 
         // ─────────────────────────────────────────────────────────
         //  애니메이션 이벤트에서 호출

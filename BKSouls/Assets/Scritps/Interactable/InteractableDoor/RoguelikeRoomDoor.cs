@@ -12,7 +12,6 @@ namespace BK
     public class RoguelikeRoomDoor : InteractableDoor
     {
         [Header("Roguelike Door")]
-        [SerializeField] private RoguelikeDoorRole doorRole = RoguelikeDoorRole.Exit;
         [SerializeField] private bool requireRoomCleared = true;
         [SerializeField] private bool moveNextRoomOnInteract = true;
 
