@@ -125,6 +125,11 @@ namespace BK
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
             WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
         }
+
+        public void LoadHoldScene()
+        {
+            WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
+        }
         
         public bool LoadLastGame()
         {

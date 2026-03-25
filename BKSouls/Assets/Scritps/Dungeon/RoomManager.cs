@@ -133,6 +133,8 @@ namespace BK
 
             SetState(RoomState.Loading);
 
+            ShowLoadingScreenClientRpc();
+
             CleanupCurrentRoomNetworkObjectsOnly();
             LoadRoomGeometryServer(template, templateIndex);
 
@@ -155,6 +157,8 @@ namespace BK
                 yield return null;
             }
             // ────────────────────────────────────────────────────────
+
+            HideLoadingScreenClientRpc();
 
             switch (plan.roomType)
             {
@@ -428,6 +432,20 @@ namespace BK
                     }
                 );
             }
+        }
+
+        [ClientRpc]
+        private void ShowLoadingScreenClientRpc()
+        {
+            if (PlayerUILoadingScreenManager.Instance != null)
+                PlayerUILoadingScreenManager.Instance.ActivateLoadingScreen();
+        }
+
+        [ClientRpc]
+        private void HideLoadingScreenClientRpc()
+        {
+            if (PlayerUILoadingScreenManager.Instance != null)
+                PlayerUILoadingScreenManager.Instance.DeactivateLoadingScreen();
         }
 
         [ClientRpc]

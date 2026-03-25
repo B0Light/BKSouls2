@@ -123,6 +123,7 @@ namespace BK
             if (currentRoomIndex >= floorPlan.Count)
             {
                 Debug.Log("[RunManager] Run Finished.");
+                WorldSaveGameManager.Instance.LoadHoldScene();
                 return;
             }
 

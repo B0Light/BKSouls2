@@ -8,9 +8,16 @@ namespace BK
 {
     public class PlayerUILoadingScreenManager : MonoBehaviour
     {
+        public static PlayerUILoadingScreenManager Instance { get; private set; }
+
         [SerializeField] GameObject loadingScreen;
         [SerializeField] CanvasGroup canvasGroup;
         private Coroutine fadeLoadingScreenCoroutine;
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         private void Start()
         {
@@ -50,7 +57,7 @@ namespace BK
 
         private IEnumerator FadeLoadingScreen(float duration, float delay)
         {
-            while (WorldAIManager.instance.isPerformingLoadingOperation)
+            while (WorldAIManager.instance != null && WorldAIManager.instance.isPerformingLoadingOperation)
             {
                 yield return null;
             }
