@@ -288,7 +288,7 @@ namespace BK
         // UI
         // =========================================================
 
-        private void ApplyUIText()
+        protected virtual void ApplyUIText()
         {
             if (_netIsLocked.Value)
             {

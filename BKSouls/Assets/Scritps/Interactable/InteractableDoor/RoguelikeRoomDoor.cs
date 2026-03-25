@@ -94,5 +94,17 @@ namespace BK
         {
             ForceSetDoorLockedServer(locked);
         }
+
+        protected override void ApplyUIText()
+        {
+            if (DoorRole == RoguelikeDoorRole.Exit && moveNextRoomOnInteract)
+            {
+                interactableText = "Next Stage";
+            }
+            else
+            {
+                interactableText = "Locked";
+            }
+        }
     }
 }

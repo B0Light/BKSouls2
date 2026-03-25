@@ -14070,6 +14070,10 @@ PrefabInstance:
       propertyPath: initPosition.z
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8311501568091919083, guid: 6ccb0bb440e9e5f4787f45694dd5a6cf, type: 3}
+      propertyPath: tutorialSceneIndex
+      value: Scene_World_00_Tutorial
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

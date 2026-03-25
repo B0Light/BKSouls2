@@ -60,8 +60,9 @@ namespace BK
             }
             else
             {
-                Debug.LogError("Invalid ISO 8601 time format.");
-                return "";
+                Debug.LogWarning("Invalid ISO 8601 time format. : Setting current time as last played time.");
+                dateTime = DateTime.Now;
+                return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
             }
         }
     }

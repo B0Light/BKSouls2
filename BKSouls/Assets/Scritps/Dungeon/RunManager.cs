@@ -9,8 +9,16 @@ namespace BK
     {
         public static RunManager Instance { get; private set; }
 
-        [SerializeField] private List<RoomTemplateSO> allRoomTemplates = new();
         [SerializeField] private RoomManager roomManager;
+        [SerializeField] private List<RoomTemplateSO> allRoomTemplates = new();
+        [SerializeField] private List<RoomType> floorSequence = new()
+        {
+            RoomType.Start,
+            RoomType.Battle,
+            RoomType.Battle,
+            RoomType.Elite,
+            RoomType.Boss
+        };
 
         private readonly List<RoomPlan> floorPlan = new();
         private int currentRoomIndex = -1;
@@ -77,11 +85,8 @@ namespace BK
 
             System.Random rng = new System.Random(seed);
 
-            AddRoom(RoomType.Start, rng);
-            AddRoom(RoomType.Battle, rng);
-            AddRoom(RoomType.Battle, rng);
-            AddRoom(RoomType.Elite, rng);
-            AddRoom(RoomType.Boss, rng);
+            foreach (RoomType type in floorSequence)
+                AddRoom(type, rng);
         }
 
         private void AddRoom(RoomType type, System.Random rng)
