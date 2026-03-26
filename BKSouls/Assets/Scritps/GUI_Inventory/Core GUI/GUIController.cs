@@ -196,6 +196,12 @@ namespace BK
             OpenGUI(inventoryGUIManager);
             inventoryGUIManager.OpenInteractionInventory(false, width, height, itemIdList, interactable);
         }
+
+        public void OpenInteractableBox(int width, int height, List<GridItem> gridItems, List<int> runtimeItemIdList, Interactable interactable)
+        {
+            OpenGUI(inventoryGUIManager);
+            inventoryGUIManager.OpenInteractionInventory(false, width, height, gridItems, runtimeItemIdList, interactable);
+        }
         
         public void OpenShareBox(int width, int height, List<int> itemIdList, Interactable interactable)
         {

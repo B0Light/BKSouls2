@@ -99,7 +99,9 @@ MonoBehaviour:
   hostOnlyInteractable: 1
   boxWidth: 6
   boxHeight: 10
-  itemIdList: 
+  initialItems:
+  - {fileID: 11400000, guid: d57f084e601990a4f89486e8dc2e4d3f, type: 2}
+  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
   openType: 0
   animationDuration: 1
   animationCurve:

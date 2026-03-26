@@ -37,6 +37,13 @@ namespace BK.Inventory
             base.SetGrid(width, height, _interactableItemIDList);
         }
 
+        public override void SetGridWithRefs(int width, int height, List<GridItem> soItems, List<int> runtimeIds)
+        {
+            itemIdToCntDict = new SerializedDictionary<int, int>();
+            _interactableItemIDList = new List<int>(runtimeIds ?? new List<int>());
+            base.SetGridWithRefs(width, height, soItems, _interactableItemIDList);
+        }
+
         public override bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad = false)
         {
             if (base.PlaceItem(inventoryItem, posX, posY, isLoad))

@@ -152,6 +152,25 @@ namespace BK.Inventory
             WorldPlayerInventory.Instance.curInteractItemGrid = targetGrid;
         }
 
+        public void OpenInteractionInventory(bool isShareInventory, int width, int height, List<GridItem> soItems, List<int> runtimeItemIdList, Interactable interactable)
+        {
+            _interactableObject = interactable;
+
+            ToggleInteractionInventory(!isShareInventory);
+            ToggleShareInventory(isShareInventory);
+
+            var targetGrid = isShareInventory ? shareInventoryItemGrid : interactionInventoryItemGrid;
+
+            Debug.LogWarning($"CUR BOX SIZE [{width}, {height}]");
+            targetGrid.ResetItemGrid();
+            targetGrid.SetGridWithRefs(width, height, soItems, runtimeItemIdList);
+
+            WorldPlayerInventory.Instance.curOpenedInventory =
+                isShareInventory ? ItemGridType.ShareInventory : ItemGridType.InteractableInventory;
+
+            WorldPlayerInventory.Instance.curInteractItemGrid = targetGrid;
+        }
+
         public void OpenInteractionShredder(int width, int height, List<int> itemIdList, Interactable interactable)
         {
             _interactableObject = interactable;

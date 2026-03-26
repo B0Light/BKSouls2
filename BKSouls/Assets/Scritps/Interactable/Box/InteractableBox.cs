@@ -6,11 +6,12 @@ namespace BK
 {
     public class InteractableBox : Interactable
     {
-        [Header("Box Info")] 
+        [Header("Box Info")]
         [SerializeField] [Range(1, 6)] private int boxWidth;
         [SerializeField] [Range(1, 10)] private int boxHeight;
-        
-        [SerializeField] protected List<int> itemIdList = new List<int>();
+
+        [SerializeField] private List<GridItem> initialItems = new List<GridItem>();
+        protected List<int> itemIdList = new List<int>();
 
         [Header("Box Animation Settings")] 
         [SerializeField] private BoxOpenType openType = BoxOpenType.TopLid;
@@ -70,7 +71,12 @@ namespace BK
         protected override void Start()
         {
             base.Start();
-            
+
+            foreach (var item in initialItems)
+            {
+                if (item != null) itemIdList.Add(item.itemID);
+            }
+
             isOpen = false;
             _isDoorOpened = false;
             _isAnimating = false;

@@ -71,6 +71,14 @@ namespace BK.Inventory
             PlaceItemsAuto(_interactObjectList);
         }
 
+        public virtual void SetGridWithRefs(int width, int height, List<GridItem> soItems, List<int> runtimeIds)
+        {
+            Init(width, height);
+            PlaceItemsAutoByRef(soItems);
+            if (runtimeIds != null && runtimeIds.Count > 0)
+                PlaceItemsAuto(runtimeIds);
+        }
+
         //Set Inventory size
         protected virtual void Init(int width, int height)
         {
@@ -103,8 +111,19 @@ namespace BK.Inventory
             foreach (var itemCode in setItemList)
             {
                 if (AddItemById(itemCode, isLoad: isLoad)) continue;
-                
+
                 InventoryController.RequestDropItem(itemCode);
+            }
+        }
+
+        protected virtual void PlaceItemsAutoByRef(List<GridItem> soItems, bool isLoad = true)
+        {
+            if (soItems == null) return;
+            foreach (var gridItem in soItems)
+            {
+                if (gridItem == null) continue;
+                if (!AddItemByRef(gridItem, isLoad))
+                    InventoryController.RequestDropItem(gridItem.itemID);
             }
         }
 
@@ -125,16 +144,42 @@ namespace BK.Inventory
                 InventoryItem inventoryItem = spawnItem.GetComponent<InventoryItem>();
                 inventoryItem.itemData = WorldItemDatabase.Instance.GetItemByID(itemCode) as GridItem;
 
+                if (inventoryItem.itemData == null)
+                {
+                    Debug.LogError($"[ItemGrid] itemID {itemCode} not found in WorldItemDatabase or is not a GridItem.");
+                    Destroy(spawnItem);
+                    allAdded = false;
+                    break;
+                }
+
                 bool added = AddItem(spawnItem, isLoad);
                 if (!added)
                 {
                     allAdded = false;
-                    Destroy(spawnItem); // 실패한 아이템은 제거
-                    break; // 또는 continue; // 실패한 이후에도 계속 시도하려면 continue 사용
+                    Destroy(spawnItem);
+                    break;
                 }
             }
 
             return allAdded;
+        }
+
+        public bool AddItemByRef(GridItem gridItem, bool isLoad = true)
+        {
+            if (gridItem == null) return true;
+
+            GameObject spawnItem = Instantiate(WorldShopManager.Instance.inventoryItemRef);
+            InventoryItem inventoryItem = spawnItem.GetComponent<InventoryItem>();
+            inventoryItem.itemData = gridItem;
+
+            bool added = AddItem(spawnItem, isLoad);
+            if (!added)
+            {
+                Destroy(spawnItem);
+                return false;
+            }
+
+            return true;
         }
 
         public int AddItemById_FailCount(int itemCode, int count = 1, bool isLoad = true)
