@@ -20,7 +20,8 @@ namespace BK
         [SerializeField] private DungeonNavMeshBuilder navMeshBuilder;
 
         [Header("Runtime Prefabs")]
-        [SerializeField] private GameObject doorPrefab;
+        [SerializeField] private GameObject entryDoorPrefab;
+        [SerializeField] private GameObject exitDoorPrefab;
 
         [Header("Enemy Count")]
         [SerializeField] private int baseBattleEnemyCount = 3;
@@ -340,33 +341,35 @@ namespace BK
                 return;
             }
 
-            if (doorPrefab == null)
-            {
-                Debug.LogWarning("[RoomManager] doorPrefab is null. Doors will not be spawned.");
-                return;
-            }
+            GameObject resolvedEntryPrefab = currentTemplate?.entryDoorPrefab != null
+                ? currentTemplate.entryDoorPrefab
+                : entryDoorPrefab;
 
-            if (currentRoomInstance.EntryDoorAnchor != null)
+            GameObject resolvedExitPrefab = currentTemplate?.exitDoorPrefab != null
+                ? currentTemplate.exitDoorPrefab
+                : exitDoorPrefab;
+
+            if (currentRoomInstance.EntryDoorAnchor != null && resolvedEntryPrefab != null)
             {
-                currentEntryDoor = SpawnSingleDoor(currentRoomInstance.EntryDoorAnchor, "EntryDoor");
+                currentEntryDoor = SpawnSingleDoor(resolvedEntryPrefab, currentRoomInstance.EntryDoorAnchor, "EntryDoor");
                 if (currentEntryDoor != null)
                     currentEntryDoor.SetDoorRoleServer(RoguelikeDoorRole.Entry);
             }
 
-            if (currentRoomInstance.ExitDoorAnchor != null)
+            if (currentRoomInstance.ExitDoorAnchor != null && resolvedExitPrefab != null)
             {
-                currentExitDoor = SpawnSingleDoor(currentRoomInstance.ExitDoorAnchor, "ExitDoor");
+                currentExitDoor = SpawnSingleDoor(resolvedExitPrefab, currentRoomInstance.ExitDoorAnchor, "ExitDoor");
                 if (currentExitDoor != null)
                     currentExitDoor.SetDoorRoleServer(RoguelikeDoorRole.Exit);
             }
         }
 
-        private RoguelikeRoomDoor SpawnSingleDoor(Transform anchor, string debugName)
+        private RoguelikeRoomDoor SpawnSingleDoor(GameObject prefab, Transform anchor, string debugName)
         {
             Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
 
             GameObject doorObj = Instantiate(
-                doorPrefab,
+                prefab,
                 anchor.position,
                 anchor.rotation,
                 parent);

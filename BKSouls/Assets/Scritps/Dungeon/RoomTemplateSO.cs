@@ -14,6 +14,10 @@ namespace BK
         [Header("AI Spawner Prefabs")]
         public List<AICharacterSpawner> enemySpawnerPrefabs = new();
 
+        [Header("Doors (optional – overrides RoomManager defaults)")]
+        public GameObject entryDoorPrefab;
+        public GameObject exitDoorPrefab;
+
         [Header("Reward")]
         public GameObject rewardPrefab;
     }
