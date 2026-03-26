@@ -33,8 +33,8 @@ namespace BK.Inventory
         public override void SetGrid(int width, int height, List<int> setItemList)
         {
             itemIdToCntDict = new SerializedDictionary<int, int>();
-            _interactableItemIDList = setItemList;
-            base.SetGrid(width, height, setItemList);
+            _interactableItemIDList = new List<int>(setItemList);
+            base.SetGrid(width, height, _interactableItemIDList);
         }
 
         public override bool PlaceItem(InventoryItem inventoryItem, int posX, int posY, bool isLoad = false)
