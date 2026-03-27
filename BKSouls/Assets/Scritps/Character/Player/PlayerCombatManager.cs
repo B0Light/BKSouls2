@@ -21,6 +21,12 @@ namespace BK
         public bool canComboWithOffHandWeapon = false;
         public bool isUsingItem = false;
 
+        [Header("Slash FX")]
+        [Tooltip("SlashFXDamageCollider + Particle System이 붙은 프리팹")]
+        [SerializeField] public GameObject slashFXPrefab;
+        [Tooltip("검기 데미지 배율 (장착 무기 데미지 기준)")]
+        [SerializeField] float slashFXDamageModifier = 0.5f;
+
         protected override void Awake()
         {
             base.Awake();
@@ -518,6 +524,49 @@ namespace BK
         {
             if (player.playerInventoryManager.currentQuickSlotItem != null)
                 player.playerInventoryManager.currentQuickSlotItem.SuccessfullyUseItem(player);
+        }
+
+        //  SLASH FX
+
+        // 애니메이션 이벤트에서 호출 — 현재 장착 무기 기준으로 검기 FX 스폰
+        public void SpawnSlashFX()
+        {
+            if (slashFXPrefab == null)
+                return;
+
+            if (!player.IsOwner)
+                return;
+
+            // 오른손/왼손 무기 콜라이더에서 데미지 수치 참조
+            MeleeWeaponDamageCollider sourceCollider;
+            if (player.playerNetworkManager.isUsingRightHand.Value)
+                sourceCollider = player.playerEquipmentManager.rightWeaponManager.meleeDamageCollider;
+            else
+                sourceCollider = player.playerEquipmentManager.leftWeaponManager.meleeDamageCollider;
+
+            if (sourceCollider == null)
+                return;
+
+            // 무기 모델 위치에 스폰 (없으면 캐릭터 위치)
+            Transform weaponModel = player.playerNetworkManager.isUsingRightHand.Value
+                ? player.playerEquipmentManager.rightHandWeaponModel.transform
+                : player.playerEquipmentManager.leftHandWeaponModel.transform;
+
+            Transform spawnPoint = weaponModel != null ? weaponModel : player.transform;
+            GameObject fx = Instantiate(slashFXPrefab, spawnPoint.position, player.transform.rotation);
+
+            SlashFXDamageCollider slashCollider = fx.GetComponent<SlashFXDamageCollider>();
+            if (slashCollider != null)
+            {
+                slashCollider.characterCausingDamage = player;
+                slashCollider.physicalDamage = sourceCollider.physicalDamage;
+                slashCollider.magicDamage = sourceCollider.magicDamage;
+                slashCollider.fireDamage = sourceCollider.fireDamage;
+                slashCollider.holyDamage = sourceCollider.holyDamage;
+                slashCollider.poiseDamage = sourceCollider.poiseDamage;
+                slashCollider.damageModifier = slashFXDamageModifier;
+                slashCollider.isAIAttack = false;
+            }
         }
 
         //  ASH OF WAR

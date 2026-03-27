@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(xargs grep:*)",
+      "Bash(find e:/GitHub/BKSouls2/BKSouls/Assets/Prefabs -type f \\\\\\(-name *[Dd]oor* -o -name *[Pp]ortal* -o -name *[Tt]eleport* \\\\\\))"
+    ]
+  }
+}

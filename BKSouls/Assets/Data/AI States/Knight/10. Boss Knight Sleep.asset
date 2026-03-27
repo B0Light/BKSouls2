@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: 10. Boss Knight Sleep
   m_EditorClassIdentifier: Assembly-CSharp::BK.BossSleepState
   sleepAnimation: Sleep_01
-  wakingAnimation: Awaken_01
+  wakingAnimation: Wake_01
   hasBeenAwakened: 0

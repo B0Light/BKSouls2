@@ -110,6 +110,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4601273286928683032}
     m_Modifications:
+    - target: {fileID: 493981245586517855, guid: 7fca45ae4724e9e418990a301bf6d9fb, type: 3}
+      propertyPath: displayCharacterNameOnDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1320800496379892451, guid: 7fca45ae4724e9e418990a301bf6d9fb, type: 3}
+      propertyPath: m_text
+      value: none
+      objectReference: {fileID: 0}
     - target: {fileID: 1836752647892932664, guid: 7fca45ae4724e9e418990a301bf6d9fb, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

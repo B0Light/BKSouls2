@@ -61,10 +61,23 @@ namespace BK
                 characterName.enabled = true;
 
                 if (aiCharacter != null)
+                {
+                    Debug.Log("AI CHARACTER NAME: " + aiCharacter.characterName);
                     characterName.text = aiCharacter.characterName;
+                }
 
-                if (playerCharacter != null)
+                else if (playerCharacter != null)
+                {
+                    Debug.Log("PLAYER CHARACTER NAME: " + playerCharacter.playerNetworkManager.characterName.Value);
                     characterName.text = playerCharacter.playerNetworkManager.characterName.Value.ToString();
+                }
+
+                else
+                {
+                    Debug.Log("No Character Name Found For HP Bar");
+                    characterName.enabled = false;
+                }
+
             }
 
             //  CALL THIS HERE INCASE MAX HEALTH CHANGES FROM A CHARACTER EFFECT/BUFF ECT

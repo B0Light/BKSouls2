@@ -15,6 +15,12 @@ namespace BK
         [SerializeField] private bool requireRoomCleared = true;
         [SerializeField] private bool moveNextRoomOnInteract = true;
 
+        [Header("Portal VFX")]
+        [Tooltip("문이 열릴 때 활성화할 포탈 VFX 오브젝트 (자식 오브젝트로 배치)")]
+        [SerializeField] private GameObject portalVFX;
+        [Tooltip("Entry 문에도 포탈 VFX를 표시할지 여부 (false면 Exit 전용)")]
+        [SerializeField] private bool showPortalOnEntry = false;
+
         private readonly NetworkVariable<int> netDoorRole = new NetworkVariable<int>(
             (int)RoguelikeDoorRole.Exit,
             NetworkVariableReadPermission.Everyone,
@@ -27,6 +33,10 @@ namespace BK
         {
             base.OnNetworkSpawn();
             netDoorRole.OnValueChanged += OnDoorRoleChanged;
+
+            // 스폰 시 현재 열림 상태에 맞춰 VFX 초기화
+            if (portalVFX != null)
+                portalVFX.SetActive(false);
         }
 
         public override void OnNetworkDespawn()
@@ -38,6 +48,18 @@ namespace BK
         private void OnDoorRoleChanged(int previousValue, int newValue)
         {
             // 역할 변경 시 필요하면 UI 갱신
+        }
+
+        protected override void OnDoorOpenStateChanged(bool isNowOpen)
+        {
+            if (portalVFX == null)
+                return;
+
+            // showPortalOnEntry == false 이면 Exit 문에만 표시
+            bool shouldShow = isNowOpen &&
+                              (showPortalOnEntry || DoorRole == RoguelikeDoorRole.Exit);
+
+            portalVFX.SetActive(shouldShow);
         }
 
         public override void Interact(PlayerManager player)

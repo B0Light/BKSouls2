@@ -2736,6 +2736,37 @@ Transform:
   - {fileID: 5823009566919321821}
   m_Father: {fileID: 3567957924398181976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5381071145502794490
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4776256093081641740}
+  m_Layer: 10
+  m_Name: VFX
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4776256093081641740
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5381071145502794490}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1288554446787779140}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5474563772810473570
 GameObject:
   m_ObjectHideFlags: 0
@@ -3156,7 +3187,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4776256093081641740}
   m_Father: {fileID: 8606641291642956091}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &5517022816599975112
@@ -4134,8 +4166,8 @@ MonoBehaviour:
   aiCharacterLocomotionManager: {fileID: 0}
   aiCharacterInventoryManager: {fileID: 0}
   navMeshAgent: {fileID: 2742191920829787641}
-  currentState: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
-  idle: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
+  currentState: {fileID: 11400000, guid: 49b32de0cc3660e44b9ba290502dd32d, type: 2}
+  idle: {fileID: 11400000, guid: 49b32de0cc3660e44b9ba290502dd32d, type: 2}
   pursueTarget: {fileID: 11400000, guid: ae152aca9e3a2b04d936a51669ca09f9, type: 2}
   combatStance: {fileID: 11400000, guid: cc9472bf3237d6c4aba9e6411b4bff85, type: 2}
   attack: {fileID: 11400000, guid: 8a9f441e00334eb43a952888c145bb77, type: 2}
@@ -4203,6 +4235,9 @@ MonoBehaviour:
   swordDamageCollider: {fileID: 7980367310988151136}
   attack01DamageModifier: 1
   attack02DamageModifier: 1.4
+  slashFXPrefab: {fileID: 2195480039720454544, guid: 627071a261ee95a49bbe727a791c94ff, type: 3}
+  slashFXSpawnPoint: {fileID: 4776256093081641740}
+  slashFXDamageModifier: 0.5
 --- !u!114 &6155475291205133828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6125,24 +6160,8 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8886639030516659124}
     m_Modifications:
-    - target: {fileID: 107206750467484970, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
-      propertyPath: m_text
-      value: none
-      objectReference: {fileID: 0}
-    - target: {fileID: 107206750467484970, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
-      propertyPath: m_fontSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 744719258279995377, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 744719258279995377, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 744719258279995377, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
-      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3633593469097839956, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
@@ -6227,10 +6246,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4601273286928683032, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6842332927439619730, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
-      propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6842332927439619730, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}

@@ -277,7 +277,12 @@ namespace BK
                 // openOnly면 열렸을 때 상호작용 불가
                 interactableCollider.enabled = !(openOnly && current);
             }
+
+            OnDoorOpenStateChanged(current);
         }
+
+        // 하위 클래스에서 문 열림/닫힘 시 추가 동작을 구현할 때 오버라이드
+        protected virtual void OnDoorOpenStateChanged(bool isNowOpen) { }
 
         private void OnLockChanged(bool previous, bool current)
         {
