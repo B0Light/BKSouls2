@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 803c3042d06c69f4aaea6ad4c1a95d50, type: 3}
-  m_Name: 3. Knight Combat Stance State
+  m_Name: 11. Knight Combat Stance State Phase 1
   m_EditorClassIdentifier: Assembly-CSharp::BK.CombatStanceState
   aiCharacterAttacks:
-  - {fileID: 11400000, guid: 46f2b4ced7807224490fe313cb6afc6c, type: 2}
-  - {fileID: 11400000, guid: 9630214e3c3533742b14766cfece37a9, type: 2}
+  - {fileID: 11400000, guid: c0c2e8c36db171541bd43f02cfd7fff8, type: 2}
+  - {fileID: 11400000, guid: 3a0cde9b66121a747886e9decdcde8bf, type: 2}
   - {fileID: 11400000, guid: 76db583d55e25984e88f091b9ac844b8, type: 2}
   potentialAttacks: []
   chosenAttack: {fileID: 0}
   previousAttack: {fileID: 0}
-  canPerformCombo: 0
-  percentageOfTimeWillPerformCombo: 25
+  canPerformCombo: 1
+  percentageOfTimeWillPerformCombo: 70
   onlyPerformComboIfInitialAttackHits: 0
   maximumEngagementDistance: 5
   willCircleTarget: 1
   canBlock: 1
-  percentageOfTimeWillBlock: 100
+  percentageOfTimeWillBlock: 25
   canEvade: 1
   percentageOfTimeWillEvade: 30

@@ -10,7 +10,15 @@ namespace BK
 
         private void OnTriggerEnter(Collider other)
         {
-            AIBossCharacterManager boss = WorldAIManager.instance.GetBossCharacterByID(bossID);
+            if(other.CompareTag("Player"))
+            {
+                TriggerBossFight();
+            }
+        }
+
+        private void TriggerBossFight()
+        {
+            AIBossCharacterManager boss = FindAnyObjectByType<AIBossCharacterManager>();
 
             if (boss != null && boss.isDead.Value == false)
             {

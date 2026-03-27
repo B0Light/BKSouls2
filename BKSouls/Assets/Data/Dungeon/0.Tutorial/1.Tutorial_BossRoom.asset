@@ -16,7 +16,7 @@ MonoBehaviour:
   roomType: 6
   roomPrefab: {fileID: 8836790778195343593, guid: acebee18738896b47ac1bcafa2b39e96, type: 3}
   enemySpawnerPrefabs:
-  - {fileID: 882319676538015308, guid: 76cad843693fbef47918a3ae0ac7d952, type: 3}
+  - {fileID: 882319676538015308, guid: e9cfc7f0883eabb438f7240d0c54afc2, type: 3}
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 68405181919385607, guid: 5c2b86d354ab7b240add26bce3bf80e3, type: 3}
   rewardPrefab: {fileID: 980517489823494474, guid: 354fc13b40ae72d429795c1b10739353, type: 3}

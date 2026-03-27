@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82316b066c9a7764d900e806d9ddfb29, type: 3}
   m_Name: Parry Ash Of War
   m_EditorClassIdentifier: Assembly-CSharp::BK.ParryAshOfWar
+  itemID: 13
   itemName: 
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 3eb23cb968618fa4b954fc2ef99a949a, type: 3}
+  itemTier: 0
+  itemType: 8
+  cost: 0
   itemDescription: 
-  itemID: 0
   usableWeaponClasses: 02000000
   focusPointCost: 0
   staminaCost: 20

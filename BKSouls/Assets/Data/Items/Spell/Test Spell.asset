@@ -12,14 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18d5f5ff30fd02b4ebfd1f80ed64c559, type: 3}
   m_Name: Test Spell
   m_EditorClassIdentifier: Assembly-CSharp::BK.TestSpell
+  itemID: 0
   itemName: 
   itemIcon: {fileID: 0}
+  itemTier: 0
+  itemType: 8
+  cost: 0
   itemDescription: 
-  itemID: 0
   SpellClass: 0
+  fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1
+  staminaCost: 25
+  focusPointCost: 25
   spellCastWarmUpFX: {fileID: 0}
+  spellChargeFX: {fileID: 0}
   spellCastReleaseFX: {fileID: 0}
+  spellCastReleaseFXFullCharge: {fileID: 0}
   mainHandSpellAnimation: Spell_Main_Fire_Ball_Start_01
   offHandSpellAnimation: Spell_Off_Fire_Ball_Start_01
   warmUpSoundFX: {fileID: 0}
