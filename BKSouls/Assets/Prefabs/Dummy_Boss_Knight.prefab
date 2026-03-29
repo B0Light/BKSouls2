@@ -4235,7 +4235,8 @@ MonoBehaviour:
   swordDamageCollider: {fileID: 7980367310988151136}
   attack01DamageModifier: 1
   attack02DamageModifier: 1.4
-  slashFXPrefab: {fileID: 5876420305346616488, guid: e29ae2419d3000043b2d2f3c5dab627d, type: 3}
+  slashFXPrefabs:
+  - {fileID: 5876420305346616488, guid: e29ae2419d3000043b2d2f3c5dab627d, type: 3}
   slashFXSpawnPoint: {fileID: 4776256093081641740}
   slashFXDamageModifier: 0.5
 --- !u!114 &6155475291205133828

@@ -60,10 +60,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 88accf95e8579834abb518dd619a51da, type: 2}
   bodyEquipment:
   - {fileID: 11400000, guid: bf041bf4217abe749954d1f08282b600, type: 2}
+  - {fileID: 11400000, guid: 29b81dadec6e0ca4c9e9f61606e816d9, type: 2}
   legEquipment:
   - {fileID: 11400000, guid: f9569a217aea6434aa70b334271de919, type: 2}
+  - {fileID: 11400000, guid: 349b72deffd937c4da8c90b0509ca25d, type: 2}
   handEquipment:
   - {fileID: 11400000, guid: b2b48bdf8d41fce42aa8909788ebc462, type: 2}
+  - {fileID: 11400000, guid: 9e68e8b45200ac847b84c69cab431b77, type: 2}
   ashesOfWar:
   - {fileID: 11400000, guid: 731783f4c95c68046a658840ae86ab2d, type: 2}
   spells:

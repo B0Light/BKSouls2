@@ -74564,6 +74564,8 @@ MonoBehaviour:
   canComboWithMainHandWeapon: 0
   canComboWithOffHandWeapon: 0
   isUsingItem: 0
+  slashFXPrefabs: []
+  slashFXDamageModifier: 0.5
 --- !u!114 &6379308890999146456
 MonoBehaviour:
   m_ObjectHideFlags: 0

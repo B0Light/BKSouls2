@@ -12,8 +12,8 @@ namespace BK
         [SerializeField] float attack02DamageModifier = 1.4f;
 
         [Header("Slash FX")]
-        [Tooltip("SlashFXDamageCollider + Particle System이 붙은 프리팹")]
-        [SerializeField] GameObject slashFXPrefab;
+        [Tooltip("모션별 Slash FX 프리팹 배열. Animation Event의 int 파라미터로 인덱스 지정\n예) 0=Attack01, 1=Attack02, 2=HeavyAttack")]
+        [SerializeField] GameObject[] slashFXPrefabs;
         [Tooltip("검기가 생성될 위치 (보통 검 끝 혹은 캐릭터 앞). 비워두면 캐릭터 위치 사용")]
         [SerializeField] Transform slashFXSpawnPoint;
         [Tooltip("검기 데미지 배율 (baseDamage 기준)")]
@@ -49,14 +49,19 @@ namespace BK
             swordDamageCollider.DisableDamageCollider();
         }
 
-        // 애니메이션 이벤트에서 호출 — 검기 FX를 월드에 스폰하고 데미지 판정 설정
-        public void SpawnSlashFX()
+        // 애니메이션 이벤트에서 호출 — prefabIndex로 모션별 다른 VFX 선택
+        // Animation Event 설정: Function = SpawnSlashFX, Int = 0 (Attack01), 1 (Attack02), ...
+        public void SpawnSlashFX(int prefabIndex = 0)
         {
-            if (slashFXPrefab == null)
+            if (slashFXPrefabs == null || prefabIndex < 0 || prefabIndex >= slashFXPrefabs.Length)
+                return;
+
+            GameObject prefab = slashFXPrefabs[prefabIndex];
+            if (prefab == null)
                 return;
 
             Transform spawnPoint = slashFXSpawnPoint != null ? slashFXSpawnPoint : aiCharacter.transform;
-            GameObject fx = Instantiate(slashFXPrefab, spawnPoint.position, spawnPoint.rotation);
+            GameObject fx = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
 
             SlashFXDamageCollider slashCollider = fx.GetComponent<SlashFXDamageCollider>();
             if (slashCollider != null)

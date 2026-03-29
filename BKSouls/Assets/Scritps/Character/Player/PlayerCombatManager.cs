@@ -22,8 +22,8 @@ namespace BK
         public bool isUsingItem = false;
 
         [Header("Slash FX")]
-        [Tooltip("SlashFXDamageCollider + Particle System이 붙은 프리팹")]
-        [SerializeField] public GameObject slashFXPrefab;
+        [Tooltip("모션별 Slash FX 프리팹 배열. Animation Event의 int 파라미터로 인덱스 지정\n예) 0=Light01, 1=Light02, 2=Heavy01, 3=Running")]
+        [SerializeField] public GameObject[] slashFXPrefabs;
         [Tooltip("검기 데미지 배율 (장착 무기 데미지 기준)")]
         [SerializeField] float slashFXDamageModifier = 0.5f;
 
@@ -528,10 +528,15 @@ namespace BK
 
         //  SLASH FX
 
-        // 애니메이션 이벤트에서 호출 — 현재 장착 무기 기준으로 검기 FX 스폰
-        public void SpawnSlashFX()
+        // 애니메이션 이벤트에서 호출 — prefabIndex로 모션별 다른 VFX 선택
+        // Animation Event 설정: Function = SpawnSlashFX, Int = 0 (Light01), 1 (Light02), ...
+        public void SpawnSlashFX(int prefabIndex = 0)
         {
-            if (slashFXPrefab == null)
+            if (slashFXPrefabs == null || prefabIndex < 0 || prefabIndex >= slashFXPrefabs.Length)
+                return;
+
+            GameObject prefab = slashFXPrefabs[prefabIndex];
+            if (prefab == null)
                 return;
 
             if (!player.IsOwner)
@@ -553,7 +558,7 @@ namespace BK
                 : player.playerEquipmentManager.leftHandWeaponModel.transform;
 
             Transform spawnPoint = weaponModel != null ? weaponModel : player.transform;
-            GameObject fx = Instantiate(slashFXPrefab, spawnPoint.position, player.transform.rotation);
+            GameObject fx = Instantiate(prefab, spawnPoint.position, player.transform.rotation);
 
             SlashFXDamageCollider slashCollider = fx.GetComponent<SlashFXDamageCollider>();
             if (slashCollider != null)
