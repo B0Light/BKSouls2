@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c43dd3bbdc4bc534990f5c9024efcd2d, type: 3}
+  m_Name: Bard Leggings
+  m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
+  itemID: 0
+  itemName: Bard Leggings
+  itemIcon: {fileID: 21300000, guid: 15b4ce3fbf4e80742a2a567205deb3f7, type: 3}
+  itemTier: 0
+  itemType: 4
+  cost: 0
+  itemDescription: 'Knight Leggings
+
+'
+  width: 2
+  height: 2
+  weight: 0
+  itemAbilities: []
+  itemWeight: 6.6
+  physicalDamageAbsorption: 7.1
+  magicDamageAbsorption: 6.2
+  fireDamageAbsorption: 6.2
+  holyDamageAbsorption: 5.4
+  lightningDamageAbsorption: 5
+  immunity: 17
+  robustness: 31
+  focus: 11
+  vitality: 11
+  poise: 0
+  equipmentModels:
+  - {fileID: 11400000, guid: a6e3f5b80a307ef49be7f5ada93c5d29, type: 2}
+  - {fileID: 11400000, guid: aeb8211fe836e1b469d1f3079928e313, type: 2}
+  - {fileID: 11400000, guid: 797cee753a33bf745b6b31a023dca2ce, type: 2}
