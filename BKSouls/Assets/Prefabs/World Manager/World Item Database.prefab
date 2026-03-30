@@ -58,15 +58,34 @@ MonoBehaviour:
   headEquipment:
   - {fileID: 11400000, guid: 3b62051a6ec6c9041a595b903bb92530, type: 2}
   - {fileID: 11400000, guid: 88accf95e8579834abb518dd619a51da, type: 2}
+  - {fileID: 11400000, guid: 192acf069bdbdfc4493d1b19e74d248c, type: 2}
+  - {fileID: 11400000, guid: b15969d95da6a724e8f5b741a0dd5b62, type: 2}
+  - {fileID: 11400000, guid: 615510b222cde3d4dbd918fd63e0132f, type: 2}
+  - {fileID: 11400000, guid: b58ac6eb65ec6a44e8bbe42d84937c31, type: 2}
   bodyEquipment:
   - {fileID: 11400000, guid: bf041bf4217abe749954d1f08282b600, type: 2}
   - {fileID: 11400000, guid: 29b81dadec6e0ca4c9e9f61606e816d9, type: 2}
+  - {fileID: 11400000, guid: 60264c983e1a372488fbb28ff5e22b3f, type: 2}
+  - {fileID: 11400000, guid: c8bd35c1c8c04504f8da8d31dbc11171, type: 2}
+  - {fileID: 11400000, guid: 0c0b4a673e4cae946bb1fe87e6064498, type: 2}
+  - {fileID: 11400000, guid: 2973f74c22538fd4597dad1da458a457, type: 2}
+  - {fileID: 11400000, guid: 019bf231b7b998e499fdaa76aeb17d0d, type: 2}
   legEquipment:
   - {fileID: 11400000, guid: f9569a217aea6434aa70b334271de919, type: 2}
   - {fileID: 11400000, guid: 349b72deffd937c4da8c90b0509ca25d, type: 2}
+  - {fileID: 11400000, guid: 0dca7e52e10702e478e18c2e5de70567, type: 2}
+  - {fileID: 11400000, guid: c5c3fbac6d0fae14189b9fa189127995, type: 2}
+  - {fileID: 11400000, guid: 5cc488fdce4cfce44b45241036715bf4, type: 2}
+  - {fileID: 11400000, guid: 327a347fa1e1b6c4896e351a91994fbd, type: 2}
+  - {fileID: 11400000, guid: 91812e9eb5dc76647986822cc5007085, type: 2}
   handEquipment:
   - {fileID: 11400000, guid: b2b48bdf8d41fce42aa8909788ebc462, type: 2}
   - {fileID: 11400000, guid: 9e68e8b45200ac847b84c69cab431b77, type: 2}
+  - {fileID: 11400000, guid: a7d3805ede9978e47ac719fb1684f02b, type: 2}
+  - {fileID: 11400000, guid: 64a93c276cb16274eab2ceb297f0ef73, type: 2}
+  - {fileID: 11400000, guid: 776f139664535fa4794ee59003707d71, type: 2}
+  - {fileID: 11400000, guid: 78c3e7faff107f24ab6d829cbd319086, type: 2}
+  - {fileID: 11400000, guid: 37edb084102fa5e42aa9eda805e953e5, type: 2}
   ashesOfWar:
   - {fileID: 11400000, guid: 731783f4c95c68046a658840ae86ab2d, type: 2}
   spells:

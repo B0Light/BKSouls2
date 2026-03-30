@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c43dd3bbdc4bc534990f5c9024efcd2d, type: 3}
-  m_Name: Crusader Leggings
+  m_Name: Vagabond Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
   itemName: Knight Leggings
-  itemIcon: {fileID: 21300000, guid: 92160b55c21d3aa42916f0db0c75963c, type: 3}
+  itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
   itemTier: 0
   itemType: 4
   cost: 0
@@ -37,8 +37,6 @@ MonoBehaviour:
   vitality: 11
   poise: 0
   equipmentModels:
-  - {fileID: 11400000, guid: 2f46fac3fb9ed134a94cf28aeae9ae16, type: 2}
-  - {fileID: 11400000, guid: a52d5ef2a8c54dd4f87e5899a76b6f1f, type: 2}
-  - {fileID: 11400000, guid: 75a32f7ce42395341b4013598fc70cb6, type: 2}
-  - {fileID: 11400000, guid: 895ec5da08de33d4c84f54599dd32b74, type: 2}
-  - {fileID: 11400000, guid: 17a505eed4b0b624f8bcd23b50520483, type: 2}
+  - {fileID: 11400000, guid: c5d70881f857fa242827e2e32c7f2399, type: 2}
+  - {fileID: 11400000, guid: a18c83cc2b574c74b993bb35674827d1, type: 2}
+  - {fileID: 11400000, guid: eabfca20d029f96488eb390507b036a7, type: 2}

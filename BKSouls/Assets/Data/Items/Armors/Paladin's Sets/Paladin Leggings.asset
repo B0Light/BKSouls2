@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c43dd3bbdc4bc534990f5c9024efcd2d, type: 3}
-  m_Name: Crusader Leggings
+  m_Name: Paladin Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
-  itemName: Knight Leggings
-  itemIcon: {fileID: 21300000, guid: 92160b55c21d3aa42916f0db0c75963c, type: 3}
+  itemName: Paladin Leggings
+  itemIcon: {fileID: 21300000, guid: 58f49d2820ca62446961dc8220d043d2, type: 3}
   itemTier: 0
   itemType: 4
   cost: 0
@@ -37,8 +37,8 @@ MonoBehaviour:
   vitality: 11
   poise: 0
   equipmentModels:
-  - {fileID: 11400000, guid: 2f46fac3fb9ed134a94cf28aeae9ae16, type: 2}
-  - {fileID: 11400000, guid: a52d5ef2a8c54dd4f87e5899a76b6f1f, type: 2}
-  - {fileID: 11400000, guid: 75a32f7ce42395341b4013598fc70cb6, type: 2}
-  - {fileID: 11400000, guid: 895ec5da08de33d4c84f54599dd32b74, type: 2}
-  - {fileID: 11400000, guid: 17a505eed4b0b624f8bcd23b50520483, type: 2}
+  - {fileID: 11400000, guid: c9c74d3edcca8864399cc627c3f069ce, type: 2}
+  - {fileID: 11400000, guid: 1125a1447a105954d8e7c9c2d52c4f33, type: 2}
+  - {fileID: 11400000, guid: f424d77b2979ffb46a76b82d1af5ef89, type: 2}
+  - {fileID: 11400000, guid: 01965e8cc62c55f4f845d24f261fa044, type: 2}
+  - {fileID: 11400000, guid: 13260c50e87dffb479742a8f516ee978, type: 2}

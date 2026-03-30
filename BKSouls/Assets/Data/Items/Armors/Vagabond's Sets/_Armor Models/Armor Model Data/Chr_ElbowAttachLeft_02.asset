@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d64ddd47df84fb408841b35a1897e4d, type: 3}
-  m_Name: Chr_Head_No_Elements_06
+  m_Name: Chr_ElbowAttachLeft_02
   m_EditorClassIdentifier: 
-  equipmentModelType: 0
-  maleEquipmentName: Chr_Head_No_Elements_Male_10
-  femaleEquipmentName: Chr_Head_No_Elements_Female_10
+  equipmentModelType: 14
+  maleEquipmentName: Chr_ElbowAttachLeft_02
+  femaleEquipmentName: Chr_ElbowAttachLeft_02

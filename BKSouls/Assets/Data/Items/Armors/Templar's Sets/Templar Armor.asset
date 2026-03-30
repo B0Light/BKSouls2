@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
-  m_Name: Crusader Armor
+  m_Name: Templar Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
   itemName: Crusader Armor
@@ -35,11 +35,11 @@ MonoBehaviour:
   vitality: 18
   poise: 25
   equipmentModels:
-  - {fileID: 11400000, guid: d8b550cb24fddf542b9582628c5b92d8, type: 2}
-  - {fileID: 11400000, guid: b2a7c5f8f17ca0d4f85f054a959efc05, type: 2}
-  - {fileID: 11400000, guid: 2d588622dab203448ba6ffb7ce5faeee, type: 2}
-  - {fileID: 11400000, guid: 1e2f30b0bed2eaa459438734099c7a46, type: 2}
-  - {fileID: 11400000, guid: d048cf3d59704e8479825400e01410e8, type: 2}
-  - {fileID: 11400000, guid: 0241f95f198020842934021920b6ea3e, type: 2}
-  - {fileID: 11400000, guid: bf6ab47f512df6640bdf7e19ec422179, type: 2}
+  - {fileID: 11400000, guid: 9f9d2176b829943409e6cf3ec5fa2708, type: 2}
+  - {fileID: 11400000, guid: 23f6d342713f0f441ad2af0699e0d0fc, type: 2}
+  - {fileID: 11400000, guid: b607e87c2b0dfdc4ab4777e340a32434, type: 2}
+  - {fileID: 11400000, guid: 101c2b91aea399b498ed1202427dfc77, type: 2}
+  - {fileID: 11400000, guid: ecb134f066a7d2b4a95adeacd18a1abc, type: 2}
+  - {fileID: 11400000, guid: 7da71a164778324488f426230efa76a2, type: 2}
+  - {fileID: 11400000, guid: 8045757f21a4c8644819c37263a33ef9, type: 2}
   backpackSize: {x: 3, y: 3}

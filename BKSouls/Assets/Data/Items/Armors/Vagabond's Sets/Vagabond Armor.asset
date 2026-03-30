@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
-  m_Name: Crusader Armor
+  m_Name: Vagabond Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
   itemName: Crusader Armor
@@ -35,11 +35,11 @@ MonoBehaviour:
   vitality: 18
   poise: 25
   equipmentModels:
-  - {fileID: 11400000, guid: d8b550cb24fddf542b9582628c5b92d8, type: 2}
-  - {fileID: 11400000, guid: b2a7c5f8f17ca0d4f85f054a959efc05, type: 2}
-  - {fileID: 11400000, guid: 2d588622dab203448ba6ffb7ce5faeee, type: 2}
-  - {fileID: 11400000, guid: 1e2f30b0bed2eaa459438734099c7a46, type: 2}
-  - {fileID: 11400000, guid: d048cf3d59704e8479825400e01410e8, type: 2}
-  - {fileID: 11400000, guid: 0241f95f198020842934021920b6ea3e, type: 2}
-  - {fileID: 11400000, guid: bf6ab47f512df6640bdf7e19ec422179, type: 2}
+  - {fileID: 11400000, guid: dbec1c172fde18940977da05566052d2, type: 2}
+  - {fileID: 11400000, guid: f5cd9fde246e96345962a7feee1280ca, type: 2}
+  - {fileID: 11400000, guid: 67c56a1e5f3dafc47970e0dcdc2d7194, type: 2}
+  - {fileID: 11400000, guid: b7df0a7d463dacf49be2f87d72f4b6d8, type: 2}
+  - {fileID: 11400000, guid: 48a90552405a09948927e8056754574d, type: 2}
+  - {fileID: 11400000, guid: 2f3927bab02fce842a3833f0010037f4, type: 2}
+  - {fileID: 11400000, guid: 8e09690fe3854394a9c0a74f61c252ff, type: 2}
   backpackSize: {x: 3, y: 3}

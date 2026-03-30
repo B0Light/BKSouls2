@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
-  m_Name: Crusader Armor
+  m_Name: Paladin Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Crusader Armor
-  itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
+  itemName: Paladin Armor
+  itemIcon: {fileID: 21300000, guid: ea8fd0a22c6d22446ac80b2204f0378f, type: 3}
   itemTier: 0
   itemType: 1
   cost: 0
@@ -35,11 +35,11 @@ MonoBehaviour:
   vitality: 18
   poise: 25
   equipmentModels:
-  - {fileID: 11400000, guid: d8b550cb24fddf542b9582628c5b92d8, type: 2}
-  - {fileID: 11400000, guid: b2a7c5f8f17ca0d4f85f054a959efc05, type: 2}
-  - {fileID: 11400000, guid: 2d588622dab203448ba6ffb7ce5faeee, type: 2}
-  - {fileID: 11400000, guid: 1e2f30b0bed2eaa459438734099c7a46, type: 2}
-  - {fileID: 11400000, guid: d048cf3d59704e8479825400e01410e8, type: 2}
-  - {fileID: 11400000, guid: 0241f95f198020842934021920b6ea3e, type: 2}
-  - {fileID: 11400000, guid: bf6ab47f512df6640bdf7e19ec422179, type: 2}
+  - {fileID: 11400000, guid: f5c11bc06de5c6541b018d9d6d9a54ba, type: 2}
+  - {fileID: 11400000, guid: 061cd843fbb4ed7459f5aa55818be474, type: 2}
+  - {fileID: 11400000, guid: 1ab81a5e720ef544fb6bf105276974a7, type: 2}
+  - {fileID: 11400000, guid: 5af5f7bb717f1cb429245f87ca0f4fa1, type: 2}
+  - {fileID: 11400000, guid: 46ff09113d40ce941a3b94f7ee1168da, type: 2}
+  - {fileID: 11400000, guid: a2f79d964727c874a81e42c920424a01, type: 2}
+  - {fileID: 11400000, guid: 504819bbbe5443645a1eda9d374fb9c3, type: 2}
   backpackSize: {x: 3, y: 3}

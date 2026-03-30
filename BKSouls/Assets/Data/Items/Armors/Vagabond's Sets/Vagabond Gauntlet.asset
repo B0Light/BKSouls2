@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f854220f2b5bbef409f0fbacbd2154a6, type: 3}
-  m_Name: Crusader Gauntlet
+  m_Name: Vagabond Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
   itemID: 12
   itemName: Knight Gauntlet
-  itemIcon: {fileID: 21300000, guid: b17b1cb84afe7464f8213ef2101328e2, type: 3}
+  itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
   itemTier: 0
   itemType: 3
   cost: 0
@@ -35,7 +35,7 @@ MonoBehaviour:
   vitality: 11
   poise: 14
   equipmentModels:
-  - {fileID: 11400000, guid: c3d24c825ee284643bc46c9ee04015c8, type: 2}
-  - {fileID: 11400000, guid: de7e8a052eb3ef84db011c16b09a9eea, type: 2}
-  - {fileID: 11400000, guid: 2c2343f3fbfdf3846a831411fa1ae6f6, type: 2}
-  - {fileID: 11400000, guid: dd243852310c0ab4592d86e2cc95909a, type: 2}
+  - {fileID: 11400000, guid: 7751102404df8854185b529f15e89017, type: 2}
+  - {fileID: 11400000, guid: c8b92c005442c9148bf902dee24eb8b5, type: 2}
+  - {fileID: 11400000, guid: a997ab5b907dcd34e9e10faa92f32609, type: 2}
+  - {fileID: 11400000, guid: f60ed2b2527121a4fb66a1fa003e4e4c, type: 2}
