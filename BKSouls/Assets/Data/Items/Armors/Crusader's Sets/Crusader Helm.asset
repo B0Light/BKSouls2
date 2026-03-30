@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
   itemID: 8
   itemName: Knight Helm
-  itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
+  itemIcon: {fileID: 21300000, guid: 573d1b7f5c05a204e9153847e621f446, type: 3}
   itemTier: 0
   itemType: 2
   cost: 0
