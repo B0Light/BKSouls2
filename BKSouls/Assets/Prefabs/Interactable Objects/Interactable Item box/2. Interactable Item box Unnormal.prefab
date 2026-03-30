@@ -99,7 +99,7 @@ MonoBehaviour:
   hostOnlyInteractable: 1
   boxWidth: 6
   boxHeight: 10
-  itemIdList: 
+  initialItems: []
   openType: 0
   animationDuration: 1
   animationCurve:
@@ -133,7 +133,7 @@ MonoBehaviour:
   lid: {fileID: 1026795745481008762}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  boxType: 0
+  boxType: 2
   boxTier: 1
   autoFill: 1
   itemCount: 5

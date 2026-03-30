@@ -52,6 +52,9 @@ namespace BK
                 case BoxType.WeaponBox:
                     return GetRandomItemId(ItemType.Weapon, ItemTier.Common, maxTier);
 
+                case BoxType.ArmorBox:
+                    return GetArmorBoxRandomItemId(maxTier);
+
                 case BoxType.FoodBox:
                     return GetRandomItemId(ItemType.Consumables, ItemTier.Common, maxTier);
 
@@ -82,11 +85,37 @@ namespace BK
 
                 case 2:
                     return GetRandomItemId(ItemType.None, ItemTier.Common, maxTier);
+            
 
                 default:
                     return -1;
             }
         }
+
+        private int GetArmorBoxRandomItemId(ItemTier maxTier)
+        {
+            int random = Random.Range(0, 4);
+
+            switch (random)
+            {
+                case 0:
+                    return GetRandomItemId(ItemType.Armor, ItemTier.Common, maxTier);
+
+                case 1:
+                    return GetRandomItemId(ItemType.Helmet, ItemTier.Common, maxTier);
+
+                case 2:
+                    return GetRandomItemId(ItemType.Gauntlet, ItemTier.Common, maxTier);
+
+                case 3:
+                    return GetRandomItemId(ItemType.Leggings, ItemTier.Common, maxTier);
+
+                default:
+                    return -1;
+            }
+        }
+
+    
 
         private int GetRandomItemId(ItemType itemType, ItemTier minTier, ItemTier maxTier)
         {

@@ -244,6 +244,7 @@ public enum LidRotationAxis
 public enum BoxType
 {
     WeaponBox,
+    ArmorBox,
     FoodBox,
     SupplyBox,
     MiscBox,
