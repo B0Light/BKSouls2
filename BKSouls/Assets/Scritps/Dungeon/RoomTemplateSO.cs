@@ -19,6 +19,7 @@ namespace BK
         public GameObject exitDoorPrefab;
 
         [Header("Reward")]
-        public GameObject rewardPrefab;
+        [Tooltip("이 룸 클리어 시 지급될 보상 상자의 기본 등급 (스테이지 깊이와 행운에 따라 상향될 수 있음)")]
+        public ItemTier rewardBaseTier = ItemTier.Common;
     }
 }

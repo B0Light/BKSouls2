@@ -22,6 +22,7 @@ namespace BK
 
         private readonly List<RoomPlan> floorPlan = new();
         private int currentRoomIndex = -1;
+        public int CurrentRoomIndex => currentRoomIndex;
         private int runSeed;
         private bool hasStartedRun;
 

@@ -249,6 +249,7 @@ public enum BoxType
     SupplyBox,
     MiscBox,
     Safe,
+    None,
 }
 
 public enum Dir

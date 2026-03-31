@@ -5,20 +5,35 @@ namespace BK
     public class InteractableItemBox : InteractableBox
     {
         [Header("Box Settings")]
+        [SerializeField] private bool autoFill = true;
+        [SerializeField] private bool clearBeforeFill = true;
         [SerializeField] private BoxType boxType;
         [SerializeField] private ItemTier boxTier = ItemTier.Common;
-        [SerializeField] private bool autoFill = true;
         [SerializeField] private int itemCount = 5;
-        [SerializeField] private bool clearBeforeFill = true;
+        
+
+        private bool _wasSetup;
 
         protected override void Start()
         {
             base.Start();
 
-            if (autoFill)
+            if (autoFill && !_wasSetup)
             {
                 InitBox();
             }
+        }
+
+        /// <summary>
+        /// 런타임에 BoxType과 ItemTier를 지정하여 초기화합니다.
+        /// RoomManager 등에서 프리팹 스폰 직후 호출하세요.
+        /// </summary>
+        public void Setup(BoxType type, ItemTier tier)
+        {
+            boxType = type;
+            boxTier = tier;
+            _wasSetup = true;
+            InitBox();
         }
 
         public void InitBox()

@@ -19,6 +19,9 @@ namespace BK
         [Header("NavMesh")]
         [SerializeField] private DungeonNavMeshBuilder navMeshBuilder;
 
+        [Header("Item Box Database")]
+        [SerializeField] private ItemBoxDatabaseSO itemBoxDatabase;
+
         [Header("Runtime Prefabs")]
         [SerializeField] private GameObject entryDoorPrefab;
         [SerializeField] private GameObject exitDoorPrefab;
@@ -666,19 +669,37 @@ namespace BK
             if (currentTemplate == null)
                 return;
 
-            if (currentTemplate.rewardPrefab == null)
-                return;
-
             if (currentRoomInstance == null || currentRoomInstance.RewardSpawnPoint == null)
                 return;
+
+            if (itemBoxDatabase == null)
+            {
+                Debug.LogWarning("[RoomManager] ItemBoxDatabase가 할당되지 않아 보상 상자를 생성하지 않습니다.");
+                return;
+            }
+
+            int stageIndex = RunManager.Instance != null ? RunManager.Instance.CurrentRoomIndex : 0;
+            ItemTier finalTier = CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
+            BoxType boxType = itemBoxDatabase.GetRandomBoxType();
+            GameObject boxPrefab = itemBoxDatabase.GetPrefab(boxType);
+
+            if (boxPrefab == null)
+            {
+                Debug.LogWarning($"[RoomManager] BoxType '{boxType}'에 해당하는 프리팹이 없습니다. 보상 스킵.");
+                return;
+            }
 
             Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
 
             GameObject rewardObj = Instantiate(
-                currentTemplate.rewardPrefab,
+                boxPrefab,
                 currentRoomInstance.RewardSpawnPoint.position,
                 currentRoomInstance.RewardSpawnPoint.rotation,
                 parent);
+
+            // Spawn 전에 Setup 호출 → Start()보다 먼저 실행됨
+            InteractableItemBox itemBox = rewardObj.GetComponent<InteractableItemBox>();
+            itemBox?.Setup(boxType, finalTier);
 
             NetworkObject netObj = rewardObj.GetComponent<NetworkObject>();
             if (netObj == null)
@@ -690,6 +711,28 @@ namespace BK
 
             netObj.Spawn(true);
             currentRewardObject = netObj;
+
+            Debug.Log($"[RoomManager] 보상 상자 스폰: type={boxType}, tier={finalTier} (stage={stageIndex}, baseTier={currentTemplate.rewardBaseTier})");
+        }
+
+        /// <summary>
+        /// 기본 등급 + 스테이지 깊이 보너스 + 행운 요소로 최종 티어를 결정합니다.
+        /// - 스테이지 3개마다 +1 등급
+        /// - 10% 확률로 +2, 30% 확률로 +1 (행운)
+        /// </summary>
+        private static ItemTier CalculateRewardTier(ItemTier baseTier, int stageIndex)
+        {
+            int tier = (int)baseTier;
+
+            // 스테이지 깊이 보너스
+            tier += stageIndex / 3;
+
+            // 행운 보너스
+            float luck = Random.value;
+            if (luck < 0.10f)       tier += 2;
+            else if (luck < 0.40f)  tier += 1;
+
+            return (ItemTier)Mathf.Clamp(tier, 0, (int)ItemTier.Mythic);
         }
 
         public void TryMoveNextRoomServer()
