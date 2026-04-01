@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1337cf454a006724e86dd723e3c67f26, type: 3}
   m_Name: Std Arrow
   m_EditorClassIdentifier: Assembly-CSharp::BK.RangedProjectileItem
-  itemID: 15
+  itemID: 43
   itemName: Medieval_Arrow_01
   itemIcon: {fileID: 21300000, guid: 2203cf98785a74244a5d1f9cd059b91c, type: 3}
   itemTier: 0
@@ -21,6 +21,12 @@ MonoBehaviour:
   itemDescription: 'basic arrow
 
 '
+  width: 1
+  height: 2
+  weight: 0
+  itemAbilities:
+  - itemEffect: 0
+    value: 10
   projectileClass: 0
   forwardVelocity: 2200
   upwardVelocity: 0

@@ -63,22 +63,23 @@ namespace BK
                 player.playerCombatManager.DestroyAllCurrentActionFX();
 
             // INSTANTIATE THE PROJECTILE
-            SpellInstantiationLocation spellInstantiationLocation;
+            SpellInstantiationLocation spellInstantiationLocation = null;
             GameObject instantiatedReleasedSpellFX = Instantiate(spellCastReleaseFX);
 
-            if (player.playerNetworkManager.isUsingRightHand.Value)
+            
+            if (player.playerNetworkManager.isUsingRightHand.Value || player.playerNetworkManager.isTwoHandingRightWeapon.Value)
             {
                 // INSTANTIATE WARM UP FX ON THE CORRECT PLACE. (INCANTATIONS JUST USE HAND, WHILST STAVES USE A POINT ON THE STAVE ITSELF)
                 spellInstantiationLocation = player.playerEquipmentManager.rightWeaponManager.GetComponentInChildren<SpellInstantiationLocation>();
             }
-            else
+            else if(player.playerNetworkManager.isUsingLeftHand.Value || player.playerNetworkManager.isTwoHandingLeftWeapon.Value)
             {
                 // INSTANTIATE WARM UP FX ON THE CORRECT PLACE. (INCANTATIONS JUST USE HAND, WHILST STAVES USE A POINT ON THE STAVE ITSELF)
                 spellInstantiationLocation = player.playerEquipmentManager.leftWeaponManager.GetComponentInChildren<SpellInstantiationLocation>();
             }
 
-
-            instantiatedReleasedSpellFX.transform.parent = spellInstantiationLocation.transform;
+    
+            instantiatedReleasedSpellFX.transform.parent = spellInstantiationLocation == null ? player.transform : spellInstantiationLocation.transform;
             instantiatedReleasedSpellFX.transform.localPosition = Vector3.zero;
             instantiatedReleasedSpellFX.transform.localRotation = Quaternion.identity;
             instantiatedReleasedSpellFX.transform.parent = null;

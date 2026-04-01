@@ -40,6 +40,11 @@ namespace BK
         [SerializeField] Image secondaryProjectileQuickSlotIcon;
         [SerializeField] TextMeshProUGUI secondaryProjectileCount;
 
+        [Header("Spell Quick Slots")]
+        [SerializeField] private GameObject spellQuickSlotsGameObject;
+        [SerializeField] private Image mainSpellQuickSlotIcon;
+        [SerializeField] private Image secondarySpellQuickSlotIcon;
+
         [Header("Boss Health Bar")]
         public Transform bossHealthBarParent;
         public GameObject bossHealthBarObject;
@@ -255,6 +260,19 @@ namespace BK
             spellItemQuickSlotIcon.enabled = true;
         }
 
+        public void SetSpellSlotIconBySprite(Sprite icon)
+        {
+            if (icon == null)
+            {
+                spellItemQuickSlotIcon.enabled = false;
+                spellItemQuickSlotIcon.sprite = null;
+                return;
+            }
+
+            spellItemQuickSlotIcon.sprite = icon;
+            spellItemQuickSlotIcon.enabled = true;
+        }
+
         public void SetQuickSlotItemQuickSlotIcon(QuickSlotItem quickSlotItem)
         {
             if (quickSlotItem == null)
@@ -295,6 +313,37 @@ namespace BK
         public void ToggleProjectileQuickSlotsVisibility(bool status)
         {
             projectileQuickSlotsGameObject.SetActive(status);
+        }
+
+        public void ToggleSpellQuickSlotsVisibility(bool status)
+        {
+            spellQuickSlotsGameObject.SetActive(status);
+        }
+
+        public void SetMainSpellQuickSlotIcon(SpellItem spell)
+        {
+            if (spell == null || spell.itemIcon == null)
+            {
+                mainSpellQuickSlotIcon.enabled = false;
+                mainSpellQuickSlotIcon.sprite = null;
+                return;
+            }
+
+            mainSpellQuickSlotIcon.sprite = spell.itemIcon;
+            mainSpellQuickSlotIcon.enabled = true;
+        }
+
+        public void SetSecondarySpellQuickSlotIcon(SpellItem spell)
+        {
+            if (spell == null || spell.itemIcon == null)
+            {
+                secondarySpellQuickSlotIcon.enabled = false;
+                secondarySpellQuickSlotIcon.sprite = null;
+                return;
+            }
+
+            secondarySpellQuickSlotIcon.sprite = spell.itemIcon;
+            secondarySpellQuickSlotIcon.enabled = true;
         }
 
         public void SetMainProjectileQuickSlotIcon(RangedProjectileItem projectileItem)

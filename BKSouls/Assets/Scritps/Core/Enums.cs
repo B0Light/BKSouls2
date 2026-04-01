@@ -62,6 +62,7 @@ public enum ItemType
     Blueprint,
     Spell,
     Potion,
+    AshOfWar,
     None,
 }
 

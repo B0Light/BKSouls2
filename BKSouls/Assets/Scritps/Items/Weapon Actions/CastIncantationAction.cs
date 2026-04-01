@@ -7,6 +7,9 @@ namespace BK
     [CreateAssetMenu(menuName = "Character Actions/Weapon Actions/Incantation Action")]
     public class CastIncantationAction : WeaponItemAction
     {
+        [Header("Spell")]
+        public SpellItem spell;
+
         public override void AttemptToPerformAction(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
             base.AttemptToPerformAction(playerPerformingAction, weaponPerformingAction);
@@ -24,11 +27,14 @@ namespace BK
             if (!playerPerformingAction.characterLocomotionManager.isGrounded)
                 return;
 
-            if (playerPerformingAction.playerInventoryManager.currentSpell == null)
+            if (spell == null)
                 return;
 
-            if (playerPerformingAction.playerInventoryManager.currentSpell.SpellClass != SpellClass.Incantation)
+            if (spell.SpellClass != SpellClass.Incantation)
                 return;
+
+            //  애니메이션 콜백(InstantiateSpellWarmUpFX 등)이 참조할 수 있도록 현재 스펠로 설정
+            playerPerformingAction.playerInventoryManager.currentSpell = spell;
 
             if (playerPerformingAction.IsOwner)
                 playerPerformingAction.playerNetworkManager.isAttacking.Value = true;
@@ -38,7 +44,7 @@ namespace BK
 
         private void CastIncantation(PlayerManager playerPerformingAction, WeaponItem weaponPerformingAction)
         {
-            playerPerformingAction.playerInventoryManager.currentSpell.AttemptToCastSpell(playerPerformingAction);
+            spell.AttemptToCastSpell(playerPerformingAction);
         }
     }
 }

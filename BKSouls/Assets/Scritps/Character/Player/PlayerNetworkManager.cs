@@ -262,13 +262,15 @@ namespace BK
                     GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
                 }
             }
+
+            RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentRightHandWeapon);
         }
 
         public void OnCurrentLeftHandWeaponIDChange(int oldID, int newID)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
             player.playerInventoryManager.currentLeftHandWeapon = newWeapon;
-            
+
             player.playerEquipmentManager.LoadLeftWeapon();
 
             if (player.IsOwner)
@@ -284,8 +286,11 @@ namespace BK
                     GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
                 }
             }
+
+            RefreshSpellSlotUI();
+            RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentLeftHandWeapon);
         }
-        
+
         public void OnCurrentRightSubWeaponIDChange(int oldID, int newID)
         {
             WeaponItem newWeapon = Instantiate(WorldItemDatabase.Instance.GetWeaponByID(newID));
@@ -318,12 +323,49 @@ namespace BK
             if (WorldItemDatabase.Instance.GetSpellByID(newID))
                 newSpell = Instantiate(WorldItemDatabase.Instance.GetSpellByID(newID));
 
-            if (newSpell != null)
-            {
-                player.playerInventoryManager.currentSpell = newSpell;
+            player.playerInventoryManager.currentSpell = newSpell;
+            RefreshSpellSlotUI();
+        }
 
-                if (player.IsOwner)
-                    GUIController.Instance.playerUIHudManager.SetSpellItemQuickSlotIcon(newID);
+        private void RefreshSpellSlotUI()
+        {
+            if (!player.IsOwner) return;
+
+            WeaponItem weapon = isTwoHandingWeapon.Value
+                ? player.playerInventoryManager.currentTwoHandWeapon
+                : player.playerInventoryManager.currentLeftHandWeapon;
+
+            if (weapon is CasterWeaponItem)
+            {
+                // oh_RT_Action → oh_RB_Action 순으로 CastIncantationAction을 찾아 spell 아이콘 표시
+                CastIncantationAction castAction = weapon.oh_RT_Action as CastIncantationAction
+                    ?? weapon.oh_RB_Action as CastIncantationAction;
+                GUIController.Instance.playerUIHudManager.SetSpellSlotIconBySprite(castAction?.spell?.itemIcon);
+            }
+            else
+            {
+                Sprite icon = weapon?.ashOfWarAction?.itemIcon;
+                GUIController.Instance.playerUIHudManager.SetSpellSlotIconBySprite(icon);
+            }
+        }
+
+        private void RefreshCasterWeaponSpellSlotsUI(WeaponItem weapon)
+        {
+            if (!player.IsOwner) return;
+
+            if (weapon is CasterWeaponItem)
+            {
+                GUIController.Instance.playerUIHudManager.ToggleSpellQuickSlotsVisibility(true);
+
+                SpellItem mainSpell = (weapon.oh_RT_Action as CastIncantationAction)?.spell;
+                SpellItem secondarySpell = (weapon.oh_RB_Action as CastIncantationAction)?.spell;
+
+                GUIController.Instance.playerUIHudManager.SetMainSpellQuickSlotIcon(mainSpell);
+                GUIController.Instance.playerUIHudManager.SetSecondarySpellQuickSlotIcon(secondarySpell);
+            }
+            else
+            {
+                GUIController.Instance.playerUIHudManager.ToggleSpellQuickSlotsVisibility(false);
             }
         }
 
@@ -451,6 +493,8 @@ namespace BK
 
                 player.playerEquipmentManager.UnTwoHandWeapon();
                 player.playerEffectsManager.RemoveStaticEffect(WorldCharacterEffectsManager.Instance.twoHandingEffect.staticEffectID);
+                RefreshSpellSlotUI();
+                RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentLeftHandWeapon);
             }
             else
             {
@@ -474,6 +518,8 @@ namespace BK
 
             player.playerInventoryManager.currentTwoHandWeapon = player.playerInventoryManager.currentRightHandWeapon;
             player.playerEquipmentManager.TwoHandRightWeapon();
+            RefreshSpellSlotUI();
+            RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentTwoHandWeapon);
         }
 
         public void OnIsTwoHandingLeftWeaponChanged(bool oldStatus, bool newStatus)
@@ -489,6 +535,8 @@ namespace BK
 
             player.playerInventoryManager.currentTwoHandWeapon = player.playerInventoryManager.currentLeftHandWeapon;
             player.playerEquipmentManager.TwoHandLeftWeapon();
+            RefreshSpellSlotUI();
+            RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentTwoHandWeapon);
         }
 
         public void OnIsChuggingChanged(bool oldStatus, bool newStatus)

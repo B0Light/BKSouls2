@@ -5,7 +5,7 @@ using UnityEngine;
 namespace BK
 {
     [CreateAssetMenu(menuName = "Items/Ranged Projectile")]
-    public class RangedProjectileItem : Item
+    public class RangedProjectileItem : GridItem
     {
         public ProjectileClass projectileClass;
 

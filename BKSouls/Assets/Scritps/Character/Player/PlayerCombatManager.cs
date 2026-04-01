@@ -581,9 +581,21 @@ namespace BK
 
         public WeaponItem SelectWeaponToPerformAshOfWar()
         {
-            //  TO DO SELECT WEAPON DEPENDING ON SETUP
-            WeaponItem selectedWeapon = player.playerInventoryManager.currentLeftHandWeapon;
-            player.playerNetworkManager.SetCharacterActionHand(false);
+            WeaponItem selectedWeapon;
+            bool isRightHand;
+
+            if (player.playerNetworkManager.isTwoHandingWeapon.Value)
+            {
+                selectedWeapon = player.playerInventoryManager.currentTwoHandWeapon;
+                isRightHand = player.playerNetworkManager.isTwoHandingRightWeapon.Value;
+            }
+            else
+            {
+                selectedWeapon = player.playerInventoryManager.currentLeftHandWeapon;
+                isRightHand = false;
+            }
+
+            player.playerNetworkManager.SetCharacterActionHand(isRightHand);
             player.playerNetworkManager.currentWeaponBeingUsed.Value = selectedWeapon.itemID;
             return selectedWeapon;
         }

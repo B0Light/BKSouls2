@@ -10,6 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d6ee4d3f065af444811451ba9929849, type: 3}
-  m_Name: Cast Incantation Action
+  m_Name: Cast Fire Ball Action
   m_EditorClassIdentifier: Assembly-CSharp::BK.CastIncantationAction
   actionID: 0
+  spell: {fileID: 11400000, guid: fcf83980cd05c53429f165fd558dc5a9, type: 2}
