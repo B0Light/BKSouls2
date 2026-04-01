@@ -7,8 +7,9 @@ namespace BK
         [Header("Box Settings")]
         [SerializeField] private bool autoFill = true;
         [SerializeField] private bool clearBeforeFill = true;
-        [SerializeField] private BoxType boxType;
+        [SerializeField] public BoxType boxType;
         [SerializeField] private ItemTier boxTier = ItemTier.Common;
+        public ItemTier BoxTier => boxTier;
         [SerializeField] private int itemCount = 5;
         
 

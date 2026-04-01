@@ -79,6 +79,12 @@ namespace BK
         public WeaponItemAction oh_LB_Action;   // ONE HAND LEFT BUMPER ACTION
         public AshOfWar ashOfWarAction;
 
+        [Header("Slash FX")]
+        [Tooltip("모션별 Slash FX 프리팹 배열. Animation Event의 int 파라미터로 인덱스 지정\n예) 0=Light01, 1=Light02, 2=Heavy01, 3=Running")]
+        public GameObject[] slashFXPrefabs;
+        [Tooltip("검기 데미지 배율 (이 무기 데미지 기준, 0이면 검기 데미지 없음)")]
+        public float slashFXDamageModifier = 0f;
+
         [Header("SFX")]
         public AudioClip[] whooshes;
         public AudioClip[] blocking;

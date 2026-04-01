@@ -10247,7 +10247,7 @@ MonoBehaviour:
     dexterity: 12
     intelligence: 9
     faith: 8
-    mainHandWeapon: {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
+    mainHandWeapon: {fileID: 11400000, guid: f9fed608c985b2f46a81f9686ee59617, type: 2}
     offHandWeapon: {fileID: 11400000, guid: cb2c738f611285142b7ff4cac8463599, type: 2}
     rightSubWeapon: {fileID: 11400000, guid: a0e807740ec9a6948ae06e628c3f751c, type: 2}
     leftSubWeapon: {fileID: 0}

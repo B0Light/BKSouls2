@@ -178,6 +178,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7bc5f8abdb7db3742b5f08a06fd39798, type: 2}
   - {fileID: 11400000, guid: 33bc3a52d27978e4aa9b7860972e32c3, type: 2}
   navMeshBuilder: {fileID: 756663084}
+  itemBoxDatabase: {fileID: 11400000, guid: 51604226f51698745af1bb04c3d977eb, type: 2}
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 0}
   baseBattleEnemyCount: 1
@@ -421,13 +422,13 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0

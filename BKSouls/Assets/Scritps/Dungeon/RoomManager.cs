@@ -680,12 +680,17 @@ namespace BK
 
             int stageIndex = RunManager.Instance != null ? RunManager.Instance.CurrentRoomIndex : 0;
             ItemTier finalTier = CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
-            BoxType boxType = itemBoxDatabase.GetRandomBoxType();
-            GameObject boxPrefab = itemBoxDatabase.GetPrefab(boxType);
+
+            BoxType[] validTypes = System.Array.FindAll(
+                (BoxType[])System.Enum.GetValues(typeof(BoxType)),
+                t => t != BoxType.None);
+            BoxType boxType = validTypes[Random.Range(0, validTypes.Length)];
+
+            GameObject boxPrefab = itemBoxDatabase.GetPrefab(stageIndex);
 
             if (boxPrefab == null)
             {
-                Debug.LogWarning($"[RoomManager] BoxType '{boxType}'에 해당하는 프리팹이 없습니다. 보상 스킵.");
+                Debug.LogWarning($"[RoomManager] 적절한 보상이 없습니다 : 보상 스킵.");
                 return;
             }
 

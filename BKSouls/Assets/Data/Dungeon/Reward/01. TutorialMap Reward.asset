@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: 01. TutorialMap Reward
   m_EditorClassIdentifier: Assembly-CSharp::BK.ItemBoxDatabaseSO
   entries:
-  - boxType: 0
-    prefab: {fileID: 0}
-    weight: 0
+  - itemBox: {fileID: 6515754115538806658, guid: 0d35880b8a958534b9484508027c498b, type: 3}
+    weight: 5
+  - itemBox: {fileID: 1981876164025620434, guid: 61ef63ad120e8da48a5d59a1783dda7c, type: 3}
+    weight: 2
+  - itemBox: {fileID: 4166551856721270878, guid: 4e0fec318e96fd649a5b3818ef4103f1, type: 3}
+    weight: 1

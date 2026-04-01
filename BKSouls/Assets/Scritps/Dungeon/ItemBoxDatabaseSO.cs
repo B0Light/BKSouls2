@@ -10,8 +10,7 @@ namespace BK
         [Serializable]
         public struct BoxEntry
         {
-            public BoxType boxType;
-            public GameObject prefab;
+            public InteractableItemBox itemBox;
 
             [Tooltip("상대적 등장 가중치 (0이면 제외)")]
             [Min(0f)] public float weight;
@@ -19,50 +18,50 @@ namespace BK
 
         [SerializeField] private List<BoxEntry> entries = new();
 
-        public GameObject GetPrefab(BoxType type)
+        [Tooltip("스테이지 진행 시 낮은 티어 박스의 가중치 감쇠 강도 (티어 차이 1당 비율)")]
+        [Range(0f, 1f)] [SerializeField] private float tierPenaltyStrength = 0.3f;
+
+        /// <param name="stageIndex">현재 스테이지 인덱스 (깊을수록 낮은 티어 박스 확률 감소)</param>
+        public GameObject GetPrefab(int stageIndex = 0)
         {
+            // 스테이지 깊이에 따른 기대 최소 티어 (3스테이지마다 +1, CalculateRewardTier와 동일 기준)
+            int expectedTier = Mathf.Clamp(stageIndex / 3, 0, (int)ItemTier.Mythic);
+
+            float totalWeight = 0f;
             foreach (BoxEntry entry in entries)
             {
-                if (entry.boxType == type)
-                    return entry.prefab;
+                if (entry.itemBox != null && entry.weight > 0f)
+                    totalWeight += CalcEffectiveWeight(entry, expectedTier);
             }
 
-            Debug.LogWarning($"[ItemBoxDatabase] '{type}'에 해당하는 프리팹이 없습니다.");
+            if (totalWeight <= 0f)
+            {
+                Debug.LogWarning($"[ItemBoxDatabase] 적절한 보상이 없습니다.");
+                return null;
+            }
+
+            float roll = UnityEngine.Random.Range(0f, totalWeight);
+            float cumulative = 0f;
+            foreach (BoxEntry entry in entries)
+            {
+                if (entry.itemBox == null || entry.weight <= 0f) continue;
+                cumulative += CalcEffectiveWeight(entry, expectedTier);
+                if (roll < cumulative)
+                    return entry.itemBox.gameObject;
+            }
+
+            Debug.LogWarning($"[ItemBoxDatabase] 적절한 보상이 없습니다.");
             return null;
         }
 
-        /// <summary>
-        /// 가중치 기반으로 랜덤 BoxType을 반환합니다.
-        /// weight가 0이거나 prefab이 없는 항목은 제외됩니다.
-        /// </summary>
-        public BoxType GetRandomBoxType()
+        private float CalcEffectiveWeight(BoxEntry entry, int expectedTier)
         {
-            float total = 0f;
-            foreach (BoxEntry e in entries)
-            {
-                if (e.prefab != null && e.weight > 0f)
-                    total += e.weight;
-            }
+            int tierGap = expectedTier - (int)entry.itemBox.BoxTier;
+            if (tierGap <= 0)
+                return entry.weight;
 
-            if (total <= 0f)
-            {
-                Debug.LogWarning("[ItemBoxDatabase] 유효한 항목이 없습니다. 첫 번째 항목으로 대체합니다.");
-                return entries.Count > 0 ? entries[0].boxType : BoxType.SupplyBox;
-            }
-
-            float rand = UnityEngine.Random.Range(0f, total);
-            float cumulative = 0f;
-
-            foreach (BoxEntry e in entries)
-            {
-                if (e.prefab == null || e.weight <= 0f) continue;
-
-                cumulative += e.weight;
-                if (rand <= cumulative)
-                    return e.boxType;
-            }
-
-            return entries[entries.Count - 1].boxType;
+            float penalty = Mathf.Clamp01(tierGap * tierPenaltyStrength);
+            return entry.weight * (1f - penalty);
         }
     }
 }

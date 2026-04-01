@@ -74,6 +74,8 @@ MonoBehaviour:
   oh_RT_Action: {fileID: 11400000, guid: 648ec3a964ae2ec4e83eb891fcc49515, type: 2}
   oh_LB_Action: {fileID: 11400000, guid: 79e8ff89507e3e74eae57f60026a16b8, type: 2}
   ashOfWarAction: {fileID: 0}
+  slashFXPrefabs: []
+  slashFXDamageModifier: 1
   whooshes:
   - {fileID: 8300000, guid: f440d5e80e66038458d76d5a1575468a, type: 3}
   - {fileID: 8300000, guid: af6de04e4ec2e0743b45624c7d7ab9f6, type: 3}

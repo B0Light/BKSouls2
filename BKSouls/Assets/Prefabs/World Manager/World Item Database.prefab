@@ -48,13 +48,19 @@ MonoBehaviour:
   pickUpItemPrefab: {fileID: 6308931894598014236, guid: 8f078662533676b4aabc19a1a382a803, type: 3}
   weapons:
   - {fileID: 11400000, guid: e392dbda4e71fed4f8a1dbc3bbd0be02, type: 2}
-  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
   - {fileID: 11400000, guid: 27d99b2910f5899449b2f4673399013c, type: 2}
   - {fileID: 11400000, guid: e62291c0476d3624d9140e8b62aa1d3a, type: 2}
   - {fileID: 11400000, guid: d57f084e601990a4f89486e8dc2e4d3f, type: 2}
   - {fileID: 11400000, guid: cb2c738f611285142b7ff4cac8463599, type: 2}
   - {fileID: 11400000, guid: a0e807740ec9a6948ae06e628c3f751c, type: 2}
   - {fileID: 11400000, guid: 9edd8f101a660df47bd85ad2d7e1ffa1, type: 2}
+  - {fileID: 11400000, guid: f9fed608c985b2f46a81f9686ee59617, type: 2}
+  - {fileID: 11400000, guid: 0d5f0615c666dd14e918dbb1da8e7abf, type: 2}
+  - {fileID: 11400000, guid: 8537abde5be5cd940b238dff9d25fe94, type: 2}
+  - {fileID: 11400000, guid: 9825bbd282fd00c429269c346edb57ae, type: 2}
+  - {fileID: 11400000, guid: 08c2d9a7b1ab0dc44a3818747ef588df, type: 2}
+  - {fileID: 11400000, guid: 16c92fd2c8546474184225d6bbc5992d, type: 2}
+  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
   headEquipment:
   - {fileID: 11400000, guid: 3b62051a6ec6c9041a595b903bb92530, type: 2}
   - {fileID: 11400000, guid: 88accf95e8579834abb518dd619a51da, type: 2}

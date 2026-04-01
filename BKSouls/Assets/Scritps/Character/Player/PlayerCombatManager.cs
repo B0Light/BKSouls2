@@ -21,11 +21,6 @@ namespace BK
         public bool canComboWithOffHandWeapon = false;
         public bool isUsingItem = false;
 
-        [Header("Slash FX")]
-        [Tooltip("모션별 Slash FX 프리팹 배열. Animation Event의 int 파라미터로 인덱스 지정\n예) 0=Light01, 1=Light02, 2=Heavy01, 3=Running")]
-        [SerializeField] public GameObject[] slashFXPrefabs;
-        [Tooltip("검기 데미지 배율 (장착 무기 데미지 기준)")]
-        [SerializeField] float slashFXDamageModifier = 0.5f;
 
         protected override void Awake()
         {
@@ -532,30 +527,38 @@ namespace BK
         // Animation Event 설정: Function = SpawnSlashFX, Int = 0 (Light01), 1 (Light02), ...
         public void SpawnSlashFX(int prefabIndex = 0)
         {
-            if (slashFXPrefabs == null || prefabIndex < 0 || prefabIndex >= slashFXPrefabs.Length)
-                return;
-
-            GameObject prefab = slashFXPrefabs[prefabIndex];
-            if (prefab == null)
-                return;
-
             if (!player.IsOwner)
                 return;
 
+            // 현재 사용 중인 손의 무기 데이터 참조
+            bool usingRight = player.playerNetworkManager.isUsingRightHand.Value;
+            WeaponItem currentWeapon = usingRight
+                ? player.playerInventoryManager.currentRightHandWeapon
+                : player.playerInventoryManager.currentLeftHandWeapon;
+
+            if (currentWeapon == null)
+                return;
+
+            GameObject[] prefabs = currentWeapon.slashFXPrefabs;
+            if (prefabs == null || prefabIndex < 0 || prefabIndex >= prefabs.Length)
+                return;
+
+            GameObject prefab = prefabs[prefabIndex];
+            if (prefab == null)
+                return;
+
             // 오른손/왼손 무기 콜라이더에서 데미지 수치 참조
-            MeleeWeaponDamageCollider sourceCollider;
-            if (player.playerNetworkManager.isUsingRightHand.Value)
-                sourceCollider = player.playerEquipmentManager.rightWeaponManager.meleeDamageCollider;
-            else
-                sourceCollider = player.playerEquipmentManager.leftWeaponManager.meleeDamageCollider;
+            MeleeWeaponDamageCollider sourceCollider = usingRight
+                ? player.playerEquipmentManager.rightWeaponManager?.meleeDamageCollider
+                : player.playerEquipmentManager.leftWeaponManager?.meleeDamageCollider;
 
             if (sourceCollider == null)
                 return;
 
             // 무기 모델 위치에 스폰 (없으면 캐릭터 위치)
-            Transform weaponModel = player.playerNetworkManager.isUsingRightHand.Value
-                ? player.playerEquipmentManager.rightHandWeaponModel.transform
-                : player.playerEquipmentManager.leftHandWeaponModel.transform;
+            Transform weaponModel = usingRight
+                ? player.playerEquipmentManager.rightHandWeaponModel?.transform
+                : player.playerEquipmentManager.leftHandWeaponModel?.transform;
 
             Transform spawnPoint = weaponModel != null ? weaponModel : player.transform;
             GameObject fx = Instantiate(prefab, spawnPoint.position, player.transform.rotation);
@@ -569,7 +572,7 @@ namespace BK
                 slashCollider.fireDamage = sourceCollider.fireDamage;
                 slashCollider.holyDamage = sourceCollider.holyDamage;
                 slashCollider.poiseDamage = sourceCollider.poiseDamage;
-                slashCollider.damageModifier = slashFXDamageModifier;
+                slashCollider.damageModifier = currentWeapon.slashFXDamageModifier;
                 slashCollider.isAIAttack = false;
             }
         }
