@@ -74,6 +74,18 @@ namespace BK
                 Cursor.SetCursor(customCursor, _hotspot, CursorMode.Auto);
             }
         }
+
+        public static void ShowCursor()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+        public static void HideCursor()
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
         
         private void OnEnable()
         {
@@ -158,6 +170,7 @@ namespace BK
 
             currentOpenGUI = newGUI;
             currentOpenGUI?.OpenGUI();
+            ShowCursor();
         }
 
         public void CloseGUI()
@@ -166,6 +179,7 @@ namespace BK
             currentOpenGUI = null;
 
             cashCanvasGroup.alpha = 0;
+            HideCursor();
         }
 
         private void CloseCurrentGUI() => currentOpenGUI?.CloseGUI();

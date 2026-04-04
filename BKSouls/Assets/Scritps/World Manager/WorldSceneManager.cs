@@ -58,13 +58,14 @@ namespace BK
         public void LoadWorldScene(string sceneName)
         {
             if (!IsServer) return;
-            
+
             if (string.IsNullOrWhiteSpace(sceneName))
             {
                 Debug.LogError($"Invalid path: {sceneName}");
                 return;
             }
 
+            GUIController.HideCursor();
             NetworkManager.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, GetSpawnPos(sceneName));
         }
