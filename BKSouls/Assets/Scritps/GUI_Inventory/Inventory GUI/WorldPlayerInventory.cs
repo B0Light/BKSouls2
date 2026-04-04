@@ -41,7 +41,10 @@ namespace BK.Inventory
 
         public int TotalLootValue { get; private set; }
 
+        public event Action OnInventoryChanged;
+
         //반복 처리를 위한 컬렉션
+        private readonly List<ItemGrid> _mainGrids = new();
         private readonly List<ItemGrid> _weightGrids = new();
         private readonly List<ItemGrid> _lootGrids = new();
         private readonly List<ItemGrid> _removePriorityGrids = new();
@@ -100,7 +103,7 @@ namespace BK.Inventory
             _gauntlet = gui.playerGauntlet;
             _leggings = gui.playerLeggings;
 
-            // ✅ 리스트 구성 (이후 모든 중복 제거의 핵심)
+            // 리스트 구성 및 이벤트 구독
             BuildGridLists();
             SubscribeWeightEvents();
 
@@ -135,6 +138,10 @@ namespace BK.Inventory
             AddIfNotNull(_weightGrids, _leggings);
             AddIfNotNull(_weightGrids, _safeItemGrid);
 
+            // 메인 그리드: weight 계산과 포션 갯수 계산에 포함될 그리드들
+            AddIfNotNull(_mainGrids, _itemGrid);
+            AddIfNotNull(_mainGrids, _backpackGrid);
+
             // 루팅 가치 계산에 포함될 그리드들
             _lootGrids.AddRange(_weightGrids);
 
@@ -153,7 +160,14 @@ namespace BK.Inventory
         {
             foreach (var grid in _weightGrids)
             {
+                if (grid == null) continue;
                 grid.itemGridWeight.OnValueChanged += UpdateWeight;
+            }
+
+            foreach (var grid in _mainGrids)
+            {
+                if (grid == null) continue;
+                grid.itemGridWeight.OnValueChanged += UpdatePotionCount;
             }
         }
 
@@ -163,6 +177,12 @@ namespace BK.Inventory
             {
                 if (grid == null) continue;
                 grid.itemGridWeight.OnValueChanged -= UpdateWeight;
+            }
+
+            foreach (var grid in _mainGrids)
+            {
+                if (grid == null) continue;
+                grid.itemGridWeight.OnValueChanged -= UpdatePotionCount;
             }
         }
 
@@ -180,6 +200,13 @@ namespace BK.Inventory
                 total += grid.itemGridWeight.Value;
             }
             itemWeight.Value = total;
+        }
+
+        private void UpdatePotionCount(float _)
+        {
+            // 포션은 무게가 0 이 아님
+            // 포션의 갯수가 변동되면 인벤토리 변동 이벤트 발생 -> playerGUIManager에서 포션 갯수 업데이트
+            OnInventoryChanged?.Invoke();
         }
 
         #endregion
@@ -203,7 +230,9 @@ namespace BK.Inventory
 
             try
             {
-                return RemoveItemInInventory(itemId, requiredCount, transaction);
+                bool result = RemoveItemInInventory(itemId, requiredCount, transaction);
+                if (result) OnInventoryChanged?.Invoke();
+                return result;
             }
             catch (Exception ex)
             {
@@ -288,9 +317,12 @@ namespace BK.Inventory
 
         #region Add Item
 
-        public bool AddItem(GameObject item) =>
-            GetInventory().AddItem(item, false) ||
-            GetBackpackInventory().AddItem(item, false);
+        public bool AddItem(GameObject item)
+        {
+            bool result = GetInventory().AddItem(item, false) || GetBackpackInventory().AddItem(item, false);
+            if (result) OnInventoryChanged?.Invoke();
+            return result;
+        }
 
         public int AddItemById(int itemCode, int itemCnt)
         {
@@ -303,6 +335,7 @@ namespace BK.Inventory
             if (remaining > 0)
                 remaining = GetShareInventory().AddItemById_FailCount(itemCode, remaining, false);
 
+            if (remaining < itemCnt) OnInventoryChanged?.Invoke();
             return remaining;
         }
 

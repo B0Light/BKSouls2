@@ -99,7 +99,10 @@ MonoBehaviour:
   hostOnlyInteractable: 1
   boxWidth: 6
   boxHeight: 10
-  initialItems: []
+  initialItems:
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
   openType: 0
   animationDuration: 1
   animationCurve:
@@ -133,8 +136,8 @@ MonoBehaviour:
   lid: {fileID: 1026795745481008762}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  autoFill: 0
-  clearBeforeFill: 1
+  autoFill: 1
+  clearBeforeFill: 0
   boxType: 6
   boxTier: 1
   itemCount: 5

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.Netcode;
@@ -52,6 +53,24 @@ namespace BK
 
         [Header("Crosshair")]
         public GameObject crossHair;
+
+        private void Start()
+        {
+            if (WorldPlayerInventory.Instance != null)
+                WorldPlayerInventory.Instance.OnInventoryChanged += RefreshQuickSlotCount;
+        }
+
+        private void OnDestroy()
+        {
+            if (WorldPlayerInventory.Instance != null)
+                WorldPlayerInventory.Instance.OnInventoryChanged -= RefreshQuickSlotCount;
+        }
+
+        private void RefreshQuickSlotCount()
+        {
+            if (GUIController.Instance?.localPlayer == null) return;
+            SetQuickSlotItemQuickSlotIcon(GUIController.Instance.localPlayer.playerInventoryManager.currentQuickSlotItem);
+        }
 
         public void ToggleHUD(bool status)
         {

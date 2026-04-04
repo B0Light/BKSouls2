@@ -100,11 +100,9 @@ MonoBehaviour:
   boxWidth: 6
   boxHeight: 10
   initialItems:
-  - {fileID: 11400000, guid: d57f084e601990a4f89486e8dc2e4d3f, type: 2}
-  - {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
-  - {fileID: 11400000, guid: 29b81dadec6e0ca4c9e9f61606e816d9, type: 2}
-  - {fileID: 11400000, guid: 9e68e8b45200ac847b84c69cab431b77, type: 2}
-  - {fileID: 11400000, guid: 349b72deffd937c4da8c90b0509ca25d, type: 2}
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
   openType: 0
   animationDuration: 1
   animationCurve:
@@ -138,8 +136,8 @@ MonoBehaviour:
   lid: {fileID: 3647479039279481203}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  autoFill: 0
-  clearBeforeFill: 1
+  autoFill: 1
+  clearBeforeFill: 0
   boxType: 6
   boxTier: 0
   itemCount: 5
