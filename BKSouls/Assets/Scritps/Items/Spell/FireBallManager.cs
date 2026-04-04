@@ -31,13 +31,7 @@ namespace BK
             fireBallRigidbody = GetComponent<Rigidbody>();
         }
 
-        protected override void Update()
-        {
-            base.Update();
-
-            if (spellTarget != null)
-                transform.LookAt(spellTarget.characterCombatManager.lockOnTransform.position);
-        }
+    
 
         private void OnCollisionEnter(Collision collision)
         {

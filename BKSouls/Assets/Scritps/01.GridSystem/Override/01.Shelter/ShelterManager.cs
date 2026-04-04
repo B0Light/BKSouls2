@@ -8,37 +8,18 @@ public class ShelterManager : MonoBehaviour
 {
     [SerializeField] private GameObject parkGoerPrefab;
     [SerializeField] private Transform parkEntrance;
-    [SerializeField] private Button openShelterButton;
 
     public int visitorCapacity = 30;
     public float visitCycle = 3f;
     private readonly object _lockObject = new object();
     private readonly List<PathFindingUnit> _shelterVisitorList = new List<PathFindingUnit>();
-    private bool _isVisitedToday = false;
+    
     public void RemoveVisitor(PathFindingUnit visitor)
     {
         lock (_lockObject)
         {
             _shelterVisitorList.Remove(visitor);
         }
-    }
-
-    private void OnEnable()
-    {
-        //WorldTimeManager.Instance.day.OnValueChanged += ResetDailyOperation;
-    }
-
-    private void ResetDailyOperation(int newValue)
-    {
-        SetVisit(false);
-    }
-
-    public void OpenShelter()
-    {
-        if(_isVisitedToday) return;
-        
-        SetVisit(true);
-        StartCoroutine(VisitEnumerator());
     }
 
     private IEnumerator VisitEnumerator()
@@ -64,12 +45,6 @@ public class ShelterManager : MonoBehaviour
         {
             _shelterVisitorList.Add(pathFindingUnit);
         }
-    }
-
-    private void SetVisit(bool value)
-    {
-        _isVisitedToday = value;
-        openShelterButton.interactable = !value;
     }
 
     public bool IsVisitorInShelter()

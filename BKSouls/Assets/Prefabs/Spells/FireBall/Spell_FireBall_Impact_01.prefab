@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4776754133901167750}
   - component: {fileID: 686702015079660866}
   m_Layer: 0
-  m_Name: Spell_Fire_Ball_Impact_01
+  m_Name: Spell_FireBall_Impact_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

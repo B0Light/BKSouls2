@@ -13969,6 +13969,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: World Item Database
       objectReference: {fileID: 0}
+    - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
+      propertyPath: spells.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
+      propertyPath: 'spells.Array.data[1]'
+      value: 
+      objectReference: {fileID: 11400000, guid: de52834c3129a954eaba04e0549f4d6b, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

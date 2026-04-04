@@ -813,18 +813,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 6177640903938468862}
     m_Modifications:
     - target: {fileID: 1494147605085945464, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1494147605085945464, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1494147605085945464, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1494147605085945464, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
       objectReference: {fileID: 0}
@@ -864,25 +852,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1494147605085945464, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2303476825857565890, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
       propertyPath: m_Name
       value: SM_Bld_Wall_Alcove_02
       objectReference: {fileID: 0}
-    - target: {fileID: 2303476825857565890, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3837475852903416817, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3837475852903416817, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21d63f0c63f978e4b82bbb3405298371, type: 3}
