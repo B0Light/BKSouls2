@@ -2,6 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
+namespace BK
+{
 public class KeyBindingUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI actionNameText;
@@ -40,4 +43,5 @@ public class KeyBindingUI : MonoBehaviour
 
         button.GetComponentInChildren<TextMeshProUGUI>()?.SetText(keyName);
     }
+}
 }

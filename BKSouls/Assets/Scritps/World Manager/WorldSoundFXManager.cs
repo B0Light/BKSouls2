@@ -14,10 +14,13 @@ namespace BK
         [Header("Audio Mixer")]
         [SerializeField] private AudioMixer audioMixer;
         
+        [Header("Audio Sources")]
+        [SerializeField] private AudioSource sfxAudioSource;
+
         [Header("Mixer Group Parameters")]
+        [SerializeField] private string masterVolumeParameter = "MasterVolume";
         [SerializeField] private string bgmVolumeParameter = "BGMVolume";
-        //[SerializeField] private string sfxVolumeParameter = "SFXVolume";
-        //[SerializeField] private string masterVolumeParameter = "MasterVolume";
+        [SerializeField] private string sfxVolumeParameter = "SFXVolume";
         
         [Header("Boss Track")]
         [SerializeField] AudioSource bossIntroPlayer;
@@ -39,6 +42,19 @@ namespace BK
         
         private const float MIN_VOLUME = 0.0001f; // -80dB
         private const float MAX_VOLUME = 1f; // 0dB
+
+        protected override void Awake()
+        {
+            base.Awake();
+            ApplySavedVolumes();
+        }
+
+        private void ApplySavedVolumes()
+        {
+            audioMixer.SetFloat(masterVolumeParameter, ConvertToDecibels(GetMasterVolume()));
+            audioMixer.SetFloat(bgmVolumeParameter, ConvertToDecibels(GetBGMVolume()));
+            audioMixer.SetFloat(sfxVolumeParameter, ConvertToDecibels(GetSFXVolume()));
+        }
 
         public AudioClip ChooseRandomSfxFromArray(AudioClip[] array)
         {
@@ -121,33 +137,45 @@ namespace BK
             bgmAudioSource.Stop();
         }
         
-        public float GetBGMVolume()
+        public void PlaySfx(AudioClip clip)
         {
-            return PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+            if (clip == null || sfxAudioSource == null) return;
+            sfxAudioSource.PlayOneShot(clip);
         }
-        
+
+        public float GetMasterVolume() => PlayerPrefs.GetFloat("MasterVolume", 0.75f);
+
+        public void SetMasterVolume(float normalizedVolume)
+        {
+            normalizedVolume = Mathf.Clamp01(normalizedVolume);
+            audioMixer.SetFloat(masterVolumeParameter, ConvertToDecibels(normalizedVolume));
+            PlayerPrefs.SetFloat("MasterVolume", normalizedVolume);
+            PlayerPrefs.Save();
+        }
+
+        public float GetBGMVolume() => PlayerPrefs.GetFloat("BGMVolume", 0.75f);
+
         public void SetBGMVolume(float normalizedVolume)
         {
-            // Clamp between 0 and 1
             normalizedVolume = Mathf.Clamp01(normalizedVolume);
-        
-            // Convert to decibels (logarithmic scale)
-            float decibelValue = ConvertToDecibels(normalizedVolume);
-        
-            // Set mixer value
-            audioMixer.SetFloat(bgmVolumeParameter, decibelValue);
-        
-            // Save the setting
+            audioMixer.SetFloat(bgmVolumeParameter, ConvertToDecibels(normalizedVolume));
             PlayerPrefs.SetFloat("BGMVolume", normalizedVolume);
             PlayerPrefs.Save();
         }
-        
+
+        public float GetSFXVolume() => PlayerPrefs.GetFloat("SFXVolume", 0.75f);
+
+        public void SetSFXVolume(float normalizedVolume)
+        {
+            normalizedVolume = Mathf.Clamp01(normalizedVolume);
+            audioMixer.SetFloat(sfxVolumeParameter, ConvertToDecibels(normalizedVolume));
+            PlayerPrefs.SetFloat("SFXVolume", normalizedVolume);
+            PlayerPrefs.Save();
+        }
+
         private float ConvertToDecibels(float normalizedVolume)
         {
-            // Prevent log(0) which would give -infinity
             normalizedVolume = Mathf.Max(normalizedVolume, MIN_VOLUME);
-        
-            // Convert to decibels (logarithmic scale)
             return Mathf.Log10(normalizedVolume) * 20f;
         }
         

@@ -25,10 +25,15 @@ namespace BK
 
         private OptionType _curActiveType;
 
+        public override void OpenGUI()
+        {
+            base.OpenGUI();
+            OpenDisplaySetter();
+        }
+
         private void Start()
         {
             HideAllSetting();
-            _curActiveType = OptionType.Display;
         }
 
         public void OpenDisplaySetter()

@@ -1,12 +1,15 @@
 using TMPro;
 using UnityEngine;
 
-public class KeyBindHeader : MonoBehaviour
+namespace BK
 {
-    [SerializeField] private TextMeshProUGUI title;
-
-    public void Initialize(string text)
+    public class KeyBindHeader : MonoBehaviour
     {
-        title.text = text;
+        [SerializeField] private TextMeshProUGUI title;
+
+        public void Initialize(string text)
+        {
+            title.text = text;
+        }
     }
 }

@@ -4,7 +4,8 @@ using UnityEngine.InputSystem;
 using TMPro;
 using System.Collections.Generic;
 
-// 키 바인딩 관리자 클래스
+namespace BK
+{
 public class KeyRebindingManager : MonoBehaviour
 {
     [Header("Input Action Settings")]
@@ -35,58 +36,45 @@ public class KeyRebindingManager : MonoBehaviour
     private int _currentSchemeIndex;      // 현재 스키마 인덱스
     private List<InputControlScheme> _availableSchemes = new List<InputControlScheme>(); // 사용 가능한 스키마 목록
 
+    private bool _hasSchemes;
+
     private void Awake()
     {
-        // 판넬 초기화
         rebindPanel.SetActive(false);
-        
-        // 버튼 이벤트 초기화
+
         resetButton.onClick.AddListener(ResetBinding);
         confirmButton.onClick.AddListener(ConfirmRebinding);
         cancelButton.onClick.AddListener(CancelRebinding);
-        
-        // 스키마 선택 버튼 초기화
+
         InitializeControlSchemeButtons();
-        
-        // 액션 맵 순회하면서 UI 생성
         CreateBindingUI();
     }
 
-    // 수정: 컨트롤 스키마 버튼 초기화
     private void InitializeControlSchemeButtons()
     {
-        // 사용 가능한 컨트롤 스키마 목록 생성
         _availableSchemes.Clear();
         foreach (var controlScheme in inputActions.controlSchemes)
-        {
             _availableSchemes.Add(controlScheme);
-        }
-        
-        if (_availableSchemes.Count == 0)
+
+        _hasSchemes = _availableSchemes.Count > 0;
+
+        // 스키마가 없으면 선택 UI 전체 숨김
+        if (!_hasSchemes)
         {
-            Debug.LogWarning("사용 가능한 컨트롤 스키마가 없습니다.");
+            if (leftSchemeButton != null)  leftSchemeButton.gameObject.SetActive(false);
+            if (rightSchemeButton != null) rightSchemeButton.gameObject.SetActive(false);
+            if (currentSchemeText != null) currentSchemeText.gameObject.SetActive(false);
+            _currentControlScheme = null;
             return;
         }
-        
-        // 버튼 이벤트 연결
+
         if (leftSchemeButton != null)
             leftSchemeButton.onClick.AddListener(PreviousControlScheme);
-            
         if (rightSchemeButton != null)
             rightSchemeButton.onClick.AddListener(NextControlScheme);
-        
-        // 기본 컨트롤 스키마 설정 (PlayerPrefs에서 불러오거나 첫 번째 스키마 사용)
+
         int savedSchemeIndex = PlayerPrefs.GetInt("SelectedControlScheme", 0);
-        if (savedSchemeIndex < _availableSchemes.Count)
-        {
-            _currentSchemeIndex = savedSchemeIndex;
-        }
-        else
-        {
-            _currentSchemeIndex = 0;
-        }
-        
-        // 현재 스키마 설정
+        _currentSchemeIndex = savedSchemeIndex < _availableSchemes.Count ? savedSchemeIndex : 0;
         _currentControlScheme = _availableSchemes[_currentSchemeIndex].name;
         UpdateSchemeDisplay();
     }
@@ -183,44 +171,47 @@ public class KeyRebindingManager : MonoBehaviour
                 for (int i = 0; i < action.bindings.Count; i++)
                 {
                     var binding = action.bindings[i];
-                    
-                    // 컴포지트 바인딩의 일부인 경우 처리
-                    if (binding.isComposite)
-                    {
+
+                    // 컴포지트 자식(isPartOfComposite)은 개별 표시하지 않음
+                    // 컴포지트 부모(isComposite)는 표시 대상 - 아래에서 처리
+                    if (binding.isPartOfComposite)
                         continue;
-                    }
-                    
+
                     // 현재 컨트롤 스키마에 맞는 바인딩인지 확인
-                    if (IsBindingMatchingControlScheme(binding))
+                    if (!IsBindingMatchingControlScheme(binding))
+                        continue;
+
+                    // 헤더 생성
+                    if (!createdHeader)
                     {
-                        // 액션 맵 헤더가 아직 생성되지 않았다면 생성
-                        if (!createdHeader)
-                        {
-                            header = Instantiate(keyBindHeaderPrefab, contentParent);
-                            header.Initialize(actionMap.name);
-                            createdHeader = true;
-                        }
-                        
-                        // 해당 액션의 UI가 아직 생성되지 않았다면 생성
-                        if (keyUI == null)
-                        {
-                            keyUI = Instantiate(keyBindingPrefab, contentParent);
-                            keyUI.Initialize(actionName);
-                            actionHasBindingsForScheme = true;
-                        }
-                        
-                        string bindingId = action.id + "/" + i;
-                        int currentIndex = i;
-                        
-                        keyUI.AddButton(
-                            currentIndex,
-                            action.GetBindingDisplayString(currentIndex),
-                            () => StartRebinding(action, currentIndex, actionName, bindingId)
-                        );
-                        
-                        // 딕셔너리에 추가
-                        _actionUIMap[bindingId] = keyUI;
+                        header = Instantiate(keyBindHeaderPrefab, contentParent);
+                        header.Initialize(actionMap.name);
+                        createdHeader = true;
                     }
+
+                    // 액션 UI 생성
+                    if (keyUI == null)
+                    {
+                        keyUI = Instantiate(keyBindingPrefab, contentParent);
+                        keyUI.Initialize(actionName);
+                        actionHasBindingsForScheme = true;
+                    }
+
+                    string bindingId = action.id + "/" + i;
+                    int currentIndex = i;
+
+                    // 컴포지트 바인딩은 묶음 전체 표시 문자열 사용
+                    string displayString = binding.isComposite
+                        ? action.GetBindingDisplayString(i, InputBinding.DisplayStringOptions.DontOmitDevice)
+                        : action.GetBindingDisplayString(i);
+
+                    keyUI.AddButton(
+                        currentIndex,
+                        displayString,
+                        () => StartRebinding(action, currentIndex, actionName, bindingId)
+                    );
+
+                    _actionUIMap[bindingId] = keyUI;
                 }
                 
                 // 액션에 현재 스키마에 맞는 바인딩이 없으면 UI 제거
@@ -266,13 +257,18 @@ public class KeyRebindingManager : MonoBehaviour
         return false;
     }
 
-    // StartRebinding 메서드 수정 (안전 검사 추가)
     private void StartRebinding(InputAction action, int bindingIndex, string actionName, string bindingId)
     {
-        // 바인딩 인덱스 유효성 검사
         if (bindingIndex < 0 || bindingIndex >= action.bindings.Count)
         {
-            Debug.LogError($"바인딩 인덱스 오류: {bindingIndex}는 액션 '{actionName}'의 유효한 인덱스가 아닙니다. 최대 인덱스: {action.bindings.Count - 1}");
+            Debug.LogError($"바인딩 인덱스 오류: {bindingIndex}는 액션 '{actionName}'의 유효한 인덱스가 아닙니다.");
+            return;
+        }
+
+        // 컴포지트 바인딩은 리바인딩 불가 (자식 파트를 직접 리바인딩해야 함)
+        if (action.bindings[bindingIndex].isComposite)
+        {
+            Debug.LogWarning($"'{actionName}'은 컴포지트 바인딩입니다. 개별 키를 리바인딩해 주세요.");
             return;
         }
         
@@ -412,4 +408,5 @@ public class KeyRebindingManager : MonoBehaviour
     {
         LoadBindings();
     }
+}
 }
