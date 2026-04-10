@@ -30,27 +30,27 @@ MonoBehaviour:
   weaponModelType: 0
   weaponModel: {fileID: 4892853454780000691, guid: e58d969fabd4dc241bd3fa0ed629c9df, type: 3}
   weaponClass: 1
-  strengthREQ: 10
-  dexREQ: 10
+  strengthREQ: 12
+  dexREQ: 14
   intREQ: 0
   faithREQ: 0
-  physicalDamage: 10
+  physicalDamage: 105
   magicDamage: 0
   fireDamage: 0
   holyDamage: 0
   lightningDamage: 0
   poiseDamage: 25
-  light_Attack_01_Modifier: 1.1
-  light_Attack_02_Modifier: 1.2
-  light_Jumping_Attack_01_Modifier: 1
-  heavy_Attack_01_Modifier: 1.4
-  heavy_Attack_02_Modifier: 1.6
-  heavy_Jumping_Attack_01_Modifier: 1.8
-  charge_Attack_01_Modifier: 2
-  charge_Attack_02_Modifier: 2.2
-  running_Attack_01_Modifier: 1.1
-  rolling_Attack_01_Modifier: 1.1
-  backstep_Attack_01_Modifier: 1.1
+  light_Attack_01_Modifier: 1
+  light_Attack_02_Modifier: 1.1
+  light_Jumping_Attack_01_Modifier: 0.9
+  heavy_Attack_01_Modifier: 1.5
+  heavy_Attack_02_Modifier: 1.7
+  heavy_Jumping_Attack_01_Modifier: 2
+  charge_Attack_01_Modifier: 2.3
+  charge_Attack_02_Modifier: 2.6
+  running_Attack_01_Modifier: 1.4
+  rolling_Attack_01_Modifier: 1
+  backstep_Attack_01_Modifier: 1
   baseStaminaCost: 20
   lightAttackStaminaCostMultiplier: 0.9
   heavyAttackStaminaCostMultiplier: 1.3
@@ -79,5 +79,5 @@ MonoBehaviour:
   - {fileID: 8300000, guid: df4246a6c6f984d6090201c58816fc47, type: 3}
   - {fileID: 8300000, guid: 4cdd3de2138454d1e92ab58f85630860, type: 3}
   - {fileID: 8300000, guid: 7f39afc041fff436b8055964a05f3e63, type: 3}
-  riposte_Attack_01_Modifier: 3.3
-  backstab_Attack_01_Modifier: 3.3
+  riposte_Attack_01_Modifier: 3.5
+  backstab_Attack_01_Modifier: 3.5

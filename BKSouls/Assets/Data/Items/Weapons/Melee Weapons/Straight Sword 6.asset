@@ -24,17 +24,17 @@ MonoBehaviour:
   weight: 0
   itemAbilities:
   - itemEffect: 0
-    value: 10
+    value: 158
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}
   weaponModelType: 0
   weaponModel: {fileID: 2456186867962784618, guid: 79c52202c65e22d4b9caf3920d4c5077, type: 3}
   weaponClass: 0
-  strengthREQ: 10
-  dexREQ: 10
+  strengthREQ: 16
+  dexREQ: 15
   intREQ: 0
   faithREQ: 0
-  physicalDamage: 10
+  physicalDamage: 158
   magicDamage: 0
   fireDamage: 0
   holyDamage: 0
