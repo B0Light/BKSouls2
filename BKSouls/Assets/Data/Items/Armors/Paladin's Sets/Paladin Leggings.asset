@@ -25,16 +25,16 @@ MonoBehaviour:
   height: 2
   weight: 0
   itemAbilities: []
-  itemWeight: 6.6
-  physicalDamageAbsorption: 7.1
-  magicDamageAbsorption: 6.2
-  fireDamageAbsorption: 6.2
-  holyDamageAbsorption: 5.4
-  lightningDamageAbsorption: 5
-  immunity: 17
-  robustness: 31
-  focus: 11
-  vitality: 11
+  itemWeight: 7.2
+  physicalDamageAbsorption: 7.7
+  magicDamageAbsorption: 6.9
+  fireDamageAbsorption: 6.6
+  holyDamageAbsorption: 10.2
+  lightningDamageAbsorption: 6.1
+  immunity: 14
+  robustness: 25
+  focus: 17
+  vitality: 15
   poise: 0
   equipmentModels:
   - {fileID: 11400000, guid: c9c74d3edcca8864399cc627c3f069ce, type: 2}

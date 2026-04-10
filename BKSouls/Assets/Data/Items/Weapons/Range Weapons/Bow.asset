@@ -29,10 +29,10 @@ MonoBehaviour:
   weaponModel: {fileID: 2276305552935293728, guid: cb68f6eadade6614fb7a57142d9cfb60, type: 3}
   weaponClass: 5
   strengthREQ: 8
-  dexREQ: 1
+  dexREQ: 16
   intREQ: 0
   faithREQ: 0
-  physicalDamage: 72
+  physicalDamage: 90
   magicDamage: 0
   fireDamage: 0
   holyDamage: 0
