@@ -30,11 +30,14 @@ namespace BK
 
             aiCharacter.characterAnimatorManager.UpdateAnimatorMovementParameters(0, 0, false);
 
-            //  PERFORM A COMBO
-            PerformCombo(aiCharacter);
-
             if (aiCharacter.isPerformingAction)
+            {
+                //  ONLY EVALUATE COMBO WINDOW AFTER THE FIRST ATTACK HAS BEEN INITIATED
+                if (hasPerformedAttack)
+                    PerformCombo(aiCharacter);
+
                 return this;
+            }
 
             if (!hasPerformedAttack)
             {

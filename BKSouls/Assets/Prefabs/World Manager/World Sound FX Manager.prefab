@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.WorldSoundFXManager
   bgmAudioSource: {fileID: 730005725882261208}
   audioMixer: {fileID: 24100000, guid: 786c5b6fd5fcea147950fbf04bb0a19b, type: 2}
+  bgmMixerGroup: {fileID: 5046276793231202364, guid: 786c5b6fd5fcea147950fbf04bb0a19b, type: 2}
+  sfxMixerGroup: {fileID: -1678258729132055454, guid: 786c5b6fd5fcea147950fbf04bb0a19b, type: 2}
   sfxAudioSource: {fileID: 6518401882414043424}
   masterVolumeParameter: MasterVolume
   bgmVolumeParameter: BGMVolume

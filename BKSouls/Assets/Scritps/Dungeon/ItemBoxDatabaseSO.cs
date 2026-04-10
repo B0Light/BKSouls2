@@ -21,6 +21,40 @@ namespace BK
         [Tooltip("스테이지 진행 시 낮은 티어 박스의 가중치 감쇠 강도 (티어 차이 1당 비율)")]
         [Range(0f, 1f)] [SerializeField] private float tierPenaltyStrength = 0.3f;
 
+        [Header("Start Room")]
+        [Tooltip("시작 방 전용 아이템 상자 목록 (가중치 추첨, 티어 패널티 없음).")]
+        [SerializeField] private List<BoxEntry> startRoomEntries = new();
+
+        public bool HasStartRoomEntries => startRoomEntries != null && startRoomEntries.Count > 0;
+
+        public GameObject GetStartRoomPrefab()
+        {
+            float totalWeight = 0f;
+            foreach (BoxEntry entry in startRoomEntries)
+            {
+                if (entry.itemBox != null && entry.weight > 0f)
+                    totalWeight += entry.weight;
+            }
+
+            if (totalWeight <= 0f)
+            {
+                Debug.LogWarning("[ItemBoxDatabase] 시작 방 전용 상자가 설정되지 않았습니다.");
+                return null;
+            }
+
+            float roll = UnityEngine.Random.Range(0f, totalWeight);
+            float cumulative = 0f;
+            foreach (BoxEntry entry in startRoomEntries)
+            {
+                if (entry.itemBox == null || entry.weight <= 0f) continue;
+                cumulative += entry.weight;
+                if (roll < cumulative)
+                    return entry.itemBox.gameObject;
+            }
+
+            return startRoomEntries[^1].itemBox.gameObject;
+        }
+
         /// <param name="stageIndex">현재 스테이지 인덱스 (깊을수록 낮은 티어 박스 확률 감소)</param>
         public GameObject GetPrefab(int stageIndex = 0)
         {

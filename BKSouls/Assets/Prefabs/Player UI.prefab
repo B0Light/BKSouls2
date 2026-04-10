@@ -46975,6 +46975,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 217492186435634278, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 18d9fd84f08223a4390319858c86d568, type: 3}
     - target: {fileID: 278189957952824208, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -47079,14 +47083,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2935016574353518983, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
-      propertyPath: resolutionDropdown
-      value: 
-      objectReference: {fileID: 5806463448305723483}
-    - target: {fileID: 2935016574353518983, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
-      propertyPath: screenModeDropdown
-      value: 
-      objectReference: {fileID: 3930387381114791929}
     - target: {fileID: 3149086751891474950, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -47143,6 +47139,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3755202693289454856, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 3923468812308982319}
+    - target: {fileID: 4225367184907357608, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 18d9fd84f08223a4390319858c86d568, type: 3}
     - target: {fileID: 4401679429867293501, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -47243,10 +47247,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5858870338875693264, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
-      propertyPath: m_Alpha
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5958271798188513057, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -47351,6 +47351,10 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8407896981142083310, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 18d9fd84f08223a4390319858c86d568, type: 3}
     - target: {fileID: 8408601715901742189, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -47396,28 +47400,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
---- !u!114 &3930387381114791929 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6191935501009759315, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
-  m_PrefabInstance: {fileID: 7162314366096198570}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5806463448305723483 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3742796172580496369, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
-  m_PrefabInstance: {fileID: 7162314366096198570}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &7126140451221739526 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 108231577834247084, guid: dbd667dee795e81499eadb146b3340cc, type: 3}

@@ -13,7 +13,9 @@ namespace BK
         
         [Header("Audio Mixer")]
         [SerializeField] private AudioMixer audioMixer;
-        
+        [SerializeField] private AudioMixerGroup bgmMixerGroup;
+        [SerializeField] private AudioMixerGroup sfxMixerGroup;
+
         [Header("Audio Sources")]
         [SerializeField] private AudioSource sfxAudioSource;
 
@@ -46,7 +48,21 @@ namespace BK
         protected override void Awake()
         {
             base.Awake();
+            ApplyMixerGroups();
             ApplySavedVolumes();
+        }
+
+        private void ApplyMixerGroups()
+        {
+            if (bgmMixerGroup != null)
+            {
+                bgmAudioSource.outputAudioMixerGroup = bgmMixerGroup;
+                bossIntroPlayer.outputAudioMixerGroup = bgmMixerGroup;
+                bossLoopPlayer.outputAudioMixerGroup = bgmMixerGroup;
+            }
+
+            if (sfxMixerGroup != null)
+                sfxAudioSource.outputAudioMixerGroup = sfxMixerGroup;
         }
 
         private void ApplySavedVolumes()
@@ -142,6 +158,9 @@ namespace BK
             if (clip == null || sfxAudioSource == null) return;
             sfxAudioSource.PlayOneShot(clip);
         }
+
+        public AudioMixerGroup GetBGMMixerGroup() => bgmMixerGroup;
+        public AudioMixerGroup GetSFXMixerGroup() => sfxMixerGroup;
 
         public float GetMasterVolume() => PlayerPrefs.GetFloat("MasterVolume", 0.75f);
 

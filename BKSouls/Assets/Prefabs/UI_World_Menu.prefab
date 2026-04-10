@@ -355,8 +355,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1913fc22a9c834193a34ed6db404832a, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 814654927e6f0bc48b5bae0ce8faec24, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1508,7 +1508,7 @@ GameObject:
   - component: {fileID: 7693953438222871906}
   - component: {fileID: 7299302758953046071}
   m_Layer: 5
-  m_Name: Item_01
+  m_Name: BTN_Graphic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2024,7 +2024,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90c5eff34c44fa146aab4ba824a1d456, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46cf5ae885283714089388c4bef0637c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3202,7 +3202,7 @@ GameObject:
   - component: {fileID: 3320275478314651703}
   - component: {fileID: 2988143845005219253}
   m_Layer: 5
-  m_Name: Item_01 (3)
+  m_Name: BTN_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4441,8 +4441,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1913fc22a9c834193a34ed6db404832a, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 814654927e6f0bc48b5bae0ce8faec24, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4811,8 +4811,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5fa42bcfdcab42be918d912e31f1787, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 814654927e6f0bc48b5bae0ce8faec24, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5087,8 +5087,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6ec193c9e2ac99145b340cfbc51bca09, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 88866f6a6cf19c24d9e50d17460566fb, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -7329,8 +7329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 654b022061ce6144db3dfef10af4b5a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionDropdown: {fileID: 0}
-  screenModeDropdown: {fileID: 0}
+  resolutionDropdown: {fileID: 3742796172580496369}
+  screenModeDropdown: {fileID: 6191935501009759315}
 --- !u!114 &7274770120846538797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8306,7 +8306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90c5eff34c44fa146aab4ba824a1d456, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 46cf5ae885283714089388c4bef0637c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8495,7 +8495,7 @@ GameObject:
   - component: {fileID: 8019102579519951721}
   - component: {fileID: 1786019069427185678}
   m_Layer: 5
-  m_Name: Item_01 (1)
+  m_Name: BTN_KeyBinding
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8843,8 +8843,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c5fa42bcfdcab42be918d912e31f1787, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 814654927e6f0bc48b5bae0ce8faec24, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9825,8 +9825,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e45c2134e4b17334588874db66f61d78, type: 3}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 88866f6a6cf19c24d9e50d17460566fb, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12393,7 +12393,7 @@ GameObject:
   - component: {fileID: 4690317272760994431}
   - component: {fileID: 5409191826230005084}
   m_Layer: 5
-  m_Name: Item_01
+  m_Name: BTN_Close
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12464,7 +12464,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GUIController, Assembly-CSharp
+        m_TargetAssemblyTypeName: BK.GUIController, Assembly-CSharp
         m_MethodName: HandleEscape
         m_Mode: 1
         m_Arguments:
@@ -14000,7 +14000,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5907405410917839174}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -15891,7 +15891,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fa59edde01bd7f74cbbff0cfa2a60a32, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93420cfb95b91b744994c455736f24e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18725,7 +18725,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fa59edde01bd7f74cbbff0cfa2a60a32, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93420cfb95b91b744994c455736f24e5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -19169,7 +19169,7 @@ GameObject:
   - component: {fileID: 1301291498103775638}
   - component: {fileID: 2710497856163180905}
   m_Layer: 5
-  m_Name: Item_01 (2)
+  m_Name: BTN_Sound
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

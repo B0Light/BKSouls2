@@ -295,6 +295,29 @@ namespace BK.Inventory
             return sum;
         }
 
+        // 인벤토리에서 특정 ProjectileClass(Arrow/Bolt)에 해당하는 화살을 찾아 반환
+        public RangedProjectileItem FindProjectileInInventory(ProjectileClass projectileClass)
+        {
+            var grids = new List<ItemGrid> { GetInventory(), GetBackpackInventory(), GetShareInventory() };
+
+            foreach (var grid in grids)
+            {
+                if (grid == null) continue;
+
+                var itemDict = grid.GetCurItemDictById();
+                foreach (var itemId in itemDict.Keys)
+                {
+                    if (itemDict[itemId] <= 0) continue;
+
+                    var projectile = WorldItemDatabase.Instance.GetProjectileByID(itemId);
+                    if (projectile != null && projectile.projectileClass == projectileClass)
+                        return projectile;
+                }
+            }
+
+            return null;
+        }
+
         #endregion
 
         #region Getters

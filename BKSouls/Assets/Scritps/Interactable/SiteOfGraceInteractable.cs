@@ -96,7 +96,18 @@ namespace BK
             player.playerNetworkManager.currentStamina.Value = player.playerNetworkManager.maxStamina.Value;
 
 
-            //  REFILL FLASKS (TO DO)
+            //  REFILL FLASKS
+            //  인벤토리 포션(여분)은 건드리지 않고 기본 충전 횟수만 복원한다.
+            //  GetCurrentAmount = remainingFlasks + 인벤토리 포션 수 이므로,
+            //  인벤토리 포션까지 합산해서 채우면 총합이 의도치 않게 늘어나는 버그가 생긴다.
+            if (player.IsOwner)
+            {
+                player.playerNetworkManager.remainingHealthFlasks.Value = 3;
+                player.playerNetworkManager.remainingFocusPointsFlasks.Value = 1;
+                GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(
+                    player.playerInventoryManager.currentQuickSlotItem);
+            }
+
             //  UPDATE/FORCE MOVE QUEST CHARACTERS (TO DO)
             WorldAIManager.instance.ResetAllCharacters();
         }

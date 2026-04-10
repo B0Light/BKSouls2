@@ -55,9 +55,8 @@ namespace BK
             //aiCharacter.navMeshAgent.SetDestination(aiCharacter.aiCharacterCombatManager.currentTarget.transform.position);
 
             //OPTION 02
-            NavMeshPath path = new NavMeshPath();
-            aiCharacter.navMeshAgent.CalculatePath(aiCharacter.aiCharacterCombatManager.currentTarget.transform.position, path);
-            aiCharacter.navMeshAgent.SetPath(path);
+            if (aiCharacter.navMeshAgent.CalculatePath(aiCharacter.aiCharacterCombatManager.currentTarget.transform.position, aiCharacter.runtimePath))
+                aiCharacter.navMeshAgent.SetPath(aiCharacter.runtimePath);
 
             return this;
         }

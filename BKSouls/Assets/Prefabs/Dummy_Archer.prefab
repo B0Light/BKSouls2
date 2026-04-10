@@ -71,9 +71,9 @@ Animator:
   m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
     are already bound by a Humanoid avatar. These transforms can only be changed
     by Humanoid clips.\n\tTransform 'Eyes'\n\tTransform 'Eyes'\n\tTransform 'Eyes'\n\tFrom
-    animation clip 'A_POLY_BOW_Stand_Idle_Base_WithBow_Masc'\n\tFrom animation clip
-    'A_POLY_BOW_Stand_Aiming_ToDrawn_Neut'\n\tFrom animation clip 'A_POLY_BOW_Stand_Aiming_Undrawn_Neut'\n\tFrom
-    animation clip 'A_POLY_BOW_Stand_Shoot_Reload_Neut'\n\tFrom animation clip 'A_POLY_BOW_Stand_Shoot_ToBowDown_Neut'\n\tFrom
+    animation clip 'A_POLY_BOW_Stand_Idle_BowDown_Neut'\n\tFrom animation clip 'A_POLY_BOW_Stand_Aiming_ToDrawn_Neut'\n\tFrom
+    animation clip 'A_POLY_BOW_Stand_Aiming_Undrawn_Neut'\n\tFrom animation clip
+    'A_POLY_BOW_Stand_Shoot_Reload_Neut'\n\tFrom animation clip 'A_POLY_BOW_Stand_Shoot_ToBowDown_Neut'\n\tFrom
     animation clip 'A_POLY_BOW_Stand_Idle_BowDown_Neut'\n\tFrom animation clip 'A_POLY_BOW_Stand_Idle_BowDown_ToAiming_Neut'"
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -377,7 +377,7 @@ MonoBehaviour:
   characterLocomotionManager: {fileID: 0}
   characterUIManager: {fileID: 0}
   characterGroup: 1
-  characterName: Skeleton Knight
+  characterName: Skeleton Archer
   aiCharacterSoundFXManager: {fileID: 0}
   aiCharacterNetworkManager: {fileID: 0}
   aiCharacterCombatManager: {fileID: 0}
@@ -437,8 +437,6 @@ MonoBehaviour:
   bowAnimator: {fileID: 1337102811378309616}
   arrowSpawnPoint: {fileID: 2777913371917107259}
   projectileItem: {fileID: 11400000, guid: 13f5f19384420a94bb41f1db5d717acd, type: 2}
-  projectileSpeed: 15
-  projectileUpwardVelocity: 0.5
 --- !u!114 &1408240027151897504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,7 +788,7 @@ MonoBehaviour:
   propBoneConfig: {fileID: 11400000, guid: 84db98e5d16ecc1449c79c43f03662b8, type: 2}
   updateType: 2
   updateInEditMode: 1
-  rebindOnAwake: 0
+  rebindOnAwake: 1
   _propBoneBindings:
   - bone: {fileID: 4331452762645692257}
     socket: {fileID: 6014087313638785756}

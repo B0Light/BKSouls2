@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768de2070a398494ea61e98ca6183a8e, type: 3}
+  m_Name: 01. World 01 Reward
+  m_EditorClassIdentifier: Assembly-CSharp::BK.ItemBoxDatabaseSO
+  entries:
+  - itemBox: {fileID: 6515754115538806658, guid: 0d35880b8a958534b9484508027c498b, type: 3}
+    weight: 15
+  - itemBox: {fileID: 1981876164025620434, guid: 61ef63ad120e8da48a5d59a1783dda7c, type: 3}
+    weight: 12
+  - itemBox: {fileID: 4166551856721270878, guid: 4e0fec318e96fd649a5b3818ef4103f1, type: 3}
+    weight: 10
+  - itemBox: {fileID: 8722203816247854794, guid: 51d82ee7ac911034e9d07cdb15c78395, type: 3}
+    weight: 7
+  - itemBox: {fileID: 8836080966340259293, guid: d3e86205ef8ceb44bb7b798e808d7215, type: 3}
+    weight: 5
+  - itemBox: {fileID: 5638304345500794035, guid: e40a4ac16a93da1439da3085a02a8491, type: 3}
+    weight: 3
+  - itemBox: {fileID: 8906111911498371869, guid: 9377ea69f2996c2449c8296d52c4493c, type: 3}
+    weight: 1
+  tierPenaltyStrength: 0.3
+  startRoomEntries:
+  - itemBox: {fileID: 4144350666005027533, guid: a4daef197b57fa44ab844865bec19496, type: 3}
+    weight: 1
+  - itemBox: {fileID: 8242086445388113291, guid: 32f1795a27009e44ca4c855d4d778365, type: 3}
+    weight: 1
+  - itemBox: {fileID: 2560188520908064127, guid: ad801ca2de2caa3468fe172f930f9ec9, type: 3}
+    weight: 1

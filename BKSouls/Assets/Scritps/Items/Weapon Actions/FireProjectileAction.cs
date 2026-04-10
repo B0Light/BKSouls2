@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BK.Inventory;
 
 namespace BK
 {
@@ -38,9 +39,37 @@ namespace BK
                     break;
             }
 
-            //  2. If that projectile == null, return
+            //  2. If that projectile == null, try to auto-equip an arrow from inventory
             if (projectileItem == null)
-                return;
+            {
+                if (WorldPlayerInventory.Instance == null)
+                    return;
+
+                //  Determine which ProjectileClass we need based on weapon (default Arrow)
+                ProjectileClass neededClass = ProjectileClass.Arrow;
+                RangedProjectileItem foundProjectile = WorldPlayerInventory.Instance.FindProjectileInInventory(neededClass);
+
+                if (foundProjectile == null)
+                {
+                    playerPerformingAction.playerAnimatorManager.PlayTargetActionAnimation("Out_Of_Ammo_01", true);
+                    return;
+                }
+
+                switch (projectileSlot)
+                {
+                    case ProjectileSlot.Main:
+                        playerPerformingAction.playerEquipmentManager.LoadMainProjectileEquipment(foundProjectile);
+                        projectileItem = playerPerformingAction.playerInventoryManager.mainProjectile;
+                        break;
+                    case ProjectileSlot.Secondary:
+                        playerPerformingAction.playerEquipmentManager.LoadSecondaryProjectileEquipment(foundProjectile);
+                        projectileItem = playerPerformingAction.playerInventoryManager.secondaryProjectile;
+                        break;
+                }
+
+                if (projectileItem == null)
+                    return;
+            }
 
             if (!playerPerformingAction.IsOwner)
                 return;
@@ -70,9 +99,44 @@ namespace BK
 
                 if (projectileItem.currentAmmoAmount <= 0)
                 {
-                    //  PLAY A SILLY ANIMATION HERE THAT INDICATES THEY ARE OUT OF AMMO
-                    playerPerformingAction.playerAnimatorManager.PlayTargetActionAnimation("Out_Of_Ammo_01", true);
-                    return;
+                    //  TRY TO REFILL FROM INVENTORY (same projectile type)
+                    if (WorldPlayerInventory.Instance != null &&
+                        WorldPlayerInventory.Instance.RemoveItemInInventory(projectileItem.itemID))
+                    {
+                        projectileItem.currentAmmoAmount = projectileItem.maxAmmoAmount;
+                    }
+                    else
+                    {
+                        //  SAME TYPE DEPLETED — try to switch to another arrow in inventory
+                        RangedProjectileItem fallbackProjectile = WorldPlayerInventory.Instance != null
+                            ? WorldPlayerInventory.Instance.FindProjectileInInventory(projectileItem.projectileClass)
+                            : null;
+
+                        if (fallbackProjectile != null && fallbackProjectile.itemID != projectileItem.itemID &&
+                            WorldPlayerInventory.Instance.RemoveItemInInventory(fallbackProjectile.itemID))
+                        {
+                            switch (projectileSlot)
+                            {
+                                case ProjectileSlot.Main:
+                                    playerPerformingAction.playerEquipmentManager.LoadMainProjectileEquipment(fallbackProjectile);
+                                    projectileItem = playerPerformingAction.playerInventoryManager.mainProjectile;
+                                    break;
+                                case ProjectileSlot.Secondary:
+                                    playerPerformingAction.playerEquipmentManager.LoadSecondaryProjectileEquipment(fallbackProjectile);
+                                    projectileItem = playerPerformingAction.playerInventoryManager.secondaryProjectile;
+                                    break;
+                            }
+
+                            if (projectileItem != null)
+                                projectileItem.currentAmmoAmount = projectileItem.maxAmmoAmount;
+                        }
+                        else
+                        {
+                            //  PLAY A SILLY ANIMATION HERE THAT INDICATES THEY ARE OUT OF AMMO
+                            playerPerformingAction.playerAnimatorManager.PlayTargetActionAnimation("Out_Of_Ammo_01", true);
+                            return;
+                        }
+                    }
                 }
 
                 playerPerformingAction.playerCombatManager.currentProjectileBeingUsed = projectileSlot;

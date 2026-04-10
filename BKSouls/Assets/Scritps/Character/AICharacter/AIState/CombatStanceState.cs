@@ -9,7 +9,7 @@ namespace BK
     {
         [Header("공격(Attacks)")]
         public List<AICharacterAttackAction> aiCharacterAttacks;                   // 이 AI가 사용할 수 있는 전체 공격 목록
-        [SerializeField] protected List<AICharacterAttackAction> potentialAttacks; // 현재 상황(거리/각도 등)에서 가능한 공격 후보
+        protected List<AICharacterAttackAction> potentialAttacks; // 현재 상황(거리/각도 등)에서 가능한 공격 후보
         [SerializeField] private AICharacterAttackAction chosenAttack;             // 최종 선택된 공격
         [SerializeField] private AICharacterAttackAction previousAttack;           // 이전 공격(연속 중복 방지 등에 사용 가능)
         protected bool hasAttack = false;
@@ -57,9 +57,12 @@ namespace BK
             if (!aiCharacter.navMeshAgent.enabled)
                 aiCharacter.navMeshAgent.enabled = true;
 
-            // 타겟이 사망했으면 타겟 해제
+            // 타겟이 사망했으면 타겟 해제 후 Idle로 복귀
             if (aiCharacter.aiCharacterCombatManager.currentTarget.isDead.Value)
+            {
                 aiCharacter.aiCharacterCombatManager.SetTarget(null);
+                return SwitchState(aiCharacter, aiCharacter.idle);
+            }
 
             // enablePivot 옵션: 시야각 밖에 있으면 제자리에서 타겟을 향해 피벗 회전
             if (aiCharacter.aiCharacterCombatManager.enablePivot)
@@ -164,42 +167,16 @@ namespace BK
 
             foreach (var attack in aiCharacterAttacks)
             {
-                // 너무 가까우면 제외
-                if (attack.minimumAttackDistance > distance)
-                {
-                    Debug.Log("사거리 미만");
-                    continue;
-                }
-
-                // 너무 멀면 제외
-                if (attack.maximumAttackDistance < distance)
-                {
-                    Debug.Log("사거리 초과");
-                    continue;
-                }
-
-                // 시야각이 최소 각도보다 작으면 제외
-                if (attack.minimumAttackAngle > angle)
-                {
-                    Debug.Log("시야각 미만");
-                    continue;
-                }
-
-                // 시야각이 최대 각도보다 크면 제외
-                if (attack.maximumAttackAngle < angle)
-                {
-                    Debug.Log("시야각 초과");
-                    continue;
-                }
+                if (attack.minimumAttackDistance > distance) continue;
+                if (attack.maximumAttackDistance < distance) continue;
+                if (attack.minimumAttackAngle > angle) continue;
+                if (attack.maximumAttackAngle < angle) continue;
 
                 potentialAttacks.Add(attack);
             }
 
             if (potentialAttacks.Count == 0)
-            {
-                Debug.Log("No Potential Attacks");
                 return;
-            }
 
             // 후보들의 가중치 합
             int totalWeight = 0;

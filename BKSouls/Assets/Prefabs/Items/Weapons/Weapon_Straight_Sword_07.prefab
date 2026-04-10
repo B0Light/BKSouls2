@@ -57,8 +57,6 @@ GameObject:
   - component: {fileID: 2511091177234314945}
   - component: {fileID: 1546682501456738660}
   - component: {fileID: 3644006675523095982}
-  - component: {fileID: 6319764409415726875}
-  - component: {fileID: 4935957963485126213}
   m_Layer: 0
   m_Name: Straight_Sword_07
   m_TagString: Untagged
@@ -139,50 +137,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6319764409415726875
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995703763892399227}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3407414239175099996, guid: e35ab9f6dfe75ee42821700eb4f34184, type: 2}
---- !u!64 &4935957963485126213
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2995703763892399227}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -266443546011021477, guid: e35ab9f6dfe75ee42821700eb4f34184, type: 2}
 --- !u!1 &3412927045925764426
 GameObject:
   m_ObjectHideFlags: 0

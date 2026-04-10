@@ -27,12 +27,16 @@ namespace BK
             if (nextState != this)
             {
                 aiCharacter.animator.SetBool("isAttacking", false);
+                aiCharacter.navMeshAgent.updateRotation = true;
                 return nextState;
             }
-                
+
             // 행동 중(공격·피격 등)이면 간섭하지 않는다
             if (aiCharacter.isPerformingAction)
+            {
+                aiCharacter.navMeshAgent.updateRotation = true;
                 return this;
+            }
 
             // 타겟이 너무 가까우면 후퇴
             if (aiCharacter.aiCharacterCombatManager.currentTarget != null &&
@@ -40,14 +44,18 @@ namespace BK
             {
                 BackAwayFromTarget(aiCharacter);
             }
+            else
+            {
+                aiCharacter.navMeshAgent.updateRotation = true;
+            }
 
             aiCharacter.animator.SetBool("isAttacking", true);
             return this;
         }
 
         /// <summary>
-        /// 타겟 반대 방향으로 NavMesh 위에서 이동 목적지를 설정하고
-        /// 애니메이터 파라미터를 후진(-1)으로 설정한다.
+        /// 타겟 반대 방향으로 NavMesh 위에서 이동 목적지를 동기적으로 설정하고
+        /// 플레이어를 바라보면서 후진 애니메이션을 재생한다.
         /// </summary>
         private void BackAwayFromTarget(AICharacterManager aiCharacter)
         {
@@ -59,7 +67,29 @@ namespace BK
             // NavMesh 위의 유효한 위치로 샘플링
             if (NavMesh.SamplePosition(backAwayDestination, out NavMeshHit hit, backAwayDistance, NavMesh.AllAreas))
             {
-                aiCharacter.navMeshAgent.SetDestination(hit.position);
+                // CalculatePath + SetPath(동기)로 base.Tick이 설정한 플레이어 방향 경로를 즉시 덮어쓴다.
+                // SetDestination(비동기)은 다음 프레임 base.Tick에 의해 다시 덮어씌워지므로 사용하지 않는다.
+                if (aiCharacter.navMeshAgent.CalculatePath(hit.position, aiCharacter.runtimePath))
+                    aiCharacter.navMeshAgent.SetPath(aiCharacter.runtimePath);
+                else
+                    aiCharacter.navMeshAgent.ResetPath();
+            }
+            else
+            {
+                aiCharacter.navMeshAgent.ResetPath();
+            }
+
+            // NavMesh 자동 회전을 끄고 플레이어를 직접 바라보게 한다.
+            // (자동 회전을 켜두면 NavMesh가 후퇴 방향으로 회전시켜 뒷걸음 애니메이션이 플레이어 쪽을 향하게 됨)
+            aiCharacter.navMeshAgent.updateRotation = false;
+            Vector3 toTarget = aiCharacter.aiCharacterCombatManager.currentTarget.transform.position
+                               - aiCharacter.transform.position;
+            toTarget.y = 0f;
+            if (toTarget.sqrMagnitude > 0.001f)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(toTarget);
+                aiCharacter.transform.rotation = Quaternion.Slerp(
+                    aiCharacter.transform.rotation, lookRotation, Time.deltaTime * 10f);
             }
 
             // 후퇴 애니메이션 (Vertical = -1 : 뒤로 걷기)

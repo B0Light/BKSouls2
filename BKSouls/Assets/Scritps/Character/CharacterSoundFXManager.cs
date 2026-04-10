@@ -22,6 +22,12 @@ namespace BK
             audioSource = GetComponent<AudioSource>();
         }
 
+        protected virtual void Start()
+        {
+            if (WorldSoundFXManager.Instance != null)
+                audioSource.outputAudioMixerGroup = WorldSoundFXManager.Instance.GetSFXMixerGroup();
+        }
+
         public void PlaySoundFX(AudioClip soundFX, float volume = 1, bool randomizePitch = true, float pitchRandom = 0.1f)
         {
             audioSource.PlayOneShot(soundFX, volume);

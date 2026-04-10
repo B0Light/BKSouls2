@@ -124,6 +124,7 @@ namespace BK
             if (currentRoomIndex >= floorPlan.Count)
             {
                 Debug.Log("[RunManager] Run Finished.");
+                RestoreAllPlayersClientRpc();
                 WorldSaveGameManager.Instance.LoadHoldScene();
                 return;
             }
@@ -142,6 +143,21 @@ namespace BK
                 return;
 
             LoadNextRoom();
+        }
+
+        [ClientRpc]
+        private void RestoreAllPlayersClientRpc()
+        {
+            PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
+            if (localPlayer == null)
+                return;
+
+            CharacterNetworkManager net = localPlayer.characterNetworkManager;
+            net.currentHealth.Value = net.maxHealth.Value;
+            net.currentStamina.Value = net.maxStamina.Value;
+            net.currentFocusPoints.Value = net.maxFocusPoints.Value;
+
+            Debug.Log("[RunManager] 셸터 귀환: 체력/기력/마나 전체 회복.");
         }
     }
 }

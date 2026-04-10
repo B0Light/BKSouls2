@@ -22,6 +22,9 @@ namespace BK
         [Header("Item Box Database")]
         [SerializeField] private ItemBoxDatabaseSO itemBoxDatabase;
 
+        [Header("Site of Grace")]
+        [SerializeField] private GameObject siteOfGracePrefab;
+
         [Header("Runtime Prefabs")]
         [SerializeField] private GameObject entryDoorPrefab;
         [SerializeField] private GameObject exitDoorPrefab;
@@ -200,6 +203,20 @@ namespace BK
             DestroyRuntimeSpawners();
             DespawnReward();
             DespawnDoors();
+            DespawnAllDroppedItems();
+        }
+
+        private void DespawnAllDroppedItems()
+        {
+            PickUpItemInteractable[] droppedItems = FindObjectsByType<PickUpItemInteractable>(FindObjectsSortMode.None);
+            foreach (PickUpItemInteractable item in droppedItems)
+            {
+                NetworkObject netObj = item.NetworkObject;
+                if (netObj != null && netObj.IsSpawned)
+                    netObj.Despawn(true);
+                else if (item != null)
+                    Destroy(item.gameObject);
+            }
         }
 
         private void DespawnAllEnemies()
@@ -519,7 +536,9 @@ namespace BK
             if (currentExitDoor != null)
                 currentExitDoor.SetDoorOpenServer(true);
 
-            SpawnRewardIfNeeded();
+            // Start 방은 기본 아이템 상자 지급, 나머지 비전투 방은 Site of Grace
+            bool isStartRoom = currentPlan != null && currentPlan.roomType == RoomType.Start;
+            SpawnRewardIfNeeded(isSiteOfGrace: !isStartRoom);
         }
 
         private void StartCombatRoom()
@@ -658,7 +677,7 @@ namespace BK
             SetState(RoomState.Cleared);
         }
 
-        private void SpawnRewardIfNeeded()
+        private void SpawnRewardIfNeeded(bool isSiteOfGrace = false)
         {
             if (!IsServer)
                 return;
@@ -672,6 +691,37 @@ namespace BK
             if (currentRoomInstance == null || currentRoomInstance.RewardSpawnPoint == null)
                 return;
 
+            Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
+
+            if (isSiteOfGrace)
+            {
+                if (siteOfGracePrefab == null)
+                {
+                    Debug.LogWarning("[RoomManager] SiteOfGracePrefab이 할당되지 않아 생성하지 않습니다.");
+                    return;
+                }
+
+                GameObject graceObj = Instantiate(
+                    siteOfGracePrefab,
+                    currentRoomInstance.RewardSpawnPoint.position,
+                    currentRoomInstance.RewardSpawnPoint.rotation,
+                    parent);
+
+                NetworkObject graceNetObj = graceObj.GetComponent<NetworkObject>();
+                if (graceNetObj == null)
+                {
+                    Debug.LogError("[RoomManager] SiteOfGrace prefab must contain NetworkObject.");
+                    Destroy(graceObj);
+                    return;
+                }
+
+                graceNetObj.Spawn(true);
+                currentRewardObject = graceNetObj;
+
+                Debug.Log("[RoomManager] Site of Grace 스폰 (적 없는 방).");
+                return;
+            }
+
             if (itemBoxDatabase == null)
             {
                 Debug.LogWarning("[RoomManager] ItemBoxDatabase가 할당되지 않아 보상 상자를 생성하지 않습니다.");
@@ -679,22 +729,35 @@ namespace BK
             }
 
             int stageIndex = RunManager.Instance != null ? RunManager.Instance.CurrentRoomIndex : 0;
-            ItemTier finalTier = CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
+
+            bool isStartRoom = currentPlan != null && currentPlan.roomType == RoomType.Start;
+
+            GameObject boxPrefab;
+            ItemTier finalTier;
+            if (isStartRoom && itemBoxDatabase.HasStartRoomEntries)
+            {
+                boxPrefab = itemBoxDatabase.GetStartRoomPrefab();
+                finalTier = currentTemplate.rewardBaseTier;
+            }
+            else
+            {
+                // Start 방(첫 번째 방)은 운 보정 없이 기본 등급 고정
+                finalTier = isStartRoom
+                    ? currentTemplate.rewardBaseTier
+                    : CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
+                boxPrefab = itemBoxDatabase.GetPrefab(stageIndex);
+            }
 
             BoxType[] validTypes = System.Array.FindAll(
                 (BoxType[])System.Enum.GetValues(typeof(BoxType)),
                 t => t != BoxType.None);
             BoxType boxType = validTypes[Random.Range(0, validTypes.Length)];
 
-            GameObject boxPrefab = itemBoxDatabase.GetPrefab(stageIndex);
-
             if (boxPrefab == null)
             {
                 Debug.LogWarning($"[RoomManager] 적절한 보상이 없습니다 : 보상 스킵.");
                 return;
             }
-
-            Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
 
             GameObject rewardObj = Instantiate(
                 boxPrefab,

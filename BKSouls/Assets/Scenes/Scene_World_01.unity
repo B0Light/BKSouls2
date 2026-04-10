@@ -176,8 +176,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
   - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   navMeshBuilder: {fileID: 756663084}
-  doorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
-  baseBattleEnemyCount: 1
+  itemBoxDatabase: {fileID: 11400000, guid: bfd94a63c1af6a049bee7a961e3956c4, type: 2}
+  siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
+  entryDoorPrefab: {fileID: 0}
+  exitDoorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
+  baseBattleEnemyCount: 3
   eliteEnemyCount: 5
   bossEnemyCount: 1
 --- !u!114 &430361882
@@ -331,9 +334,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
   m_SerializedVersion: 0
   m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
+  m_CollectObjects: 1
+  m_Size: {x: 200, y: 100, z: 200}
+  m_Center: {x: 0, y: 0, z: 0}
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 6161
@@ -653,6 +656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   ShowTopMostFoldoutHeaderGroup: 1
+  roomManager: {fileID: 430361881}
   allRoomTemplates:
   - {fileID: 11400000, guid: 144f0602c1b74d04aa96e0dd227929f9, type: 2}
   - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
@@ -661,7 +665,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 8e42cd4a49166b247920eee8b055ad61, type: 2}
   - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
   - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
-  roomManager: {fileID: 430361881}
+  floorSequence: 00000000010000000100000005000000040000000100000003000000010000000400000006000000
 --- !u!114 &1458793202
 MonoBehaviour:
   m_ObjectHideFlags: 0

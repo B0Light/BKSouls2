@@ -227,7 +227,7 @@ namespace BK
                 {
                     //  IF A POTENTIAL TARGET IS FOUND, IT HAS TO BE INFRONT OF US
                     Vector3 targetsDirection = targetCharacter.transform.position - aiCharacter.transform.position;
-                    float angleOfPotentialTarget = Vector3.Angle(targetsDirection, aiCharacter.transform.forward);
+                    float angleOfPotentialTarget = WorldUtilityManager.Instance.GetAngleOfTarget(aiCharacter.transform, targetsDirection);
 
                     if (angleOfPotentialTarget > minimumFOV && angleOfPotentialTarget < maximumFOV)
                     {
@@ -260,37 +260,21 @@ namespace BK
                 return;
 
             if (viewableAngle >= 20 && viewableAngle <= 60)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_45", true);
-            }
             else if (viewableAngle <= -20 && viewableAngle >= -60)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_45", true);
-            }
             else if (viewableAngle >= 61 && viewableAngle <= 110)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_90", true);
-            }
             else if (viewableAngle <= -61 && viewableAngle >= -110)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_90", true);
-            }
-            if (viewableAngle >= 110 && viewableAngle <= 145)
-            {
+            else if (viewableAngle >= 111 && viewableAngle <= 145)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_135", true);
-            }
-            else if (viewableAngle <= -110 && viewableAngle >= -145)
-            {
+            else if (viewableAngle <= -111 && viewableAngle >= -145)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_135", true);
-            }
-            if (viewableAngle >= 146 && viewableAngle <= 180)
-            {
+            else if (viewableAngle >= 146 && viewableAngle <= 180)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_180", true);
-            }
-            else if (viewableAngle <= -146 &&viewableAngle >= -180)
-            {
+            else if (viewableAngle <= -146 && viewableAngle >= -180)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_180", true);
-            }
         }
 
         public virtual void PivotTowardsPosition(AICharacterManager aiCharacter, Vector3 position)
@@ -303,37 +287,21 @@ namespace BK
             float viewableAngle = WorldUtilityManager.Instance.GetAngleOfTarget(aiCharacter.transform, targetsDirection);
 
             if (viewableAngle >= 20 && viewableAngle <= 60)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_45", true);
-            }
             else if (viewableAngle <= -20 && viewableAngle >= -60)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_45", true);
-            }
             else if (viewableAngle >= 61 && viewableAngle <= 110)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_90", true);
-            }
             else if (viewableAngle <= -61 && viewableAngle >= -110)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_90", true);
-            }
-            if (viewableAngle >= 110 && viewableAngle <= 145)
-            {
+            else if (viewableAngle >= 111 && viewableAngle <= 145)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_135", true);
-            }
-            else if (viewableAngle <= -110 && viewableAngle >= -145)
-            {
+            else if (viewableAngle <= -111 && viewableAngle >= -145)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_135", true);
-            }
-            if (viewableAngle >= 146 && viewableAngle <= 180)
-            {
+            else if (viewableAngle >= 146 && viewableAngle <= 180)
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Right_180", true);
-            }
             else if (viewableAngle <= -146 && viewableAngle >= -180)
-            {
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Turn_Left_180", true);
-            }
         }
 
         public void RotateTowardsAgent(AICharacterManager aiCharacter)
@@ -416,8 +384,11 @@ namespace BK
             //  METHOD #3, A.I CHOOSES A RANDOM DIRECTION AND ROLLS TOWARDS IT
             aiCharacter.aiCharacterNetworkManager.isInvulnerable.Value = true;
             aiCharacter.characterAnimatorManager.PlayTargetActionAnimation("Evade_02", true);
-            Vector3 directionToDodge = Random.insideUnitSphere.normalized;
+            Vector3 directionToDodge = Random.insideUnitSphere;
             directionToDodge.y = 0;
+            if (directionToDodge.sqrMagnitude < 0.001f)
+                directionToDodge = -aiCharacter.transform.forward;
+            directionToDodge.Normalize();
             //  OPTIONALLY USE A COROUTINE TO APPLY THIS ROTATION SMOOTHLY OVER 0.2-1 SECONDS SO IT DOESNT LOOK AS SHARP
             aiCharacter.transform.rotation = Quaternion.LookRotation(directionToDodge);
 

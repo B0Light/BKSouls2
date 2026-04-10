@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77191a7693fb73342aa9d7c4a86c22fe, type: 3}
-  m_Name: 1.BattleRoom
+  m_Name: 1.BattleRoom_04
   m_EditorClassIdentifier: Assembly-CSharp::RoomTemplateSO
   templateId: 0
   roomType: 1
-  roomPrefab: {fileID: 7155262747603071470, guid: 5fba6f5d479c38a4fb5778d33ec32fc4, type: 3}
+  roomPrefab: {fileID: 7155262747603071470, guid: ede33546c47f07346b9dd19595347b66, type: 3}
   enemySpawnerPrefabs:
+  - {fileID: 8001563935880831791, guid: 26b239aa33bc9f84ca58c62722ead9cb, type: 3}
+  - {fileID: 8255014910025953776, guid: f0248f926f839e14881dfd0a4c07526d, type: 3}
+  - {fileID: 882319676538015308, guid: 76cad843693fbef47918a3ae0ac7d952, type: 3}
   - {fileID: 882319676538015308, guid: a2729a6389e6a10419bf9669ae60f966, type: 3}
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 0}

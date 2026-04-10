@@ -172,9 +172,8 @@ public class KeyRebindingManager : MonoBehaviour
                 {
                     var binding = action.bindings[i];
 
-                    // 컴포지트 자식(isPartOfComposite)은 개별 표시하지 않음
-                    // 컴포지트 부모(isComposite)는 표시 대상 - 아래에서 처리
-                    if (binding.isPartOfComposite)
+                    // 컴포지트 바인딩(부모/자식 모두) 표시 안 함 - 리바인딩 불가
+                    if (binding.isComposite || binding.isPartOfComposite)
                         continue;
 
                     // 현재 컨트롤 스키마에 맞는 바인딩인지 확인
@@ -237,23 +236,19 @@ public class KeyRebindingManager : MonoBehaviour
         {
             return true;
         }
-        
+
         // 스키마가 선택되지 않았으면 모든 바인딩 표시
         if (string.IsNullOrEmpty(_currentControlScheme))
-        {
             return true;
-        }
-        
+
         // 바인딩 그룹이 현재 컨트롤 스키마를 포함하는지 확인
         string[] groups = binding.groups.Split(';');
         foreach (var group in groups)
         {
             if (group.Trim().Equals(_currentControlScheme, System.StringComparison.OrdinalIgnoreCase))
-            {
                 return true;
-            }
         }
-        
+
         return false;
     }
 
@@ -265,13 +260,6 @@ public class KeyRebindingManager : MonoBehaviour
             return;
         }
 
-        // 컴포지트 바인딩은 리바인딩 불가 (자식 파트를 직접 리바인딩해야 함)
-        if (action.bindings[bindingIndex].isComposite)
-        {
-            Debug.LogWarning($"'{actionName}'은 컴포지트 바인딩입니다. 개별 키를 리바인딩해 주세요.");
-            return;
-        }
-        
         // 현재 리바인딩 중인 액션 정보 저장
         _currentAction = action;
         _currentBindingIndex = bindingIndex;
