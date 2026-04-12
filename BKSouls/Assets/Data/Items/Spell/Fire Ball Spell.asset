@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 8
   cost: 0
-  itemDescription: 
+  itemDescription: Conjures a sphere of roiling flame and hurls it at enemies. Can be charged for a more powerful, intensified blast of fire.
   SpellClass: 0
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1

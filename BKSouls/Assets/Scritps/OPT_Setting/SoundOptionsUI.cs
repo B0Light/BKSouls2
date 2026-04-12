@@ -18,11 +18,29 @@ namespace BK
 
         [Header("Test Audio")]
         [SerializeField] private AudioClip testSFX;
+        [SerializeField] private float sfxPreviewDelay = 0.1f;
+
+        private float _sfxPreviewTimer = 0f;
+        private bool _sfxPreviewPending = false;
 
         private void Start()
         {
             InitializeSliders();
             SetupListeners();
+        }
+
+        private void Update()
+        {
+            if (_sfxPreviewPending)
+            {
+                _sfxPreviewTimer -= Time.deltaTime;
+                if (_sfxPreviewTimer <= 0f)
+                {
+                    _sfxPreviewPending = false;
+                    if (testSFX != null && WorldSoundFXManager.Instance != null)
+                        WorldSoundFXManager.Instance.PlaySfx(testSFX);
+                }
+            }
         }
 
         private void InitializeSliders()
@@ -63,8 +81,8 @@ namespace BK
             WorldSoundFXManager.Instance.SetSFXVolume(value);
             UpdateVolumeTexts();
 
-            if (testSFX != null)
-                WorldSoundFXManager.Instance.PlaySfx(testSFX);
+            _sfxPreviewTimer = sfxPreviewDelay;
+            _sfxPreviewPending = true;
         }
 
         private void UpdateVolumeTexts()

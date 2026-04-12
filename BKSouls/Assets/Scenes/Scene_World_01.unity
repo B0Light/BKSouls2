@@ -169,6 +169,9 @@ MonoBehaviour:
   networkRuntimeRoot: {fileID: 980477447}
   roomTemplates:
   - {fileID: 11400000, guid: 144f0602c1b74d04aa96e0dd227929f9, type: 2}
+  - {fileID: 11400000, guid: ba2166f4191a62341948109e526777e0, type: 2}
+  - {fileID: 11400000, guid: c335b050c1db97d45a69b66b23744f94, type: 2}
+  - {fileID: 11400000, guid: 16b38c5df0211b34b9220de4a043e5a9, type: 2}
   - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
   - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
   - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}

@@ -18,17 +18,19 @@ MonoBehaviour:
   itemTier: 0
   itemType: 4
   cost: 0
-  itemDescription: 'Knight Leggings
-
-'
+  itemDescription: Rugged hide leggings worn by warriors of the wilderness. Sturdy enough to withstand the chaos of brutal close-quarters combat.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
-  itemWeight: 7.0
+  itemAbilities:
+  - itemEffect: 2
+    value: 8
+  - itemEffect: 3
+    value: 5
+  itemWeight: 7
   physicalDamageAbsorption: 8.4
   magicDamageAbsorption: 4.1
-  fireDamageAbsorption: 5.0
+  fireDamageAbsorption: 5
   holyDamageAbsorption: 3.7
   lightningDamageAbsorption: 4.8
   immunity: 10

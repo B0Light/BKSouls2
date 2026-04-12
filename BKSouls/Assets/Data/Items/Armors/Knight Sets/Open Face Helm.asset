@@ -17,12 +17,16 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: 
+  itemDescription: A lighter variant of the knight's helm with an open visor. Trades some protection in exchange for an improved field of vision.
   itemType: 2
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 4
+  - itemEffect: 3
+    value: 3
   itemWeight: 3.8
   physicalDamageAbsorption: 3.6
   magicDamageAbsorption: 3.2

@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 1
   cost: 0
-  itemDescription: 
+  itemDescription: Worn traveling clothes layered over light chainmail. Offers decent balanced protection suitable for those who wander dangerous and uncharted lands.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 9
+  - itemEffect: 3
+    value: 9
   itemWeight: 7.5
   physicalDamageAbsorption: 9.2
   magicDamageAbsorption: 8.5

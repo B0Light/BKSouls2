@@ -18,13 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 4
   cost: 0
-  itemDescription: 'Knight Leggings
-
-'
+  itemDescription: Thick iron greaves forged for the templar order. Heavy and unyielding, utterly reliable under the most brutal conditions of battle.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 11
+  - itemEffect: 3
+    value: 8
   itemWeight: 9.8
   physicalDamageAbsorption: 10.7
   magicDamageAbsorption: 7.7

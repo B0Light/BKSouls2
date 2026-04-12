@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 3
   cost: 0
-  itemDescription: 
+  itemDescription: Blessed gauntlets worn by paladins devoted to the sacred order. Said to enhance the wearer's spiritual attunement during battle.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 8
+  - itemEffect: 3
+    value: 10
   itemWeight: 0
   physicalDamageAbsorption: 7.7
   magicDamageAbsorption: 6.9

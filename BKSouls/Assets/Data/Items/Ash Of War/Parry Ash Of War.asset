@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 10
   cost: 0
-  itemDescription: 
+  itemDescription: A defensive technique imbued into a shield. With perfect timing, deflects an incoming attack and creates an opening for a devastating critical counterattack.
   usableWeaponClasses: 02000000
   focusPointCost: 0
   staminaCost: 20

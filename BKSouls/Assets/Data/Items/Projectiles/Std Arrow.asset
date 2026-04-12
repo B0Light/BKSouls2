@@ -18,9 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 5
   cost: 0
-  itemDescription: 'basic arrow
-
-'
+  itemDescription: A standard wooden arrow tipped with an iron head. The foundation of ranged combat, compatible with any standard bow.
   width: 1
   height: 2
   weight: 0

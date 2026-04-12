@@ -18,13 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 4
   cost: 0
-  itemDescription: 'Knight Leggings
-
-'
+  itemDescription: Patched traveling trousers worn by those who roam the dangerous roads. Comfortable and reasonably protective for a life spent wandering.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 5
+  - itemEffect: 3
+    value: 5
   itemWeight: 4.5
   physicalDamageAbsorption: 5.1
   magicDamageAbsorption: 4.7

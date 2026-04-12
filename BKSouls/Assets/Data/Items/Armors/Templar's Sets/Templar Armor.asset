@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 1
   cost: 0
-  itemDescription: 
+  itemDescription: Imposing heavy plate worn by the elite templar knights. Among the heaviest armor available, offering exceptional physical defense and poise.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 20
+  - itemEffect: 3
+    value: 15
   itemWeight: 17.5
   physicalDamageAbsorption: 19.5
   magicDamageAbsorption: 14.0

@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 8
   cost: 0
-  itemDescription: 
+  itemDescription: Calls down crackling bolts of lightning to strike a target with devastating force. Can be charged to unleash a catastrophic thunderbolt.
   SpellClass: 0
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1

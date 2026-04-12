@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 2
   cost: 0
-  itemDescription: 
+  itemDescription: A consecrated helm worn by knights of the holy order. Said to grant clarity of purpose and ward against the corruption of unholy forces.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 5
+  - itemEffect: 3
+    value: 7
   itemWeight: 4.4
   physicalDamageAbsorption: 4.9
   magicDamageAbsorption: 4.4

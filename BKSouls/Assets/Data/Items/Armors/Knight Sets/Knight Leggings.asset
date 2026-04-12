@@ -17,14 +17,16 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: 'Knight Leggings
-
-'
+  itemDescription: Well-crafted greaves worn by knights sworn to their liege. Provides reliable leg protection for extended combat engagements.
   itemType: 4
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 7
+  - itemEffect: 3
+    value: 6
   itemWeight: 6.6
   physicalDamageAbsorption: 7.1
   magicDamageAbsorption: 6.2

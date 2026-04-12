@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
   itemName: 
   itemIcon: {fileID: 0}
-  itemDescription: 
+  itemDescription: To fight with bare fists when no weapon is at hand. Not the most effective approach, but desperation demands it.
   itemID: 0
   weaponAnimator: {fileID: 22100000, guid: 02a61b0e559c6d64f9a92ed1cc8b9707, type: 2}
   weaponModelType: 0

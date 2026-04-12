@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 1
   cost: 0
-  itemDescription: 
+  itemDescription: Elegant cloth garb worn by wandering minstrels and enchanters. Offers minimal physical protection but greatly enhances the wearer's magical focus and vitality.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 6
+  - itemEffect: 3
+    value: 7
   itemWeight: 4.8
   physicalDamageAbsorption: 5.8
   magicDamageAbsorption: 6.5

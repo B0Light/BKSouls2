@@ -17099,7 +17099,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3786832127991886405}
   m_HandleRect: {fileID: 275616584951797797}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -19718,7 +19718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customCursor: {fileID: 2800000, guid: 0ea1038679b06f846a086cea864462db, type: 3}
   localPlayer: {fileID: 0}
-  settingGUIManager: {fileID: 0}
+  settingGUIManager: {fileID: 7104146925931000833}
   playerUIHudManager: {fileID: 0}
   playerUIPopUpManager: {fileID: 0}
   playerUICharacterMenuManager: {fileID: 0}
@@ -20218,7 +20218,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.0000133108015}
+  m_AnchoredPosition: {x: 0, y: -0.00018663611}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &7975861355231470084
@@ -26190,7 +26190,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000033431603}
+  m_AnchoredPosition: {x: 0, y: -0.00065371464}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &4031125340398087231
@@ -36740,7 +36740,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2295163114046894738}
   m_HandleRect: {fileID: 5368050146787278936}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -47183,6 +47183,10 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4712858062798162006, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+      propertyPath: sfxPreviewDelay
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 5411069651660758640, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -47400,6 +47404,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+--- !u!114 &7104146925931000833 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 140553915155070891, guid: dbd667dee795e81499eadb146b3340cc, type: 3}
+  m_PrefabInstance: {fileID: 7162314366096198570}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4633a40ca0f0ed6459335dd9733cd9d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &7126140451221739526 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 108231577834247084, guid: dbd667dee795e81499eadb146b3340cc, type: 3}

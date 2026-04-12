@@ -18,13 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 4
   cost: 0
-  itemDescription: 'Knight Leggings
-
-'
+  itemDescription: Sacred greaves worn by those who walk the path of righteousness. Provides steadfast protection to holy warriors in service of their creed.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 8
+  - itemEffect: 3
+    value: 10
   itemWeight: 7.2
   physicalDamageAbsorption: 7.7
   magicDamageAbsorption: 6.9

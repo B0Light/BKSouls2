@@ -18,15 +18,19 @@ MonoBehaviour:
   itemTier: 0
   itemType: 3
   cost: 0
-  itemDescription: 
+  itemDescription: Crude iron-studded leather bracers worn by savage warriors. Favored by berserkers who rely on raw strength over refined technique.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 8
+  - itemEffect: 3
+    value: 5
   itemWeight: 0
   physicalDamageAbsorption: 8.4
-  magicDamageAbsorption: 4.1
-  fireDamageAbsorption: 5.0
+  magicDamageAbsorption: 2
+  fireDamageAbsorption: 5
   holyDamageAbsorption: 3.7
   lightningDamageAbsorption: 4.8
   immunity: 10

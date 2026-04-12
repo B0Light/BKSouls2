@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 1
   cost: 0
-  itemDescription: 
+  itemDescription: Sacred plate armor blessed by priests of the holy order. Provides exceptional protection against holy forces and greatly enhances the wearer's focus.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 14
+  - itemEffect: 3
+    value: 19
   itemWeight: 12.5
   physicalDamageAbsorption: 14.0
   magicDamageAbsorption: 12.5

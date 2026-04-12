@@ -17,12 +17,16 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: c10c028b30dac074fa3aee62b39f5d83, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: 
+  itemDescription: Standard-issue plate armor worn by knights of the realm. Offers reliable, well-rounded protection across all damage types.
   itemType: 1
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 12
+  - itemEffect: 3
+    value: 11
   itemWeight: 10.6
   physicalDamageAbsorption: 12.4
   magicDamageAbsorption: 10.9

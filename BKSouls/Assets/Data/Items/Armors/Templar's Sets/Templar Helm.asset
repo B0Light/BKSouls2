@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 2
   cost: 0
-  itemDescription: 
+  itemDescription: A full enclosing helmet worn by the fearsome templars. Provides the heaviest level of head protection available to any warrior.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 7
+  - itemEffect: 3
+    value: 5
   itemWeight: 6.1
   physicalDamageAbsorption: 6.8
   magicDamageAbsorption: 4.9

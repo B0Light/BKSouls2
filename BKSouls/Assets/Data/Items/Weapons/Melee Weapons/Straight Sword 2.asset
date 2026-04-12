@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 0
   cost: 0
-  itemDescription: A Straight sword
+  itemDescription: A standard one-handed sword with a straight double-edged blade. Well-balanced and versatile, suitable for any combat situation.
   width: 1
   height: 4
   weight: 0

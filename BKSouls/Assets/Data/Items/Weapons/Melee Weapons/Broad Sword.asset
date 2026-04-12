@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: cb9028da3ac777c48bf6afb950a7b216, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: A Straight sword
+  itemDescription: A wide-bladed sword favored for its superior cutting power. Requires considerable strength to wield, but delivers devastating blows.
   itemType: 0
   width: 1
   height: 2

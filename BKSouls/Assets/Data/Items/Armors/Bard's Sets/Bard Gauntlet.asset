@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 3
   cost: 0
-  itemDescription: 
+  itemDescription: Soft gloves favored by performers and spellweavers. Their lightness permits fluid gestures during the casting of incantations.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 3
+  - itemEffect: 3
+    value: 4
   itemWeight: 0
   physicalDamageAbsorption: 3.2
   magicDamageAbsorption: 3.6

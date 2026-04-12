@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 0
   cost: 0
-  itemDescription: 
+  itemDescription: A mystical focus used to channel sorceries and incantations. Amplifies the power of spells cast through it, though it deals no physical damage on its own.
   width: 1
   height: 1
   weight: 0

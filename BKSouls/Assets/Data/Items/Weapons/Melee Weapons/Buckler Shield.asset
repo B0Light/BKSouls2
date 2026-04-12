@@ -17,12 +17,16 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 085b3b2e2f213344f88f72117aef827b, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: A Buckler Shield
+  itemDescription: A small round shield ideal for deflecting blows. Its compact size makes it excellent for precise parrying, opening enemies up to critical counterattacks.
   itemType: 0
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 77
+  - itemEffect: 7
+    value: 51
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 36f5c9fa7b42b0a4ea14f0d58ede31f2, type: 2}
   weaponModelType: 1

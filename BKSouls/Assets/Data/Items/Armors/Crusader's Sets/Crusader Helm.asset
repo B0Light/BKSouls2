@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 2
   cost: 0
-  itemDescription: 
+  itemDescription: A full battle helm worn by soldiers who march under a holy banner. Provides dependable head protection in the fiercest of engagements.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 6
+  - itemEffect: 3
+    value: 5
   itemWeight: 5.1
   physicalDamageAbsorption: 5.6
   magicDamageAbsorption: 4.0

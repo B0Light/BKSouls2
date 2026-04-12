@@ -17,12 +17,16 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
   itemTier: 0
   cost: 0
-  itemDescription: 
+  itemDescription: Articulated plate gauntlets that allow precise weapon handling while offering dependable protection for the hands and forearms.
   itemType: 3
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 7
+  - itemEffect: 3
+    value: 6
   itemWeight: 0
   physicalDamageAbsorption: 7.1
   magicDamageAbsorption: 6.2

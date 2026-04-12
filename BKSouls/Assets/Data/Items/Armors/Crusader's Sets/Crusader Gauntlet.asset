@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 3
   cost: 0
-  itemDescription: 
+  itemDescription: Thick gauntlets worn by holy warriors sworn to crusade. Sturdy enough to withstand the harshest battlefield conditions.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 9
+  - itemEffect: 3
+    value: 8
   itemWeight: 0
   physicalDamageAbsorption: 8.8
   magicDamageAbsorption: 6.3

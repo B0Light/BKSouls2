@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 3
   cost: 0
-  itemDescription: 
+  itemDescription: Massively reinforced gauntlets worn by templar knights. Near impenetrable to physical strikes, though they demand great strength to bear.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 11
+  - itemEffect: 3
+    value: 8
   itemWeight: 0
   physicalDamageAbsorption: 10.7
   magicDamageAbsorption: 7.7

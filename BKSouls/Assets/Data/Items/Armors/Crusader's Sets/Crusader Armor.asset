@@ -18,11 +18,15 @@ MonoBehaviour:
   itemTier: 0
   itemType: 1
   cost: 0
-  itemDescription: 
+  itemDescription: Battle-worn plate mail bearing the marks of sacred campaigns. Provides excellent all-round protection, particularly against fire and holy forces.
   width: 2
   height: 2
   weight: 0
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 2
+    value: 16
+  - itemEffect: 3
+    value: 15
   itemWeight: 14.5
   physicalDamageAbsorption: 16.0
   magicDamageAbsorption: 11.5
