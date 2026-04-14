@@ -34,6 +34,27 @@ namespace BK
         [SerializeField] TextMeshProUGUI projectedIntelligenceLevelText;
         [SerializeField] TextMeshProUGUI projectedFaithLevelText;
 
+        [Header("Derived Stat Preview")]
+        [SerializeField] TextMeshProUGUI maxHPPreviewText;
+        [SerializeField] TextMeshProUGUI maxFPPreviewText;
+        [SerializeField] TextMeshProUGUI maxStaminaPreviewText;
+
+        [Header("Attack Preview (Right Hand)")]
+        [SerializeField] TextMeshProUGUI rightPhysAtkPreviewText;
+        [SerializeField] TextMeshProUGUI rightMagAtkPreviewText;
+
+        [Header("Attack Preview (Left Hand)")]
+        [SerializeField] TextMeshProUGUI leftPhysAtkPreviewText;
+        [SerializeField] TextMeshProUGUI leftMagAtkPreviewText;
+
+        [Header("Defense Display (Armor Based)")]
+        [SerializeField] TextMeshProUGUI physDefDisplayText;
+        [SerializeField] TextMeshProUGUI magDefDisplayText;
+        [SerializeField] TextMeshProUGUI fireDefDisplayText;
+        [SerializeField] TextMeshProUGUI lightningDefDisplayText;
+        [SerializeField] TextMeshProUGUI holyDefDisplayText;
+        [SerializeField] TextMeshProUGUI poiseDisplayText;
+
         [Header("Sliders")]
         public CharacterAttribute currentSelectedAttribute;
         public Slider vigorSlider;
@@ -102,6 +123,10 @@ namespace BK
 
             vigorSlider.Select();
             vigorSlider.OnSelect(null);
+
+            RefreshDerivedStatPreviews();
+            RefreshAttackPreview();
+            RefreshDefenseDisplay();
         }
 
         //  THIS IS CALLED EVERY TIME A LEVEL SLIDER IS CHANGED
@@ -159,6 +184,9 @@ namespace BK
 
             //  CHANGES PROJECTED STATS TEXT COLORS TO REFLECT FEED BACK DEPENDING ON IF WE CAN AFFORD THE LEVELS OR NOT
             ChangeTextColorsDependingOnCosts();
+            RefreshDerivedStatPreviews();
+            RefreshAttackPreview();
+            RefreshDefenseDisplay();
         }
 
         public void ConfirmLevels()
@@ -280,6 +308,167 @@ namespace BK
 
                 if (projectedPlayerLevel > playerLevel)
                     projectedCharacterLevelText.color = Color.red;
+            }
+        }
+
+        // ── 파생 스탯 미리보기 ─────────────────────────────────────────
+        // 슬라이더 현재값을 기준으로 HP/FP/Stamina의 변화를 "현재 > 예상" 형식으로 표시
+        private void RefreshDerivedStatPreviews()
+        {
+            PlayerManager player = GUIController.Instance.localPlayer;
+            var stats = player.characterStatsManager;
+            var net   = player.playerNetworkManager;
+
+            int curVigor     = net.vigor.Value;
+            int curMind      = net.mind.Value;
+            int curEndurance = net.endurance.Value;
+
+            int projVigor     = Mathf.RoundToInt(vigorSlider.value);
+            int projMind      = Mathf.RoundToInt(mindSlider.value);
+            int projEndurance = Mathf.RoundToInt(enduranceSlider.value);
+
+            bool canAfford = totalLevelUpCost <= player.playerStatsManager.runes;
+
+            SetDerivedPreview(maxHPPreviewText,
+                stats.CalculateHealthBasedOnVitalityLevel(curVigor),
+                stats.CalculateHealthBasedOnVitalityLevel(projVigor),
+                canAfford);
+
+            SetDerivedPreview(maxFPPreviewText,
+                stats.CalculateFocusPointsBasedOnMindLevel(curMind),
+                stats.CalculateFocusPointsBasedOnMindLevel(projMind),
+                canAfford);
+
+            SetDerivedPreview(maxStaminaPreviewText,
+                stats.CalculateStaminaBasedOnEnduranceLevel(curEndurance),
+                stats.CalculateStaminaBasedOnEnduranceLevel(projEndurance),
+                canAfford);
+        }
+
+        // ── 공격력 미리보기 ────────────────────────────────────────────
+        // STR/DEX/INT 슬라이더 값(투영) 기준으로 무기 공격력 변화를 표시
+        private void RefreshAttackPreview()
+        {
+            PlayerManager player = GUIController.Instance.localPlayer;
+            var net = player.playerNetworkManager;
+            bool canAfford = totalLevelUpCost <= player.playerStatsManager.runes;
+
+            // 현재 스탯
+            int curStr   = net.strength.Value + net.strengthModifier.Value;
+            int curDex   = net.dexterity.Value;
+            int curIntel = net.intelligence.Value;
+            int curFaith = net.faith.Value;
+
+            // 투영(예정) 스탯
+            int projStr   = Mathf.RoundToInt(strengthSlider.value) + net.strengthModifier.Value;
+            int projDex   = Mathf.RoundToInt(dexteritySlider.value);
+            int projIntel = Mathf.RoundToInt(intelligenceSlider.value);
+            int projFaith = Mathf.RoundToInt(faithSlider.value);
+
+            var inv = player.playerInventoryManager;
+
+            SetWeaponAttackPreview(inv.currentRightHandWeapon,
+                curStr, curDex, curIntel, curFaith,
+                projStr, projDex, projIntel, projFaith,
+                rightPhysAtkPreviewText, rightMagAtkPreviewText, canAfford);
+
+            SetWeaponAttackPreview(inv.currentLeftHandWeapon,
+                curStr, curDex, curIntel, curFaith,
+                projStr, projDex, projIntel, projFaith,
+                leftPhysAtkPreviewText, leftMagAtkPreviewText, canAfford);
+        }
+
+        private void SetWeaponAttackPreview(
+            WeaponItem weapon,
+            int curStr, int curDex, int curIntel, int curFaith,
+            int projStr, int projDex, int projIntel, int projFaith,
+            TextMeshProUGUI physField, TextMeshProUGUI magField,
+            bool canAfford)
+        {
+            if (weapon == null)
+            {
+                physField?.SetText("—");
+                magField?.SetText("—");
+                return;
+            }
+
+            var (curPhys, curMag)   = CalcWeaponAttack(weapon, curStr,  curDex,  curIntel,  curFaith);
+            var (projPhys, projMag) = CalcWeaponAttack(weapon, projStr, projDex, projIntel, projFaith);
+
+            SetDerivedPreview(physField, curPhys, projPhys, canAfford);
+            SetDerivedPreview(magField,  curMag,  projMag,  canAfford);
+        }
+
+        // WeaponManager/PlayerUICharacterMenuManager와 동일한 스케일링 로직
+        private static (int phys, int mag) CalcWeaponAttack(WeaponItem weapon, int str, int dex, int intel, int faith)
+        {
+            float physBonus = 0f, magBonus = 0f;
+
+            switch (weapon.weaponClass)
+            {
+                case WeaponClass.StraightSword:
+                case WeaponClass.Fist:
+                    physBonus = StatScalingBonus(weapon.physicalDamage, str, 0.5f);
+                    break;
+                case WeaponClass.Spear:
+                    physBonus = StatScalingBonus(weapon.physicalDamage, str, 0.3f)
+                              + StatScalingBonus(weapon.physicalDamage, dex, 0.3f);
+                    break;
+                case WeaponClass.Bow:
+                    physBonus = StatScalingBonus(weapon.physicalDamage, dex, 0.5f);
+                    break;
+                case WeaponClass.Staff:
+                    magBonus = StatScalingBonus(weapon.magicDamage, intel, 0.5f);
+                    break;
+            }
+
+            bool meetsReq = str   >= weapon.strengthREQ
+                         && dex   >= weapon.dexREQ
+                         && intel >= weapon.intREQ
+                         && faith >= weapon.faithREQ;
+            float penalty = meetsReq ? 1f : 0.5f;
+
+            int phys = Mathf.RoundToInt((weapon.physicalDamage + physBonus) * penalty);
+            int mag  = Mathf.RoundToInt((weapon.magicDamage  + magBonus)  * penalty);
+            return (phys, mag);
+        }
+
+        private static float StatScalingBonus(float baseDamage, int statValue, float scaleFactor)
+        {
+            float normalized = Mathf.Clamp01(statValue / 99f);
+            float curve = 1f - Mathf.Pow(1f - normalized, 2f);
+            return baseDamage * curve * scaleFactor;
+        }
+
+        // ── 방어력 표시 (스탯 무관 / 방어구 기반) ────────────────────────
+        private void RefreshDefenseDisplay()
+        {
+            var stats = GUIController.Instance.localPlayer.playerStatsManager;
+            stats.CalculateTotalArmorAbsorption();
+
+            physDefDisplayText?.SetText(stats.armorPhysicalDamageAbsorption.ToString("F1"));
+            magDefDisplayText?.SetText(stats.armorMagicDamageAbsorption.ToString("F1"));
+            fireDefDisplayText?.SetText(stats.armorFireDamageAbsorption.ToString("F1"));
+            lightningDefDisplayText?.SetText(stats.armorLightningDamageAbsorption.ToString("F1"));
+            holyDefDisplayText?.SetText(stats.armorHolyDamageAbsorption.ToString("F1"));
+            poiseDisplayText?.SetText(stats.basePoiseDefense.ToString("F0"));
+        }
+
+        // current == projected → 그냥 숫자 (흰색)
+        // current  < projected → "current > projected" (파란색 or 빨간색)
+        private static void SetDerivedPreview(TextMeshProUGUI field, int current, int projected, bool canAfford)
+        {
+            if (field == null) return;
+
+            if (projected == current)
+            {
+                field.text  = current.ToString();
+                field.color = Color.white;
+            }
+            else
+            {
+                field.text  = $"{current} > {projected}";
+                field.color = canAfford ? Color.blue : Color.red;
             }
         }
 
