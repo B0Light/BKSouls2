@@ -117,6 +117,8 @@ public class GridBuildHUDManager : MonoBehaviour
         //InputHandlerManager.Instance.SetInputMode(StandaloneInputModule.InputMode.Exploration);
         //PlayerCameraController.Instance.TurnOnCamera();
 
+        GUIController.HideCursor();
+        PlayerInputManager.Instance.EnablePlayerActions();
         ToggleMainBuildHUD(false);
     }
 }

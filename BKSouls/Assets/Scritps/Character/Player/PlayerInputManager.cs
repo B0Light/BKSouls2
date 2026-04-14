@@ -107,6 +107,21 @@ namespace BK
             }
         }
 
+        // GridBuild 등 외부 UI 사용 중 플레이어 액션 입력 차단/복구
+        public void DisablePlayerActions()
+        {
+            if (playerControls == null) return;
+            playerControls.PlayerActions.Disable();
+            playerControls.PlayerMovement.Disable();
+        }
+
+        public void EnablePlayerActions()
+        {
+            if (playerControls == null) return;
+            playerControls.PlayerActions.Enable();
+            playerControls.PlayerMovement.Enable();
+        }
+
         private void OnEnable()
         {
             if (playerControls == null)
@@ -337,7 +352,10 @@ namespace BK
             {
                 lockOn_Input = false;
 
-                //  IF WE ARE AIMING USING RANGED WEAPONS RETURN (DO NOT ALLOW LOCK WHILST AIMING)
+                //  활을 장착 중이면 록온 불가
+                WeaponItem rightWeapon = player.playerInventoryManager.currentRightHandWeapon;
+                if (rightWeapon != null && rightWeapon.weaponClass == WeaponClass.Bow)
+                    return;
 
                 PlayerCamera.Instance.HandleLocatingLockOnTargets();
 
@@ -463,6 +481,10 @@ namespace BK
                 if (GUIController.Instance.menuWindowIsOpen)
                     return;
 
+                // 활 시위 중 구르기 불가
+                if (player.playerNetworkManager.isHoldingArrow.Value)
+                    return;
+
                 player.playerLocomotionManager.AttemptToPerformDodge();
             }
         }
@@ -487,6 +509,10 @@ namespace BK
 
                 //  IF WE HAVE A UI WINDOW OPEN, SIMPLY RETURN WITHOUT DOING ANYTHING
                 if (GUIController.Instance.menuWindowIsOpen)
+                    return;
+
+                // 활 시위 중 점프 불가
+                if (player.playerNetworkManager.isHoldingArrow.Value)
                     return;
 
                 //  ATTEMPT TO PERFORM JUMP
@@ -616,13 +642,17 @@ namespace BK
                 if (player.isPerformingAction)
                     return;
 
+                // 활 시위 중 무기 교체 불가
+                if (player.playerNetworkManager.isHoldingArrow.Value)
+                    return;
+
                 if (player.playerCombatManager.isUsingItem)
                     return;
 
                 player.playerEquipmentManager.SwitchRightWeapon();
             }
         }
-        
+
         private void HandleSwitchLeftWeaponInput()
         {
             if (switch_Left_Weapon_Input)
@@ -633,6 +663,10 @@ namespace BK
                     return;
 
                 if (player.isPerformingAction)
+                    return;
+
+                // 활 시위 중 무기 교체 불가
+                if (player.playerNetworkManager.isHoldingArrow.Value)
                     return;
 
                 if (player.playerCombatManager.isUsingItem)

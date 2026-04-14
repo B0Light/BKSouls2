@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 58f49d2820ca62446961dc8220d043d2, type: 3}
   itemTier: 0
   itemType: 4
-  cost: 0
+  cost: 3500
   itemDescription: Sacred greaves worn by those who walk the path of righteousness. Provides steadfast protection to holy warriors in service of their creed.
   width: 2
   height: 2

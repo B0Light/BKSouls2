@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 573d1b7f5c05a204e9153847e621f446, type: 3}
   itemTier: 0
   itemType: 2
-  cost: 0
+  cost: 2800
   itemDescription: A full battle helm worn by soldiers who march under a holy banner. Provides dependable head protection in the fiercest of engagements.
   width: 2
   height: 2

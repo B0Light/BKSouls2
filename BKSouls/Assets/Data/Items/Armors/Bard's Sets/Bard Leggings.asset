@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 15b4ce3fbf4e80742a2a567205deb3f7, type: 3}
   itemTier: 0
   itemType: 4
-  cost: 0
+  cost: 900
   itemDescription: Light traveling breeches worn by itinerant bards. Allow for swift and graceful movement, though they offer little in the way of physical protection.
   width: 2
   height: 2

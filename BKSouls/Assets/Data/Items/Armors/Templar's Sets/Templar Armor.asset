@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
   itemTier: 0
   itemType: 1
-  cost: 0
+  cost: 8500
   itemDescription: Imposing heavy plate worn by the elite templar knights. Among the heaviest armor available, offering exceptional physical defense and poise.
   width: 2
   height: 2

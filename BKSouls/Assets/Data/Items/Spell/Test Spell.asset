@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 0}
   itemTier: 0
   itemType: 8
-  cost: 0
+  cost: 500
   itemDescription: A prototype spell used for testing purposes. Not intended for actual combat.
   SpellClass: 0
   fullChargeEffectMultiplier: 2

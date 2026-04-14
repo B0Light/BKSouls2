@@ -252,15 +252,7 @@ namespace BK
             if (player.IsOwner)
             {
                 GUIController.Instance.playerUIHudManager.SetRightWeaponQuickSlotIcon(newID);
-
-                if (player.playerInventoryManager.currentRightHandWeapon.weaponClass == WeaponClass.Bow)
-                {
-                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
-                }
-                else
-                {
-                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
-                }
+                RefreshProjectileSlotUI();
             }
 
             RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentRightHandWeapon);
@@ -276,15 +268,7 @@ namespace BK
             if (player.IsOwner)
             {
                 GUIController.Instance.playerUIHudManager.SetLeftWeaponQuickSlotIcon(newID);
-
-                if (player.playerInventoryManager.currentLeftHandWeapon.weaponClass == WeaponClass.Bow)
-                {
-                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(true);
-                }
-                else
-                {
-                    GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
-                }
+                RefreshProjectileSlotUI();
             }
 
             RefreshSpellSlotUI();
@@ -325,6 +309,17 @@ namespace BK
 
             player.playerInventoryManager.currentSpell = newSpell;
             RefreshSpellSlotUI();
+        }
+
+        // 오른손 주무기가 활이면 화살 UI 표시, 아니면 숨김
+        private void RefreshProjectileSlotUI()
+        {
+            if (!player.IsOwner) return;
+
+            bool rightHandIsBow = player.playerInventoryManager.currentRightHandWeapon != null
+                && player.playerInventoryManager.currentRightHandWeapon.weaponClass == WeaponClass.Bow;
+
+            GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(rightHandIsBow);
         }
 
         private void RefreshSpellSlotUI()
@@ -431,7 +426,7 @@ namespace BK
 
         public void OnIsHoldingArrowChanged(bool oldStatus, bool newStatus)
         {
-            player.isPerformingAction = true;
+            // isPerformingAction은 건드리지 않음 — 활 시위 중에도 카메라·이동은 허용해야 함
             player.animator.SetBool("isHoldingArrow", isHoldingArrow.Value);
         }
 
@@ -520,6 +515,7 @@ namespace BK
             player.playerEquipmentManager.TwoHandRightWeapon();
             RefreshSpellSlotUI();
             RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentTwoHandWeapon);
+            RefreshProjectileSlotUI();
         }
 
         public void OnIsTwoHandingLeftWeaponChanged(bool oldStatus, bool newStatus)
@@ -537,6 +533,7 @@ namespace BK
             player.playerEquipmentManager.TwoHandLeftWeapon();
             RefreshSpellSlotUI();
             RefreshCasterWeaponSpellSlotsUI(player.playerInventoryManager.currentTwoHandWeapon);
+            RefreshProjectileSlotUI();
         }
 
         public void OnIsChuggingChanged(bool oldStatus, bool newStatus)

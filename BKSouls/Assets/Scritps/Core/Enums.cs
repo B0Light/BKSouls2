@@ -100,7 +100,8 @@ public enum WeaponClass
     MediumShield,
     Fist,
     LightShield,
-    Bow
+    Bow,
+    Staff           //  INT 스케일링 (마법 지팡이)
 }
 
 //  USED TO DETERMINE WHICH ITEM (CATALYST) IS NEEDED TO CAST SPELL

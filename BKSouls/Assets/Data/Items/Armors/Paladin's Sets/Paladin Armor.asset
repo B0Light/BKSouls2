@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: ea8fd0a22c6d22446ac80b2204f0378f, type: 3}
   itemTier: 0
   itemType: 1
-  cost: 0
+  cost: 5500
   itemDescription: Sacred plate armor blessed by priests of the holy order. Provides exceptional protection against holy forces and greatly enhances the wearer's focus.
   width: 2
   height: 2

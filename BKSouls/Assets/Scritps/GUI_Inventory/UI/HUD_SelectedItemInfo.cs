@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BK;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,12 +16,19 @@ namespace BK.Inventory
         [SerializeField] private Image backgroundImage01;
         [SerializeField] private Image backgroundImage02;
         [SerializeField] private TextMeshProUGUI itemName;
-        [SerializeField] private TextMeshProUGUI itemDurability;
         [SerializeField] private TextMeshProUGUI itemGold;
-        [SerializeField] private TextMeshProUGUI itemWeight;
         [SerializeField] private Transform abilityContainer; // 모든 능력이 들어갈 컨테이너
 
         [SerializeField] private GameObject[] abilityUIObjects; 
+
+        [SerializeField] private Transform requirementContainer;
+
+        [SerializeField] private TextMeshProUGUI requirementStrength;
+        [SerializeField] private TextMeshProUGUI requirementDexterity;
+        [SerializeField] private TextMeshProUGUI requirementIntelligence;
+        [SerializeField] private TextMeshProUGUI requirementFaith;
+
+
         private int _currentAbilityIndex = 0;
 
         private String _itemDescription;
@@ -37,13 +45,13 @@ namespace BK.Inventory
             itemName.text = itemInfo.itemName;
 
             _itemDescription = itemInfo.itemDescription;
-            itemWeight.text = itemInfo.weight.ToString("F1");
             itemGold.text = itemInfo.cost.ToString();
 
             // 기존 능력 UI들 정리
             ClearAbilities();
 
             _currentAbilityIndex = 0;
+
             // 추가 능력들 생성
             if (itemInfo.itemAbilities != null)
             {
@@ -57,6 +65,21 @@ namespace BK.Inventory
                     }
                 }
             }
+
+            // 요구사항 UI 표시
+            if (itemInfo is WeaponItem weaponItem)
+            {
+                requirementContainer.gameObject.SetActive(true);
+                requirementStrength.text = weaponItem.strengthREQ.ToString();
+                requirementDexterity.text = weaponItem.dexREQ.ToString();
+                requirementIntelligence.text = weaponItem.intREQ.ToString();
+                requirementFaith.text = weaponItem.faithREQ.ToString();
+            }
+            else
+            {
+                requirementContainer.gameObject.SetActive(false);
+            }
+
         }
 
         private void CreateAbilityFromItemAbility(ItemAbility ability, GameObject targetObject)

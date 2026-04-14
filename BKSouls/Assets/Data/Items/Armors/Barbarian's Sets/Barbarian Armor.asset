@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 86367a7244073a0428c4fd5fbc318118, type: 3}
   itemTier: 0
   itemType: 1
-  cost: 0
+  cost: 4500
   itemDescription: Thick fur-lined armor worn by warriors of the untamed wilds. Offers exceptional physical defense and robustness at the cost of magic resistance.
   width: 2
   height: 2

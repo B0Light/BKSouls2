@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 86672ff7beefd4e488fd5723ed5e3583, type: 3}
   itemTier: 0
   itemType: 3
-  cost: 0
+  cost: 2000
   itemDescription: Crude iron-studded leather bracers worn by savage warriors. Favored by berserkers who rely on raw strength over refined technique.
   width: 2
   height: 2

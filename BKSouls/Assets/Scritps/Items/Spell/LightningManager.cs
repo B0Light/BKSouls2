@@ -29,12 +29,10 @@ namespace BK
             StartCoroutine(ActivateDamageCollider());
         }
 
-        public void InitializeLightning(CharacterManager spellCaster)
+        public void InitializeLightning(CharacterManager spellCaster, float calculatedDamage)
         {
             damageCollider.spellCaster = spellCaster;
-
-            //  TO DO: SET UP DAMAGE FORMULA BASED ON CHARACTERS STATS AND SPELL CASTING WEAPON'S SPELL BUFF
-            damageCollider.lightningDamage = 150;
+            damageCollider.lightningDamage = calculatedDamage;
 
             if (isFullyCharged)
                 damageCollider.lightningDamage *= 1.4f;

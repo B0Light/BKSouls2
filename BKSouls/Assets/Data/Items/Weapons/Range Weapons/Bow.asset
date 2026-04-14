@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Bow
   itemIcon: {fileID: 21300000, guid: 491ffb6fc9b45a04e967253d51794274, type: 3}
   itemTier: 0
-  cost: 0
+  cost: 1500
   itemDescription: A simple but effective wooden longbow. Requires skill and dexterity to use, but allows the wielder to engage enemies safely from a distance.
   itemType: 0
   width: 1

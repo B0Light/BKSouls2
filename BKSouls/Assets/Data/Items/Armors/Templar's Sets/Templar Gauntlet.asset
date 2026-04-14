@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
   itemTier: 0
   itemType: 3
-  cost: 0
+  cost: 3200
   itemDescription: Massively reinforced gauntlets worn by templar knights. Near impenetrable to physical strikes, though they demand great strength to bear.
   width: 2
   height: 2

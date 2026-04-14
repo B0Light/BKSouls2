@@ -22,10 +22,6 @@ public class DungeonEnterGUIManager : GUIComponent
     [SerializeField] private Image dungeonBackgroundImage;
     
     [SerializeField] private Button enterDungeonButton;
-    [SerializeField] private Button joinDungeonButton;
-
-    [SerializeField] private TMP_InputField ipField;
-    [SerializeField] private TMP_InputField portField;
     
     [SerializeField] private GameObject available;
     [SerializeField] private GameObject disable;
@@ -108,13 +104,10 @@ public class DungeonEnterGUIManager : GUIComponent
         available.SetActive(false);
         disable.SetActive(false);
         enterDungeonButton.onClick.RemoveAllListeners();
-        joinDungeonButton.onClick.RemoveAllListeners();
         
         enterDungeonButton.interactable = true;
         available.SetActive(true);
         enterDungeonButton.onClick.AddListener(EnterDungeonAsHost);
-        
-        joinDungeonButton.onClick.AddListener(() =>JoinRoomAsClient());
     }
 
     #endregion
@@ -134,40 +127,7 @@ public class DungeonEnterGUIManager : GUIComponent
         }
     }
     
-    public void JoinRoomAsClient()
-    {
-        StartCoroutine(JoinRoomAsClientCo());
-    }
     
-    // TODO -> Relay 방식으로 변경 
-    private IEnumerator JoinRoomAsClientCo()
-    {
-        CleanupBeforeStartNetwork();
-        
-        yield return null;
-        
-        string address = ipField.text;
-        int port = int.Parse(portField.text);
-        
-        var utp = NetworkManager.Singleton.GetComponent<UnityTransport>();
-        utp.ConnectionData.Address = address;
-        utp.ConnectionData.Port = (ushort)port;
-
-        if (!NetworkManager.Singleton.StartClient())
-        {
-            Debug.LogError("StartClient failed");
-        }
-    }
-
-    public void LeaveSessionAndReturnToSoloHost()
-    {
-        // 멀티 종료 -> 로컬 Host로 복귀(몬헌식)
-        ShutdownNetworkAndCleanup();
-        
-        // 필요하다면 로비 로드 완료 후 StartHost()로 솔로 시작
-        // (혹은 버튼으로 "싱글 시작"을 누르게 해도 됨)
-    }
-
     // Host만 누를 수 있는 "던전 입장" 버튼
     public void EnterDungeonAsHost()
     {

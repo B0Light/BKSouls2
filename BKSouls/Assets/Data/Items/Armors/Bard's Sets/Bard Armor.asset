@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: f805299e3d09470459ea15b78c32014e, type: 3}
   itemTier: 0
   itemType: 1
-  cost: 0
+  cost: 1200
   itemDescription: Elegant cloth garb worn by wandering minstrels and enchanters. Offers minimal physical protection but greatly enhances the wearer's magical focus and vitality.
   width: 2
   height: 2

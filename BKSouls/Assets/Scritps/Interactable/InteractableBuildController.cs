@@ -13,6 +13,8 @@ namespace BK
         {
             GUIController.Instance.ToggleMainGUI(false);
             //InputHandlerManager.Instance.SetInputMode(InputMode.OpenUI);
+            GUIController.ShowCursor();
+            PlayerInputManager.Instance.DisablePlayerActions();
             GridBuildHUDManager.Instance.ToggleMainBuildHUD(true, this);
         }
     }

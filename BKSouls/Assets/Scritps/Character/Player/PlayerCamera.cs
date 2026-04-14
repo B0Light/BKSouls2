@@ -94,9 +94,6 @@ namespace BK
             if (!player.playerLocomotionManager.isGrounded)
                 player.playerNetworkManager.isAiming.Value = false;
 
-            if (player.isPerformingAction)
-                return;
-
             aimDirection = cameraObject.transform.forward.normalized;
 
             //  LEFT AND RIGHT LOOK

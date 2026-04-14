@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 8f24031957ea91a4f88212c46ea9e3d1, type: 3}
   itemTier: 0
   itemType: 0
-  cost: 0
+  cost: 9500
   itemDescription: A standard one-handed sword with a straight double-edged blade. Well-balanced and versatile, suitable for any combat situation.
   width: 1
   height: 4

@@ -86,22 +86,7 @@ namespace BK
 
             // APPLY DAMAGE TO THE PROJECTILES DAMAGE COLLIDER
             FireBallManager fireBallManager = instantiatedReleasedSpellFX.GetComponent<FireBallManager>();
-            fireBallManager.InitializeFireBall(player);
-
-
-            // GET ANY COLLIDERS FROM THE CASTER
-            //Collider[] characterColliders = player.GetComponentsInChildren<Collider>();
-            //Collider characterCollisionCollider = player.GetComponent<Collider>();
-
-            //  USE THE LIST OF COLLIDERS FROM THE CASTER AND NOW APPLY THE IGNORE PHYSICS WITH THE COLLIDERS FROM THE PROJECTILE
-            //  NOTE THIS IS NOT NEEDED FOR "FIREBALL" SPECIFICALLY BECAUSE THE COLLISION IS A "ON TRIGGER ENTER" THAT USES A DAMAGE COLLIDER, AND WE ALREADY CHECK FOR THAT
-            //  I SIMPLY WANTED TO SHOWCASE ADDITIONAL WAYS OF DOING THIS, AND THE FUNCTION "Physics.IgnoreCollision" <- VERY HANDY
-            /*Physics.IgnoreCollision(characterCollisionCollider, fireBallManager.damageCollider.damageCollider, true);
-
-            foreach (var collider in characterColliders)
-            {
-                Physics.IgnoreCollision(collider, fireBallManager.damageCollider.damageCollider, true);
-            }*/
+            fireBallManager.InitializeFireBall(player, CalculateSpellDamage(player));
 
             // SET THE PROJECTILES VELOCITY AND DIRECTION
             // TODO: MAKE PROJECTILES UP AND DOWN DIRECTION GET CHOOSEN BASED ON WHERE PLAYER IS LOOKING
@@ -186,22 +171,7 @@ namespace BK
             // APPLY DAMAGE TO THE PROJECTILES DAMAGE COLLIDER
             FireBallManager fireBallManager = instantiatedReleasedSpellFX.GetComponent<FireBallManager>();
             fireBallManager.isFullyCharged = true;
-            fireBallManager.InitializeFireBall(player);
-
-
-            // GET ANY COLLIDERS FROM THE CASTER
-            //Collider[] characterColliders = player.GetComponentsInChildren<Collider>();
-            //Collider characterCollisionCollider = player.GetComponent<Collider>();
-
-            //  USE THE LIST OF COLLIDERS FROM THE CASTER AND NOW APPLY THE IGNORE PHYSICS WITH THE COLLIDERS FROM THE PROJECTILE
-            //  NOTE THIS IS NOT NEEDED FOR "FIREBALL" SPECIFICALLY BECAUSE THE COLLISION IS A "ON TRIGGER ENTER" THAT USES A DAMAGE COLLIDER, AND WE ALREADY CHECK FOR THAT
-            //  I SIMPLY WANTED TO SHOWCASE ADDITIONAL WAYS OF DOING THIS, AND THE FUNCTION "Physics.IgnoreCollision" <- VERY HANDY
-            /*Physics.IgnoreCollision(characterCollisionCollider, fireBallManager.damageCollider.damageCollider, true);
-
-            foreach (var collider in characterColliders)
-            {
-                Physics.IgnoreCollision(collider, fireBallManager.damageCollider.damageCollider, true);
-            }*/
+            fireBallManager.InitializeFireBall(player, CalculateSpellDamage(player));
 
             // SET THE PROJECTILES VELOCITY AND DIRECTION
             // TODO: MAKE PROJECTILES UP AND DOWN DIRECTION GET CHOOSEN BASED ON WHERE PLAYER IS LOOKING

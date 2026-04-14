@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: b17b1cb84afe7464f8213ef2101328e2, type: 3}
   itemTier: 0
   itemType: 3
-  cost: 0
+  cost: 2200
   itemDescription: Thick gauntlets worn by holy warriors sworn to crusade. Sturdy enough to withstand the harshest battlefield conditions.
   width: 2
   height: 2

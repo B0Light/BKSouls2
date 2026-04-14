@@ -58,7 +58,7 @@ namespace BK
             GameObject instantiatedLightningFX = Instantiate(spellCastReleaseFX, player.transform.position, Quaternion.identity);
 
             LightningManager lightningManager = instantiatedLightningFX.GetComponent<LightningManager>();
-            lightningManager.InitializeLightning(player);
+            lightningManager.InitializeLightning(player, CalculateSpellDamage(player));
         }
 
         public override void SuccessfullyChargeSpell(PlayerManager player)
@@ -99,7 +99,7 @@ namespace BK
 
             LightningManager lightningManager = instantiatedLightningFX.GetComponent<LightningManager>();
             lightningManager.isFullyCharged = true;
-            lightningManager.InitializeLightning(player);
+            lightningManager.InitializeLightning(player, CalculateSpellDamage(player));
         }
     }
 }

@@ -17,7 +17,7 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 3eb23cb968618fa4b954fc2ef99a949a, type: 3}
   itemTier: 0
   itemType: 10
-  cost: 0
+  cost: 3000
   itemDescription: A defensive technique imbued into a shield. With perfect timing, deflects an incoming attack and creates an opening for a devastating critical counterattack.
   usableWeaponClasses: 02000000
   focusPointCost: 0

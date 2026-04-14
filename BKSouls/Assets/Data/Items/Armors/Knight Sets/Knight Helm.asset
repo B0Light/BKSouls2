@@ -16,7 +16,7 @@ MonoBehaviour:
   itemName: Knight Helm
   itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
   itemTier: 0
-  cost: 0
+  cost: 1800
   itemDescription: A sturdy closed helm worn by sworn knights. Provides reliable head protection without sacrificing too much in the way of visibility.
   itemType: 2
   width: 2

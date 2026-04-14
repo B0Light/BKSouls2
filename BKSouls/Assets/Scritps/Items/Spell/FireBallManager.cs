@@ -46,12 +46,10 @@ namespace BK
             }
         }
 
-        public void InitializeFireBall(CharacterManager spellCaster)
+        public void InitializeFireBall(CharacterManager spellCaster, float calculatedDamage)
         {
             damageCollider.spellCaster = spellCaster;
-
-            //  TO DO SET UP DAMAGE FORMULA TO CALCULATE DAMAGE BASED ON CHARACTERS STATS, SPELL POWER AND SPELL CASTING WEAPON'S SPELL BUFF
-            damageCollider.fireDamage = 150;
+            damageCollider.fireDamage = calculatedDamage;
 
             if (isFullyCharged)
                 damageCollider.fireDamage *= 1.4f;
