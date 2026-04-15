@@ -113,6 +113,7 @@ namespace BK
             if (aiCharacter != null)
             {
                 aiCharacter.aiCharacterCombatManager.DamageStance(stanceDamage);
+                aiCharacter.aiCharacterCombatManager.ExpandDetectionOnHit();
             }
         }
 

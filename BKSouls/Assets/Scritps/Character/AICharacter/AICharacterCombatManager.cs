@@ -32,6 +32,7 @@ namespace BK
 
         [Header("Detection")]
         [SerializeField] float detectionRadius = 15;
+        private float _baseDetectionRadius = -1;
         public float minimumFOV = -35;
         public float maximumFOV = 35;
 
@@ -164,6 +165,14 @@ namespace BK
 
                 aiCharacter.characterAnimatorManager.PlayTargetActionAnimationInstantly("Stance_Break_01", true);
             }
+        }
+
+        public void ExpandDetectionOnHit()
+        {
+            if (_baseDetectionRadius < 0)
+                _baseDetectionRadius = detectionRadius;
+
+            detectionRadius = _baseDetectionRadius * 5f;
         }
 
         public void DamageStance(int stanceDamage)
