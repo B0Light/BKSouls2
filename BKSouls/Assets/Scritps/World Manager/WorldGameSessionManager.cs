@@ -27,6 +27,14 @@ namespace BK
 
             GUIController.Instance.localPlayer.ReviveCharacter();
 
+            // 던전에 보스/적 시신이 남아 있으면 씬 전환 전에 정리
+            if (RoomManager.Instance != null)
+                RoomManager.Instance.CleanupForSceneTransition();
+
+            // 사망 귀환 시 레벨업 UI 미확정 상태 초기화
+            if (GUIController.Instance.playerUILevelUpManager != null)
+                GUIController.Instance.playerUILevelUpManager.ResetSliders();
+
             WorldSceneManager.Instance.LoadWorldScene("Scene_RoundTableHold");
         }
 

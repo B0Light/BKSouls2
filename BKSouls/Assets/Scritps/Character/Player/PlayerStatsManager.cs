@@ -84,6 +84,44 @@ namespace BK
                 //  POISE
                 basePoiseDefense += player.playerInventoryManager.bodyEquipment.poise;
             }
+            //  HAND EQUIPMENT
+            if (player.playerInventoryManager.handEquipment != null)
+            {
+                //  DAMAGE RESISTANCE
+                armorPhysicalDamageAbsorption += player.playerInventoryManager.handEquipment.physicalDamageAbsorption;
+                armorMagicDamageAbsorption += player.playerInventoryManager.handEquipment.magicDamageAbsorption;
+                armorFireDamageAbsorption += player.playerInventoryManager.handEquipment.fireDamageAbsorption;
+                armorHolyDamageAbsorption += player.playerInventoryManager.handEquipment.holyDamageAbsorption;
+                armorLightningDamageAbsorption += player.playerInventoryManager.handEquipment.lightningDamageAbsorption;
+
+                //  STATUS EFFECT RESISTANCE
+                armorRobustness += player.playerInventoryManager.handEquipment.robustness;
+                armorVitality += player.playerInventoryManager.handEquipment.vitality;
+                armorImmunity += player.playerInventoryManager.handEquipment.immunity;
+                armorFocus += player.playerInventoryManager.handEquipment.focus;
+
+                //  POISE
+                basePoiseDefense += player.playerInventoryManager.handEquipment.poise;
+            }
+            //  LEG EQUIPMENT
+            if (player.playerInventoryManager.legEquipment != null)
+            {
+                //  DAMAGE RESISTANCE
+                armorPhysicalDamageAbsorption += player.playerInventoryManager.legEquipment.physicalDamageAbsorption;
+                armorMagicDamageAbsorption += player.playerInventoryManager.legEquipment.magicDamageAbsorption;
+                armorFireDamageAbsorption += player.playerInventoryManager.legEquipment.fireDamageAbsorption;
+                armorHolyDamageAbsorption += player.playerInventoryManager.legEquipment.holyDamageAbsorption;
+                armorLightningDamageAbsorption += player.playerInventoryManager.legEquipment.lightningDamageAbsorption;
+
+                //  STATUS EFFECT RESISTANCE
+                armorRobustness += player.playerInventoryManager.legEquipment.robustness;
+                armorVitality += player.playerInventoryManager.legEquipment.vitality;
+                armorImmunity += player.playerInventoryManager.legEquipment.immunity;
+                armorFocus += player.playerInventoryManager.legEquipment.focus;
+
+                //  POISE
+                basePoiseDefense += player.playerInventoryManager.legEquipment.poise;
+            }
         }
 
         public void AddRunes(int runesToAdd)

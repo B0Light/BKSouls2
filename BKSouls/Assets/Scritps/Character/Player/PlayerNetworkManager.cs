@@ -77,9 +77,6 @@ namespace BK
         {
             base.OnIsDeadChanged(oldStatus, newStatus);
 
-            if (player.isDead.Value)
-                player.playerCombatManager.CreateDeadSpot(player.transform.position, player.playerStatsManager.runes);
-
             if (player.isDead.Value && NetworkManager.Singleton.IsServer)
             {
                 //  REMOVE THE BOSS HP BAR FROM THE UI

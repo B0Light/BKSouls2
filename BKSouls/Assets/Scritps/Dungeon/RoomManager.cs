@@ -30,9 +30,12 @@ namespace BK
         [SerializeField] private GameObject exitDoorPrefab;
 
         [Header("Enemy Count")]
-        [SerializeField] private int baseBattleEnemyCount = 3;
-        [SerializeField] private int eliteEnemyCount = 5;
-        [SerializeField] private int bossEnemyCount = 1;
+        [SerializeField] private int minBattleEnemyCount = 2;
+        [SerializeField] private int maxBattleEnemyCount = 4;
+        [SerializeField] private int minEliteEnemyCount = 3;
+        [SerializeField] private int maxEliteEnemyCount = 6;
+        [SerializeField] private int minBossEnemyCount  = 1;
+        [SerializeField] private int maxBossEnemyCount  = 1;
 
         private RoomInstance currentRoomInstance;
         private RoomPlan currentPlan;
@@ -195,6 +198,16 @@ namespace BK
                 return;
 
             currentRoomState.Value = (int)state;
+        }
+
+        // 씬 전환 직전 호출 — 모든 네트워크 오브젝트(적/보상/문/낙하 아이템)를 정리한다
+        public void CleanupForSceneTransition()
+        {
+            if (!IsServer)
+                return;
+
+            CleanupCurrentRoomNetworkObjectsOnly();
+            DestroyRoomGeometry();
         }
 
         private void CleanupCurrentRoomNetworkObjectsOnly()
@@ -494,23 +507,6 @@ namespace BK
             if (cc != null) cc.enabled = true;
         }
 
-        private void ApplyWarp(NetworkObject playerNetObj, Vector3 position, Quaternion rotation)
-        {
-            CharacterController cc = playerNetObj.GetComponent<CharacterController>();
-            if (cc != null) cc.enabled = false;
-
-            playerNetObj.transform.SetPositionAndRotation(position, rotation);
-
-            Rigidbody rb = playerNetObj.GetComponent<Rigidbody>();
-            if (rb != null && !rb.isKinematic)
-            {
-                rb.linearVelocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-            }
-
-            if (cc != null) cc.enabled = true;
-        }
-        
         private void PrepareRoom()
         {
             if (!IsServer)
@@ -551,14 +547,16 @@ namespace BK
 
         private int GetEnemyCountByRoomType(RoomType roomType)
         {
+            System.Random rng = new(currentPlan.seed ^ (int)roomType);
+
             switch (roomType)
             {
                 case RoomType.Battle:
-                    return baseBattleEnemyCount;
+                    return rng.Next(minBattleEnemyCount, maxBattleEnemyCount + 1);
                 case RoomType.Elite:
-                    return eliteEnemyCount;
+                    return rng.Next(minEliteEnemyCount, maxEliteEnemyCount + 1);
                 case RoomType.Boss:
-                    return bossEnemyCount;
+                    return rng.Next(minBossEnemyCount, maxBossEnemyCount + 1);
                 default:
                     return 0;
             }

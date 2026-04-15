@@ -172,10 +172,9 @@ namespace BK
             //  CHECK COST
             if (totalLevelUpCost > player.playerStatsManager.runes)
             {
-                //  DISABLE CONFIRM BUTTON SO YOU CANT LEVEL UP
+                //  DISABLE CONFIRM BUTTON AND RESET SLIDERS TO CURRENT STATS
                 confirmLevelsButton.interactable = false;
-
-                //  OPTIONALLY CHANGE LEVEL UP FIELDS TEXT TO RED
+                ResetSliders();
             }
             else
             {
@@ -192,24 +191,57 @@ namespace BK
         public void ConfirmLevels()
         {
             PlayerManager player = GUIController.Instance.localPlayer;
+            var net = player.playerNetworkManager;
 
             //  DEDUCT COST FROM TOTAL RUNES
             player.playerStatsManager.runes -= totalLevelUpCost;
 
             //  SET NEW STATS
-            player.playerNetworkManager.vigor.Value = Mathf.RoundToInt(vigorSlider.value);
-            player.playerNetworkManager.mind.Value = Mathf.RoundToInt(mindSlider.value);
-            player.playerNetworkManager.endurance.Value = Mathf.RoundToInt(enduranceSlider.value);
-            player.playerNetworkManager.strength.Value = Mathf.RoundToInt(strengthSlider.value);
-            player.playerNetworkManager.dexterity.Value = Mathf.RoundToInt(dexteritySlider.value);
-            player.playerNetworkManager.intelligence.Value = Mathf.RoundToInt(intelligenceSlider.value);
-            player.playerNetworkManager.faith.Value = Mathf.RoundToInt(faithSlider.value);
+            net.vigor.Value      = Mathf.RoundToInt(vigorSlider.value);
+            net.mind.Value       = Mathf.RoundToInt(mindSlider.value);
+            net.endurance.Value  = Mathf.RoundToInt(enduranceSlider.value);
+            net.strength.Value   = Mathf.RoundToInt(strengthSlider.value);
+            net.dexterity.Value  = Mathf.RoundToInt(dexteritySlider.value);
+            net.intelligence.Value = Mathf.RoundToInt(intelligenceSlider.value);
+            net.faith.Value      = Mathf.RoundToInt(faithSlider.value);
+
+            //  OnValueChanged 콜백 타이밍에 의존하지 않고 명시적으로 파생 자원 갱신
+            net.SetNewMaxHealthValue(0, net.vigor.Value);
+            net.SetNewMaxStaminaValue(0, net.endurance.Value);
+            net.SetNewMaxFocusPointsValue(0, net.mind.Value);
 
             SetCurrentStats();
             ChangeTextColorsDependingOnCosts();
 
             //  SAVE GAME AFTER SETTING STATS
             WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        // 모든 슬라이더를 현재 스탯(minValue)으로 되돌리고 UI를 초기 상태로 리셋
+        public void ResetSliders()
+        {
+            vigorSlider.value        = vigorSlider.minValue;
+            mindSlider.value         = mindSlider.minValue;
+            enduranceSlider.value    = enduranceSlider.minValue;
+            strengthSlider.value     = strengthSlider.minValue;
+            dexteritySlider.value    = dexteritySlider.minValue;
+            intelligenceSlider.value = intelligenceSlider.minValue;
+            faithSlider.value        = faithSlider.minValue;
+
+            totalLevelUpCost = 0;
+            runesNeededText.text = "0";
+
+            PlayerManager player = GUIController.Instance.localPlayer;
+            projectedRunesHeldText.text  = player.playerStatsManager.runes.ToString();
+            projectedRunesHeldText.color = Color.white;
+            runesNeededText.color        = Color.white;
+
+            confirmLevelsButton.interactable = false;
+
+            RefreshDerivedStatPreviews();
+            RefreshAttackPreview();
+            RefreshDefenseDisplay();
+            ChangeTextColorsDependingOnCosts();
         }
 
         private void SetAllLevelsCost()

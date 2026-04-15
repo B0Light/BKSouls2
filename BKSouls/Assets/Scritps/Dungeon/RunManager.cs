@@ -125,6 +125,9 @@ namespace BK
             {
                 Debug.Log("[RunManager] Run Finished.");
                 RestoreAllPlayersClientRpc();
+                ResetLevelUpUIClientRpc();
+                if (roomManager != null)
+                    roomManager.CleanupForSceneTransition();
                 WorldSaveGameManager.Instance.LoadHoldScene();
                 return;
             }
@@ -143,6 +146,14 @@ namespace BK
                 return;
 
             LoadNextRoom();
+        }
+
+        [ClientRpc]
+        private void ResetLevelUpUIClientRpc()
+        {
+            PlayerUILevelUpManager levelUpManager = GUIController.Instance.playerUILevelUpManager;
+            if (levelUpManager != null)
+                levelUpManager.ResetSliders();
         }
 
         [ClientRpc]

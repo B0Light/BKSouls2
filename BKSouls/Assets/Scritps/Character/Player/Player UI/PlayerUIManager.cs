@@ -16,7 +16,7 @@ namespace BK
         [HideInInspector] public PlayerUIPopUpManager playerUIPopUpManager;
         [HideInInspector] public PlayerUICharacterMenuManager playerUICharacterMenuManager;
         [HideInInspector] public PlayerUISiteOfGraceManager playerUISiteOfGraceManager;
-        [HideInInspector] public PlayerUITeleportLocationManager playerUITeleportLocationManager;
+
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
 
@@ -31,7 +31,7 @@ namespace BK
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
             playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
-            playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
+
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
             playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
         }
@@ -57,7 +57,7 @@ namespace BK
         {
             playerUICharacterMenuManager.CloseMenuAfterFixedFrame();
             playerUISiteOfGraceManager.CloseMenuAfterFixedFrame();
-            playerUITeleportLocationManager.CloseMenuAfterFixedFrame();
+
             playerUILevelUpManager.CloseMenuAfterFixedFrame();
         }
     }

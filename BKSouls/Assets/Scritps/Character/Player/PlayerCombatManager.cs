@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
-using UnityEngine.SceneManagement;
 
 namespace BK
 {
@@ -27,61 +26,6 @@ namespace BK
             base.Awake();
 
             player = GetComponent<PlayerManager>();
-        }
-
-        private void Start()
-        {
-            SceneManager.activeSceneChanged += OnSceneChanged;
-        }
-
-        public override void OnDestroy()
-        {
-            base.OnDestroy();
-
-            SceneManager.activeSceneChanged -= OnSceneChanged;
-        }
-
-        private void OnSceneChanged(Scene arg0, Scene arg1)
-        {
-            //  OPTIONALLY, ONLY CREATE THIS IF THE WORLD SCENE LOADS (NOT MAIN MENU SCENE)
-
-            //  DEAD SPOT
-            if (WorldSaveGameManager.Instance.currentCharacterData.hasDeadSpot)
-            {
-                Vector3 deadSpotPosition = new Vector3(
-                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionX, 
-                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionY, 
-                    WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionZ);
-
-                //  WE DONT REMOVE THE PLAYERS RUNES HERE BECAUSE IF YOU'RE LOADING A PREVIOUS SAVE THEY WERE ALREADY REMOVED WHEN THEY DIED
-                CreateDeadSpot(deadSpotPosition, WorldSaveGameManager.Instance.currentCharacterData.deadSpotRuneCount, false);
-            }
-        }
-
-        public void CreateDeadSpot(Vector3 position, int runesCount, bool removePlayersRunes = true)
-        {
-            if (!player.IsHost)
-                return;
-
-            //  SPAWN THE DEAD SPOT VFX
-            GameObject deadSpotFX = Instantiate(WorldCharacterEffectsManager.Instance.deadSpotVFX);
-            deadSpotFX.GetComponent<NetworkObject>().Spawn();
-
-            //  SET ITS WORLD POSITION
-            deadSpotFX.transform.position = position;
-
-            //  SET THE RUNE COUNT
-            PickUpRunesInteractable pickUpRunes = deadSpotFX.GetComponent<PickUpRunesInteractable>();
-            pickUpRunes.runeCount = runesCount;
-
-            if (removePlayersRunes)
-                player.playerStatsManager.AddRunes(-player.playerStatsManager.runes);
-
-            WorldSaveGameManager.Instance.currentCharacterData.hasDeadSpot = true;
-            WorldSaveGameManager.Instance.currentCharacterData.deadSpotRuneCount = pickUpRunes.runeCount;
-            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionX = position.x;
-            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionY = position.y;
-            WorldSaveGameManager.Instance.currentCharacterData.deadSpotPositionZ = position.z;
         }
 
         public void PerformWeaponBasedAction(WeaponItemAction weaponAction, WeaponItem weaponPerformingAction)

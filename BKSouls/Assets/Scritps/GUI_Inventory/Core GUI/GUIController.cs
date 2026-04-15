@@ -21,7 +21,7 @@ namespace BK
         [HideInInspector] public PlayerUIPopUpManager playerUIPopUpManager;
         [HideInInspector] public PlayerUICharacterMenuManager playerUICharacterMenuManager;
         [HideInInspector] public PlayerUISiteOfGraceManager playerUISiteOfGraceManager;
-        [HideInInspector] public PlayerUITeleportLocationManager playerUITeleportLocationManager;
+
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
         [HideInInspector] public InventoryGUIManager inventoryGUIManager;
@@ -52,7 +52,7 @@ namespace BK
             playerUIPopUpManager = GetComponentInChildren<PlayerUIPopUpManager>();
             playerUICharacterMenuManager = GetComponentInChildren<PlayerUICharacterMenuManager>();
             playerUISiteOfGraceManager = GetComponentInChildren<PlayerUISiteOfGraceManager>();
-            playerUITeleportLocationManager = GetComponentInChildren<PlayerUITeleportLocationManager>();
+
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
             playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
             
@@ -178,6 +178,7 @@ namespace BK
             CloseCurrentGUI();
             currentOpenGUI = null;
 
+            playerUICharacterMenuManager.CloseMenu();
             cashCanvasGroup.alpha = 0;
             HideCursor();
         }
@@ -203,6 +204,7 @@ namespace BK
         private void OpenInventory()
         {
             OpenGUI(inventoryGUIManager);
+            playerUICharacterMenuManager.OpenMenu();
         }
 
         public void OpenInteractableBox(int width, int height, List<int> itemIdList, Interactable interactable)

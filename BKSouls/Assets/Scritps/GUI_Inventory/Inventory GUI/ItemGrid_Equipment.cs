@@ -174,6 +174,9 @@ namespace BK.Inventory
 
             // 양잡 해제 조건 처리
             TryReleaseTwoHandingIfNeeded(pm, itemID);
+
+            // 캐릭터 스탯 메뉴 실시간 갱신
+            GUIController.Instance.playerUICharacterMenuManager?.Refresh();
         }
 
         private void TryReleaseTwoHandingIfNeeded(PlayerManager pm, int itemID)
