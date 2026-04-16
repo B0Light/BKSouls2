@@ -126,5 +126,21 @@ namespace BK
 
             return true;
         }
+
+        // ─────────────────────────────────────────────────────────────────
+        //  AI Casting Interface
+        // ─────────────────────────────────────────────────────────────────
+
+        /// <summary>AI용 시전 시작. 기본 구현은 아무것도 하지 않으므로 각 SpellItem 서브클래스에서 오버라이드하세요.</summary>
+        public virtual void AttemptToCastSpell(AICharacterManager aiCharacter) { }
+
+        /// <summary>AI용 주문 발사. 투사체 스폰 및 데미지 적용. 각 SpellItem 서브클래스에서 오버라이드하세요.</summary>
+        public virtual void SuccessfullyCastSpell(AICharacterManager aiCharacter, Transform spellSpawnPoint, float damage) { }
+
+        /// <summary>Warm-up FX 프리팹 (AIMageCombatManager 에서 스폰에 사용)</summary>
+        public GameObject WarmUpFX => spellCastWarmUpFX;
+
+        /// <summary>주 손 마법 애니메이션 이름</summary>
+        public string SpellAnimation => mainHandSpellAnimation;
     }
 }

@@ -87,6 +87,31 @@ namespace BK
             instantiatedChargeSpellFX.transform.localRotation = Quaternion.identity;
         }
 
+        // ─────────────────────────────────────────────────────────────────
+        //  AI Casting Overrides
+        // ─────────────────────────────────────────────────────────────────
+
+        public override void AttemptToCastSpell(AICharacterManager aiCharacter)
+        {
+            aiCharacter.characterAnimatorManager.PlayTargetActionAnimation(mainHandSpellAnimation, true);
+        }
+
+        /// <summary>
+        /// 라이트닝은 투사체 방향 없이 시전자 위치에 AOE를 생성합니다.
+        /// spellSpawnPoint 는 무시되며, aiCharacter 의 발 위치를 기준으로 스폰됩니다.
+        /// </summary>
+        public override void SuccessfullyCastSpell(AICharacterManager aiCharacter, Transform spellSpawnPoint, float damage)
+        {
+            if (spellCastReleaseFX == null)
+                return;
+
+            GameObject instantiatedLightningFX = Instantiate(spellCastReleaseFX, aiCharacter.transform.position, Quaternion.identity);
+
+            LightningManager lightningManager = instantiatedLightningFX.GetComponent<LightningManager>();
+            if (lightningManager != null)
+                lightningManager.InitializeLightning(aiCharacter, damage);
+        }
+
         public override void SuccessfullyCastSpellFullCharge(PlayerManager player)
         {
             base.SuccessfullyCastSpellFullCharge(player);

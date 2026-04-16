@@ -139,6 +139,39 @@ namespace BK
             instantiatedChargeSpellFX.transform.localRotation = Quaternion.identity;
         }
 
+        // ─────────────────────────────────────────────────────────────────
+        //  AI Casting Overrides
+        // ─────────────────────────────────────────────────────────────────
+
+        public override void AttemptToCastSpell(AICharacterManager aiCharacter)
+        {
+            aiCharacter.characterAnimatorManager.PlayTargetActionAnimation(mainHandSpellAnimation, true);
+        }
+
+        public override void SuccessfullyCastSpell(AICharacterManager aiCharacter, Transform spellSpawnPoint, float damage)
+        {
+            if (spellCastReleaseFX == null)
+                return;
+
+            GameObject instantiatedReleasedSpellFX = Instantiate(spellCastReleaseFX, spellSpawnPoint.position, spellSpawnPoint.rotation);
+            instantiatedReleasedSpellFX.transform.parent = null;
+
+            FireBallManager fireBallManager = instantiatedReleasedSpellFX.GetComponent<FireBallManager>();
+            if (fireBallManager != null)
+                fireBallManager.InitializeFireBall(aiCharacter, damage);
+
+            CharacterManager target = aiCharacter.characterCombatManager.currentTarget;
+            if (target != null)
+                instantiatedReleasedSpellFX.transform.LookAt(target.characterCombatManager.lockOnTransform.position);
+
+            Rigidbody spellRigidbody = instantiatedReleasedSpellFX.GetComponent<Rigidbody>();
+            if (spellRigidbody != null)
+            {
+                spellRigidbody.linearVelocity = instantiatedReleasedSpellFX.transform.forward * forwardVelocity
+                                              + instantiatedReleasedSpellFX.transform.up * upwardVelocity;
+            }
+        }
+
         public override void SuccessfullyCastSpellFullCharge(PlayerManager player)
         {
             base.SuccessfullyCastSpellFullCharge(player);
