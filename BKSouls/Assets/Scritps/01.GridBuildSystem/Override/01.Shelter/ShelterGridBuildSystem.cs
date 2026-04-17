@@ -137,6 +137,7 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
     public override PlacedObject PlaceTile(int x, int z, Dir dir, int level = 0, bool isIrremovable = false)
     {
         PlacedObject placedObject = base.PlaceTile(x, z, dir, level, isIrremovable);
+        if(placedObject == null) return null;
         if(ObjectToPlace.itemID >= 100)
         {
             var saveData = new SaveBuildingData(x, z, ObjectToPlace.itemID, (int)dir, level);

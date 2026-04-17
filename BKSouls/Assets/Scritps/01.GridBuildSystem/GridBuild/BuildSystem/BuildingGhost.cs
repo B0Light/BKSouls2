@@ -32,17 +32,24 @@ public class BuildingGhost : MonoBehaviour
         }
 
         // GridBuildingSystem.Instance가 설정되었을 때 이벤트 등록
-        BaseGridBuildSystem.OnObjectPlaced += Instance_OnSelectedChanged;
+        BaseGridBuildSystem.OnObjectPlaced += OnObjectPlaced;
         BaseGridBuildSystem.OnSelectedChanged += Instance_OnSelectedChanged;
     }
 
     private void OnDisable()
     {
-        BaseGridBuildSystem.OnObjectPlaced -= Instance_OnSelectedChanged;
+        BaseGridBuildSystem.OnObjectPlaced -= OnObjectPlaced;
         BaseGridBuildSystem.OnSelectedChanged -= Instance_OnSelectedChanged;
     }
 
-    private void Instance_OnSelectedChanged(BuildObjData buildObjData) 
+    private void OnObjectPlaced(BuildObjData buildObjData)
+    {
+        // ghost가 이미 표시 중일 때만 갱신 (네트워크 배치로 인한 의도치 않은 ghost 생성 방지)
+        if (_visual != null)
+            RefreshVisual(buildObjData);
+    }
+
+    private void Instance_OnSelectedChanged(BuildObjData buildObjData)
     {
         RefreshVisual(buildObjData);
     }
