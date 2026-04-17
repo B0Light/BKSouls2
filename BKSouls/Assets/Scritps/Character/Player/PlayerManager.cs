@@ -389,7 +389,6 @@ namespace BK
             //  CLEAR LISTS BEFORE SAVE
             currentGameData.projectilesInInventory = new List<SerializableRangedProjectile>();
             
-            
             // Invnetory
             
             currentGameData.backpackItems.Clear();
@@ -409,6 +408,17 @@ namespace BK
             foreach (var pair in WorldPlayerInventory.Instance.GetBackpackInventory().GetCurItemDictById())
             {
                 currentGameData.backpackItems.Add(pair.Key, pair.Value);
+            }
+
+            currentGameData.buildings.Clear();
+            var buildSystem = BaseGridBuildSystem.Instance as ShelterGridBuildSystem;
+            if (buildSystem != null)
+            {
+                foreach (var building in buildSystem.SaveBuildingDataList)
+                {
+                    currentGameData.buildings.Add(building);
+                }
+                Debug.Log($"Saved {currentGameData.buildings.Count} buildings.");
             }
         }
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8299369241145867037}
   - component: {fileID: 7164110611031840470}
   - component: {fileID: 6908022449895781540}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Flat_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6737100528403274189}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -156,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6436352552845147816}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4593118264296113673}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5182557877217463400}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ID 305. PerkManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7631331118074422909}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: QueueStartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   - component: {fileID: 6152222867435616445}
   - component: {fileID: 9065247821941197266}
   - component: {fileID: 2178711395168028690}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1202349679828290640}
   - component: {fileID: 6514338550897907929}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -476,7 +476,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6615083397015201774}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,8 +526,7 @@ Transform:
   m_LocalPosition: {x: 5, y: 0, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1448779662510309393}
+  m_Children: []
   m_Father: {fileID: 5182557877217463400}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7204588896053513771
@@ -542,7 +541,7 @@ GameObject:
   - component: {fileID: 1123601575622167905}
   - component: {fileID: 5282916588485871242}
   - component: {fileID: 1960065114416981652}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +650,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7124998079557668911}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ActionPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -685,7 +684,7 @@ GameObject:
   - component: {fileID: 7122832375924073413}
   - component: {fileID: 483334353197160572}
   - component: {fileID: 2877115036340849362}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -797,7 +796,7 @@ GameObject:
   - component: {fileID: 1630112533112460683}
   - component: {fileID: 144646660852806493}
   - component: {fileID: 5401258285891941331}
-  m_Layer: 24
+  m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,65 +896,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1001 &919366766546025067
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 5727576749277753066}
-    m_Modifications:
-    - target: {fileID: 1456174813196614973, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_Name
-      value: Interactable Perk Controller
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
-      objectReference: {fileID: 0}
-    - target: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
---- !u!4 &1448779662510309393 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1790504492026477178, guid: 94875dc883c85c541961c94e4b66c4f8, type: 3}
-  m_PrefabInstance: {fileID: 919366766546025067}
-  m_PrefabAsset: {fileID: 0}

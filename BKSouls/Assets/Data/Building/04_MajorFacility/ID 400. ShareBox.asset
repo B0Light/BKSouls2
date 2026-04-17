@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 400. ShareBox
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 400
   itemName: "\uCEE8\uD14C\uC774\uB108"
   itemIcon: {fileID: 21300000, guid: a4b2f64db24a96546a59e2318e0d5e20, type: 3}
   itemTier: 1
+  itemType: 7
   cost: 0
   itemDescription: "\uC544\uC774\uD15C\uC744 \uBCF4\uAD00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n"
-  itemType: 7
   width: 2
   height: 2
   weight: 0

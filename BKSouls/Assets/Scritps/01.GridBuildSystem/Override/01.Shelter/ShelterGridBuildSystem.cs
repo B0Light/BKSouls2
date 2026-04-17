@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using BK;
 using BK.Inventory;
+using Unity.Netcode;
 
 public class ShelterGridBuildSystem : BaseGridBuildSystem
 {
@@ -93,7 +94,7 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
         ObjectToPlace = WorldDatabase_Build.Instance.GetBuildingByID(headquarterTile);
         if(ObjectToPlace == null) return;
         var placedObject = PlaceTile(_headquarterPos.x,_headquarterPos.y,Dir.Left,
-            WorldSaveGameManager.Instance.currentCharacterData.shelterLevel,true);
+        WorldSaveGameManager.Instance.currentCharacterData.shelterLevel,true);
         CheckPointList.Add(placedObject.GetEntrance());
         ObjectToPlace = null;
     }
@@ -138,13 +139,15 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
         PlacedObject placedObject = base.PlaceTile(x, z, dir, level, isIrremovable);
         if(ObjectToPlace.itemID >= 100)
         {
-            SaveBuildingDataList.Add(new SaveBuildingData(x, z, ObjectToPlace.itemID, (int)dir, level));
+            var saveData = new SaveBuildingData(x, z, ObjectToPlace.itemID, (int)dir, level);
+            SaveBuildingDataList.Add(saveData);
+            //  서버(호스트)에서 실시간으로 배치한 건물만 전파. 초기 로드나 클라이언트 적용 시에는 no-op
+            GridBuildNetworkManager.Instance?.NotifyBuildingPlaced(saveData);
         }
         if(ObjectToPlace.itemID >= 300)
         {
             CheckPointList.Add(placedObject.GetEntrance());
         }
-        
         return placedObject;
     }
 
@@ -160,15 +163,20 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
         if (placedObject != null && placedObject.Irremovable == false)
         {
             int itemCode = placedObject.GetBuildObjData().itemID;
+            Vector2Int originPos = placedObject.GetOriginPos();
             // 저장 데이터에서 삭제
-            if (SaveBuildingDataList.Remove(new SaveBuildingData(placedObject.GetOriginPos().x, placedObject.GetOriginPos().y,
+            if (SaveBuildingDataList.Remove(new SaveBuildingData(originPos.x, originPos.y,
                     itemCode, (int)placedObject.GetDir(), placedObject.GetLevel())))
             {
-                if (placedObject.GetLevel() > 0)
+                //  환불은 서버(호스트)에서만 처리. 클라이언트는 경제 처리 없이 시각만 제거
+                bool isServer = NetworkManager.Singleton == null || NetworkManager.Singleton.IsServer;
+                if (isServer && placedObject.GetLevel() > 0)
                 {
                     WorldPlayerInventory.Instance.balance.Value += Mathf.RoundToInt(placedObject.GetTotalUpgradeCost() * 0.5f);
                 }
             }
+            //  서버에서 제거된 건물을 클라이언트에 전파
+            GridBuildNetworkManager.Instance?.NotifyBuildingRemoved(originPos.x, originPos.y);
             
             if(itemCode >= 300)
                 CheckPointList.Remove(placedObject.GetEntrance());
@@ -270,11 +278,55 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
         {
             Debug.LogWarning("기존 저장 데이터가 제거되지 않았습니다.");
         }
+
+        //  서버에서 업그레이드된 건물을 클라이언트에 전파
+        GridBuildNetworkManager.Instance?.NotifyBuildingUpgraded(originPos.x, originPos.y);
     }
 
     #endregion
 
     public override Vector2Int GetEntrancePos() => _entrancePos;
-    
+
     public override Vector2Int GetDungeonPos() => _dungeonEntrancePos;
+
+    // ─────────────────────────────────────────────────────────────────────────
+    //  네트워크 동기화 적용 메서드  (GridBuildNetworkManager → ShelterGridBuildSystem)
+    // ─────────────────────────────────────────────────────────────────────────
+
+    /// <summary>
+    /// 클라이언트 측에서 네트워크로 수신된 건물 배치를 적용합니다.
+    /// ObjectToPlace 설정 및 PlaceTile 호출을 내부에서 처리합니다.
+    /// </summary>
+    public void ApplyNetworkBuilding(int x, int z, int code, Dir dir, int level)
+    {
+        BuildObjData buildObjData = WorldDatabase_Build.Instance.GetBuildingByID(code);
+        if (buildObjData == null) return;
+
+        ObjectToPlace = buildObjData;
+        Dir actualDir = buildObjData.GetCellType() == CellType.Road ? Dir.Down : dir;
+        PlaceTile(x, z, actualDir, level);
+        ObjectToPlace = null;
+    }
+
+    /// <summary>
+    /// 클라이언트 측에서 네트워크로 수신된 건물 제거를 적용합니다.
+    /// </summary>
+    public void ApplyNetworkRemove(int x, int y)
+    {
+        var gridCell = _fixedGrid.GetGridObject(x, y);
+        var placedObject = gridCell?.GetPlacedObject();
+        if (placedObject == null) return;
+
+        RemoveTile(placedObject);
+    }
+
+    /// <summary>
+    /// 클라이언트 측에서 네트워크로 수신된 업그레이드를 적용합니다.
+    /// 시각적 변경(BuildProp)만 수행하며 경제 처리는 하지 않습니다.
+    /// </summary>
+    public void ApplyNetworkUpgrade(int x, int y)
+    {
+        var gridCell = _fixedGrid.GetGridObject(x, y);
+        gridCell?.GetPlacedObject()?.UpgradeTile();
+    }
 }

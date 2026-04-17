@@ -115,8 +115,8 @@ namespace BK
 
         public void ContinueLastGame()
         {
-            var play = WorldSaveGameManager.Instance.LoadLastGame();
-            if(play == false) continueGameButton.interactable = false;
+            if (!WorldSaveGameManager.Instance.LoadLastGame())
+                AttemptToCreateNewCharacter();
         }
 
         public void OpenLoadGameMenu()

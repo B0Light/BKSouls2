@@ -117,7 +117,6 @@ namespace BK
         
         // Shelter
         public int shelterLevel;
-        [SerializeReference]
         public List<SaveBuildingData> buildings;
 
         public CharacterSaveData()

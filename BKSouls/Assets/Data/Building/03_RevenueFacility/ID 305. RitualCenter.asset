@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 305. RitualCenter
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 305
   itemName: RitualCenter
   itemIcon: {fileID: 21300000, guid: f9b2df08936497946a4296ebb8eaeaa5, type: 3}
   itemTier: 1
+  itemType: 7
   cost: 0
   itemDescription: "\uD2B9\uC804\uC744 \uD65C\uC131\uD654 \uD558\uB294 \uAC74\uBB3C\uC785\uB2C8\uB2E4."
-  itemType: 7
   width: 2
   height: 2
   weight: 0

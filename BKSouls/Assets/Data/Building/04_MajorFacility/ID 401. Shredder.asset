@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcc0e6685a77e3f48bc873f4f6566496, type: 3}
   m_Name: ID 401. Shredder
   m_EditorClassIdentifier: 
-  itemID: 0
+  itemID: 401
   itemName: "\uBD84\uC1C4\uAE30"
   itemIcon: {fileID: 21300000, guid: 09abe6075163db547a48cbfcad4d0268, type: 3}
   itemTier: 1
+  itemType: 7
   cost: 0
   itemDescription: "\uC544\uC774\uD15C\uC744 \uBD84\uD574\uD558\uC5EC \uC7AC\uD654\uB85C
     \uBCC0\uACBD\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-  itemType: 7
   width: 1
   height: 1
   weight: 0
