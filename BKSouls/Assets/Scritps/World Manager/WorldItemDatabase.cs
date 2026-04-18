@@ -41,7 +41,7 @@ namespace BK
 
         [Header("Icons")]
         [SerializeField] private List<Sprite> defaultItemIcon = new();
-        [SerializeField] private Sprite unknownIcon;
+        public Sprite unknownIcon;
 
         private readonly List<Item> _allItems = new();
 

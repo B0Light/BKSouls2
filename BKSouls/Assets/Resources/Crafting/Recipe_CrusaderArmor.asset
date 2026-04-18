@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3a3f7c8a30ce34b81648c924728e46, type: 3}
+  m_Name: Recipe_CrusaderArmor
+  m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory::CraftingRecipeData
+  recipe:
+    ingredients:
+    - itemData: {fileID: 11400000, guid: 76cc3c7bbc2b97e429b13116e7a6a38d, type: 2}
+      quantity: 6
+    - itemData: {fileID: 11400000, guid: ecf107ac2f47cdd4cb96e8095974ad04, type: 2}
+      quantity: 2
+    resultItem: {fileID: 11400000, guid: c8bd35c1c8c04504f8da8d31dbc11171, type: 2}
+    resultQuantity: 1

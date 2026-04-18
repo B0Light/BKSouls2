@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3a3f7c8a30ce34b81648c924728e46, type: 3}
+  m_Name: Recipe_StraightSword6
+  m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory::CraftingRecipeData
+  recipe:
+    ingredients:
+    - itemData: {fileID: 11400000, guid: a0e870b7acf0dd74a8327aeca8440a53, type: 2}
+      quantity: 2
+    - itemData: {fileID: 11400000, guid: b88237001b7c51948b26f06b68d51078, type: 2}
+      quantity: 4
+    resultItem: {fileID: 11400000, guid: 16c92fd2c8546474184225d6bbc5992d, type: 2}
+    resultQuantity: 1

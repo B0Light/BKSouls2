@@ -63,6 +63,7 @@ public enum ItemType
     Spell,
     Potion,
     AshOfWar,
+    Resource,
     None,
 }
 

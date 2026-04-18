@@ -17,7 +17,7 @@ namespace BK.Inventory
         public void Init(int itemDataID, int itemCount)
         {
             var itemInfoData = WorldItemDatabase.Instance.GetItemByID(itemDataID);
-            itemIcon.sprite = itemInfoData.itemIcon;
+            itemIcon.sprite = itemInfoData.itemIcon ?? WorldItemDatabase.Instance.unknownIcon;
             itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
 
             if (itemNameText)
