@@ -22,6 +22,7 @@ namespace BK.Inventory
 
         public void InitForge()
         {
+            Debug.Log("Init Forge GUI");
             craftingGrid.SetGrid(_girdWidth, _gridHeight, null);
             previewGrid.SetGrid(5, 3, null);
             LoadRecipe();

@@ -54,10 +54,10 @@ namespace BK.Inventory
 
         [SerializeField] private CanvasGroup forgeInventoryCanvasGroup;
 
-        [Header("Crusher Inventory")] 
-        [SerializeField] private ShredderHUDManager shredderHUDManager;
+        [Header("Sale")]
+        [SerializeField] private ItemSaleUIManager itemSaleUIManager;
 
-        [SerializeField] private CanvasGroup shredderCanvasGroup;
+        [SerializeField] private CanvasGroup saleCanvasGroup;
 
         private Interactable _interactableObject;
 
@@ -123,7 +123,7 @@ namespace BK.Inventory
             ToggleInteractionInventory(false);
             ToggleShareInventory(false);
             ToggleForge(false);
-            ToggleShredder(false);
+            ToggleSale(false);
         }
 
         public void ActiveSafe(bool isActive)
@@ -171,17 +171,17 @@ namespace BK.Inventory
             WorldPlayerInventory.Instance.curInteractItemGrid = targetGrid;
         }
 
-        public void OpenInteractionShredder(int width, int height, List<int> itemIdList, Interactable interactable)
+        public void OpenInteractionSale(int width, int height, List<int> itemIdList, Interactable interactable)
         {
             _interactableObject = interactable;
 
-            ToggleShredder(true);
+            ToggleSale(true);
 
-            shredderHUDManager.Init(width, height, itemIdList);
+            itemSaleUIManager.Init(width, height, itemIdList);
 
             WorldPlayerInventory.Instance.curOpenedInventory = ItemGridType.InteractableInventory;
 
-            WorldPlayerInventory.Instance.curInteractItemGrid = shredderHUDManager.GetItemGrid;
+            WorldPlayerInventory.Instance.curInteractItemGrid = itemSaleUIManager.GetItemGrid;
         }
 
         private void ResetSelectItem()
@@ -286,11 +286,11 @@ namespace BK.Inventory
             forgeInventoryCanvasGroup.blocksRaycasts = isActive;
         }
 
-        private void ToggleShredder(bool isActive)
+        private void ToggleSale(bool isActive)
         {
-            shredderCanvasGroup.alpha = isActive ? 1 : 0;
-            shredderCanvasGroup.interactable = isActive;
-            shredderCanvasGroup.blocksRaycasts = isActive;
+            saleCanvasGroup.alpha = isActive ? 1 : 0;
+            saleCanvasGroup.interactable = isActive;
+            saleCanvasGroup.blocksRaycasts = isActive;
         }
 
         /* TOOL TIP */

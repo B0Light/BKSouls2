@@ -82,7 +82,7 @@ namespace BK.Inventory
         //Set Inventory size
         protected virtual void Init(int width, int height)
         {
-            //Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
+            Debug.LogWarning("[GIRD SIZE] : ("+width+", "+ height +")");
             gridSize.x = width;
             gridSize.y = height;
             _inventoryItemSlot = new InventoryItem[width, height];
@@ -430,6 +430,13 @@ namespace BK.Inventory
 
         public virtual InventoryItem PickUpItem(int x, int y)
         {
+            Debug.Log($"[PickUpItem] Attempting to pick up item at position ({x}, {y})");
+            if(_inventoryItemSlot == null)
+            {
+                Debug.LogError("[PickUpItem] Inventory grid is not initialized.");
+                return null;
+            }
+            
             InventoryItem pickUpItem = _inventoryItemSlot[x, y];
 
             if (pickUpItem == null) return null;

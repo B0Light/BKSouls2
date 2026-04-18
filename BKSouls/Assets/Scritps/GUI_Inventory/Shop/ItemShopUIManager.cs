@@ -17,10 +17,16 @@ namespace BK.Inventory
         [SerializeField] private Button itemBuyButton_Cash;
         [SerializeField] private Button itemSaleButton;
 
+        [Header("Sale")]
+        [SerializeField] private ItemSaleUIManager itemSaleUIManager;
+        [SerializeField] private CanvasGroup saleCanvasGroup;
+        [SerializeField] private Button openSaleButton;
+        [SerializeField] private int saleGridWidth = 4;
+        [SerializeField] private int saleGridHeight = 2;
+
+        private bool _isSaleOpen = false;
         private bool _isShopOpen = false;
-
         private bool _isMasterShop = false;
-
         private Interactable _interactableObject;
 
         public override void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
@@ -32,6 +38,15 @@ namespace BK.Inventory
             SetUpShelf(items);
             ResetItemInfo();
             ShowAllItem();
+
+            _isSaleOpen = false;
+            SetSaleVisible(false);
+
+            if (openSaleButton != null)
+            {
+                openSaleButton.onClick.RemoveAllListeners();
+                openSaleButton.onClick.AddListener(ToggleSale);
+            }
         }
 
         public override void CloseGUI()
@@ -41,12 +56,39 @@ namespace BK.Inventory
             //if (_interactableObject) _interactableObject.ResetInteraction();
             _interactableObject = null;
 
+            _isSaleOpen = false;
+            SetSaleVisible(false);
+
             if (!_isShopOpen) return;
             _isShopOpen = false;
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
             WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        private void ToggleSale()
+        {
+            _isSaleOpen = !_isSaleOpen;
+            SetSaleVisible(_isSaleOpen);
+
+            if (_isSaleOpen && itemSaleUIManager != null)
+            {
+                itemSaleUIManager.Init(
+                    saleGridWidth,
+                    saleGridHeight,
+                    new System.Collections.Generic.List<int>()
+                );
+                WorldPlayerInventory.Instance.curInteractItemGrid = itemSaleUIManager.GetItemGrid;
+            }
+        }
+
+        private void SetSaleVisible(bool isActive)
+        {
+            if (saleCanvasGroup == null) return;
+            saleCanvasGroup.alpha = isActive ? 1 : 0;
+            saleCanvasGroup.interactable = isActive;
+            saleCanvasGroup.blocksRaycasts = isActive;
         }
 
         protected override void ResetItemInfo()
