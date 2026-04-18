@@ -89,6 +89,11 @@ namespace BK.Inventory
             _itemPosDict = new Multimap<Item, Vector2>();
             GUISize = new Vector2(width * TileSizeWidth, height * TileSizeHeight);
             _rectTransform.sizeDelta = GUISize;
+
+            if(_inventoryItemSlot == null)
+            {
+                Debug.LogError("[PickUpItem] Inventory grid is not initialized.");
+            }
         }
 
         public Vector2Int GetCurItemGridSize() => gridSize;

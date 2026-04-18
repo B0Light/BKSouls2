@@ -10,12 +10,10 @@ namespace BK.Inventory
     {
         [Header("Sale Item")] 
         [SerializeField] private ItemType saleItemType;
-        [SerializeField] private List<int> itemList = new List<int>();
-        [ReadOnly] public List<Item> saleItemList = new List<Item>();
+        public List<Item> saleItemList = new List<Item>();
 
         // 상점 초기화 상태 관리
         private ShopInitializationState initState = ShopInitializationState.NotInitialized;
-        private int currentLevel = -1; // -1은 레벨이 설정되지 않음을 의미
 
         private enum ShopInitializationState
         {
@@ -51,45 +49,9 @@ namespace BK.Inventory
         /// </summary>
         protected virtual void InitializeShop()
         {
-
-            if (currentLevel >= 0)
-            {
-                // 레벨이 설정되어 있다면 레벨 기준으로 초기화
-                InitShopByLevel(currentLevel);
-                Debug.LogWarning("INIT SHOP : " + currentLevel);
-            }
-            else
-            {
-                // 레벨이 설정되지 않았다면 아이템 리스트 기준으로 초기화
-                InitShopByItemList();
-                Debug.LogWarning("INIT SHOP ItemList");
-            }
+            InitShopByLevel(WorldSaveGameManager.Instance.currentCharacterData.shelterLevel); 
         }
 
-        /// <summary>
-        /// 아이템 리스트를 기반으로 상점 초기화
-        /// </summary>
-        private void InitShopByItemList()
-        {
-            ClearSaleItems();
-
-            foreach (int itemId in itemList)
-            {
-                Item originalItem = WorldItemDatabase.Instance.GetItemByID(itemId);
-                if (originalItem != null)
-                {
-                    Item shopItem = CreateShopItem(originalItem);
-                    saleItemList.Add(shopItem);
-                }
-                else
-                {
-                    Debug.LogWarning($"[InteractableShop] Item with ID {itemId} not found in database!");
-                }
-            }
-
-            initState = ShopInitializationState.InitializedWithItemList;
-            Debug.Log($"[InteractableShop] Initialized with item list. Items count: {saleItemList.Count}");
-        }
 
         /// <summary>
         /// 레벨을 기반으로 상점 초기화
@@ -97,8 +59,6 @@ namespace BK.Inventory
         /// <param name="level">상점 레벨</param>
         private void InitShopByLevel(int level)
         {
-            ClearSaleItems();
-
             var availableItems = WorldItemDatabase.Instance.GetItemsByTypeAndTierRange(
                 saleItemType,
                 ItemTier.Common,
@@ -148,28 +108,5 @@ namespace BK.Inventory
         {
             GUIController.Instance.OpenShop(saleItemList, this);
         }
-
-        /*
-        /// <summary>
-        /// 특정 레벨로 상점 설정 및 초기화
-        /// </summary>
-        /// <param name="level">설정할 레벨</param>
-        public override void SetToSpecificLevel(int level)
-        {
-            if (level < 0)
-            {
-                Debug.LogWarning($"[InteractableShop] Invalid level: {level}. Level should be 0 or higher.");
-                return;
-            }
-
-            currentLevel = level;
-
-            // 이미 초기화된 상점이라면 레벨 기준으로 재초기화
-            if (initState != ShopInitializationState.NotInitialized)
-            {
-                InitShopByLevel(level);
-            }
-        }
-        */
     }
 }
