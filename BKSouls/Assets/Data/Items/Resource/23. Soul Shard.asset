@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1023
   itemName: Soul Shard
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: a7e8047bacd0b2b48a20227d962cd8a9, type: 3}
   itemTier: 2
   itemType: 11
   cost: 800

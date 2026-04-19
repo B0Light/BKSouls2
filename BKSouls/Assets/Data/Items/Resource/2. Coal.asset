@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1002
   itemName: Coal
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: fe07145c22e7e8349a52f4187ef3a6ac, type: 3}
   itemTier: 0
   itemType: 11
   cost: 8

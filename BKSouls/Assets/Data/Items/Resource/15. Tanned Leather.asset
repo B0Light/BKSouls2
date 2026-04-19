@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1015
   itemName: Tanned Leather
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 61781dcb07859234a964eef12cb2c125, type: 3}
   itemTier: 1
   itemType: 11
   cost: 90

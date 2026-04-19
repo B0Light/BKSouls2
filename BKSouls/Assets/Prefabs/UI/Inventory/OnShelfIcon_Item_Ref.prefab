@@ -396,7 +396,7 @@ MonoBehaviour:
   itemCost: {fileID: 6343121246456788496}
   itemButton: {fileID: 1034677717362775456}
   costItemSlot: {fileID: 7693137205066300831}
-  costItemPrefab: {fileID: 6633026204952066901, guid: b73885e7b833bd347a660a7735a497b9, type: 3}
+  costItemPrefab: {fileID: 6633026204952066901, guid: e18b54368b22da144ba801bdd41a57b6, type: 3}
   costCashSlot: {fileID: 552133092641744432}
 --- !u!1 &3798894463341641364
 GameObject:

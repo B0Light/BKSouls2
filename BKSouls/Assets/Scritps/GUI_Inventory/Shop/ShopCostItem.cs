@@ -17,6 +17,7 @@ namespace BK.Inventory
         public void Init(int itemDataID, int itemCount)
         {
             var itemInfoData = WorldItemDatabase.Instance.GetItemByID(itemDataID);
+            
             itemIcon.sprite = itemInfoData.itemIcon ?? WorldItemDatabase.Instance.unknownIcon;
             itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
 
@@ -25,7 +26,7 @@ namespace BK.Inventory
             if (itemCntText)
             {
                 int inventoryCnt = WorldPlayerInventory.Instance.GetItemCountInAllInventory(itemDataID);
-                itemCntText.text = itemCount + " / " + inventoryCnt;
+                itemCntText.text = inventoryCnt + " / " + itemCount;
                 itemCntText.color = itemCount > inventoryCnt
                     ? new Color(1f, 0.6f, 0.6f) // 파스텔 레드
                     : new Color(0.6f, 1f, 0.6f); // 파스텔 그린

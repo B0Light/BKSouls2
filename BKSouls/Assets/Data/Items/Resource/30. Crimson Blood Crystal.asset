@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1030
   itemName: Crimson Blood Crystal
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: e90f1772da7fa2c44a9810a03d7eb724, type: 3}
   itemTier: 4
   itemType: 11
   cost: 6000

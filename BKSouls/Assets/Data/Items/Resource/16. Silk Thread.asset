@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1016
   itemName: Silk Thread
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 74c1c58cdfe5c0a43b2ab58693b9d54e, type: 3}
   itemTier: 1
   itemType: 11
   cost: 75

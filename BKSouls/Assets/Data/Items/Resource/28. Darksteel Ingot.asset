@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1028
   itemName: Darksteel Ingot
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 4ec0f7444483b8148a7e61c6b4a66e13, type: 3}
   itemTier: 2
   itemType: 11
   cost: 600

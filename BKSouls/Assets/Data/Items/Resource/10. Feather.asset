@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1010
   itemName: Feather
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: cebe27ddda3ac7345806ff3181183f8c, type: 3}
   itemTier: 0
   itemType: 11
   cost: 6

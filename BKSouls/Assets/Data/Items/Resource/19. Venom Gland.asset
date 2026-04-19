@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1019
   itemName: Venom Gland
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 9caf632d3ba61b449932af4ffc125831, type: 3}
   itemTier: 1
   itemType: 11
   cost: 150

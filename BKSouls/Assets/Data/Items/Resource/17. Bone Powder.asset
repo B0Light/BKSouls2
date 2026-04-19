@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1017
   itemName: Bone Powder
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: 3d08dde7a22313941a3833f82ff1b015, type: 3}
   itemTier: 0
   itemType: 11
   cost: 35

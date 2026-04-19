@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1018
   itemName: Hardened Hide
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: ce1023af707d5e046944c184ba75b215, type: 3}
   itemTier: 1
   itemType: 11
   cost: 120

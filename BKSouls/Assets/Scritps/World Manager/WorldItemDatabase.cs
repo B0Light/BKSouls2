@@ -39,6 +39,9 @@ namespace BK
         [Header("Quick Slot")]
         [SerializeField] private List<QuickSlotItem> quickSlotItems = new();
 
+        [Header("Resources")]
+        [SerializeField] private List<ResourceItem> resources = new();
+
         [Header("Icons")]
         [SerializeField] private List<Sprite> defaultItemIcon = new();
         public Sprite unknownIcon;
@@ -76,6 +79,7 @@ namespace BK
             RegisterItems(spells);
             RegisterItems(projectiles);
             RegisterItems(quickSlotItems);
+            RegisterItems(resources);
 
             AssignItemIDs();
             IndexItems();
@@ -179,6 +183,7 @@ namespace BK
         public SpellItem GetSpellByID(int id) => GetItemByID<SpellItem>(id);
         public RangedProjectileItem GetProjectileByID(int id) => GetItemByID<RangedProjectileItem>(id);
         public QuickSlotItem GetQuickSlotItemByID(int id) => GetItemByID<QuickSlotItem>(id);
+        public ResourceItem GetResourceByID(int id) => GetItemByID<ResourceItem>(id);
 
         #endregion
 
