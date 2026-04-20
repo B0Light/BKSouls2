@@ -45,6 +45,7 @@ namespace BK
         public float currentStamina;
         public int currentFocusPoints;
         public int runes;
+        public int balance;
 
         [Header("Stats")]
         public int vitality;

@@ -45,7 +45,7 @@ namespace BK
         private readonly List<AICharacterManager> spawnedEnemies = new();
         private readonly List<AICharacterSpawner> runtimeSpawners = new();
 
-        private NetworkObject currentRewardObject;
+        private readonly List<NetworkObject> currentRewardObjects = new();
         private RoguelikeRoomDoor currentEntryDoor;
         private RoguelikeRoomDoor currentExitDoor;
 
@@ -264,15 +264,17 @@ namespace BK
 
         private void DespawnReward()
         {
-            if (currentRewardObject == null)
-                return;
+            foreach (NetworkObject netObj in currentRewardObjects)
+            {
+                if (netObj == null) continue;
 
-            if (currentRewardObject.IsSpawned)
-                currentRewardObject.Despawn(true);
-            else
-                Destroy(currentRewardObject.gameObject);
+                if (netObj.IsSpawned)
+                    netObj.Despawn(true);
+                else
+                    Destroy(netObj.gameObject);
+            }
 
-            currentRewardObject = null;
+            currentRewardObjects.Clear();
         }
 
         private void DespawnDoors()
@@ -680,16 +682,30 @@ namespace BK
             if (!IsServer)
                 return;
 
-            if (currentRewardObject != null)
+            if (currentRewardObjects.Count > 0)
                 return;
 
             if (currentTemplate == null)
                 return;
 
-            if (currentRoomInstance == null || currentRoomInstance.RewardSpawnPoint == null)
+            if (currentRoomInstance == null)
                 return;
 
+            Transform[] spawnPoints = currentRoomInstance.GetRewardSpawnPoints();
+            if (spawnPoints.Length == 0)
+            {
+                Debug.LogWarning("[RoomManager] 보상 스폰 포인트가 없습니다.");
+                return;
+            }
+
             Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
+
+            // 템플릿에 지정된 커스텀 인터랙터블이 있으면 우선 사용
+            if (currentTemplate.rewardInteractablePrefabs != null && currentTemplate.rewardInteractablePrefabs.Count > 0)
+            {
+                SpawnTemplateRewardInteractable(spawnPoints, parent);
+                return;
+            }
 
             if (isSiteOfGrace)
             {
@@ -701,8 +717,8 @@ namespace BK
 
                 GameObject graceObj = Instantiate(
                     siteOfGracePrefab,
-                    currentRoomInstance.RewardSpawnPoint.position,
-                    currentRoomInstance.RewardSpawnPoint.rotation,
+                    spawnPoints[0].position,
+                    spawnPoints[0].rotation,
                     parent);
 
                 NetworkObject graceNetObj = graceObj.GetComponent<NetworkObject>();
@@ -714,7 +730,7 @@ namespace BK
                 }
 
                 graceNetObj.Spawn(true);
-                currentRewardObject = graceNetObj;
+                currentRewardObjects.Add(graceNetObj);
 
                 Debug.Log("[RoomManager] Site of Grace 스폰 (적 없는 방).");
                 return;
@@ -759,8 +775,8 @@ namespace BK
 
             GameObject rewardObj = Instantiate(
                 boxPrefab,
-                currentRoomInstance.RewardSpawnPoint.position,
-                currentRoomInstance.RewardSpawnPoint.rotation,
+                spawnPoints[0].position,
+                spawnPoints[0].rotation,
                 parent);
 
             // Spawn 전에 Setup 호출 → Start()보다 먼저 실행됨
@@ -776,9 +792,50 @@ namespace BK
             }
 
             netObj.Spawn(true);
-            currentRewardObject = netObj;
+            currentRewardObjects.Add(netObj);
 
             Debug.Log($"[RoomManager] 보상 상자 스폰: type={boxType}, tier={finalTier} (stage={stageIndex}, baseTier={currentTemplate.rewardBaseTier})");
+        }
+
+        private void SpawnTemplateRewardInteractable(Transform[] spawnPoints, Transform parent)
+        {
+            List<GameObject> prefabs = currentTemplate.rewardInteractablePrefabs;
+            int stageIndex = RunManager.Instance != null ? RunManager.Instance.CurrentRoomIndex : 0;
+
+            for (int i = 0; i < prefabs.Count; i++)
+            {
+                GameObject prefab = prefabs[i];
+                if (prefab == null) continue;
+
+                // 스폰 포인트가 부족하면 마지막 포인트를 재사용
+                Transform spawnPoint = spawnPoints[Mathf.Min(i, spawnPoints.Length - 1)];
+
+                GameObject obj = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation, parent);
+
+                // ItemBox 계열이면 기존 Setup 로직 적용
+                if (obj.TryGetComponent<InteractableItemBox>(out InteractableItemBox itemBox))
+                {
+                    ItemTier finalTier = CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
+                    BoxType[] validTypes = System.Array.FindAll(
+                        (BoxType[])System.Enum.GetValues(typeof(BoxType)),
+                        t => t != BoxType.None);
+                    BoxType boxType = validTypes[Random.Range(0, validTypes.Length)];
+                    itemBox.Setup(boxType, finalTier);
+                }
+
+                NetworkObject netObj = obj.GetComponent<NetworkObject>();
+                if (netObj == null)
+                {
+                    Debug.LogError($"[RoomManager] rewardInteractablePrefabs[{i}] ({prefab.name})에 NetworkObject가 없습니다.");
+                    Destroy(obj);
+                    continue;
+                }
+
+                netObj.Spawn(true);
+                currentRewardObjects.Add(netObj);
+
+                Debug.Log($"[RoomManager] Template 인터랙터블 스폰 [{i}]: {prefab.name} at {spawnPoint.name}");
+            }
         }
 
         /// <summary>

@@ -183,9 +183,12 @@ MonoBehaviour:
   siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
-  baseBattleEnemyCount: 3
-  eliteEnemyCount: 5
-  bossEnemyCount: 1
+  minBattleEnemyCount: 2
+  maxBattleEnemyCount: 4
+  minEliteEnemyCount: 3
+  maxEliteEnemyCount: 6
+  minBossEnemyCount: 1
+  maxBossEnemyCount: 1
 --- !u!114 &430361882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -662,6 +665,9 @@ MonoBehaviour:
   roomManager: {fileID: 430361881}
   allRoomTemplates:
   - {fileID: 11400000, guid: 144f0602c1b74d04aa96e0dd227929f9, type: 2}
+  - {fileID: 11400000, guid: ba2166f4191a62341948109e526777e0, type: 2}
+  - {fileID: 11400000, guid: c335b050c1db97d45a69b66b23744f94, type: 2}
+  - {fileID: 11400000, guid: 16b38c5df0211b34b9220de4a043e5a9, type: 2}
   - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
   - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
   - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}

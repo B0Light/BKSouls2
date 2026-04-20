@@ -13,6 +13,7 @@ namespace BK
         {
             base.Interact(player);
             WorldSaveGameManager.Instance.SaveGame();
+            WorldSaveGameManager.Instance.SnapshotPreDungeonStats();
 
             vCam?.SetActive(true);
             vfx?.Play();

@@ -263,6 +263,58 @@ namespace BK
             }
         }
 
+        // ── Pre-dungeon stat snapshot ──────────────────────────────────────────
+        private int _snapVitality, _snapMind, _snapEndurance;
+        private int _snapStrength, _snapDexterity, _snapIntelligence, _snapFaith;
+        private bool _hasDungeonSnapshot;
+
+        public void SnapshotPreDungeonStats()
+        {
+            _snapVitality     = currentCharacterData.vitality;
+            _snapMind         = currentCharacterData.mind;
+            _snapEndurance    = currentCharacterData.endurance;
+            _snapStrength     = currentCharacterData.strength;
+            _snapDexterity    = currentCharacterData.dexterity;
+            _snapIntelligence = currentCharacterData.intelligence;
+            _snapFaith        = currentCharacterData.faith;
+            _hasDungeonSnapshot = true;
+        }
+
+        public void RestorePreDungeonStats()
+        {
+            if (!_hasDungeonSnapshot) return;
+
+            currentCharacterData.vitality     = _snapVitality;
+            currentCharacterData.mind         = _snapMind;
+            currentCharacterData.endurance    = _snapEndurance;
+            currentCharacterData.strength     = _snapStrength;
+            currentCharacterData.dexterity    = _snapDexterity;
+            currentCharacterData.intelligence = _snapIntelligence;
+            currentCharacterData.faith        = _snapFaith;
+            _hasDungeonSnapshot = false;
+
+            // 호스트는 씬 전환 후 LoadGameDataFromCurrentCharacterData가 호출되지 않으므로
+            // 런타임 NetworkVariable도 직접 초기화한다.
+            if (player != null && player.IsServer && player.IsOwner)
+            {
+                var nm = player.playerNetworkManager;
+                var sm = player.playerStatsManager;
+                nm.vigor.Value        = _snapVitality;
+                nm.endurance.Value    = _snapEndurance;
+                nm.mind.Value         = _snapMind;
+                nm.strength.Value     = _snapStrength;
+                nm.dexterity.Value    = _snapDexterity;
+                nm.intelligence.Value = _snapIntelligence;
+                nm.faith.Value        = _snapFaith;
+                nm.maxHealth.Value      = sm.CalculateHealthBasedOnVitalityLevel(_snapVitality);
+                nm.maxStamina.Value     = sm.CalculateStaminaBasedOnEnduranceLevel(_snapEndurance);
+                nm.maxFocusPoints.Value = sm.CalculateFocusPointsBasedOnMindLevel(_snapMind);
+                nm.currentHealth.Value  = nm.maxHealth.Value;
+                nm.currentStamina.Value = nm.maxStamina.Value;
+            }
+        }
+        // ──────────────────────────────────────────────────────────────────────
+
         public SerializableWeapon GetSerializableWeaponFromWeaponItem(WeaponItem weapon)
         {
             SerializableWeapon serializedWeapon = new SerializableWeapon();

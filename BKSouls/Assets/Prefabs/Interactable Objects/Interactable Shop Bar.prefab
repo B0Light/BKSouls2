@@ -234,7 +234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9081359583325302397}
   m_Layer: 0
-  m_Name: Interactable Shop
+  m_Name: Interactable Shop Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

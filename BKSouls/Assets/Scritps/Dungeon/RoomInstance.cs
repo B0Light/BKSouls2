@@ -15,12 +15,17 @@ namespace BK
         [SerializeField] private Transform entryDoorAnchor;
         [SerializeField] private Transform exitDoorAnchor;
 
-        [Header("Reward Spawn Point")]
-        [SerializeField] private Transform rewardSpawnPoint;
+        [Header("Reward Spawn Points")]
+        [SerializeField] private Transform[] rewardSpawnPoints;
 
         public Transform EntryDoorAnchor => entryDoorAnchor;
         public Transform ExitDoorAnchor => exitDoorAnchor;
-        public Transform RewardSpawnPoint => rewardSpawnPoint;
+        public IReadOnlyList<Transform> RewardSpawnPoints => rewardSpawnPoints;
+
+        public Transform[] GetRewardSpawnPoints()
+        {
+            return rewardSpawnPoints ?? System.Array.Empty<Transform>();
+        }
 
         public IReadOnlyList<Transform> PlayerSpawnPoints => playerSpawnPoints;
         public IReadOnlyList<Transform> EnemySpawnPoints => enemySpawnPoints;
@@ -71,10 +76,13 @@ namespace BK
                 Gizmos.DrawWireCube(exitDoorAnchor.position, Vector3.one * 0.5f);
             }
 
-            if (rewardSpawnPoint != null)
+            Transform[] pts = GetRewardSpawnPoints();
+            Gizmos.color = Color.yellow;
+            for (int i = 0; i < pts.Length; i++)
             {
-                Gizmos.color = Color.yellow;
-                Gizmos.DrawSphere(rewardSpawnPoint.position, 0.25f);
+                if (pts[i] == null) continue;
+                Gizmos.DrawSphere(pts[i].position, 0.25f);
+                UnityEditor.Handles.Label(pts[i].position + Vector3.up * 0.3f, $"R{i}");
             }
         }
 

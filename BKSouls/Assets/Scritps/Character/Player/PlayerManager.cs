@@ -355,6 +355,7 @@ namespace BK
             currentGameData.faith = playerNetworkManager.faith.Value;
 
             currentGameData.runes = playerStatsManager.runes;
+            currentGameData.balance = WorldPlayerInventory.Instance.balance.Value;
 
             //  BODY
             currentGameData.hairStyleID = playerNetworkManager.hairStyleID.Value;
@@ -447,6 +448,7 @@ namespace BK
             playerNetworkManager.buildUpCapacity.Value = playerStatsManager.CalculateBuildUpCapacityBasedOnVitalityLevel(playerNetworkManager.vigor.Value);
 
             playerStatsManager.AddRunes(currentCharacterData.runes);
+            WorldPlayerInventory.Instance.balance.Value = currentCharacterData.balance;
 
             playerNetworkManager.remainingHealthFlasks.Value = currentCharacterData.currentHealthFlasksRemaining;
             playerNetworkManager.remainingFocusPointsFlasks.Value = currentCharacterData.currentFocusPointsFlaskRemaining;

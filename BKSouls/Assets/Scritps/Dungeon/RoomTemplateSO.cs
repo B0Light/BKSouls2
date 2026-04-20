@@ -19,6 +19,11 @@ namespace BK
         public GameObject exitDoorPrefab;
 
         [Header("Reward")]
+        [Tooltip("이 룸 클리어 시 생성될 인터랙터블 보상 프리팹 목록 (ItemBox / SiteOfGrace / Shop 등 Interactable 구현체). " +
+                 "각 항목은 RoomInstance의 rewardSpawnPoints[i]에 대응합니다. " +
+                 "비워두면 RoomManager의 ItemBoxDatabase 기반 기본 보상 로직이 사용됩니다.")]
+        public List<GameObject> rewardInteractablePrefabs = new();
+
         [Tooltip("이 룸 클리어 시 지급될 보상 상자의 기본 등급 (스테이지 깊이와 행운에 따라 상향될 수 있음)")]
         public ItemTier rewardBaseTier = ItemTier.Common;
     }
