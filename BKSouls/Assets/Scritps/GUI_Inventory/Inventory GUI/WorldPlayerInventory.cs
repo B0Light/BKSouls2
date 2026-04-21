@@ -338,6 +338,34 @@ namespace BK.Inventory
 
         #endregion
 
+        #region Dungeon
+
+        public void MoveInventoryToShare()
+        {
+            var inventory = GetInventory();
+            var backpack = GetBackpackInventory();
+            var share = GetShareInventory();
+
+            if (share == null) return;
+
+            MoveGridToShare(inventory, share);
+            MoveGridToShare(backpack, share);
+        }
+
+        private void MoveGridToShare(ItemGrid source, ItemGrid share)
+        {
+            if (source == null) return;
+
+            var itemsToMove = new Dictionary<int, int>(source.GetCurItemDictById());
+            foreach (var (itemId, count) in itemsToMove)
+            {
+                source.RemoveItemsById(itemId, count);
+                share.AddItemById(itemId, count, false);
+            }
+        }
+
+        #endregion
+
         #region Add Item
 
         public bool AddItem(GameObject item)

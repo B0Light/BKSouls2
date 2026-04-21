@@ -11,7 +11,6 @@ namespace BK
         public static RunManager Instance { get; private set; }
 
         [SerializeField] private RoomManager roomManager;
-        [SerializeField] private List<RoomTemplateSO> allRoomTemplates = new();
         [SerializeField] private List<RoomType> floorSequence = new()
         {
             RoomType.Start,
@@ -95,9 +94,9 @@ namespace BK
         {
             List<int> validIndices = new();
 
-            for (int i = 0; i < allRoomTemplates.Count; i++)
+            for (int i = 0; i < roomManager.RoomTemplates.Count; i++)
             {
-                if (allRoomTemplates[i] != null && allRoomTemplates[i].roomType == type)
+                if (roomManager.RoomTemplates[i] != null && roomManager.RoomTemplates[i].roomType == type)
                     validIndices.Add(i);
             }
 
@@ -135,7 +134,7 @@ namespace BK
             }
 
             RoomPlan plan = floorPlan[currentRoomIndex];
-            RoomTemplateSO template = allRoomTemplates[plan.templateIndex];
+            RoomTemplateSO template = roomManager.RoomTemplates[plan.templateIndex];
 
             Debug.Log($"[RunManager] Load room {currentRoomIndex} / {plan.roomType} / {template.name}");
 

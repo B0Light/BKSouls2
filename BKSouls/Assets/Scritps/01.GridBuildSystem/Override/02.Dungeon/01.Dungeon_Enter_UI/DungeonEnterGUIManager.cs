@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using BK;
+using BK.Inventory;
 using TMPro;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
@@ -138,6 +139,7 @@ public class DungeonEnterGUIManager : GUIComponent
         }
         
         GUIController.Instance.HandleEscape();
+        WorldPlayerInventory.Instance.MoveInventoryToShare();
         // NGO 씬 전환 (전원 동기)
         NetworkManager.Singleton.SceneManager.LoadScene(selectedDungeonSceneName, LoadSceneMode.Single);
     }
@@ -222,9 +224,4 @@ public class DungeonEnterGUIManager : GUIComponent
     #endregion
     
 
-    private void EnterDungeon(string dungeonSceneName)
-    {
-        //
-        //WorldSceneChangeManager.Instance.LoadSceneAsync(dungeonSceneName);
-    }
 }

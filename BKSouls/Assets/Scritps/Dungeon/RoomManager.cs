@@ -16,6 +16,8 @@ namespace BK
         [Header("Room Template Database")]
         [SerializeField] private List<RoomTemplateSO> roomTemplates = new();
 
+        public IReadOnlyList<RoomTemplateSO> RoomTemplates => roomTemplates;
+
         [Header("NavMesh")]
         [SerializeField] private DungeonNavMeshBuilder navMeshBuilder;
 

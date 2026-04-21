@@ -24,14 +24,9 @@ namespace BK.Inventory
         [SerializeField] protected TextMeshProUGUI itemInfo_Description;
         [SerializeField] protected Image itemInfo_BackgroundColor;
 
-        [Space(10)] [Header("Item Price")] [SerializeField]
-        protected GameObject costItemSlot;
+        [Space(10)] [Header("Item Price")]
 
         [SerializeField] protected GameObject costCashSlot;
-
-        [SerializeField] protected GameObject costItemPrefab;
-        [SerializeField] protected Transform costItemSpawnSlot;
-        [SerializeField] protected TextMeshProUGUI itemCostText;
 
         [SerializeField] protected GameObject notEnoughItemsComment;
         [SerializeField] protected GameObject notEnoughSlot;
@@ -109,7 +104,6 @@ namespace BK.Inventory
             itemInfo_Description.text = "Select Item";
             itemInfo_BackgroundColor.color = WorldItemDatabase.Instance.GetItemBackgroundColorByTier(0);
 
-            costItemSlot.SetActive(false);
             costCashSlot.SetActive(false);
         }
 

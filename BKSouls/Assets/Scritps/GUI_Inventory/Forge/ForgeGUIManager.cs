@@ -116,6 +116,8 @@ namespace BK.Inventory
 
             // 3. UI 업데이트
             UpdateCraftingGridUI();
+
+            WorldSaveGameManager.Instance.SaveGame();
         }
 
         private void RemoveIngredients(CraftingRecipe recipe)
@@ -123,6 +125,7 @@ namespace BK.Inventory
             foreach (var ingredient in recipe.ingredients)
             {
                 craftingGrid.RemoveItemsById(ingredient.itemData.itemID, ingredient.quantity);
+                WorldPlayerInventory.Instance.RemoveItemInInventory(ingredient.itemData.itemID, ingredient.quantity);
             }
         }
 

@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoomTemplateSO
   templateId: 0
   roomType: 3
-  roomPrefab: {fileID: 7155262747603071470, guid: 5fba6f5d479c38a4fb5778d33ec32fc4, type: 3}
+  roomPrefab: {fileID: 7155262747603071470, guid: 2050c09d2c33f1746acc857d2d8ca29d, type: 3}
   enemySpawnerPrefabs: []
-  rewardPrefab: {fileID: 3751533492710678903, guid: 1f5fb04bffea9aa45a32cc1297f95ca4, type: 3}
+  entryDoorPrefab: {fileID: 0}
+  exitDoorPrefab: {fileID: 0}
+  rewardInteractablePrefabs:
+  - {fileID: 6159759156746008931, guid: 6c2deafed3f163a44b8f9e11fef43b9c, type: 3}
+  rewardBaseTier: 0

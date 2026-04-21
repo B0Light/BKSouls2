@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +14,13 @@ namespace BK.Inventory
         private List<HUD_SelectedItemAbility> abilityUIs = new List<HUD_SelectedItemAbility>();
 
         [SerializeField] private Button itemBuyButton_Cash;
+        [SerializeField] private Button itemQuantityIncreaseButton;
+        [SerializeField] private Button itemQuantityDecreaseButton;
+        [SerializeField] private TextMeshProUGUI itemQuantityText;
+        [SerializeField] private TextMeshProUGUI totalCostText;
+
+        private int _purchaseQuantity = 1;
+        private int _selectedItemCost = 0;
 
         [SerializeField] private CanvasGroup itemInfoCanvasGroup;
 
@@ -150,6 +157,12 @@ namespace BK.Inventory
             itemBuyButton_Cash.gameObject.SetActive(false);
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
+
+            _selectedItemCost = 0;
+            SetPurchaseQuantity(1);
+
+            if (totalCostText != null)
+                totalCostText.text = string.Empty;
         }
 
         public override void SelectItemToBuy(Item item)
@@ -175,9 +188,17 @@ namespace BK.Inventory
             notEnoughSlot.SetActive(false);
 
             
-            itemCostText.text = selectItemInfo.cost.ToString();
+            _selectedItemCost = selectItemInfo.cost;
+            SetPurchaseQuantity(1);
+
             itemBuyButton_Cash.onClick.RemoveAllListeners();
             itemBuyButton_Cash.onClick.AddListener(() => BuyWithCash(selectItemInfo));
+
+            itemQuantityIncreaseButton.onClick.RemoveAllListeners();
+            itemQuantityIncreaseButton.onClick.AddListener(() => SetPurchaseQuantity(_purchaseQuantity + 1));
+
+            itemQuantityDecreaseButton.onClick.RemoveAllListeners();
+            itemQuantityDecreaseButton.onClick.AddListener(() => SetPurchaseQuantity(_purchaseQuantity - 1));
         }
 
         private void CreateAbilityFromItemAbility(ItemAbility ability)
@@ -205,25 +226,47 @@ namespace BK.Inventory
             abilityUIs.Clear();
         }
         
+        private void SetPurchaseQuantity(int quantity)
+        {
+            _purchaseQuantity = Mathf.Max(1, quantity);
+
+            if (itemQuantityText != null)
+                itemQuantityText.text = _purchaseQuantity.ToString();
+
+            if (totalCostText != null)
+            {
+                int totalCost = _selectedItemCost * _purchaseQuantity;
+                int balance = WorldPlayerInventory.Instance.balance.Value;
+                totalCostText.text = $"{totalCost} / {balance}";
+                totalCostText.color = totalCost > balance ? Color.red : Color.white;
+            }
+        }
+
         private void BuyWithCash(Item item)
         {
+            int totalCost = item.cost * _purchaseQuantity;
+
             // 돈이 없다면 구매불가
-            if (WorldPlayerInventory.Instance.balance.Value < item.cost)
+            if (WorldPlayerInventory.Instance.balance.Value < totalCost)
             {
                 notEnoughItemsComment.SetActive(true);
                 return;
             }
 
-            // 플레이어가 구매할 수 있다면 구매하고 대금 지불 
-            if (!WorldShopManager.Instance.BuyItem(item))
+            // 플레이어가 구매할 수 있다면 구매하고 대금 지불
+            for (int i = 0; i < _purchaseQuantity; i++)
             {
-                // 슬롯 부족 등으로 아이템 구매 불가 
-                notEnoughSlot.SetActive(true);
-                return;
+                if (!WorldShopManager.Instance.BuyItem(item))
+                {
+                    // 슬롯 부족 등으로 아이템 구매 불가
+                    notEnoughSlot.SetActive(true);
+                    return;
+                }
             }
 
-            WorldPlayerInventory.Instance.balance.Value -= item.cost;
+            WorldPlayerInventory.Instance.balance.Value -= totalCost;
             BuyItemProcess();
+            WorldSaveGameManager.Instance.SaveGame();
             Debug.Log("Buy Success" + item.itemName);
         }
 

@@ -11,6 +11,9 @@ namespace BK
         public int siteOfGraceID;
         public NetworkVariable<bool> isActivated = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Rest Cost")]
+        [SerializeField] private int restCost = 100;
+
         [Header("VFX")]
         [SerializeField] GameObject activatedParticles;
 
@@ -88,18 +91,18 @@ namespace BK
 
         private void RestAtSiteOfGrace(PlayerManager player)
         {
-            GUIController.Instance.playerUISiteOfGraceManager.OpenMenu();
+            interactableCollider.enabled = true;
 
-            //  TEMPORARY CODE SECTION
-            interactableCollider.enabled = true; // TEMPORARILY RE-ENABLING THE COLLIDER HERE UNTIL WE ADD THE MENU SO YOU CAN RESPAWN MONSTERS INDEFINITELY
+            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(restCost, () => ApplyRestEffect(player));
+        }
+
+        private void ApplyRestEffect(PlayerManager player)
+        {
             player.playerNetworkManager.currentHealth.Value = player.playerNetworkManager.maxHealth.Value;
             player.playerNetworkManager.currentStamina.Value = player.playerNetworkManager.maxStamina.Value;
 
-
             //  REFILL FLASKS
             //  인벤토리 포션(여분)은 건드리지 않고 기본 충전 횟수만 복원한다.
-            //  GetCurrentAmount = remainingFlasks + 인벤토리 포션 수 이므로,
-            //  인벤토리 포션까지 합산해서 채우면 총합이 의도치 않게 늘어나는 버그가 생긴다.
             if (player.IsOwner)
             {
                 player.playerNetworkManager.remainingHealthFlasks.Value = 3;
@@ -108,7 +111,6 @@ namespace BK
                     player.playerInventoryManager.currentQuickSlotItem);
             }
 
-            //  UPDATE/FORCE MOVE QUEST CHARACTERS (TO DO)
             WorldAIManager.instance.ResetAllCharacters();
         }
 
