@@ -102,6 +102,15 @@ namespace BK
             focusPointBar.gameObject.SetActive(true);
         }
 
+        public void ResetRunesUI()
+        {
+            if (waitThenAddRunesCoroutine != null)
+                StopCoroutine(waitThenAddRunesCoroutine);
+            pendingRunesToAdd = 0;
+            if (runesToAddText != null) runesToAddText.enabled = false;
+            if (runesCountText != null) runesCountText.text = "0";
+        }
+
         public void SetRunesCount(int runesToAdd)
         {
             // 1. ADD THE RUNES WE JUST GOT TO OUR "PENDING" RUNE COUNT (IT CAN GET ADDED ONTO MULTIPLE TIMES)

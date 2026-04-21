@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using UnityEngine;
 
 namespace BK
@@ -27,6 +28,18 @@ namespace BK
 
             GUIController.Instance.localPlayer.ReviveCharacter();
             WorldSaveGameManager.Instance.RestorePreDungeonStats();
+
+            // 사망 시 보유 룬의 10%를 balance로 환수
+            PlayerManager localPlayer = GUIController.Instance.localPlayer;
+            if (localPlayer != null)
+            {
+                int runesOnDeath = localPlayer.playerStatsManager.runes;
+                int balanceGain  = Mathf.RoundToInt(runesOnDeath * 0.1f);
+                if (balanceGain > 0)
+                    WorldPlayerInventory.Instance.balance.Value += balanceGain;
+            }
+
+            WorldSaveGameManager.Instance.ResetRunes();
 
             // 던전에 보스/적 시신이 남아 있으면 씬 전환 전에 정리
             if (RoomManager.Instance != null)

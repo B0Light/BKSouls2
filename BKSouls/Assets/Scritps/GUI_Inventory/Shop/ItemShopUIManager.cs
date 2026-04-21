@@ -13,34 +13,33 @@ namespace BK.Inventory
 
         private List<HUD_SelectedItemAbility> abilityUIs = new List<HUD_SelectedItemAbility>();
 
-        [SerializeField] private Button itemBuyButton_Item;
         [SerializeField] private Button itemBuyButton_Cash;
-        [SerializeField] private Button itemSaleButton;
+
+        [SerializeField] private CanvasGroup itemInfoCanvasGroup;
 
         [Header("Sale")]
         [SerializeField] private ItemSaleUIManager itemSaleUIManager;
         [SerializeField] private CanvasGroup saleCanvasGroup;
         [SerializeField] private Button openSaleButton;
-        [SerializeField] private int saleGridWidth = 4;
-        [SerializeField] private int saleGridHeight = 2;
+        private int saleGridWidth = 8;
+        private int saleGridHeight = 10;
+        [SerializeField] private ItemGrid inventorySaleViewGrid;
+        [SerializeField] private CanvasGroup inventorySaleViewCanvasGroup;
 
-        private bool _isSaleOpen = false;
+
         private bool _isShopOpen = false;
-        private bool _isMasterShop = false;
-        private Interactable _interactableObject;
 
         public override void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
         {
-            _interactableObject = interactable;
             _isShopOpen = true;
-            _isMasterShop = isMasterShop;
 
             SetUpShelf(items);
             ResetItemInfo();
             ShowAllItem();
 
-            _isSaleOpen = false;
             SetSaleVisible(false);
+            SetInventoryViewVisible(false);
+            SetItemInfoVisible(true);
 
             if (openSaleButton != null)
             {
@@ -53,11 +52,8 @@ namespace BK.Inventory
         {
             base.CloseGUI();
 
-            //if (_interactableObject) _interactableObject.ResetInteraction();
-            _interactableObject = null;
-
-            _isSaleOpen = false;
             SetSaleVisible(false);
+            SetInventoryViewVisible(false);
 
             if (!_isShopOpen) return;
             _isShopOpen = false;
@@ -69,17 +65,73 @@ namespace BK.Inventory
 
         private void ToggleSale()
         {
-            _isSaleOpen = !_isSaleOpen;
-            SetSaleVisible(_isSaleOpen);
+            SetSaleVisible(true);
+            SetInventoryViewVisible(true);
+            SetItemInfoVisible(false);
 
-            if (_isSaleOpen && itemSaleUIManager != null)
+            if (itemSaleUIManager != null)
             {
+                PopulateInventoryForSale();
                 itemSaleUIManager.Init(
                     saleGridWidth,
                     saleGridHeight,
-                    new System.Collections.Generic.List<int>()
+                    new List<int>(),
+                    inventorySaleViewGrid
                 );
                 WorldPlayerInventory.Instance.curInteractItemGrid = itemSaleUIManager.GetItemGrid;
+            }
+        }
+
+        protected override void CloseSaleUI()
+        {
+            SetSaleVisible(false);
+            SetInventoryViewVisible(false);
+            SetItemInfoVisible(true);
+        }
+
+        private void SetItemInfoVisible(bool isActive)
+        {
+            if (itemInfoCanvasGroup == null) return;
+            itemInfoCanvasGroup.alpha = isActive ? 1 : 0;
+            itemInfoCanvasGroup.interactable = isActive;
+            itemInfoCanvasGroup.blocksRaycasts = isActive;
+        }
+
+        private void SetInventoryViewVisible(bool isActive)
+        {
+            if (inventorySaleViewCanvasGroup == null) return;
+            inventorySaleViewCanvasGroup.alpha = isActive ? 1 : 0;
+            inventorySaleViewCanvasGroup.interactable = isActive;
+            inventorySaleViewCanvasGroup.blocksRaycasts = isActive;
+        }
+
+        private void PopulateInventoryForSale()
+        {
+            if (inventorySaleViewGrid == null) return;
+
+            var inventory = WorldPlayerInventory.Instance.GetInventory();
+            var backpack = WorldPlayerInventory.Instance.GetBackpackInventory();
+
+            var itemDict = new Dictionary<int, int>();
+
+            if (inventory != null)
+            {
+                foreach (var (id, count) in inventory.GetCurItemDictById())
+                    itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
+            }
+
+            if (backpack != null)
+            {
+                foreach (var (id, count) in backpack.GetCurItemDictById())
+                    itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
+            }
+
+            inventorySaleViewGrid.SetGrid(6, 10, new List<int>());
+
+            foreach (var (id, count) in itemDict)
+            {
+                for (int i = 0; i < count; i++)
+                    inventorySaleViewGrid.AddItemById(id, 1, false);
             }
         }
 
@@ -95,9 +147,7 @@ namespace BK.Inventory
         {
             base.ResetItemInfo();
 
-            itemBuyButton_Item.gameObject.SetActive(false);
             itemBuyButton_Cash.gameObject.SetActive(false);
-            itemSaleButton.gameObject.SetActive(false);
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
         }
@@ -121,7 +171,6 @@ namespace BK.Inventory
             costCashSlot.SetActive(true);
 
             itemBuyButton_Cash.gameObject.SetActive(true);
-            itemSaleButton.gameObject.SetActive(false);
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
@@ -180,21 +229,6 @@ namespace BK.Inventory
 
         private void BuyItemProcess()
         {
-            if (selectProduct == null) return;
-            if (_isMasterShop) return;
-            var itemInfo = selectProduct.GetItem();
-            //진열대에서 상품을 제거
-            onSaleItems.Remove(selectProduct);
-            Destroy(((MonoBehaviour)selectProduct)?.gameObject);
-            //해당 매장에도 물건을 제거 
-
-            InteractableShop interactableShop = _interactableObject.GetComponent<InteractableShop>();
-            if (interactableShop)
-            {
-                interactableShop.saleItemList.Remove(itemInfo);
-            }
-
-            ResetItemInfo();
         }
 
         private void SetUpShelf(List<Item> items)

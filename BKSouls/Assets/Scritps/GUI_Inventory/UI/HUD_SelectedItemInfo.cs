@@ -23,6 +23,8 @@ namespace BK.Inventory
 
         [SerializeField] private Transform requirementContainer;
 
+        [SerializeField] private TextMeshProUGUI itemDescription;
+
         [SerializeField] private TextMeshProUGUI requirementStrength;
         [SerializeField] private TextMeshProUGUI requirementDexterity;
         [SerializeField] private TextMeshProUGUI requirementIntelligence;
@@ -52,8 +54,13 @@ namespace BK.Inventory
 
             _currentAbilityIndex = 0;
 
+            bool hasAbilities = itemInfo.itemAbilities != null && itemInfo.itemAbilities.Count > 0;
+
+            if (itemDescription != null)
+                itemDescription.text = hasAbilities ? string.Empty : itemInfo.itemDescription;
+
             // 추가 능력들 생성
-            if (itemInfo.itemAbilities != null)
+            if (hasAbilities)
             {
                 foreach (ItemAbility ability in itemInfo.itemAbilities)
                 {

@@ -54,10 +54,6 @@ namespace BK.Inventory
 
         [SerializeField] private CanvasGroup forgeInventoryCanvasGroup;
 
-        [Header("Sale")]
-        [SerializeField] private ItemSaleUIManager itemSaleUIManager;
-
-        [SerializeField] private CanvasGroup saleCanvasGroup;
 
         private Interactable _interactableObject;
 
@@ -123,7 +119,6 @@ namespace BK.Inventory
             ToggleInteractionInventory(false);
             ToggleShareInventory(false);
             ToggleForge(false);
-            ToggleSale(false);
         }
 
         public void ActiveSafe(bool isActive)
@@ -169,19 +164,6 @@ namespace BK.Inventory
                 isShareInventory ? ItemGridType.ShareInventory : ItemGridType.InteractableInventory;
 
             WorldPlayerInventory.Instance.curInteractItemGrid = targetGrid;
-        }
-
-        public void OpenInteractionSale(int width, int height, List<int> itemIdList, Interactable interactable)
-        {
-            _interactableObject = interactable;
-
-            ToggleSale(true);
-
-            itemSaleUIManager.Init(width, height, itemIdList);
-
-            WorldPlayerInventory.Instance.curOpenedInventory = ItemGridType.InteractableInventory;
-
-            WorldPlayerInventory.Instance.curInteractItemGrid = itemSaleUIManager.GetItemGrid;
         }
 
         private void ResetSelectItem()
@@ -284,13 +266,6 @@ namespace BK.Inventory
             forgeInventoryCanvasGroup.alpha = isActive ? 1 : 0;
             forgeInventoryCanvasGroup.interactable = isActive;
             forgeInventoryCanvasGroup.blocksRaycasts = isActive;
-        }
-
-        private void ToggleSale(bool isActive)
-        {
-            saleCanvasGroup.alpha = isActive ? 1 : 0;
-            saleCanvasGroup.interactable = isActive;
-            saleCanvasGroup.blocksRaycasts = isActive;
         }
 
         /* TOOL TIP */

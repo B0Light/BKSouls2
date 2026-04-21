@@ -263,6 +263,17 @@ namespace BK
             }
         }
 
+        public void ResetRunes()
+        {
+            currentCharacterData.runes = 0;
+
+            if (player != null && player.IsOwner)
+            {
+                player.playerStatsManager.runes = 0;
+                GUIController.Instance.playerUIHudManager.ResetRunesUI();
+            }
+        }
+
         // ── Pre-dungeon stat snapshot ──────────────────────────────────────────
         private int _snapVitality, _snapMind, _snapEndurance;
         private int _snapStrength, _snapDexterity, _snapIntelligence, _snapFaith;

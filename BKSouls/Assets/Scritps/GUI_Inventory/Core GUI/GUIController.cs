@@ -246,11 +246,7 @@ namespace BK
             dialogueGUIManager.InitDialogue(npcName, closeAction);
         }
         */
-        public void OpenSale(int width, int height, List<int> itemIdList, Interactable interactable)
-        {
-            OpenGUI(inventoryGUIManager);
-            inventoryGUIManager.OpenInteractionSale(width, height, itemIdList, interactable);
-        }
+
         /*
         public void OpenPerkManager(PlayerManager player, Interactable interactable)
         {

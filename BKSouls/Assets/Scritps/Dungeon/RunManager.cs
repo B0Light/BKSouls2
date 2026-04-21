@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using BK.Inventory;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -126,6 +127,7 @@ namespace BK
                 Debug.Log("[RunManager] Run Finished.");
                 RestoreAllPlayersClientRpc();
                 ResetLevelUpUIClientRpc();
+                ApplyClearRuneRewardClientRpc();
                 if (roomManager != null)
                     roomManager.CleanupForSceneTransition();
                 WorldSaveGameManager.Instance.LoadHoldScene();
@@ -146,6 +148,20 @@ namespace BK
                 return;
 
             LoadNextRoom();
+        }
+
+        [ClientRpc]
+        private void ApplyClearRuneRewardClientRpc()
+        {
+            PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
+            if (localPlayer == null) return;
+
+            int runes       = localPlayer.playerStatsManager.runes;
+            int balanceGain = Mathf.RoundToInt(runes * 0.7f);
+            if (balanceGain > 0)
+                WorldPlayerInventory.Instance.balance.Value += balanceGain;
+
+            WorldSaveGameManager.Instance.ResetRunes();
         }
 
         [ClientRpc]
