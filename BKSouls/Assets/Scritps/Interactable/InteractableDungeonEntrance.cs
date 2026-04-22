@@ -1,35 +1,51 @@
+using BK.Inventory;
+using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BK
 {
-
     public class InteractableDungeonEntrance : Interactable
     {
-        [SerializeField] private DungeonInfoData dungeonInfoData;
+        [SerializeField] private DungeonData dungeonData;
         [SerializeField] private ParticleSystem vfx;
         [SerializeField] private GameObject vCam;
+
+        public override void OnTriggerEnter(Collider other)
+        {
+            base.OnTriggerEnter(other);
+            if (vfx != null) vfx.Play();
+        }
+
+        public override void OnTriggerExit(Collider other)
+        {
+            base.OnTriggerExit(other);
+            if (vfx != null) vfx.Stop();
+        }
 
         public override void Interact(PlayerManager player)
         {
             base.Interact(player);
+
+            if (!NetworkManager.Singleton.IsServer)
+            {
+                Debug.LogWarning("Only host/server can enter dungeon.");
+                return;
+            }
+
             WorldSaveGameManager.Instance.SaveGame();
             WorldSaveGameManager.Instance.SnapshotPreDungeonStats();
 
-            vCam?.SetActive(true);
-            vfx?.Play();
-            OpenHUD();
-        }
+            if (vCam != null) vCam.SetActive(true);
 
-        private void OpenHUD()
-        {
-            GUIController.Instance.OpenDungeonEntrance(dungeonInfoData, this);
+            WorldPlayerInventory.Instance.MoveInventoryToShare();
+            NetworkManager.Singleton.SceneManager.LoadScene(dungeonData.dungeonSceneName, LoadSceneMode.Single);
         }
 
         public override void ResetInteraction()
         {
             base.ResetInteraction();
-            vCam?.SetActive(false);
-            vfx?.Stop();
+            if (vCam != null) vCam.SetActive(false);
         }
     }
 }

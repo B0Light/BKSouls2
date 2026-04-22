@@ -168,22 +168,19 @@ MonoBehaviour:
   roomRoot: {fileID: 980477447}
   networkRuntimeRoot: {fileID: 980477447}
   roomTemplates:
-  - {fileID: 11400000, guid: 144f0602c1b74d04aa96e0dd227929f9, type: 2}
-  - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
-  - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
-  - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}
-  - {fileID: 11400000, guid: 8e42cd4a49166b247920eee8b055ad61, type: 2}
-  - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
-  - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   - {fileID: 11400000, guid: 7bc5f8abdb7db3742b5f08a06fd39798, type: 2}
   - {fileID: 11400000, guid: 33bc3a52d27978e4aa9b7860972e32c3, type: 2}
   navMeshBuilder: {fileID: 756663084}
   itemBoxDatabase: {fileID: 11400000, guid: 51604226f51698745af1bb04c3d977eb, type: 2}
+  siteOfGracePrefab: {fileID: 0}
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 0}
-  baseBattleEnemyCount: 1
-  eliteEnemyCount: 5
-  bossEnemyCount: 1
+  minBattleEnemyCount: 2
+  maxBattleEnemyCount: 4
+  minEliteEnemyCount: 3
+  maxEliteEnemyCount: 6
+  minBossEnemyCount: 1
+  maxBossEnemyCount: 1
 --- !u!114 &430361882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -785,9 +782,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   ShowTopMostFoldoutHeaderGroup: 1
   roomManager: {fileID: 430361881}
-  allRoomTemplates:
-  - {fileID: 11400000, guid: 7bc5f8abdb7db3742b5f08a06fd39798, type: 2}
-  - {fileID: 11400000, guid: 33bc3a52d27978e4aa9b7860972e32c3, type: 2}
   floorSequence: 0000000006000000
 --- !u!114 &1458793202
 MonoBehaviour:

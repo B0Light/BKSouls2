@@ -39,6 +39,7 @@ namespace BK.Inventory
         public override void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
         {
             _isShopOpen = true;
+            WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
 
             SetUpShelf(items);
             ResetItemInfo();
@@ -59,6 +60,8 @@ namespace BK.Inventory
         {
             base.CloseGUI();
 
+            WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+
             SetSaleVisible(false);
             SetInventoryViewVisible(false);
 
@@ -68,6 +71,11 @@ namespace BK.Inventory
             notEnoughSlot.SetActive(false);
 
             WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        private void OnBalanceChanged(int value)
+        {
+            SetPurchaseQuantity(_purchaseQuantity);
         }
 
         private void ToggleSale()

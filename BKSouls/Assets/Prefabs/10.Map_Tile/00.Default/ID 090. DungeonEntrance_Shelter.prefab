@@ -580,7 +580,7 @@ MonoBehaviour:
   interactableText: Enter Dungeon
   interactableCollider: {fileID: 3356971196604629370}
   hostOnlyInteractable: 1
-  dungeonInfoData: {fileID: 11400000, guid: 68535547ce776e04685afc6faeb8fac5, type: 2}
+  dungeonData: {fileID: 11400000, guid: 7c7f5c54e19d8144cac12a999fd669da, type: 2}
   vfx: {fileID: 5863183314179336205}
   vCam: {fileID: 3757962887826353653}
 --- !u!1 &7051574228444962285

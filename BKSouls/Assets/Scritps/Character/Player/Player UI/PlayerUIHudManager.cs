@@ -24,11 +24,13 @@ namespace BK
         
         [Header("Runes")]
         [SerializeField] float runeUpdateCountDelayTimer = 2.5f;
+        [SerializeField] private bool displayBalanceInRuneUI = false;
+        [SerializeField] private GameObject runeIcon;
+        [SerializeField] private GameObject balanceIcon;
         private int pendingRunesToAdd = 0;
         private Coroutine waitThenAddRunesCoroutine;
         [SerializeField] TextMeshProUGUI runesToAddText;
         [SerializeField] TextMeshProUGUI runesCountText;
-        [SerializeField] TextMeshProUGUI balanceCountText;
 
         [Header("Quick Slots")]
         [SerializeField] Image rightWeaponQuickSlotIcon;
@@ -57,11 +59,18 @@ namespace BK
 
         private void Start()
         {
+            if (runeIcon != null) runeIcon.SetActive(!displayBalanceInRuneUI);
+            if (balanceIcon != null) balanceIcon.SetActive(displayBalanceInRuneUI);
+
             if (WorldPlayerInventory.Instance != null)
             {
                 WorldPlayerInventory.Instance.OnInventoryChanged += RefreshQuickSlotCount;
-                WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
-                SetBalanceText(WorldPlayerInventory.Instance.balance.Value);
+
+                if (displayBalanceInRuneUI)
+                {
+                    WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
+                    SetRuneUIText(WorldPlayerInventory.Instance.balance.Value);
+                }
             }
         }
 
@@ -70,19 +79,21 @@ namespace BK
             if (WorldPlayerInventory.Instance != null)
             {
                 WorldPlayerInventory.Instance.OnInventoryChanged -= RefreshQuickSlotCount;
-                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+
+                if (displayBalanceInRuneUI)
+                    WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
             }
         }
 
         private void OnBalanceChanged(int value)
         {
-            SetBalanceText(value);
+            SetRuneUIText(value);
         }
 
-        private void SetBalanceText(int value)
+        private void SetRuneUIText(int value)
         {
-            if (balanceCountText != null)
-                balanceCountText.text = value.ToString();
+            if (runesCountText != null)
+                runesCountText.text = value.ToString();
         }
 
         private void RefreshQuickSlotCount()
@@ -127,7 +138,7 @@ namespace BK
                 StopCoroutine(waitThenAddRunesCoroutine);
             pendingRunesToAdd = 0;
             if (runesToAddText != null) runesToAddText.enabled = false;
-            if (runesCountText != null) runesCountText.text = "0";
+            if (runesCountText != null && !displayBalanceInRuneUI) runesCountText.text = "0";
         }
 
         public void SetRunesCount(int runesToAdd)
@@ -176,7 +187,8 @@ namespace BK
             //  3. UPDATE RUNE COUNT, RESET PENDING RUNES AND HIDE PENDING RUNES
             runesToAddText.enabled = false;
             pendingRunesToAdd = 0;
-            runesCountText.text = GUIController.Instance.localPlayer.playerStatsManager.runes.ToString();
+            if (!displayBalanceInRuneUI)
+                runesCountText.text = GUIController.Instance.localPlayer.playerStatsManager.runes.ToString();
 
             yield return null;
         }

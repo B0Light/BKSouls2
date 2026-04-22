@@ -56,7 +56,26 @@ public class HUDGridBuildToSelectInfo : MonoBehaviour
         _canvasGroup.alpha = buildObjData != null ? 1 : 0;
         Init(buildObjData);
     }
-    
+
+    public void Show(BuildObjData buildData)
+    {
+        Init(buildData);
+        SetVisible(true);
+    }
+
+    public void Hide()
+    {
+        Init(null);
+        SetVisible(false);
+    }
+
+    private void SetVisible(bool isActive)
+    {
+        _canvasGroup.alpha = isActive ? 1f : 0f;
+        _canvasGroup.interactable = isActive;
+        _canvasGroup.blocksRaycasts = isActive;
+    }
+
     private void Init(BuildObjData buildData)
     {
         if (buildData)
