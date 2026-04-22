@@ -368,6 +368,15 @@ namespace BK
             yVelocity.y = Mathf.Sqrt(jumpHeight * -2 * gravityForce);
         }
 
+        public void ResetMovementState()
+        {
+            verticalMovement = 0;
+            horizontalMovement = 0;
+            moveAmount = 0;
+            player.playerNetworkManager.isSprinting.Value = false;
+            player.playerAnimatorManager.UpdateAnimatorMovementParameters(0, 0, false);
+        }
+
         public void ResetSpawnProtect()
         {
             yVelocity = Vector3.zero;

@@ -59,6 +59,7 @@ namespace BK
         public void Close()
         {
             WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+            if (buildingInfoPopup != null) buildingInfoPopup.Hide();
             SetVisible(false);
         }
 
@@ -125,6 +126,10 @@ namespace BK
 
             WorldSaveGameManager.Instance.currentCharacterData.shelterLevel++;
 
+            ShelterGridBuildSystem shelterBuildSystem = BaseGridBuildSystem.Instance as ShelterGridBuildSystem;
+            if (shelterBuildSystem != null)
+                shelterBuildSystem.SyncHeadquarterLevel();
+
             CategoryBuildHUDManager categoryBuildHUDManager = GridBuildHUDManager.Instance as CategoryBuildHUDManager;
             if (categoryBuildHUDManager != null)
                 categoryBuildHUDManager.UpdateAvailableBuildings();
@@ -155,8 +160,26 @@ namespace BK
                 if (btn != null && buildingInfoPopup != null)
                 {
                     BuildObjData captured = building;
-                    btn.onClick.AddListener(() => buildingInfoPopup.Show(captured));
+                    btn.onClick.AddListener(() => ToggleBuildingInfoPopup(captured));
                 }
+            }
+        }
+
+        private BuildObjData _currentPopupBuilding;
+
+        private void ToggleBuildingInfoPopup(BuildObjData building)
+        {
+            if (buildingInfoPopup == null) return;
+
+            if (_currentPopupBuilding == building)
+            {
+                buildingInfoPopup.Hide();
+                _currentPopupBuilding = null;
+            }
+            else
+            {
+                buildingInfoPopup.Show(building);
+                _currentPopupBuilding = building;
             }
         }
 
@@ -165,6 +188,8 @@ namespace BK
             if (buildingIconContainer == null) return;
             foreach (Transform child in buildingIconContainer)
                 Destroy(child.gameObject);
+            _currentPopupBuilding = null;
+            if (buildingInfoPopup != null) buildingInfoPopup.Hide();
         }
 
         private int GetVisitorCapacity(int level)

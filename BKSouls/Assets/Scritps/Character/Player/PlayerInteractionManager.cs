@@ -81,6 +81,7 @@ namespace BK
 
             if (currentInteractableActions[0] != null)
             {
+                player.playerLocomotionManager.ResetMovementState();
                 currentInteractableActions[0].Interact(player);
                 RefreshInteractionList();
             }

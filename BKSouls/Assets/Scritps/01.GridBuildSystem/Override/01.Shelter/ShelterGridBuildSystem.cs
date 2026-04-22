@@ -89,14 +89,23 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
         ObjectToPlace = null;
     }
     
+    private Headquarter _headquarter;
+
     private void LoadHeadquarter()
     {
         ObjectToPlace = WorldDatabase_Build.Instance.GetBuildingByID(headquarterTile);
         if(ObjectToPlace == null) return;
         var placedObject = PlaceTile(_headquarterPos.x,_headquarterPos.y,Dir.Left,
         WorldSaveGameManager.Instance.currentCharacterData.shelterLevel,true);
+        _headquarter = placedObject as Headquarter;
         CheckPointList.Add(placedObject.GetEntrance());
         ObjectToPlace = null;
+    }
+
+    public void SyncHeadquarterLevel()
+    {
+        if (_headquarter == null) return;
+        _headquarter.SyncToShelterLevel();
     }
     
     private void LoadDefaultRoad()
@@ -240,6 +249,12 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
 
     public override bool TryUpgrade(PlacedObject placedObject)
     {
+        if (placedObject is Headquarter)
+        {
+            Debug.LogWarning("[ShelterGridBuildSystem] Headquarter는 Shelter 레벨을 통해서만 강화됩니다.");
+            return false;
+        }
+
         BuildObjData buildObjData = placedObject.GetBuildObjData();
 
         if (placedObject.GetLevel() >= buildObjData.maxLevel)

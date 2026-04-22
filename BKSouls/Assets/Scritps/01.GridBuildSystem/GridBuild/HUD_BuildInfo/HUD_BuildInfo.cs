@@ -40,7 +40,7 @@ public class HUD_BuildInfo : MonoBehaviour
         if (nextLevel <= buildTile.GetBuildObjData().maxLevel)
         {
             upgradeTextNext.text = "[강화 후]\n" + GetStateText(nextLevel, buildTile.GetFeeByLevel(nextLevel));
-            upgradeTextCost.text = "강화 비용 : " + buildTile.GetUpgradeCost() + "stl";
+            upgradeTextCost.text = "강화 비용 : " + buildTile.GetUpgradeCost();
             upgradeButton.interactable = true;
             upgradeButton.onClick.RemoveAllListeners();
             upgradeButton.onClick.AddListener(() =>
@@ -67,10 +67,9 @@ public class HUD_BuildInfo : MonoBehaviour
 
     private string GetStateText(int level, int income)
     {
-        string unit = "SKL";
         string per = "Time";
 
-        string text = $"레벨 : {level}\n수익 : {income} {unit} / {per}";
+        string text = $"레벨 : {level}\n수익 : {income} / {per}";
 
         return text;
     }

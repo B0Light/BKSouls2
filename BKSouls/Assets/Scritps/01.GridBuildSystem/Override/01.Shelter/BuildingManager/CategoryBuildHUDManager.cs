@@ -80,13 +80,13 @@ public class CategoryBuildHUDManager : GridBuildHUDManager
     public void ToggleBuildSelector()
     {
         bool isOpen = buildingSelectionCanvasGroup.interactable;
-
-        gridBuildCategorySelector.RefreshBuildingCategory();
         ToggleBuildSelectionHUD(!isOpen);
     }
     
     public void ToggleBuildSelectionHUD(bool isActive)
     {
+        gridBuildCategorySelector.RefreshBuildingCategory();
+        
         buildingSelectionCanvasGroup.alpha = isActive ? 1f : 0f;
         buildingSelectionCanvasGroup.blocksRaycasts = isActive;
         buildingSelectionCanvasGroup.interactable = isActive;

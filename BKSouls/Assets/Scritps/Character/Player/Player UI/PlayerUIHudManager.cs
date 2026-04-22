@@ -24,13 +24,19 @@ namespace BK
         
         [Header("Runes")]
         [SerializeField] float runeUpdateCountDelayTimer = 2.5f;
-        [SerializeField] private bool displayBalanceInRuneUI = false;
-        [SerializeField] private GameObject runeIcon;
-        [SerializeField] private GameObject balanceIcon;
+        [SerializeField] private string shelterSceneName = "Shelter";
+        private bool isDungeonScene;
         private int pendingRunesToAdd = 0;
         private Coroutine waitThenAddRunesCoroutine;
         [SerializeField] TextMeshProUGUI runesToAddText;
-        [SerializeField] TextMeshProUGUI runesCountText;
+
+        [Header("Rune UI (Dungeon)")]
+        [SerializeField] private CanvasGroup runeCanvasGroup;
+        [SerializeField] private TextMeshProUGUI runesCountText;
+
+        [Header("Balance UI (Shelter)")]
+        [SerializeField] private CanvasGroup balanceCanvasGroup;
+        [SerializeField] private TextMeshProUGUI balanceCountText;
 
         [Header("Quick Slots")]
         [SerializeField] Image rightWeaponQuickSlotIcon;
@@ -59,41 +65,74 @@ namespace BK
 
         private void Start()
         {
-            if (runeIcon != null) runeIcon.SetActive(!displayBalanceInRuneUI);
-            if (balanceIcon != null) balanceIcon.SetActive(displayBalanceInRuneUI);
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged += OnActiveSceneChanged;
 
             if (WorldPlayerInventory.Instance != null)
-            {
                 WorldPlayerInventory.Instance.OnInventoryChanged += RefreshQuickSlotCount;
 
-                if (displayBalanceInRuneUI)
-                {
-                    WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
-                    SetRuneUIText(WorldPlayerInventory.Instance.balance.Value);
-                }
-            }
+            UpdateSceneMode(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         }
 
         private void OnDestroy()
         {
+            UnityEngine.SceneManagement.SceneManager.activeSceneChanged -= OnActiveSceneChanged;
+
             if (WorldPlayerInventory.Instance != null)
             {
                 WorldPlayerInventory.Instance.OnInventoryChanged -= RefreshQuickSlotCount;
+                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+            }
+        }
 
-                if (displayBalanceInRuneUI)
-                    WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+        private void OnActiveSceneChanged(UnityEngine.SceneManagement.Scene prev, UnityEngine.SceneManagement.Scene next)
+        {
+            UpdateSceneMode(next.name);
+        }
+
+        private void UpdateSceneMode(string sceneName)
+        {
+            bool wasDungeon = isDungeonScene;
+            isDungeonScene = sceneName != shelterSceneName;
+
+            SetCanvasGroupVisible(runeCanvasGroup, isDungeonScene);
+            SetCanvasGroupVisible(balanceCanvasGroup, !isDungeonScene);
+
+            if (WorldPlayerInventory.Instance == null) return;
+
+            if (wasDungeon && !isDungeonScene)
+            {
+                WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
+                SetBalanceText(WorldPlayerInventory.Instance.balance.Value);
+            }
+            else if (!wasDungeon && isDungeonScene)
+            {
+                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+            }
+            else if (!isDungeonScene)
+            {
+                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+                WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
+                SetBalanceText(WorldPlayerInventory.Instance.balance.Value);
             }
         }
 
         private void OnBalanceChanged(int value)
         {
-            SetRuneUIText(value);
+            SetBalanceText(value);
         }
 
-        private void SetRuneUIText(int value)
+        private void SetBalanceText(int value)
         {
-            if (runesCountText != null)
-                runesCountText.text = value.ToString();
+            if (balanceCountText != null)
+                balanceCountText.text = value.ToString();
+        }
+
+        private void SetCanvasGroupVisible(CanvasGroup cg, bool isVisible)
+        {
+            if (cg == null) return;
+            cg.alpha = isVisible ? 1f : 0f;
+            cg.interactable = isVisible;
+            cg.blocksRaycasts = isVisible;
         }
 
         private void RefreshQuickSlotCount()
@@ -138,7 +177,7 @@ namespace BK
                 StopCoroutine(waitThenAddRunesCoroutine);
             pendingRunesToAdd = 0;
             if (runesToAddText != null) runesToAddText.enabled = false;
-            if (runesCountText != null && !displayBalanceInRuneUI) runesCountText.text = "0";
+            if (runesCountText != null && isDungeonScene) runesCountText.text = "0";
         }
 
         public void SetRunesCount(int runesToAdd)
@@ -187,7 +226,7 @@ namespace BK
             //  3. UPDATE RUNE COUNT, RESET PENDING RUNES AND HIDE PENDING RUNES
             runesToAddText.enabled = false;
             pendingRunesToAdd = 0;
-            if (!displayBalanceInRuneUI)
+            if (isDungeonScene)
                 runesCountText.text = GUIController.Instance.localPlayer.playerStatsManager.runes.ToString();
 
             yield return null;

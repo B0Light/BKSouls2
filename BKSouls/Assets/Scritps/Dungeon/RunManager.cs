@@ -155,8 +155,7 @@ namespace BK
             PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
             if (localPlayer == null) return;
 
-            int runes       = localPlayer.playerStatsManager.runes;
-            int balanceGain = Mathf.RoundToInt(runes * 0.7f);
+            int balanceGain = localPlayer.playerStatsManager.runes;
             if (balanceGain > 0)
                 WorldPlayerInventory.Instance.balance.Value += balanceGain;
 

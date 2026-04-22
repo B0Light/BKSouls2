@@ -39,6 +39,11 @@ namespace BK
         [SerializeField] private int minBossEnemyCount  = 1;
         [SerializeField] private int maxBossEnemyCount  = 1;
 
+        [Header("Room Clear Rune Rewards")]
+        [SerializeField] private int battleRoomRuneReward = 100;
+        [SerializeField] private int eliteRoomRuneReward  = 300;
+        [SerializeField] private int bossRoomRuneReward   = 800;
+
         private RoomInstance currentRoomInstance;
         private RoomPlan currentPlan;
         private RoomTemplateSO currentTemplate;
@@ -671,12 +676,35 @@ namespace BK
 
             SetState(RoomState.Reward);
 
+            int runeReward = GetRuneRewardByRoomType(currentPlan.roomType);
+            if (runeReward > 0)
+                AwardRoomRuneRewardClientRpc(runeReward);
+
             SpawnRewardIfNeeded();
 
             if (currentExitDoor != null)
                 currentExitDoor.SetDoorOpenServer(true);
 
             SetState(RoomState.Cleared);
+        }
+
+        private int GetRuneRewardByRoomType(RoomType roomType)
+        {
+            switch (roomType)
+            {
+                case RoomType.Battle: return battleRoomRuneReward;
+                case RoomType.Elite:  return eliteRoomRuneReward;
+                case RoomType.Boss:   return bossRoomRuneReward;
+                default:              return 0;
+            }
+        }
+
+        [ClientRpc]
+        private void AwardRoomRuneRewardClientRpc(int amount)
+        {
+            PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
+            if (localPlayer == null) return;
+            localPlayer.playerStatsManager.AddRunes(amount);
         }
 
         private void SpawnRewardIfNeeded(bool isSiteOfGrace = false)

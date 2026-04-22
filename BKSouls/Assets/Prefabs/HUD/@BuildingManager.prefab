@@ -2037,7 +2037,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 884dc8aa21def43f19a629d436e7ab86, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2a8dd4b021b403441ba44a93e3ee6595, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2324,8 +2324,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 864738940193414469}
   - {fileID: 5273796145279195778}
+  - {fileID: 864738940193414469}
   - {fileID: 4699353377111028642}
   m_Father: {fileID: 6427509172353538334}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -12602,7 +12602,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'COST : 1000 STL'
+  m_text: 'COST : 1000
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fa2aaccf043b164dbb873907c893431, type: 2}
   m_sharedMaterial: {fileID: -5651077443740028391, guid: 8fa2aaccf043b164dbb873907c893431, type: 2}
@@ -14756,6 +14758,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6795109611211000974}
     m_Modifications:
+    - target: {fileID: 193988808146436281, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: expandedText
+      value: Open Build Menu
+      objectReference: {fileID: 0}
     - target: {fileID: 1084909107251804145, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Pivot.x
       value: 1
@@ -14866,7 +14872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2928095428561355679, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Name
-      value: HUD_ExpendingButton
+      value: 'HUD_ExpendingButton : Build'
       objectReference: {fileID: 0}
     - target: {fileID: 3523134102110279804, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Sprite
@@ -14882,10 +14888,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
@@ -14893,7 +14903,15 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4230336022987763749}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 8284419963978629010}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
@@ -14901,11 +14919,23 @@ PrefabInstance:
       value: ToggleBuildSelector
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: Close
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: CategoryBuildHUDManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BK.ShelterMenuUIManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15494,7 +15524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2928095428561355679, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Name
-      value: HUD_ExpendingButton (1)
+      value: 'HUD_ExpendingButton : Upgrade '
       objectReference: {fileID: 0}
     - target: {fileID: 3523134102110279804, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Sprite
@@ -15510,18 +15540,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 8284419963978629010}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 4230336022987763749}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
@@ -15529,11 +15571,23 @@ PrefabInstance:
       value: Open
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: ToggleBuildSelectionHUD
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: BK.ShelterMenuUIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: CategoryBuildHUDManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 8518542090691795215, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -15668,7 +15722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2928095428561355679, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Name
-      value: HUD_ExpendingButton (2)
+      value: 'HUD_ExpendingButton : Exit'
       objectReference: {fileID: 0}
     - target: {fileID: 3523134102110279804, guid: 0e236ab68e4c51e4e96542201efe085b, type: 3}
       propertyPath: m_Sprite

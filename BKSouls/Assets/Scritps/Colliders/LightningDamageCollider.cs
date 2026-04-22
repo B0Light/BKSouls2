@@ -11,29 +11,41 @@ namespace BK
             base.Awake();
         }
 
+        [SerializeField] private float damageDelay = 1f;
+
         public List<Vector3> impactPositions = new List<Vector3>();
 
         protected override void OnTriggerEnter(Collider other)
         {
             CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
 
-            if (damageTarget != null)
+            if (damageTarget == null)
+                return;
+
+            if (damageTarget == spellCaster)
+                return;
+
+            if (!WorldUtilityManager.Instance.CanIDamageThisTarget(spellCaster.characterGroup, damageTarget.characterGroup))
+                return;
+
+            CheckForBlock(damageTarget);
+
+            if (!damageTarget.characterNetworkManager.isInvulnerable.Value)
             {
-                if (damageTarget == spellCaster)
-                    return;
-
-                if (!WorldUtilityManager.Instance.CanIDamageThisTarget(spellCaster.characterGroup, damageTarget.characterGroup))
-                    return;
-
-                CheckForBlock(damageTarget);
-
-                if (!damageTarget.characterNetworkManager.isInvulnerable.Value)
-                {
-                    contactPoint = damageTarget.transform.position;
-                    impactPositions.Add(contactPoint);
-                    DamageTarget(damageTarget);
-                }
+                contactPoint = damageTarget.transform.position;
+                impactPositions.Add(contactPoint);
+                StartCoroutine(DelayedDamage(damageTarget, damageDelay));
             }
+        }
+
+        private IEnumerator DelayedDamage(CharacterManager damageTarget, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+
+            if (damageTarget == null)
+                yield break;
+
+            DamageTarget(damageTarget);
         }
 
         protected override void GetBlockingDotValues(CharacterManager damageTarget)
