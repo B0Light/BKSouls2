@@ -28,6 +28,7 @@ namespace BK
         private Coroutine waitThenAddRunesCoroutine;
         [SerializeField] TextMeshProUGUI runesToAddText;
         [SerializeField] TextMeshProUGUI runesCountText;
+        [SerializeField] TextMeshProUGUI balanceCountText;
 
         [Header("Quick Slots")]
         [SerializeField] Image rightWeaponQuickSlotIcon;
@@ -57,13 +58,31 @@ namespace BK
         private void Start()
         {
             if (WorldPlayerInventory.Instance != null)
+            {
                 WorldPlayerInventory.Instance.OnInventoryChanged += RefreshQuickSlotCount;
+                WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
+                SetBalanceText(WorldPlayerInventory.Instance.balance.Value);
+            }
         }
 
         private void OnDestroy()
         {
             if (WorldPlayerInventory.Instance != null)
+            {
                 WorldPlayerInventory.Instance.OnInventoryChanged -= RefreshQuickSlotCount;
+                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+            }
+        }
+
+        private void OnBalanceChanged(int value)
+        {
+            SetBalanceText(value);
+        }
+
+        private void SetBalanceText(int value)
+        {
+            if (balanceCountText != null)
+                balanceCountText.text = value.ToString();
         }
 
         private void RefreshQuickSlotCount()

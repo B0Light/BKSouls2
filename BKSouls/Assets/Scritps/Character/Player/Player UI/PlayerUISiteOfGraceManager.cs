@@ -15,11 +15,13 @@ namespace BK
 
         private int _restCost;
         private Action _onRestConfirmed;
+        private PlayerManager _player;
 
-        public void OpenRestMenu(int cost, Action onConfirmed)
+        public void OpenRestMenu(int cost, Action onConfirmed, PlayerManager player)
         {
             _restCost = cost;
             _onRestConfirmed = onConfirmed;
+            _player = player;
 
             RefreshUI();
 
@@ -29,7 +31,21 @@ namespace BK
             cancelButton.onClick.RemoveAllListeners();
             cancelButton.onClick.AddListener(CloseMenu);
 
+            LockPlayerMovement(true);
             OpenMenu();
+        }
+
+        public override void CloseMenu()
+        {
+            LockPlayerMovement(false);
+            base.CloseMenu();
+        }
+
+        private void LockPlayerMovement(bool locked)
+        {
+            if (_player == null) return;
+            _player.characterLocomotionManager.canMove = !locked;
+            _player.characterLocomotionManager.canRotate = !locked;
         }
 
         private void RefreshUI()

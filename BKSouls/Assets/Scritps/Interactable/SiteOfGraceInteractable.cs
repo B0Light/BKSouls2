@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -27,18 +26,6 @@ namespace BK
         protected override void Start()
         {
             base.Start();
-
-            if (IsOwner)
-            {
-                if (WorldSaveGameManager.Instance.currentCharacterData.sitesOfGrace.ContainsKey(siteOfGraceID))
-                {
-                    isActivated.Value = WorldSaveGameManager.Instance.currentCharacterData.sitesOfGrace[siteOfGraceID];
-                }
-                else
-                {
-                    isActivated.Value = false;
-                }
-            }
 
             if (isActivated.Value)
             {
@@ -74,15 +61,7 @@ namespace BK
         {
             isActivated.Value = true;
 
-            //  IF OUR SAVE FILE CONTAINS INFO ON THIS SITE OF GRACE, REMOVE IT
-            if (WorldSaveGameManager.Instance.currentCharacterData.sitesOfGrace.ContainsKey(siteOfGraceID))
-                WorldSaveGameManager.Instance.currentCharacterData.sitesOfGrace.Remove(siteOfGraceID);
-
-            //  THEN RE-ADD IT WITH THE VALUE OF "TRUE" (IS ACTIVATED)
-            WorldSaveGameManager.Instance.currentCharacterData.sitesOfGrace.Add(siteOfGraceID, true);
-
             player.playerAnimatorManager.PlayTargetActionAnimation("Activate_Site_Of_Grace_01", true);
-            //  HIDE WEAPON MODELS WHILST PLAYING ANIMATION IF YOU DESIRE
 
             GUIController.Instance.playerUIPopUpManager.SendGraceRestoredPopUp("SITE OF GRACE RESTORED");
 
@@ -93,7 +72,7 @@ namespace BK
         {
             interactableCollider.enabled = true;
 
-            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(restCost, () => ApplyRestEffect(player));
+            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(restCost, () => ApplyRestEffect(player), player);
         }
 
         private void ApplyRestEffect(PlayerManager player)
@@ -143,8 +122,6 @@ namespace BK
 
             if (player.playerCombatManager.isUsingItem)
                 return;
-
-            WorldSaveGameManager.Instance.currentCharacterData.lastSiteOfGraceRestedAt = siteOfGraceID;
 
             if (!isActivated.Value)
             {

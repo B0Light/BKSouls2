@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83c6e7fe83ba9a849923650ba55a9a37, type: 3}
+  m_Name: Dungeon01. Hero's Tomb
+  m_EditorClassIdentifier: Assembly-CSharp::DungeonData
+  dungeonID: 1
+  dungeonKey: 0
+  difficulty: 0
+  dungeonSceneName: Scene_World_01
+  dungeonName: "\uC601\uC6C5\uC758 \uBB34\uB364 "
+  enemyList: 
+  mainResourceList: 
+  bossSpawnTimer: 0
+  bgm: {fileID: 0}

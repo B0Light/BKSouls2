@@ -56,10 +56,6 @@ namespace BK
         public int intelligence;
         public int faith;
 
-        [Header("Sites Of Grace")]
-        public int lastSiteOfGraceRestedAt = 0;
-        public SerializableDictionary<int, bool> sitesOfGrace;      //  THE INT IS THE SITE OF GRACE I.D, THE BOOL IS THE "ACTIVATED" STATUS
-
         [Header("Bosses")]
         public SerializableDictionary<int, bool> bossesAwakened;    //  THE INT IS THE BOSS I.D, THE BOOL IS THE AWAKENED STATUS
         public SerializableDictionary<int, bool> bossesDefeated;    //  THE INT IS THE BOSS I.D, THE BOOL IS THE DEFEATED STATUS
@@ -133,7 +129,6 @@ namespace BK
             safeBoxSize = new Vector2Int(2, 2);
             shareBoxSize = new Vector2Int(8, 20);
             
-            sitesOfGrace = new SerializableDictionary<int, bool>();
             bossesAwakened = new SerializableDictionary<int, bool>();
             bossesDefeated = new SerializableDictionary<int, bool>();
             worldItemsLooted = new SerializableDictionary<int, bool>();
