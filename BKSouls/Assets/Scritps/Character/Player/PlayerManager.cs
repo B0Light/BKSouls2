@@ -59,6 +59,8 @@ namespace BK
 
             //  REGEN STAMINA
             playerStatsManager.RegenerateStamina();
+
+            playerStatsManager.HandleShelterRegen();
         }
 
         protected override void LateUpdate()

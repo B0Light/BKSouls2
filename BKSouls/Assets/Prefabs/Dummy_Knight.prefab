@@ -3644,7 +3644,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3197131819
+  GlobalObjectIdHash: 2817220012
   InScenePlacedSourceGlobalObjectIdHash: 3502972318
   DeferredDespawnTick: 0
   Ownership: 1
@@ -3980,9 +3980,9 @@ MonoBehaviour:
   minimumFOV: -35
   maximumFOV: 35
   attackRotationSpeed: 25
-  maxStance: 10
+  maxStance: 100
   currentStance: 10
-  stanceRegeneratedPersecond: 15
+  stanceRegeneratedPersecond: 5
   ignoreStanceBreak: 0
   stanceRegenerationTimer: 0
   defaultTimeUntilStanceRegenerationBegins: 15

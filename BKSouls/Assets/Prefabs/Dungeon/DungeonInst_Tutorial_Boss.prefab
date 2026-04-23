@@ -5783,7 +5783,7 @@ MonoBehaviour:
   - {fileID: 8374765862344391564}
   entryDoorAnchor: {fileID: 8257975912757557779}
   exitDoorAnchor: {fileID: 878651787251552082}
-  rewardSpawnPoint: {fileID: 3590606977765929458}
+  rewardSpawnPoints: []
 --- !u!1 &8854101865982256090
 GameObject:
   m_ObjectHideFlags: 0
@@ -14780,6 +14780,10 @@ PrefabInstance:
     - target: {fileID: 5896731096352662846, guid: c16a7fc8c310df7468ea7c8628af4e7e, type: 3}
       propertyPath: m_Name
       value: 'Event Trigger : Wake Knight'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5896731096352662846, guid: c16a7fc8c310df7468ea7c8628af4e7e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6384114185423196881, guid: c16a7fc8c310df7468ea7c8628af4e7e, type: 3}
       propertyPath: m_Enabled

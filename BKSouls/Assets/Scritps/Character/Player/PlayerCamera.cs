@@ -116,15 +116,26 @@ namespace BK
             //  IF LOCKED ON, FORCE ROTATION TOWARDS TARGET
             if (player.playerNetworkManager.isLockedOn.Value)
             {
+                CharacterManager currentTarget = player.playerCombatManager.currentTarget;
+
+                if (currentTarget == null ||
+                    currentTarget.characterCombatManager == null ||
+                    currentTarget.characterCombatManager.lockOnTransform == null)
+                {
+                    player.playerNetworkManager.isLockedOn.Value = false;
+                    ClearLockOnTargets();
+                    return;
+                }
+
                 //  THIS ROTATES THIS GAMEOBJECT
-                Vector3 rotationDirection = player.playerCombatManager.currentTarget.characterCombatManager.lockOnTransform.position - transform.position;
+                Vector3 rotationDirection = currentTarget.characterCombatManager.lockOnTransform.position - transform.position;
                 rotationDirection.Normalize();
                 rotationDirection.y = 0;
                 Quaternion targetRotation = Quaternion.LookRotation(rotationDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, lockOnTargetFollowSpeed);
 
                 //  THIS ROTATES THE PIVOT OBJECT
-                rotationDirection = player.playerCombatManager.currentTarget.characterCombatManager.lockOnTransform.position - cameraPivotTransform.position;
+                rotationDirection = currentTarget.characterCombatManager.lockOnTransform.position - cameraPivotTransform.position;
                 rotationDirection.Normalize();
 
                 targetRotation = Quaternion.LookRotation(rotationDirection);

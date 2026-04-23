@@ -323,19 +323,17 @@ namespace BK
             {
                 if (player.playerCombatManager.currentTarget == null)
                     return;
- 
+
+                //  ONLY SEARCH FOR A NEW TARGET WHEN THE CURRENT ONE DIES
                 if (player.playerCombatManager.currentTarget.isDead.Value)
                 {
                     player.playerNetworkManager.isLockedOn.Value = false;
+
+                    if (lockOnCoroutine != null)
+                        StopCoroutine(lockOnCoroutine);
+
+                    lockOnCoroutine = StartCoroutine(PlayerCamera.Instance.WaitThenFindNewTarget());
                 }
-
-                //  ATTEMPT TO FIND NEW TARGET
-
-                //  THIS ASSURES US THAT THE COROUTINE NEVER RUNS MUILTPLE TIMES OVERLAPPING ITSELF
-                if (lockOnCoroutine != null)
-                    StopCoroutine(lockOnCoroutine);
-
-                lockOnCoroutine = StartCoroutine(PlayerCamera.Instance.WaitThenFindNewTarget());
             }
 
 

@@ -17,10 +17,6 @@ namespace BK
 
         [Header("Dead Spot")]
         public bool hasDeadSpot = false;
-        public float deadSpotPositionX;
-        public float deadSpotPositionY;
-        public float deadSpotPositionZ;
-        public int deadSpotRuneCount;
 
         [Header("Body Type")]
         public bool isMale = true;
@@ -30,7 +26,6 @@ namespace BK
         public float hairColorBlue;
 
         [Header("Time Played")]
-        public float secondsPlayed;
         public string lastPlayTime; // ISO 8601 형식으로 시간 저장
 
         // QUESTION: WHY NOT USE A VECTOR3?
@@ -64,8 +59,6 @@ namespace BK
         public SerializableDictionary<int, bool> worldItemsLooted;  //  THE INT IS THE ITEM I.D, THE BOOL IS THE LOOTED STATUS
 
         [Header("Equipment")]
-
-        public int quickSlotIndex;
 
         public SerializableRangedProjectile mainProjectile;
         public SerializableRangedProjectile secondaryProjectile;

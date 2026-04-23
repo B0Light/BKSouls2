@@ -16,6 +16,28 @@ namespace BK
             characterCausingDamage = GetComponentInParent<AICharacterManager>();
         }
 
+        protected override void OnTriggerEnter(Collider other)
+        {
+            CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
+
+            if (damageTarget != null)
+            {
+                contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+
+                if (damageTarget == characterCausingDamage)
+                    return;
+
+                if (!WorldUtilityManager.Instance.CanIDamageThisTarget(characterCausingDamage.characterGroup, damageTarget.characterGroup))
+                    return;
+
+                CheckForParry(damageTarget);
+                CheckForBlock(damageTarget);
+
+                if (!damageTarget.characterNetworkManager.isInvulnerable.Value)
+                    DamageTarget(damageTarget);
+            }
+        }
+
         protected override void GetBlockingDotValues(CharacterManager damageTarget)
         {
             directionFromAttackToDamageTarget = characterCausingDamage.transform.position - damageTarget.transform.position;

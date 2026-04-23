@@ -10,9 +10,6 @@ namespace BK
         public int siteOfGraceID;
         public NetworkVariable<bool> isActivated = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
-        [Header("Rest Cost")]
-        [SerializeField] private int restCost = 100;
-
         [Header("VFX")]
         [SerializeField] GameObject activatedParticles;
 
@@ -65,6 +62,8 @@ namespace BK
 
             GUIController.Instance.playerUIPopUpManager.SendGraceRestoredPopUp("SITE OF GRACE RESTORED");
 
+            ApplyRestEffect(player);
+
             StartCoroutine(WaitForAnimationAndPopUpThenRestoreCollider());
         }
 
@@ -72,7 +71,7 @@ namespace BK
         {
             interactableCollider.enabled = true;
 
-            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(restCost, () => ApplyRestEffect(player), player);
+            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(0, () => ApplyRestEffect(player), player);
         }
 
         private void ApplyRestEffect(PlayerManager player)

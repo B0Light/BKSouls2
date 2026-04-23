@@ -384,11 +384,11 @@ MonoBehaviour:
   aiCharacterLocomotionManager: {fileID: 0}
   aiCharacterInventoryManager: {fileID: 0}
   navMeshAgent: {fileID: 7903957045302619791}
-  currentState: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
-  idle: {fileID: 11400000, guid: 4504d91531b13f944a54faa0e7790969, type: 2}
-  pursueTarget: {fileID: 11400000, guid: ae152aca9e3a2b04d936a51669ca09f9, type: 2}
+  currentState: {fileID: 11400000, guid: cba642b30c58a294bafaf2b7a92c31aa, type: 2}
+  idle: {fileID: 11400000, guid: cba642b30c58a294bafaf2b7a92c31aa, type: 2}
+  pursueTarget: {fileID: 11400000, guid: 562233cb883c7664983c2c33186a6aa4, type: 2}
   combatStance: {fileID: 11400000, guid: 57f460f3a1ee4404f817bd55b4539627, type: 2}
-  attack: {fileID: 11400000, guid: 8a9f441e00334eb43a952888c145bb77, type: 2}
+  attack: {fileID: 11400000, guid: afb1e9a4fe63fc74689380cea4df335f, type: 2}
   investigateSound: {fileID: 11400000, guid: 746a8c10aaa11624b99e3fe48db0ba42, type: 2}
 --- !u!114 &6829529853198918634
 MonoBehaviour:
@@ -416,16 +416,16 @@ MonoBehaviour:
   pendingCriticalDamage: 0
   baseDamage: 25
   basePoiseDamage: 25
-  actionRecoveryTimer: 0
+  actionRecoveryTimer: 3
   enablePivot: 1
   canPerformCombo: 0
   hasHitTargetDuringCombo: 0
   distanceFromTarget: 0
   viewableAngle: 0
   targetsDirection: {x: 0, y: 0, z: 0}
-  detectionRadius: 15
-  minimumFOV: -35
-  maximumFOV: 35
+  detectionRadius: 25
+  minimumFOV: -90
+  maximumFOV: 90
   attackRotationSpeed: 25
   maxStance: 10
   currentStance: 10
@@ -5833,6 +5833,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3683026490494795418}
     m_Modifications:
+    - target: {fileID: 107206750467484970, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_text
+      value: 'None
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 107206750467484970, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_TextWrappingMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 744719258279995377, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -5929,11 +5939,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4694853984147641381, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694853984147641381, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4694853984147641381, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6842332927439619730, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6842332927439619730, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439815230652745470, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7439815230652745470, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}

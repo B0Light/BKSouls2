@@ -1866,6 +1866,10 @@ MonoBehaviour:
         byte0059: 0
         byte0060: 0
         byte0061: 0
+  hasArrowNotched:
+    m_InternalValue: 0
+  isHoldingArrow:
+    m_InternalValue: 0
 --- !u!114 &4543318554350704152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1943,7 +1947,7 @@ MonoBehaviour:
   minimumFOV: -35
   maximumFOV: 35
   attackRotationSpeed: 25
-  maxStance: 10
+  maxStance: 50
   currentStance: 10
   stanceRegeneratedPersecond: 15
   ignoreStanceBreak: 0

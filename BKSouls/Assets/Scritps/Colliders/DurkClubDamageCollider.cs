@@ -16,6 +16,27 @@ namespace BK
             bossCharacter = GetComponentInParent<AIBossCharacterManager>();
         }
 
+        protected override void OnTriggerEnter(Collider other)
+        {
+            CharacterManager damageTarget = other.GetComponentInParent<CharacterManager>();
+
+            if (damageTarget != null)
+            {
+                contactPoint = other.gameObject.GetComponent<Collider>().ClosestPointOnBounds(transform.position);
+
+                if (damageTarget == bossCharacter)
+                    return;
+
+                if (!WorldUtilityManager.Instance.CanIDamageThisTarget(bossCharacter.characterGroup, damageTarget.characterGroup))
+                    return;
+
+                CheckForBlock(damageTarget);
+
+                if (!damageTarget.characterNetworkManager.isInvulnerable.Value)
+                    DamageTarget(damageTarget);
+            }
+        }
+
         protected override void DamageTarget(CharacterManager damageTarget)
         {
             //  WE DON'T WANT TO DAMAGE THE SAME TARGET MORE THAN ONCE IN A SINGLE ATTACK

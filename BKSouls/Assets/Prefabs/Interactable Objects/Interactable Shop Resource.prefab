@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 233889447
+  GlobalObjectIdHash: 2838742697
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -98,7 +98,9 @@ MonoBehaviour:
   interactableCollider: {fileID: 8526005788557953561}
   hostOnlyInteractable: 0
   saleItemType: 11
-  saleItemList: []
+  saleItemList:
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
 --- !u!1001 &5284716537656158866
 PrefabInstance:
   m_ObjectHideFlags: 0

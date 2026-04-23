@@ -17,8 +17,9 @@ MonoBehaviour:
   itemIcon: {fileID: 21300000, guid: 11a2f270c1ea6bc42a989b01db574f16, type: 3}
   itemTier: 0
   itemType: 9
-  cost: 600
-  itemDescription: A sacred flask filled with a crimson restorative liquid. Drinking it restores a portion of the user's lost health.
+  cost: 1000
+  itemDescription: A sacred flask filled with a crimson restorative liquid. Drinking
+    it restores a portion of the user's lost health.
   width: 1
   height: 1
   weight: 1

@@ -32,8 +32,10 @@ namespace BK
                     if (charactersDamaged.Contains(character))
                         continue;
 
-                    //  WE DONT WANT DURK TO HURT HIMSELF WHEN HE STOMPS
                     if (character == durkCharacterManager)
+                        continue;
+
+                    if (!WorldUtilityManager.Instance.CanIDamageThisTarget(durkCharacterManager.characterGroup, character.characterGroup))
                         continue;
 
                     charactersDamaged.Add(character);

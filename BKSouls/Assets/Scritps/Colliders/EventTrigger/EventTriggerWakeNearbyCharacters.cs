@@ -33,9 +33,6 @@ namespace BK
                 if (aiCharacter.isDead.Value)
                     continue;
 
-                if (aiCharacter.aiCharacterNetworkManager.isAwake.Value)
-                    continue;
-
                 if (!creaturesToWake.Contains(aiCharacter))
                     creaturesToWake.Add(aiCharacter);
             }

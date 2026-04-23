@@ -4225,8 +4225,8 @@ MonoBehaviour:
   minimumFOV: -180
   maximumFOV: 180
   attackRotationSpeed: 50
-  maxStance: 100
-  currentStance: 100
+  maxStance: 150
+  currentStance: 150
   stanceRegeneratedPersecond: 15
   ignoreStanceBreak: 0
   stanceRegenerationTimer: 0

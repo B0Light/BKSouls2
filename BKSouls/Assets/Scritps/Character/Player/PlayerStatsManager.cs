@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BK
 {
@@ -122,6 +123,23 @@ namespace BK
                 //  POISE
                 basePoiseDefense += player.playerInventoryManager.legEquipment.poise;
             }
+        }
+
+        public void HandleShelterRegen()
+        {
+            if (!player.IsOwner) return;
+            if (SceneManager.GetActiveScene().name != "Scene_RoundTableHold") return;
+
+            var net = player.playerNetworkManager;
+
+            if (net.currentHealth.Value < net.maxHealth.Value)
+                net.currentHealth.Value = net.maxHealth.Value;
+
+            if (net.currentStamina.Value < net.maxStamina.Value)
+                net.currentStamina.Value = net.maxStamina.Value;
+
+            if (net.currentFocusPoints.Value < net.maxFocusPoints.Value)
+                net.currentFocusPoints.Value = net.maxFocusPoints.Value;
         }
 
         public void AddRunes(int runesToAdd)

@@ -8445,6 +8445,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4230336022987763749, guid: e7386e026cfd788449dd3c586984fa29, type: 3}
+      propertyPath: activeTileType.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4230336022987763749, guid: e7386e026cfd788449dd3c586984fa29, type: 3}
+      propertyPath: 'activeTileType.Array.data[2]'
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4296241899861227151, guid: e7386e026cfd788449dd3c586984fa29, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -9309,7 +9317,7 @@ Transform:
   m_GameObject: {fileID: 790523406}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 10.000001, y: 0, z: -1.499999}
+  m_LocalPosition: {x: 10.000001, y: 0, z: -1.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

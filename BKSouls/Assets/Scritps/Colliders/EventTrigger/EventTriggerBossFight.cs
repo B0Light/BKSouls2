@@ -6,7 +6,6 @@ namespace BK
 {
     public class EventTriggerBossFight : MonoBehaviour
     {
-        [SerializeField] int bossID;
 
         private void OnTriggerEnter(Collider other)
         {
