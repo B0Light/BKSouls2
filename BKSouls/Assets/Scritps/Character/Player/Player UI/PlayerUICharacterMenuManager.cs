@@ -43,6 +43,13 @@ namespace BK
         [SerializeField] private TextMeshProUGUI holyDefText;
         [SerializeField] private TextMeshProUGUI poiseText;
 
+        // ── 기본 스탯 ──────────────────────────────────────────────────
+        [Header("Attributes")]
+        [SerializeField] private TextMeshProUGUI strengthText;
+        [SerializeField] private TextMeshProUGUI dexterityText;
+        [SerializeField] private TextMeshProUGUI intelligenceText;
+        [SerializeField] private TextMeshProUGUI faithText;
+
         // ── 상태 저항 ──────────────────────────────────────────────────
         [Header("Status Resistance")]
         [SerializeField] private TextMeshProUGUI immunityText;
@@ -63,9 +70,21 @@ namespace BK
         {
             if (Player == null) return;
 
+            RefreshAttributes();
             RefreshResources();
             RefreshAttack();
             RefreshDefense();
+        }
+
+        // ── 기본 스탯 ──────────────────────────────────────────────────
+
+        private void RefreshAttributes()
+        {
+            var net = Player.playerNetworkManager;
+            if (strengthText != null)    strengthText.SetText((net.strength.Value + net.strengthModifier.Value).ToString());
+            if (dexterityText != null)   dexterityText.SetText(net.dexterity.Value.ToString());
+            if (intelligenceText != null) intelligenceText.SetText(net.intelligence.Value.ToString());
+            if (faithText != null)       faithText.SetText(net.faith.Value.ToString());
         }
 
         // ── 파생 자원 ──────────────────────────────────────────────────

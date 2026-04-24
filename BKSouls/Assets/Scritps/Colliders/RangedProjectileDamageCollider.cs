@@ -30,7 +30,7 @@ namespace BK
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected virtual void OnCollisionEnter(Collision collision)
         {
             CreatePenetrationIntoObject(collision);
 

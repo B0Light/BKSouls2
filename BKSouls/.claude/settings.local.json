@@ -4,7 +4,9 @@
       "Bash(xargs grep:*)",
       "Bash(find e:/GitHub/BKSouls2/BKSouls/Assets/Prefabs -type f \\\\\\(-name *[Dd]oor* -o -name *[Pp]ortal* -o -name *[Tt]eleport* \\\\\\))",
       "Bash(sort -t: -k3 -n)",
-      "Bash(xargs ls *)"
+      "Bash(xargs ls *)",
+      "Bash(grep -v \"\\\\.meta$\")",
+      "Bash(grep -E \"\\\\.cs$\")"
     ]
   }
 }
