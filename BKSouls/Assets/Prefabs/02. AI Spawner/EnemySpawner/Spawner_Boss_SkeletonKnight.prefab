@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5759175981192852117}
   - component: {fileID: 882319676538015308}
   m_Layer: 0
-  m_Name: Spawner_SkeletonArcher
+  m_Name: Spawner_Boss_SkeletonKnight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,11 +44,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683246800056f3748a89b2c277f6ab25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterSpawner
-  characterGameObject: {fileID: 198379182085928216, guid: 7ecbc3f21c826604fa40b0bfad328524, type: 3}
+  characterGameObject: {fileID: 6515750127205923320, guid: 6a2013a8dd09b59499e641f39527ba89, type: 3}
   instantiatedGameObject: {fileID: 0}
   hasPatrolPath: 0
   patrolPathID: 1
-  isSleeping: 0
+  isSleeping: 1
+  statsSO: {fileID: 11400000, guid: e03557a2f07b91647ad798ae4746d945, type: 2}
   manuallySetStats: 1
   stamina: 150
   health: 400

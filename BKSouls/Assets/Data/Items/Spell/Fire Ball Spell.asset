@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dee5fa8f57c76f48b29a3edef255777, type: 3}
   m_Name: Fire Ball Spell
   m_EditorClassIdentifier: Assembly-CSharp::BK.FireBallSpell
-  itemID: 14
+  itemID: 42
   itemName: Fire Ball
   itemIcon: {fileID: 21300000, guid: dc6213b9fa835694a9f6ab694cf5bab8, type: 3}
   itemTier: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   itemDescription: Conjures a sphere of roiling flame and hurls it at enemies. Can
     be charged for a more powerful, intensified blast of fire.
   SpellClass: 0
-  baseDamage: 150
+  baseDamage: 50
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1
   staminaCost: 25
@@ -30,11 +30,9 @@ MonoBehaviour:
   spellChargeFX: {fileID: 8024480108448382363, guid: c7cddb9e20324ab469e522704c71411b, type: 3}
   spellCastReleaseFX: {fileID: 7118137286583304359, guid: 7424159956ea44648a8bb78d5322e932, type: 3}
   spellCastReleaseFXFullCharge: {fileID: 7118137286583304359, guid: e3f97906ebc7185498b375404878dcda, type: 3}
-  spellImpactFX: {fileID: 3806979348321922520, guid: 3d933aa982881f1469f2edb6c9e867e1, type: 3}
   mainHandSpellAnimation: Spell_Main_Fire_Ball_Start_01
   offHandSpellAnimation: Spell_Off_Fire_Ball_Start_01
   warmUpSoundFX: {fileID: 0}
   releaseSoundFX: {fileID: 0}
-  impactSoundFX: {fileID: 0}
   upwardVelocity: 4
-  forwardVelocity: 15
+  forwardVelocity: 20

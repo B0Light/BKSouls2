@@ -166,7 +166,7 @@ namespace BK
             staminaRegenerationAmount = baseStaminaRegenerationAmount + (baseStaminaRegenerationAmount * (character.characterNetworkManager.staminaRegenerationModifier.Value / 100));
             staminaTickTimer += Time.deltaTime;
 
-            Debug.Log("STAMINA REGENERATION AMOUNT: " + staminaRegenerationAmount);
+            //Debug.Log("STAMINA REGENERATION AMOUNT: " + staminaRegenerationAmount);
 
             //  IF WE ARE BLOCKING, RECOVER STAMINA SLOWER THAN USUAL
             if (character.characterNetworkManager.isBlocking.Value)

@@ -38,12 +38,9 @@ namespace BK
 
             aiCharacter.aiCharacterLocomotionManager.RotateTowardsAgent(aiCharacter);
 
-            //  OPTION 01
-            //if (aiCharacter.aiCharacterCombatManager.distanceFromTarget <= aiCharacter.combatStance.maximumEngagementDistance)
-            //return SwitchState(aiCharacter, aiCharacter.combatStance);
+            aiCharacter.navMeshAgent.stoppingDistance = aiCharacter.combatStance.maximumEngagementDistance;
 
-            //  OPTION 02
-            if (aiCharacter.aiCharacterCombatManager.distanceFromTarget <= aiCharacter.navMeshAgent.stoppingDistance)
+            if (aiCharacter.aiCharacterCombatManager.distanceFromTarget <= aiCharacter.combatStance.maximumEngagementDistance)
                 return SwitchState(aiCharacter, aiCharacter.combatStance);
 
             //  IF THE TARGET IS NOT REACHABLE, AND THEY ARE FAR AWAY, RETURN HOME

@@ -1553,7 +1553,7 @@ GameObject:
   - component: {fileID: 1971718843800663407}
   - component: {fileID: 6858934341828837735}
   m_Layer: 6
-  m_Name: Dummy_Skeleton
+  m_Name: 1_Normal Skeleton_Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

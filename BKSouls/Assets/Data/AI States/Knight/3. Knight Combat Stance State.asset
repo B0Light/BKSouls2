@@ -16,13 +16,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46f2b4ced7807224490fe313cb6afc6c, type: 2}
   - {fileID: 11400000, guid: 9630214e3c3533742b14766cfece37a9, type: 2}
   - {fileID: 11400000, guid: 76db583d55e25984e88f091b9ac844b8, type: 2}
-  potentialAttacks: []
   chosenAttack: {fileID: 0}
   previousAttack: {fileID: 0}
   canPerformCombo: 0
   percentageOfTimeWillPerformCombo: 25
   onlyPerformComboIfInitialAttackHits: 0
-  maximumEngagementDistance: 5
+  maximumEngagementDistance: 1
   willCircleTarget: 1
   canBlock: 1
   percentageOfTimeWillBlock: 100

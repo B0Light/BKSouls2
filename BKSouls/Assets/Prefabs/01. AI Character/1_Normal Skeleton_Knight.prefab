@@ -3586,7 +3586,7 @@ GameObject:
   - component: {fileID: 7962249147739980915}
   - component: {fileID: 5487458278726464963}
   m_Layer: 6
-  m_Name: Dummy_Knight
+  m_Name: 1_Normal Skeleton_Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

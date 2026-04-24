@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 2927571846508691371}
   - component: {fileID: 6098445229488740895}
   m_Layer: 6
-  m_Name: Dummy_Durk
+  m_Name: 0_Tutorial. Dummy_Durk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

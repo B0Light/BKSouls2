@@ -3814,7 +3814,7 @@ GameObject:
   - component: {fileID: 2139008774064560660}
   - component: {fileID: 4525769753643237010}
   m_Layer: 6
-  m_Name: Dummy_Boss_Knight
+  m_Name: 1_Normal_Boss Skeleton_Knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

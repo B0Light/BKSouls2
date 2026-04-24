@@ -14,12 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.CombatStanceState
   aiCharacterAttacks:
   - {fileID: 11400000, guid: 097c98bd0c095ca4bb7a97e01c63436e, type: 2}
+  - {fileID: 11400000, guid: 886f449b9ee402e4380d59572ffa68d9, type: 2}
+  - {fileID: 11400000, guid: 516e6637bc5e937438f3b81226a97c23, type: 2}
   chosenAttack: {fileID: 0}
   previousAttack: {fileID: 0}
   canPerformCombo: 0
   percentageOfTimeWillPerformCombo: 25
   onlyPerformComboIfInitialAttackHits: 0
-  maximumEngagementDistance: 5
+  maximumEngagementDistance: 15
   willCircleTarget: 1
   canBlock: 0
   percentageOfTimeWillBlock: 0

@@ -18,6 +18,7 @@ namespace BK
         [SerializeField] private bool isSleeping = false;
 
         [Header("Stats")]
+        [SerializeField] private AICharacterStatsSO statsSO;
         [SerializeField] private bool manuallySetStats = true;
         [SerializeField] private int stamina = 150;
         [SerializeField] private int health = 400;
@@ -64,7 +65,25 @@ namespace BK
             if (isSleeping)
                 aiCharacter.aiCharacterNetworkManager.isAwake.Value = false;
 
-            if (manuallySetStats)
+            if (statsSO != null)
+            {
+                aiCharacter.aiCharacterNetworkManager.maxHealth.Value = statsSO.maxHealth;
+                aiCharacter.aiCharacterNetworkManager.currentHealth.Value = statsSO.maxHealth;
+                aiCharacter.aiCharacterNetworkManager.maxStamina.Value = statsSO.maxStamina;
+                aiCharacter.aiCharacterNetworkManager.currentStamina.Value = statsSO.maxStamina;
+                aiCharacter.characterStatsManager.runesDroppedOnDeath = statsSO.runesDroppedOnDeath;
+                aiCharacter.characterStatsManager.armorPhysicalDamageAbsorption = statsSO.armorPhysicalDamageAbsorption;
+                aiCharacter.characterStatsManager.armorMagicDamageAbsorption = statsSO.armorMagicDamageAbsorption;
+                aiCharacter.characterStatsManager.armorFireDamageAbsorption = statsSO.armorFireDamageAbsorption;
+                aiCharacter.characterStatsManager.armorHolyDamageAbsorption = statsSO.armorHolyDamageAbsorption;
+                aiCharacter.characterStatsManager.armorLightningDamageAbsorption = statsSO.armorLightningDamageAbsorption;
+                aiCharacter.characterStatsManager.armorImmunity = statsSO.armorImmunity;
+                aiCharacter.characterStatsManager.armorRobustness = statsSO.armorRobustness;
+                aiCharacter.characterStatsManager.armorFocus = statsSO.armorFocus;
+                aiCharacter.characterStatsManager.armorVitality = statsSO.armorVitality;
+                aiCharacter.characterStatsManager.basePoiseDefense = statsSO.basePoiseDefense;
+            }
+            else if (manuallySetStats)
             {
                 aiCharacter.aiCharacterNetworkManager.maxHealth.Value = health;
                 aiCharacter.aiCharacterNetworkManager.currentHealth.Value = health;

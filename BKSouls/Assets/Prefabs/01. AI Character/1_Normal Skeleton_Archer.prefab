@@ -27,7 +27,7 @@ GameObject:
   - component: {fileID: 9217094772946217660}
   - component: {fileID: 7644293693364180066}
   m_Layer: 6
-  m_Name: Dummy_Archer
+  m_Name: 1_Normal Skeleton_Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

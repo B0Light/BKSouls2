@@ -329,6 +329,8 @@ namespace BK
 
             while (character.characterNetworkManager.isFrozen.Value)
             {
+                character.characterLocomotionManager.canMove = false;
+                character.characterLocomotionManager.canRotate = false;
                 yield return null;
             }
 
