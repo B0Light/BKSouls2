@@ -182,7 +182,7 @@ MonoBehaviour:
   itemBoxDatabase: {fileID: 11400000, guid: bfd94a63c1af6a049bee7a961e3956c4, type: 2}
   siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
   entryDoorPrefab: {fileID: 0}
-  exitDoorPrefab: {fileID: 6514423605096958085, guid: 258707baf0fff1340bdb768f2679f6ba, type: 3}
+  exitDoorPrefab: {fileID: 4248399383740184582, guid: 1966c8dbc9cf75d4b891d390cffa1d5c, type: 3}
   minBattleEnemyCount: 2
   maxBattleEnemyCount: 4
   minEliteEnemyCount: 3

@@ -20,8 +20,8 @@ MonoBehaviour:
   cost: 0
   itemDescription: "\uC544\uC774\uD15C\uC744 \uC870\uD569\uD574\uC11C \uC0C8\uB85C\uC6B4
     \uC544\uC774\uD15C\uC744 \uB9CC\uB4E4 \uC218 \uC788\uC2B5\uB2C8\uB2E4."
-  width: 1
-  height: 1
+  width: 2
+  height: 2
   weight: 0
   itemAbilities: []
   prefab: {fileID: 8628288047014487024, guid: 81985c11023dde8439ae24c32329f286, type: 3}

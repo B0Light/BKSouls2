@@ -35,9 +35,19 @@ public class GridBuildingUI : MonoBehaviour
         _entrancePosition = entrancePos;
         _exitDirection = exitDir;
         _exitPosition = exitPos;
-        
+
         SetupGridLayout();
         GenerateGrid();
+    }
+
+    public void SetGridLayer(int x, int y)
+    {
+        _gridWidth = x;
+        _gridHeight = y;
+
+        SetupGridLayout();
+        ClearGrid();
+        CreateGridCells();
     }
     
     private void SetupGridLayout()

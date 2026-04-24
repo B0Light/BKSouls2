@@ -18,7 +18,7 @@ MonoBehaviour:
   itemTier: 0
   itemType: 7
   cost: 0
-  itemDescription: "\uBAA8\uD5D8\uAC00 \uAE38\uB4DC \uC785\uB2C8\uB2E4."
+  itemDescription: A place where various currencies are handled
   width: 3
   height: 3
   weight: 0

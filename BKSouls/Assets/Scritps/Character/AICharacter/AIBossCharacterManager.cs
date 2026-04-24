@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 
@@ -7,8 +6,6 @@ namespace BK
 {
     public class AIBossCharacterManager : AICharacterManager
     {
-        public int bossID = 0;
-
         [Header("Music")]
         [SerializeField] AudioClip bossIntroClip;
         [SerializeField] AudioClip bossBattleLoopClip;
@@ -17,7 +14,6 @@ namespace BK
         public NetworkVariable<bool> bossFightIsActive = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> hasBeenAwakened = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
         public NetworkVariable<bool> hasBeenDefeated = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
-        [SerializeField] List<FogWallInteractable> fogWalls;
         [SerializeField] string sleepAnimation;
         [SerializeField] string awakenAnimation;
 
@@ -55,42 +51,8 @@ namespace BK
 
             if (IsServer)
             {
-                //  IF OUR SAVE DATA DOES NOT CONTAIN INFORMATION ON THIS BOSS, ADD IT NOW
-                if (!WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
-                {
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Add(bossID, false);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesDefeated.Add(bossID, false);
-                }
-                //  OTHERWISE, LOAD THE DATA THAT ALREADY EXISTS ON THIS BOSS
-                else
-                {
-                    hasBeenDefeated.Value = WorldSaveGameManager.Instance.currentCharacterData.bossesDefeated[bossID];
-                    hasBeenAwakened.Value = WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened[bossID];
-                    sleepState.hasBeenAwakened = hasBeenAwakened.Value;
-                }
-
-                //  LOCATE FOG WALLS
-                StartCoroutine(GetFogWallsFromWorldObjectManager());
-
-                //  IF THE BOSS HAS BEEN AWAKENED, ENABLE THE FOG WALLS
-                if (hasBeenAwakened.Value)
-                {
-                    for (int i = 0; i < fogWalls.Count; i++)
-                    {
-                        fogWalls[i].isActive.Value = true;
-                    }
-                }
-
-                //  IF THE BOSS HAS BEEN DEFEATED DISABLE THE FOG WALLS
                 if (hasBeenDefeated.Value)
-                {
-                    for (int i = 0; i < fogWalls.Count; i++)
-                    {
-                        fogWalls[i].isActive.Value = false;
-                    }
-
                     aiCharacterNetworkManager.isActive.Value = false;
-                }
             }
             
             if (!hasBeenAwakened.Value)
@@ -106,20 +68,6 @@ namespace BK
             bossFightIsActive.OnValueChanged -= OnBossFightIsActiveChanged;
         }
 
-        private IEnumerator GetFogWallsFromWorldObjectManager()
-        {
-            while (WorldObjectManager.instance.fogWalls.Count == 0)
-                yield return new WaitForEndOfFrame();
-
-            fogWalls = new List<FogWallInteractable>();
-
-            foreach (var fogWall in WorldObjectManager.instance.fogWalls)
-            {
-                if (fogWall.fogWallID == bossID)
-                    fogWalls.Add(fogWall);
-            }
-        }
-
         public override IEnumerator ProcessDeathEvent(bool manuallySelectDeathAnimation = false)
         {
             GUIController.Instance.playerUIPopUpManager.SendBossDefeatedPopUp("GREAT FOE FELLED");
@@ -130,11 +78,6 @@ namespace BK
                 isDead.Value = true;
                 bossFightIsActive.Value = false;
 
-                foreach (var fogWall in fogWalls)
-                {
-                    fogWall.isActive.Value = false;
-                }
-
                 //  RESET ANY FLAGS HERE THAT NEED TO BE RESET
                 //  NOTHING YET
 
@@ -144,21 +87,6 @@ namespace BK
                     characterAnimatorManager.PlayTargetActionAnimation("Dead_01", true);
 
                 hasBeenDefeated.Value = true;
-
-                //  IF OUR SAVE DATA DOES NOT CONTAIN INFORMATION ON THIS BOSS, ADD IT NOW
-                if (!WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
-                {
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Add(bossID, true);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesDefeated.Add(bossID, true);
-                }
-                //  OTHERWISE, LOAD THE DATA THAT ALREADY EXISTS ON THIS BOSS
-                else
-                {
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Remove(bossID);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesDefeated.Remove(bossID);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Add(bossID, true);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesDefeated.Add(bossID, true);
-                }
 
                 WorldSaveGameManager.Instance.SaveGame();
             }
@@ -183,21 +111,6 @@ namespace BK
                 hasBeenAwakened.Value = true;
                 aiCharacterNetworkManager.isAwake.Value = true;
                 currentState = idle;
-
-                if (!WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.ContainsKey(bossID))
-                {
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Add(bossID, true);
-                }
-                else
-                {
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Remove(bossID);
-                    WorldSaveGameManager.Instance.currentCharacterData.bossesAwakened.Add(bossID, true);
-                }
-
-                for (int i = 0; i < fogWalls.Count; i++)
-                {
-                    fogWalls[i].isActive.Value = true;
-                }
             }
         }
 

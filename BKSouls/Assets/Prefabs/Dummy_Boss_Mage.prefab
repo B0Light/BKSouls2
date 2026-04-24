@@ -48,7 +48,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1446968954558010651
 Transform:
   m_ObjectHideFlags: 0
@@ -1560,7 +1560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7546143386697974674
 Transform:
   m_ObjectHideFlags: 0
@@ -2044,6 +2044,7 @@ Transform:
   - {fileID: 8200448739882222111}
   - {fileID: 4994501564328740761}
   - {fileID: 1446968954558010651}
+  - {fileID: 2903763173787383438}
   m_Father: {fileID: 3567957924398181976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3477966734702751949
@@ -3621,7 +3622,7 @@ Animator:
   m_GameObject: {fileID: 6515750127205923320}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 0dcad412e4df7364880958fbda1ede6b, type: 3}
-  m_Controller: {fileID: 9100000, guid: 692363fdc56ca5d4d8947223edd86986, type: 2}
+  m_Controller: {fileID: 9100000, guid: 179e0e3f8c81a9841b31f69edaabe9df, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -3931,7 +3932,7 @@ MonoBehaviour:
   characterLocomotionManager: {fileID: 0}
   characterUIManager: {fileID: 0}
   characterGroup: 1
-  characterName: Skeleton Knight
+  characterName: Skeleton Mage
   aiCharacterSoundFXManager: {fileID: 0}
   aiCharacterNetworkManager: {fileID: 0}
   aiCharacterCombatManager: {fileID: 0}
@@ -3941,24 +3942,22 @@ MonoBehaviour:
   currentState: {fileID: 11400000, guid: 49b32de0cc3660e44b9ba290502dd32d, type: 2}
   idle: {fileID: 11400000, guid: 49b32de0cc3660e44b9ba290502dd32d, type: 2}
   pursueTarget: {fileID: 11400000, guid: ae152aca9e3a2b04d936a51669ca09f9, type: 2}
-  combatStance: {fileID: 11400000, guid: cc9472bf3237d6c4aba9e6411b4bff85, type: 2}
-  attack: {fileID: 11400000, guid: 8a9f441e00334eb43a952888c145bb77, type: 2}
-  investigateSound: {fileID: 11400000, guid: 746a8c10aaa11624b99e3fe48db0ba42, type: 2}
-  bossID: 0
-  bossIntroClip: {fileID: 8300000, guid: 1573e95879775c74aaecd1c1d9f71cb3, type: 3}
-  bossBattleLoopClip: {fileID: 8300000, guid: 5deccd8944af92845a032a4df8913586, type: 3}
+  combatStance: {fileID: 11400000, guid: 8f532806f8798784a9ae1284d32759c6, type: 2}
+  attack: {fileID: 11400000, guid: 3a9a2d93f05505f4a9ac241068e6c422, type: 2}
+  investigateSound: {fileID: 11400000, guid: c93ee58136227e0459cad96339ec4204, type: 2}
+  bossIntroClip: {fileID: 8300000, guid: 5cea55cd7af4342ad93cd65d2cf9b6fb, type: 3}
+  bossBattleLoopClip: {fileID: 8300000, guid: 818b526180599c945903d4fd4c2c1fc6, type: 3}
   bossFightIsActive:
     m_InternalValue: 0
   hasBeenAwakened:
     m_InternalValue: 0
   hasBeenDefeated:
     m_InternalValue: 0
-  fogWalls: []
   sleepAnimation: Sleep_01
   awakenAnimation: Wake_01
   minimumHealthPercentageToShift: 50
   phaseShiftAnimation: Phase_Change_01
-  phase02CombatStanceState: {fileID: 11400000, guid: 08080a88ede57a64dbe68e316724d493, type: 2}
+  phase02CombatStanceState: {fileID: 11400000, guid: 8f532806f8798784a9ae1284d32759c6, type: 2}
   sleepState: {fileID: 11400000, guid: 0724916fe4ccd3e45a00727d49153c4e, type: 2}
 --- !u!114 &4172807647573287611
 MonoBehaviour:
@@ -4010,18 +4009,18 @@ MonoBehaviour:
   spells:
   - spell: {fileID: 11400000, guid: fcf83980cd05c53429f165fd558dc5a9, type: 2}
     minimumCastDistance: 0
-    maximumCastDistance: 0
-    minimumCastAngle: 0
-    maximumCastAngle: 0
-    attackWeight: 0
-    actionRecoveryTime: 0
+    maximumCastDistance: 20
+    minimumCastAngle: -180
+    maximumCastAngle: 180
+    attackWeight: 2
+    actionRecoveryTime: 2
   - spell: {fileID: 11400000, guid: de52834c3129a954eaba04e0549f4d6b, type: 2}
     minimumCastDistance: 0
-    maximumCastDistance: 0
-    minimumCastAngle: 0
-    maximumCastAngle: 0
-    attackWeight: 0
-    actionRecoveryTime: 0
+    maximumCastDistance: 20
+    minimumCastAngle: -180
+    maximumCastAngle: 180
+    attackWeight: 1
+    actionRecoveryTime: 1
 --- !u!114 &6155475291205133828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4619,7 +4618,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1081961412327670042
 Transform:
   m_ObjectHideFlags: 0
@@ -5342,6 +5341,148 @@ SkinnedMeshRenderer:
     m_Center: {x: 0, y: 0.8547186, z: -0.039821878}
     m_Extent: {x: 1.0245618, y: 0.9376896, z: 0.29678887}
   m_DirtyAABB: 0
+--- !u!1 &7757255523677397066
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2903763173787383438}
+  - component: {fileID: 1474315085656513334}
+  m_Layer: 7
+  m_Name: SM_Chr_Witch_Female_01 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2903763173787383438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757255523677397066}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3288698223380130954}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1474315085656513334
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7757255523677397066}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4cc86c68e2184f14598a611cc83d96e5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: -4378530937390976070, guid: ade85de830e243143b56b403611ad348, type: 3}
+  m_Bones:
+  - {fileID: 7130141955880201094}
+  - {fileID: 5823009566919321821}
+  - {fileID: 4010078450224305331}
+  - {fileID: 6671524909586518306}
+  - {fileID: 8730790010511585018}
+  - {fileID: 7411022167127385431}
+  - {fileID: 9193882572287229103}
+  - {fileID: 3540317456824869565}
+  - {fileID: 8221502586022004833}
+  - {fileID: 8413702667322298640}
+  - {fileID: 1322019482790618137}
+  - {fileID: 2382638431936425104}
+  - {fileID: 5913820187440616093}
+  - {fileID: 1303015834922782389}
+  - {fileID: 7245962449115982898}
+  - {fileID: 4572101981993989223}
+  - {fileID: 7832397470322600637}
+  - {fileID: 1113409584610974626}
+  - {fileID: 7054450801976245173}
+  - {fileID: 3338033017155181563}
+  - {fileID: 4687506189964744018}
+  - {fileID: 408328273896834892}
+  - {fileID: 4936200737564872641}
+  - {fileID: 5077184171926649426}
+  - {fileID: 6429070330019932920}
+  - {fileID: 5847166082500366747}
+  - {fileID: 1721576607806367459}
+  - {fileID: 6087610363717535572}
+  - {fileID: 2607175635531679799}
+  - {fileID: 9118636141134171291}
+  - {fileID: 5008250757786721848}
+  - {fileID: 1190558355528625714}
+  - {fileID: 6500016826282807406}
+  - {fileID: 1286228198331309710}
+  - {fileID: 3195291131907152880}
+  - {fileID: 5691837262552982113}
+  - {fileID: 1977261997010413962}
+  - {fileID: 5028944938523889766}
+  - {fileID: 1053773792406197307}
+  - {fileID: 8587663803209997672}
+  - {fileID: 5076043882894998126}
+  - {fileID: 5594779165428838001}
+  - {fileID: 7341303289722685992}
+  - {fileID: 7760097323960099506}
+  - {fileID: 1965376800986162989}
+  - {fileID: 367149990874761748}
+  - {fileID: 5673285784650934421}
+  - {fileID: 4556480009519269134}
+  - {fileID: 1386053450393522136}
+  - {fileID: 7858545562142541490}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 7130141955880201094}
+  m_AABB:
+    m_Center: {x: -0.00029540062, y: 0.8495825, z: -0.050484337}
+    m_Extent: {x: 1.0231009, y: 0.9389413, z: 0.2707409}
+  m_DirtyAABB: 0
 --- !u!1 &7759312480732886915
 GameObject:
   m_ObjectHideFlags: 0
@@ -5821,6 +5962,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1378410527521360330, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_Name
+      value: Icon
+      objectReference: {fileID: 0}
+    - target: {fileID: 1729462746259949518, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 81cdf8c7428cbc44e8b9a5e543cb6279, type: 3}
     - target: {fileID: 3633593469097839956, guid: 517903b3d197bea4c9541cc7c7368153, type: 3}
       propertyPath: m_Name
       value: Character UI

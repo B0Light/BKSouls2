@@ -82,20 +82,26 @@ public class HUDGridBuildToSelectInfo : MonoBehaviour
         {
             buildName.text = buildData.itemName;
             buildInfo.text = GetInfoText(buildData);
-            
-            PlacedObject placedObject = buildData.prefab.gameObject.GetComponent<PlacedObject>();
-        
-            if(placedObject == null) return;
-        
-            gridBuildingUI.SetGridLayer(buildData.width, buildData.height, placedObject.entrancePos, placedObject.exitDir, placedObject.exitPos);
+
+            if (gridBuildingUI != null)
+            {
+                PlacedObject placedObject = buildData.prefab != null
+                    ? buildData.prefab.gameObject.GetComponent<PlacedObject>()
+                    : null;
+
+                if (placedObject != null)
+                    gridBuildingUI.SetGridLayer(buildData.width, buildData.height, placedObject.entrancePos, placedObject.exitDir, placedObject.exitPos);
+                else
+                    gridBuildingUI.SetGridLayer(buildData.width, buildData.height);
+            }
         }
         else
         {
             buildName.text = "";
             buildInfo.text = "";
-            gridBuildingUI.ClearGrid();
+            if (gridBuildingUI != null)
+                gridBuildingUI.ClearGrid();
         }
-        
     }
 
     private string GetInfoText(BuildObjData buildData)

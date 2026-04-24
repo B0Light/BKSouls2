@@ -68,11 +68,6 @@ namespace BK
             }
         }
 
-        public AIBossCharacterManager GetBossCharacterByID(int ID)
-        {
-            return spawnedInBosses.FirstOrDefault(boss => boss.bossID == ID);
-        }
-
         //  TODO: IF YOU HAVE MORE THAN 25-30 ENEMIES PER AREA, RESET THEIR STATS AND ANIMATIONS INSTEAD OF DESPAWNING AND RESPAWNING
         public void SpawnAllCharacters()
         {
