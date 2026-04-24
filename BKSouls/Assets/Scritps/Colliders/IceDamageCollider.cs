@@ -11,8 +11,14 @@ namespace BK
         private IceSpellManager iceSpellManager;
 
         [Header("Frost Build Up")]
-        [Tooltip("피격 시 대상에게 누적되는 Frost 빌드업 수치")]
+        [Tooltip("직접 피격 시 대상에게 누적되는 Frost 빌드업 수치")]
         public int frostBuildUpAmount = 25;
+
+        [Header("Frost Splash")]
+        [Tooltip("비플레이어 대상 충돌 시 빙결이 퍼지는 반경")]
+        public float splashRadius = 4f;
+        [Tooltip("범위 내 대상에게 누적되는 Frost 빌드업 수치")]
+        public int splashFrostBuildUpAmount = 15;
 
         protected override void Awake()
         {
@@ -40,6 +46,9 @@ namespace BK
             if (!damageTarget.characterNetworkManager.isInvulnerable.Value)
                 DamageTarget(damageTarget);
 
+            if (!(damageTarget is PlayerManager))
+                ApplyFrostSplash(contactPoint);
+
             iceSpellManager.InstantiateSpellDestructionFX();
         }
 
@@ -47,6 +56,34 @@ namespace BK
         {
             directionFromAttackToDamageTarget = spellCaster.transform.position - damageTarget.transform.position;
             dotValueFromAttackToDamageTarget = Vector3.Dot(directionFromAttackToDamageTarget, damageTarget.transform.forward);
+        }
+
+        private static readonly Collider[] _splashBuffer = new Collider[16];
+
+        private void ApplyFrostSplash(Vector3 center)
+        {
+            if (!spellCaster.IsOwner)
+                return;
+
+            int count = Physics.OverlapSphereNonAlloc(center, splashRadius, _splashBuffer, WorldUtilityManager.Instance.GetCharacterLayers());
+            for (int i = 0; i < count; i++)
+            {
+                Collider hit = _splashBuffer[i];
+                CharacterManager target = hit.GetComponentInParent<CharacterManager>();
+                if (target == null || target == spellCaster)
+                    continue;
+                if (!WorldUtilityManager.Instance.CanIDamageThisTarget(spellCaster.characterGroup, target.characterGroup))
+                    continue;
+                if (charactersDamaged.Contains(target))
+                    continue;
+
+                if (splashFrostBuildUpAmount > 0)
+                {
+                    TakeBuildUpEffect frostEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
+                    frostEffect.buildUpAmount = splashFrostBuildUpAmount;
+                    target.characterEffectsManager.ProcessInstantEffect(frostEffect);
+                }
+            }
         }
 
         protected override void DamageTarget(CharacterManager damageTarget)

@@ -141,6 +141,8 @@ namespace BK
         public GameObject WarmUpFX => spellCastWarmUpFX;
 
         /// <summary>주 손 마법 애니메이션 이름</summary>
-        public string SpellAnimation => mainHandSpellAnimation;
+        public string MainHandSpellAnimation => mainHandSpellAnimation;
+
+        public string OffHandSpellAnimation => offHandSpellAnimation;
     }
 }

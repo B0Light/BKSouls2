@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 3. Mage Combat Stance State
   m_EditorClassIdentifier: Assembly-CSharp::BK.CombatStanceState
   aiCharacterAttacks:
-  - {fileID: 11400000, guid: 328fe94c703abd3439fcba091c3eb542, type: 2}
+  - {fileID: 11400000, guid: 097c98bd0c095ca4bb7a97e01c63436e, type: 2}
   chosenAttack: {fileID: 0}
   previousAttack: {fileID: 0}
   canPerformCombo: 0
@@ -21,7 +21,7 @@ MonoBehaviour:
   onlyPerformComboIfInitialAttackHits: 0
   maximumEngagementDistance: 5
   willCircleTarget: 1
-  canBlock: 1
-  percentageOfTimeWillBlock: 100
+  canBlock: 0
+  percentageOfTimeWillBlock: 0
   canEvade: 1
-  percentageOfTimeWillEvade: 30
+  percentageOfTimeWillEvade: 50

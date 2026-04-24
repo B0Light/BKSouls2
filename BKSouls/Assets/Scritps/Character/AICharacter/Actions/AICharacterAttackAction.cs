@@ -8,7 +8,7 @@ namespace BK
     public class AICharacterAttackAction : ScriptableObject
     {
         [Header("Attack")]
-        [SerializeField] private string attackAnimation;
+        [SerializeField] protected string attackAnimation;
         [SerializeField] bool isParryable = true;
 
         [Header("Combo Action")]
@@ -24,7 +24,7 @@ namespace BK
         public float minimumAttackDistance = 0;
         public float maximumAttackDistance = 2;
 
-        public void AttemptToPerformAction(AICharacterManager aiCharacter)
+        public virtual void AttemptToPerformAction(AICharacterManager aiCharacter)
         {
             //  DOES YOUR A.I ACT LIKE A PLAYER CHARACTER (LIKE AN INVADER A.I?) IF SO USE THIS
             //aiCharacter.characterAnimatorManager.PlayTargetActionAnimation(attackType, attackAnimation, true);
