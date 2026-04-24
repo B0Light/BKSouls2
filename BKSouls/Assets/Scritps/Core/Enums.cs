@@ -93,6 +93,14 @@ public enum WeaponModelType
     Shield
 }
 
+public enum WeaponBonusEffectType
+{
+    None,
+    Frost,
+    Bleed,
+    Magic
+}
+
 //  USED FOR ANY INFORMATION SPECIFIC TO A WEAPONS CLASS, SUCH AS BEING ABLE TO RIPOSTE ECT
 public enum WeaponClass
 {

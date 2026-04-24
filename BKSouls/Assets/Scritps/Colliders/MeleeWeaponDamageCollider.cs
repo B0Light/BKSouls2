@@ -9,6 +9,10 @@ namespace BK
         [Header("Attacking Character")]
         public CharacterManager characterCausingDamage; //  (When calculating damage this is used to check for attackers damage modifiers, effects ect)
 
+        [Header("Requirement Bonus Effect")]
+        public WeaponBonusEffectType bonusEffectType;
+        public int bonusEffectAmount;
+
         [Header("Weapon Attack Modifiers")]
         public float light_Attack_01_Modifier;
         public float light_Attack_02_Modifier;
@@ -182,6 +186,28 @@ namespace BK
                     damageEffect.contactPoint.x,
                     damageEffect.contactPoint.y,
                     damageEffect.contactPoint.z);
+
+                ApplyBonusEffect(damageTarget);
+            }
+        }
+
+        private void ApplyBonusEffect(CharacterManager damageTarget)
+        {
+            if (bonusEffectType == WeaponBonusEffectType.None || bonusEffectAmount <= 0)
+                return;
+
+            switch (bonusEffectType)
+            {
+                case WeaponBonusEffectType.Frost:
+                    TakeBuildUpEffect frostEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
+                    frostEffect.buildUpAmount = bonusEffectAmount;
+                    damageTarget.characterEffectsManager.ProcessInstantEffect(frostEffect);
+                    break;
+                case WeaponBonusEffectType.Bleed:
+                    TakeBuildUpEffect bleedEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeBleedBuildUpEffect);
+                    bleedEffect.buildUpAmount = bonusEffectAmount;
+                    damageTarget.characterEffectsManager.ProcessInstantEffect(bleedEffect);
+                    break;
             }
         }
 

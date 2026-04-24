@@ -156,15 +156,39 @@ namespace BK
                     break;
             }
 
-            // 요구 스탯 미충족 시 0.5배
             bool meetsReq = str >= weapon.strengthREQ
                          && dex >= weapon.dexREQ
                          && intel >= weapon.intREQ
                          && faith >= weapon.faithREQ;
             float penalty = meetsReq ? 1f : 0.5f;
 
+            // 요구 스탯 초과 스케일링
+            if (meetsReq)
+            {
+                switch (weapon.weaponClass)
+                {
+                    case WeaponClass.StraightSword:
+                    case WeaponClass.Fist:
+                        physBonus += ExcessScalingBonus(weapon.physicalDamage, str, weapon.strengthREQ);
+                        break;
+                    case WeaponClass.Spear:
+                        physBonus += ExcessScalingBonus(weapon.physicalDamage, str, weapon.strengthREQ)
+                                   + ExcessScalingBonus(weapon.physicalDamage, dex, weapon.dexREQ);
+                        break;
+                    case WeaponClass.Bow:
+                        physBonus += ExcessScalingBonus(weapon.physicalDamage, dex, weapon.dexREQ);
+                        break;
+                    case WeaponClass.Staff:
+                        magBonus += ExcessScalingBonus(weapon.magicDamage, intel, weapon.intREQ);
+                        break;
+                }
+            }
+
+            float magicEffectBonus = (meetsReq && weapon.bonusEffectType == WeaponBonusEffectType.Magic)
+                ? weapon.bonusEffectAmount : 0f;
+
             physText?.SetText(Mathf.RoundToInt((weapon.physicalDamage + physBonus) * penalty).ToString());
-            magText?.SetText(Mathf.RoundToInt((weapon.magicDamage  + magBonus)  * penalty).ToString());
+            magText?.SetText(Mathf.RoundToInt((weapon.magicDamage + magBonus + magicEffectBonus) * penalty).ToString());
             fireText?.SetText(Mathf.RoundToInt(weapon.fireDamage      * penalty).ToString());
             lightText?.SetText(Mathf.RoundToInt(weapon.lightningDamage * penalty).ToString());
             holyText?.SetText(Mathf.RoundToInt(weapon.holyDamage       * penalty).ToString());
@@ -192,12 +216,19 @@ namespace BK
 
         // ── 공통 유틸 ──────────────────────────────────────────────────
 
-        /// WeaponManager.StatScalingBonus와 동일한 곡선
         private static float StatScalingBonus(float baseDamage, int statValue, float scaleFactor)
         {
             float normalized = Mathf.Clamp01(statValue / 99f);
             float curve = 1f - Mathf.Pow(1f - normalized, 2f);
             return baseDamage * curve * scaleFactor;
+        }
+
+        private static float ExcessScalingBonus(float baseDamage, int statValue, int requirement)
+        {
+            int excess = Mathf.Max(0, statValue - requirement);
+            float normalized = Mathf.Clamp01(excess / 99f);
+            float curve = 1f - Mathf.Pow(1f - normalized, 2f);
+            return baseDamage * curve * 0.15f;
         }
     }
 }

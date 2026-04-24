@@ -34,42 +34,63 @@ namespace BK
             {
                 case WeaponClass.StraightSword:
                 case WeaponClass.Fist:
-                    // STR 단일 스케일링
                     physicalBonus = StatScalingBonus(weapon.physicalDamage, str, 0.5f);
                     break;
-
                 case WeaponClass.Spear:
-                    // STR + DEX 복합 스케일링
                     physicalBonus = StatScalingBonus(weapon.physicalDamage, str, 0.3f)
                                   + StatScalingBonus(weapon.physicalDamage, dex, 0.3f);
                     break;
-
                 case WeaponClass.Bow:
-                    // DEX 단일 스케일링
                     physicalBonus = StatScalingBonus(weapon.physicalDamage, dex, 0.5f);
                     break;
-
                 case WeaponClass.Staff:
-                    // INT 스케일링 (근접 타격 시)
                     magicBonus = StatScalingBonus(weapon.magicDamage, intel, 0.5f);
                     break;
-
-                //  Faith 스케일링 (버프 구현 시 추가)
-
                 case WeaponClass.MediumShield:
                 case WeaponClass.LightShield:
-                    break;  // 방패는 스케일링 없음
+                    break;
             }
 
-            // 요구 스탯 미충족 시 데미지 절반
-            float requirementPenalty = MeetsStatRequirements(weapon, str, dex, intel, net.faith.Value) ? 1f : 0.5f;
+            bool meetsReq = MeetsStatRequirements(weapon, str, dex, intel, net.faith.Value);
+            float requirementPenalty = meetsReq ? 1f : 0.5f;
 
-            meleeDamageCollider.physicalDamage = (weapon.physicalDamage + physicalBonus) * requirementPenalty;
-            meleeDamageCollider.magicDamage = (weapon.magicDamage + magicBonus) * requirementPenalty;
-            meleeDamageCollider.fireDamage = weapon.fireDamage * requirementPenalty;
+            // 요구 스탯 초과 수치에 대한 추가 스케일링
+            float excessBonus = 0f;
+            if (meetsReq)
+            {
+                switch (weapon.weaponClass)
+                {
+                    case WeaponClass.StraightSword:
+                    case WeaponClass.Fist:
+                        excessBonus = ExcessScalingBonus(weapon.physicalDamage, str, weapon.strengthREQ);
+                        break;
+                    case WeaponClass.Spear:
+                        excessBonus = ExcessScalingBonus(weapon.physicalDamage, str, weapon.strengthREQ)
+                                    + ExcessScalingBonus(weapon.physicalDamage, dex, weapon.dexREQ);
+                        break;
+                    case WeaponClass.Bow:
+                        excessBonus = ExcessScalingBonus(weapon.physicalDamage, dex, weapon.dexREQ);
+                        break;
+                    case WeaponClass.Staff:
+                        magicBonus += ExcessScalingBonus(weapon.magicDamage, intel, weapon.intREQ);
+                        break;
+                }
+            }
+
+            // 요구 스탯 충족 시 Magic 보너스 이펙트는 magicDamage에 직접 반영
+            float magicEffectBonus = (meetsReq && weapon.bonusEffectType == WeaponBonusEffectType.Magic)
+                ? weapon.bonusEffectAmount : 0f;
+
+            meleeDamageCollider.physicalDamage = (weapon.physicalDamage + physicalBonus + excessBonus) * requirementPenalty;
+            meleeDamageCollider.magicDamage    = (weapon.magicDamage + magicBonus + magicEffectBonus) * requirementPenalty;
+            meleeDamageCollider.fireDamage     = weapon.fireDamage * requirementPenalty;
             meleeDamageCollider.lightningDamage = weapon.lightningDamage * requirementPenalty;
-            meleeDamageCollider.holyDamage = weapon.holyDamage * requirementPenalty;
-            meleeDamageCollider.poiseDamage = weapon.poiseDamage;
+            meleeDamageCollider.holyDamage     = weapon.holyDamage * requirementPenalty;
+            meleeDamageCollider.poiseDamage    = weapon.poiseDamage;
+
+            // Frost/Bleed 보너스 이펙트 — 요구 스탯 미충족 시 비활성
+            meleeDamageCollider.bonusEffectType   = meetsReq ? weapon.bonusEffectType : WeaponBonusEffectType.None;
+            meleeDamageCollider.bonusEffectAmount = meetsReq ? weapon.bonusEffectAmount : 0;
 
             meleeDamageCollider.light_Attack_01_Modifier = weapon.light_Attack_01_Modifier;
             meleeDamageCollider.light_Attack_02_Modifier = weapon.light_Attack_02_Modifier;
@@ -109,6 +130,15 @@ namespace BK
             float normalized = Mathf.Clamp01(statValue / 99f);
             float curve = 1f - Mathf.Pow(1f - normalized, 2f);
             return baseDamage * curve * scaleFactor;
+        }
+
+        // 요구 스탯 초과분에 대한 추가 보너스 (메인 스케일링보다 작은 계수 0.15f)
+        private float ExcessScalingBonus(float baseDamage, int statValue, int requirement)
+        {
+            int excess = Mathf.Max(0, statValue - requirement);
+            float normalized = Mathf.Clamp01(excess / 99f);
+            float curve = 1f - Mathf.Pow(1f - normalized, 2f);
+            return baseDamage * curve * 0.15f;
         }
     }
 }

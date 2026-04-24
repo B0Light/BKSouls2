@@ -24,6 +24,12 @@ namespace BK
         public int intREQ = 0;
         public int faithREQ = 0;
 
+        [Header("Requirement Bonus Effect")]
+        [Tooltip("요구 스탯을 모두 충족했을 때 공격마다 적용되는 추가 효과")]
+        public WeaponBonusEffectType bonusEffectType = WeaponBonusEffectType.None;
+        [Tooltip("Frost/Bleed: 빌드업 수치 | Magic: 추가 마법 데미지")]
+        public int bonusEffectAmount = 0;
+
         [Header("Weapon Base Damage")]
         public int physicalDamage = 0;
         public int magicDamage = 0;
