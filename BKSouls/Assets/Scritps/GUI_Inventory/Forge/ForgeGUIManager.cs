@@ -132,6 +132,13 @@ namespace BK.Inventory
         private void CreateResultItem(CraftingRecipe recipe)
         {
             craftingGrid.AddItemById(recipe.resultItem.itemID, recipe.resultQuantity, false);
+
+            if (recipe.additionalResults == null) return;
+            foreach (var result in recipe.additionalResults)
+            {
+                if (result.itemData != null && result.quantity > 0)
+                    craftingGrid.AddItemById(result.itemData.itemID, result.quantity, false);
+            }
         }
 
         private void UpdateCraftingGridUI()
@@ -143,6 +150,15 @@ namespace BK.Inventory
             if (matchedRecipe != null)
             {
                 previewGrid.AddItemById(matchedRecipe.resultItem.itemID, matchedRecipe.resultQuantity);
+
+                if (matchedRecipe.additionalResults != null)
+                {
+                    foreach (var result in matchedRecipe.additionalResults)
+                    {
+                        if (result.itemData != null && result.quantity > 0)
+                            previewGrid.AddItemById(result.itemData.itemID, result.quantity);
+                    }
+                }
             }
 
             foreach (var recipeButton in _recipeButtons)

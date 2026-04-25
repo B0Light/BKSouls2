@@ -14,11 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory::CraftingRecipeData
   recipe:
     ingredients:
+    - itemData: {fileID: 11400000, guid: c3000000000000000000000000002003, type: 2}
+      quantity: 4
     - itemData: {fileID: 11400000, guid: 824a3e4979e5fdf4abcf2b61c6a833cd, type: 2}
-      quantity: 1
-    - itemData: {fileID: 11400000, guid: 19654d5e7baefbb479379b7823846aad, type: 2}
-      quantity: 1
-    - itemData: {fileID: 11400000, guid: a0e870b7acf0dd74a8327aeca8440a53, type: 2}
       quantity: 3
     resultItem: {fileID: 11400000, guid: 38b3498420f237f4f8bff68595c3335f, type: 2}
     resultQuantity: 1
+    additionalResults: []

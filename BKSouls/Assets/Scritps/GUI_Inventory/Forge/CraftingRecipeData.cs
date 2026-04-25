@@ -16,6 +16,8 @@ namespace BK.Inventory
         public List<RecipeIngredient> ingredients;
         public GridItem resultItem;
         public int resultQuantity;
+        // 분해 레시피 등 다중 결과물 지원
+        public List<RecipeIngredient> additionalResults = new List<RecipeIngredient>();
     }
 
     [System.Serializable]

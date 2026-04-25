@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f3a3f7c8a30ce34b81648c924728e46, type: 3}
-  m_Name: Recipe_Spear
+  m_Name: Recipe_Disassemble_BroadSword
   m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory::CraftingRecipeData
   recipe:
     ingredients:
-    - itemData: {fileID: 11400000, guid: a1000000000000000000000000002001, type: 2}
-      quantity: 2
-    - itemData: {fileID: 11400000, guid: d3b27dc1fc44e6949aa35a420c0d7ed5, type: 2}
-      quantity: 2
-    resultItem: {fileID: 11400000, guid: 27d99b2910f5899449b2f4673399013c, type: 2}
-    resultQuantity: 1
+    - itemData: {fileID: 11400000, guid: e62291c0476d3624d9140e8b62aa1d3a, type: 2}
+      quantity: 1
+    resultItem: {fileID: 11400000, guid: b2000000000000000000000000002002, type: 2}
+    resultQuantity: 3
     additionalResults: []
