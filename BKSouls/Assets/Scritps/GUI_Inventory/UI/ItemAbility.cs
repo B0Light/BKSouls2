@@ -15,19 +15,16 @@ public class ItemAbility
 
 public enum ItemEffect
 {
-    PhysicalAttack,     // 0. 물리 공격력 증가
-    MagicalAttack,      // 1. 마법 공격력 증가
-    PhysicalDefense,    // 2. 물리 방어력 증가
-    MagicalDefense,     // 3. 마법 방어력 증가
-    HealthPoint,        // 4. 최대 체력 증가
+    PhysicalAttack,     // 1. 물리 공격력 증가
+    MagicalAttack,      // 2. 마법 공격력 증가
+    PhysicalDefense,    // 3. 물리 방어력 증가
+    MagicalDefense,     // 4. 마법 방어력 증가
     RestoreHealth,      // 5. 체력 회복
-    
-    BuffAttack,         // 6. 공격력 버프
-    BuffDefense,        // 7. 방어력 버프
-    BuffActionPoint,    // 8. 행동력 버프
-    UtilitySpeed,       // 9. 이동속도 증가
-    UtilityWeight,      // 10. 무게 감소
-    Resource,           // 11. 자원 아이템
-    StorageSpace,       // 12. 배낭 공간 확장
-    None,               // 13. 효과 없음
+    FireDamage,        // 6. 화염 피해
+    IceDamage,         // 7. 냉기 피해
+    LightningDamage,   // 8. 번개 피해
+    BleedDamage,        // 9. 출혈 피해
+    PoisonDamage,      // 10. 독 피해
+    Resource,           // 98. 자원
+    None,               // 99. 효과 없음
 }

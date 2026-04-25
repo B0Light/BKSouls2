@@ -16,16 +16,17 @@ MonoBehaviour:
   itemName: Buckler Shield
   itemIcon: {fileID: 21300000, guid: 085b3b2e2f213344f88f72117aef827b, type: 3}
   itemTier: 0
-  cost: 600
-  itemDescription: A small round shield ideal for deflecting blows. Its compact size makes it excellent for precise parrying, opening enemies up to critical counterattacks.
   itemType: 0
+  cost: 600
+  itemDescription: A small round shield ideal for deflecting blows. Its compact size
+    makes it excellent for precise parrying, opening enemies up to critical counterattacks.
   width: 2
   height: 2
   weight: 0
   itemAbilities:
   - itemEffect: 2
     value: 77
-  - itemEffect: 7
+  - itemEffect: 3
     value: 51
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 36f5c9fa7b42b0a4ea14f0d58ede31f2, type: 2}
@@ -36,6 +37,8 @@ MonoBehaviour:
   dexREQ: 10
   intREQ: 0
   faithREQ: 0
+  bonusEffectType: 0
+  bonusEffectAmount: 0
   physicalDamage: 8
   magicDamage: 0
   fireDamage: 0
@@ -53,6 +56,12 @@ MonoBehaviour:
   running_Attack_01_Modifier: 1
   rolling_Attack_01_Modifier: 0.9
   backstep_Attack_01_Modifier: 0.9
+  dw_Attack_01_Modifier: 0.77
+  dw_Attack_02_Modifier: 0.87
+  dw_Jump_Attack_01_Modifier: 1.27
+  dw_Run_Attack_01_Modifier: 0.75
+  dw_Roll_Attack_01_Modifier: 0.72
+  dw_Backstep_Attack_01_Modifier: 0.77
   baseStaminaCost: 5
   lightAttackStaminaCostMultiplier: 0.9
   heavyAttackStaminaCostMultiplier: 1.3
@@ -70,6 +79,8 @@ MonoBehaviour:
   oh_RT_Action: {fileID: 11400000, guid: 648ec3a964ae2ec4e83eb891fcc49515, type: 2}
   oh_LB_Action: {fileID: 11400000, guid: 79e8ff89507e3e74eae57f60026a16b8, type: 2}
   ashOfWarAction: {fileID: 11400000, guid: 731783f4c95c68046a658840ae86ab2d, type: 2}
+  slashFXPrefabs: []
+  slashFXDamageModifier: 0
   whooshes:
   - {fileID: 8300000, guid: f440d5e80e66038458d76d5a1575468a, type: 3}
   - {fileID: 8300000, guid: af6de04e4ec2e0743b45624c7d7ab9f6, type: 3}

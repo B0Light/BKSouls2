@@ -18,13 +18,16 @@ MonoBehaviour:
   itemTier: 0
   itemType: 0
   cost: 2500
-  itemDescription: A standard one-handed sword with a straight double-edged blade. Well-balanced and versatile, suitable for any combat situation.
+  itemDescription: A standard one-handed sword with a straight double-edged blade.
+    Well-balanced and versatile, suitable for any combat situation.
   width: 1
   height: 4
   weight: 0
   itemAbilities:
   - itemEffect: 0
-    value: 110
+    value: 60
+  - itemEffect: 9
+    value: 60
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}
   weaponModelType: 0
@@ -34,6 +37,8 @@ MonoBehaviour:
   dexREQ: 12
   intREQ: 0
   faithREQ: 0
+  bonusEffectType: 0
+  bonusEffectAmount: 0
   physicalDamage: 110
   magicDamage: 0
   fireDamage: 0

@@ -98,6 +98,7 @@ public enum WeaponBonusEffectType
     None,
     Frost,
     Bleed,
+    Poison,
     Magic
 }
 

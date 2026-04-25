@@ -41,6 +41,14 @@ namespace BK
             player.playerInteractionManager?.AddInteractionToList(this);
         }
 
+        public virtual void OnTriggerStay(Collider other)
+        {
+            if (!TryGetEligiblePlayer(other, out var player))
+                return;
+
+            player.playerInteractionManager?.AddInteractionToList(this);
+        }
+
         public virtual void OnTriggerExit(Collider other)
         {
             if (!TryGetEligiblePlayer(other, out var player))

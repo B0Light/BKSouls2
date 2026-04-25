@@ -208,6 +208,11 @@ namespace BK
                     bleedEffect.buildUpAmount = bonusEffectAmount;
                     damageTarget.characterEffectsManager.ProcessInstantEffect(bleedEffect);
                     break;
+                case WeaponBonusEffectType.Poison:
+                    TakeBuildUpEffect poisonEffect = Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
+                    poisonEffect.buildUpAmount = bonusEffectAmount;
+                    damageTarget.characterEffectsManager.ProcessInstantEffect(poisonEffect);
+                    break;
             }
         }
 

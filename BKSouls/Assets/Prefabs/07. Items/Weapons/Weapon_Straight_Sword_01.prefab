@@ -243,6 +243,8 @@ MonoBehaviour:
   holyDamage: 0
   poiseDamage: 0
   characterCausingDamage: {fileID: 0}
+  bonusEffectType: 2
+  bonusEffectAmount: 5
   light_Attack_01_Modifier: 0
   light_Attack_02_Modifier: 0
   light_Jump_Attack_01_Modifier: 0
