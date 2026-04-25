@@ -13,17 +13,12 @@ MonoBehaviour:
   m_Name: ID 300. Forge
   m_EditorClassIdentifier: 
   itemID: 300
-  itemName: Forge
+  itemName: 대장간
   itemIcon: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   itemTier: 0
   itemType: 7
   cost: 0
-  itemDescription: 'A facility where equipment can be crafted and upgraded.
-
-    Use
-    rare materials to forge powerful weapons
-
-    or enhance your existing gear.'
+  itemDescription: 장비를 제작하고 강화하는 시설입니다. 희귀 재료로 더 강한 무기를 만들 수 있습니다.
   width: 2
   height: 2
   weight: 0

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 25. Void Essence
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1025
-  itemName: Void Essence
+  itemName: 공허의 정수
   itemIcon: {fileID: 21300000, guid: 114cb989412a77443971c664d1620c26, type: 3}
   itemTier: 3
   itemType: 11
   cost: 2000
-  itemDescription: Pure essence distilled from the void between worlds. Unstable
+  itemDescription: 세계 사이의 공허에서 추출한 순수한 정수입니다. 불안정하지만 강력합니다.
     but immensely powerful.
   width: 1
   height: 1

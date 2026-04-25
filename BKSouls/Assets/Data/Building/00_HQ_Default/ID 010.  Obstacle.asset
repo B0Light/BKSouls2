@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: ID 010.  Obstacle
   m_EditorClassIdentifier: 
   itemID: 10
-  itemName: Obstacle
+  itemName: 장애물
   itemIcon: {fileID: 0}
   itemTier: 6
   cost: 0
-  itemDescription: 'Obstacle
-
-'
+  itemDescription: 건설을 방해하는 장애물입니다.
   itemType: 7
   width: 1
   height: 1

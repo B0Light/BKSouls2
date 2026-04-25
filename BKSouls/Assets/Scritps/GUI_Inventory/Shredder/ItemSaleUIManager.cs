@@ -1,36 +1,41 @@
-using UnityEngine;
-using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace BK.Inventory
 {
     public class ItemSaleUIManager : MonoBehaviour
     {
         [SerializeField] private ItemGrid itemGrid;
+        [SerializeField] private TextMeshProUGUI totalItemCostText;
+        [SerializeField] private Button sellButton;
+
         private int _saleValue;
+        private List<int> _initItemList;
+        private ItemGrid _inventoryViewGrid;
+        private Action _onSaleCompleted;
 
         private bool IsInDungeon => !WorldSaveGameManager.Instance.IsHoldScene;
 
-        [Header("UI")] [SerializeField] private TextMeshProUGUI totalItemCostText;
-        [SerializeField] private Button sellButton;
-        private List<int> _initItemList;
-
-        private ItemGrid _inventoryViewGrid;
-
-        public void Init(int width, int height, List<int> itemIdList, ItemGrid inventoryViewGrid = null)
+        public void Init(int width, int height, List<int> itemIdList, ItemGrid inventoryViewGrid = null, Action onSaleCompleted = null)
         {
             sellButton.onClick.RemoveAllListeners();
             sellButton.onClick.AddListener(SellItems);
 
             _inventoryViewGrid = inventoryViewGrid;
+            _onSaleCompleted = onSaleCompleted;
             _initItemList = itemIdList;
+
+            itemGrid.ResetItemGrid();
             itemGrid.SetGrid(width, height, itemIdList);
         }
 
         private void FixedUpdate()
         {
-            totalItemCostText.text = $"Value : {CalculateSaleValue()}";
+            if (totalItemCostText != null)
+                totalItemCostText.text = $"Value : {CalculateSaleValue()}";
         }
 
         private int CalculateSaleValue()
@@ -40,21 +45,11 @@ namespace BK.Inventory
 
         private void SellItems()
         {
-            if (_inventoryViewGrid != null)
-            {
-                var viewItems = new Dictionary<int, int>(_inventoryViewGrid.GetCurItemDictById());
-                foreach (var (itemId, count) in viewItems)
-                    WorldPlayerInventory.Instance.RemoveItemInInventory(itemId, count);
-                _inventoryViewGrid.ResetItemGrid();
-            }
-
-            // sale grid 아이템이 view grid 복사본에서 왔을 경우 실제 인벤토리에 원본이 남으므로 제거
-            // 실제 인벤토리에서 드래그된 경우 이미 제거되어 있으므로 RemoveItemInInventory가 실패해도 무해
             var saleItems = new Dictionary<int, int>(itemGrid.GetCurItemDictById());
+            if (saleItems.Count == 0) return;
+
             foreach (var (itemId, count) in saleItems)
                 WorldPlayerInventory.Instance.RemoveItemInInventory(itemId, count);
-
-            totalItemCostText.text = "Sale complete.";
 
             if (IsInDungeon)
             {
@@ -69,7 +64,14 @@ namespace BK.Inventory
 
             _saleValue = 0;
             itemGrid.ResetItemGrid();
-            _initItemList.Clear();
+            _initItemList?.Clear();
+            _inventoryViewGrid?.ResetItemGrid();
+            _onSaleCompleted?.Invoke();
+
+            if (totalItemCostText != null)
+                totalItemCostText.text = "Sale complete.";
+
+            WorldSaveGameManager.Instance.SaveGame();
         }
 
         public ItemGrid GetItemGrid => itemGrid;

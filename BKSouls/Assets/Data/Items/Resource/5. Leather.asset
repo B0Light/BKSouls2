@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 5. Leather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1005
-  itemName: Leather
+  itemName: 가죽
   itemIcon: {fileID: 21300000, guid: 01a693144953532408777671ddacc297, type: 3}
   itemTier: 0
   itemType: 11
   cost: 20
-  itemDescription: Raw animal leather. Can be tanned into durable armor material.
+  itemDescription: 가공되지 않은 동물 가죽입니다. 무두질하면 튼튼한 방어구 재료가 됩니다.
   width: 1
   height: 1
   weight: 0.5

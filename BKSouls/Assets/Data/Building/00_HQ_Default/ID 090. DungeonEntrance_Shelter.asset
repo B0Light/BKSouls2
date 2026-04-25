@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ID 090. DungeonEntrance_Shelter
   m_EditorClassIdentifier: 
   itemID: 90
-  itemName: Dungeon Entrance
+  itemName: 던전 입구
   itemIcon: {fileID: 21300000, guid: 13845c034a9beae4bb0a70e8068fafd4, type: 3}
   itemTier: 5
   cost: 0
-  itemDescription: Dungeon Entrance
+  itemDescription: 쉘터에서 던전으로 이동하는 입구입니다.
   itemType: 7
   width: 1
   height: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ID 1100. Base Herb
   m_EditorClassIdentifier: 
   itemID: 1100
-  itemName: "\uD5C8\uBE0C"
+  itemName: 허브 밭
   itemIcon: {fileID: 21300000, guid: 0ee6298457f8c5543afff80720ef946c, type: 3}
   itemTier: 0
   itemType: 7
   cost: 0
-  itemDescription: "\uD5C8"
+  itemDescription: 허브와 식물 재료를 얻을 수 있는 채집 시설입니다.
   width: 1
   height: 1
   weight: 0

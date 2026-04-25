@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 13. Charcoal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1013
-  itemName: Charcoal
+  itemName: 숯
   itemIcon: {fileID: 21300000, guid: c9b6be83ff0a6f346a64e358a8126fcc, type: 3}
   itemTier: 0
   itemType: 11
   cost: 18
-  itemDescription: Charcoal produced by burning wood. Burns hotter than regular coal.
+  itemDescription: 나무를 태워 만든 숯입니다. 일반 석탄보다 더 뜨겁게 탑니다.
   width: 1
   height: 1
   weight: 0.5

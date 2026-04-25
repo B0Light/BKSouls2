@@ -13,13 +13,11 @@ MonoBehaviour:
   m_Name: ID 002. Headquarter
   m_EditorClassIdentifier: 
   itemID: 2
-  itemName: "\uAC74\uC124\uBCF8\uBD80"
+  itemName: 건설 본부
   itemIcon: {fileID: 0}
   itemTier: 5
   cost: 0
-  itemDescription: 'Build Control
-
-'
+  itemDescription: 쉘터 건설을 관리하는 중심 시설입니다.
   itemType: 7
   width: 2
   height: 2

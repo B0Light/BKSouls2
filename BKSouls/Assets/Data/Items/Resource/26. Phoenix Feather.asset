@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 26. Phoenix Feather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1026
-  itemName: Phoenix Feather
+  itemName: 불사조의 깃털
   itemIcon: {fileID: 21300000, guid: 2f793ebbb702dc4459fb10c631430748, type: 3}
   itemTier: 4
   itemType: 11
   cost: 5000
-  itemDescription: A radiant feather from an immortal phoenix. Imbues weapons with
+  itemDescription: 불멸의 불사조에게서 얻은 빛나는 깃털입니다. 무기에 불꽃의 힘을 부여합니다.
     undying flame.
   width: 1
   height: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 11. Iron Ingot
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1011
-  itemName: Iron Ingot
+  itemName: 철 주괴
   itemIcon: {fileID: 21300000, guid: 89877db0a2d687e409f0fa4a9f73dfbc, type: 3}
   itemTier: 1
   itemType: 11
   cost: 80
-  itemDescription: Refined iron ingot. A fundamental material for crafting weapons
+  itemDescription: 정제된 철 주괴입니다. 무기 제작의 기본이 되는 재료입니다.
     and armor.
   width: 1
   height: 1

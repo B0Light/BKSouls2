@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ID 200. Base Tree
   m_EditorClassIdentifier: 
   itemID: 200
-  itemName: "\uB098\uBB34"
+  itemName: 나무
   itemIcon: {fileID: 21300000, guid: f263270cc51dbfb48b91d69980f8ee4c, type: 3}
   itemTier: 0
   itemType: 7
   cost: 0
-  itemDescription: "\uC27C\uD130\uB97C \uAFB8\uBC00\uC218 \uC788\uB294 \uB098\uBB34\uC785\uB2C8\uB2E4."
+  itemDescription: 쉘터를 꾸미는 장식용 나무입니다.
   width: 1
   height: 1
   weight: 0

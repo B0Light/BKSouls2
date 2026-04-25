@@ -113,7 +113,8 @@ namespace BK.Inventory
                     saleGridWidth,
                     saleGridHeight,
                     new List<int>(),
-                    inventorySaleViewGrid
+                    inventorySaleViewGrid,
+                    PopulateInventoryForSale
                 );
                 WorldPlayerInventory.Instance.curInteractItemGrid = itemSaleUIManager.GetItemGrid;
             }
@@ -163,6 +164,7 @@ namespace BK.Inventory
                     itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
             }
 
+            inventorySaleViewGrid.ResetItemGrid();
             inventorySaleViewGrid.SetGrid(6, 10, new List<int>());
 
             foreach (var (id, count) in itemDict)

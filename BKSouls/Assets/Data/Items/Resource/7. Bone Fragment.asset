@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 7. Bone Fragment
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1007
-  itemName: Bone Fragment
+  itemName: 뼈 조각
   itemIcon: {fileID: 21300000, guid: 4cea057008cc1cf4a84824b58d79ff16, type: 3}
   itemTier: 0
   itemType: 11
   cost: 7
-  itemDescription: A jagged fragment of bone. Grind it into powder for alchemy.
+  itemDescription: 날카롭게 부서진 뼈 조각입니다. 갈아서 연금술용 가루로 만들 수 있습니다.
   width: 1
   height: 1
   weight: 0.3

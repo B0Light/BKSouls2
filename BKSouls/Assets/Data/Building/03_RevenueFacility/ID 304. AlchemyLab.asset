@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: ID 304. AlchemyLab
   m_EditorClassIdentifier: 
   itemID: 304
-  itemName: AlchemyLab
+  itemName: 연금술 연구소
   itemIcon: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   itemTier: 3
   itemType: 7
   cost: 0
-  itemDescription: "\uD50C\uB808\uC774\uC5B4\uC758 \uAE30\uBCF8 \uB2A5\uB825\uCE58\uB97C
-    \uD5A5\uC0C1\uC2DC\uD0AC \uC218 \uC788\uC2B5\uB2C8\uB2E4."
+  itemDescription: 플레이어의 기본 능력치를 향상시키는 시설입니다.
   width: 2
   height: 2
   weight: 0

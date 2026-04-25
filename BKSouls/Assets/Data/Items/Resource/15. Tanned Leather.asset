@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 15. Tanned Leather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1015
-  itemName: Tanned Leather
+  itemName: 무두질한 가죽
   itemIcon: {fileID: 21300000, guid: 61781dcb07859234a964eef12cb2c125, type: 3}
   itemTier: 1
   itemType: 11
   cost: 90
-  itemDescription: Cured and treated leather. Resistant to moisture and wear.
+  itemDescription: 손질하고 가공한 가죽입니다. 습기와 마모에 강합니다.
   width: 1
   height: 1
   weight: 0.6

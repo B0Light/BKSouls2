@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 12. Steel Ingot
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1012
-  itemName: Steel Ingot
+  itemName: 강철 주괴
   itemIcon: {fileID: 21300000, guid: e40aaf88681463c4db5a3b11e03e25bb, type: 3}
   itemTier: 2
   itemType: 11
   cost: 200
-  itemDescription: High-quality steel forged from iron and coal. Stronger than pure
+  itemDescription: 철과 석탄으로 단련한 고급 강철 주괴입니다. 순수한 철보다 단단합니다.
     iron.
   width: 1
   height: 1

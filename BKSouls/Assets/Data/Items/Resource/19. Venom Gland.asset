@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 19. Venom Gland
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1019
-  itemName: Venom Gland
+  itemName: 독샘
   itemIcon: {fileID: 21300000, guid: 9caf632d3ba61b449932af4ffc125831, type: 3}
   itemTier: 1
   itemType: 11
   cost: 150
-  itemDescription: A toxic gland extracted from a venomous creature. Used to craft
+  itemDescription: 독을 지닌 생물에게서 적출한 독샘입니다. 독성 무기와 연금술 재료로 사용됩니다.
     poison weapons.
   width: 1
   height: 1

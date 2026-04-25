@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 4. Stone
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1004
-  itemName: Stone
+  itemName: 돌
   itemIcon: {fileID: 21300000, guid: 9df5434f0ad3bb84690abeb0dfa6847a, type: 3}
   itemTier: 0
   itemType: 11
   cost: 5
-  itemDescription: A plain stone. Common but essential for basic construction.
+  itemDescription: 평범한 돌입니다. 흔하지만 기본 건설에 꼭 필요한 재료입니다.
   width: 1
   height: 1
   weight: 2

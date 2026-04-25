@@ -92,10 +92,24 @@ namespace BK.Inventory
         // 레시피 매칭 
         private bool CheckIngredientCount(Dictionary<int, int> gridItems, CraftingRecipe recipe)
         {
+            Dictionary<int, int> requiredItems = new Dictionary<int, int>();
             foreach (var ingredient in recipe.ingredients)
             {
-                if (!gridItems.ContainsKey(ingredient.itemData.itemID) ||
-                    gridItems[ingredient.itemData.itemID] < ingredient.quantity)
+                int itemId = ingredient.itemData.itemID;
+                requiredItems[itemId] = requiredItems.TryGetValue(itemId, out int currentQuantity)
+                    ? currentQuantity + ingredient.quantity
+                    : ingredient.quantity;
+            }
+
+            if (gridItems.Count != requiredItems.Count)
+            {
+                return false;
+            }
+
+            foreach (var requiredItem in requiredItems)
+            {
+                if (!gridItems.TryGetValue(requiredItem.Key, out int currentQuantity) ||
+                    currentQuantity != requiredItem.Value)
                 {
                     return false;
                 }
@@ -109,7 +123,11 @@ namespace BK.Inventory
         {
             UpdateCraftingGridUI();
             // 1. 재료 아이템들 제거
-            RemoveIngredients(recipe);
+            if (!RemoveIngredients(recipe))
+            {
+                UpdateCraftingGridUI();
+                return;
+            }
 
             // 2. 결과 아이템 생성
             CreateResultItem(recipe);
@@ -120,13 +138,20 @@ namespace BK.Inventory
             WorldSaveGameManager.Instance.SaveGame();
         }
 
-        private void RemoveIngredients(CraftingRecipe recipe)
+        private bool RemoveIngredients(CraftingRecipe recipe)
         {
             foreach (var ingredient in recipe.ingredients)
             {
-                craftingGrid.RemoveItemsById(ingredient.itemData.itemID, ingredient.quantity);
-                WorldPlayerInventory.Instance.RemoveItemInInventory(ingredient.itemData.itemID, ingredient.quantity);
+                int removedCount = craftingGrid.RemoveItemsById(ingredient.itemData.itemID, ingredient.quantity);
+                if (removedCount < ingredient.quantity)
+                {
+                    Debug.LogWarning(
+                        $"[Forge] Failed to remove ingredient. itemID: {ingredient.itemData.itemID}, required: {ingredient.quantity}, removed: {removedCount}");
+                    return false;
+                }
             }
+
+            return true;
         }
 
         private void CreateResultItem(CraftingRecipe recipe)

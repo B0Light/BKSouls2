@@ -285,7 +285,7 @@ namespace BK.Inventory
         {
             if (!inventoryItem) return false;
 
-            _itemPosDict.RemoveByKey(inventoryItem.itemData);
+            _itemPosDict.RemoveByValue(new Vector2(inventoryItem.onGridPositionX, inventoryItem.onGridPositionY));
             CleanGridReference(inventoryItem);
             itemGridWeight.Value -= inventoryItem.itemData.weight;
             totalItemValue.Value -= inventoryItem.itemData.cost;
@@ -458,7 +458,7 @@ namespace BK.Inventory
             if (pickUpItem == null) return null;
 
             CleanGridReference(pickUpItem);
-            _itemPosDict.RemoveByKey(pickUpItem.itemData);
+            _itemPosDict.RemoveByValue(new Vector2(pickUpItem.onGridPositionX, pickUpItem.onGridPositionY));
 
             itemGridWeight.Value -= pickUpItem.itemData.weight;
             totalItemValue.Value -= pickUpItem.itemData.cost;

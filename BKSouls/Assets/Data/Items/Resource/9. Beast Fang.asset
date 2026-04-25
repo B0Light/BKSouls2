@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 9. Beast Fang
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1009
-  itemName: Beast Fang
+  itemName: 야수의 송곳니
   itemIcon: {fileID: 21300000, guid: 5bb227703a598fe42bf0860629b93e8c, type: 3}
   itemTier: 0
   itemType: 11
   cost: 30
-  itemDescription: A sharp fang from a wild beast. Useful as a crafting component.
+  itemDescription: 야생 짐승에게서 얻은 날카로운 송곳니입니다. 제작 재료로 유용합니다.
   width: 1
   height: 1
   weight: 0.2

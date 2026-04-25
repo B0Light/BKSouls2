@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 14. Plank
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1014
-  itemName: Plank
+  itemName: 판자
   itemIcon: {fileID: 21300000, guid: 022d424ed1f7bdb4d844cd2fc9836bd5, type: 3}
   itemTier: 0
   itemType: 11
   cost: 22
-  itemDescription: A flat wooden plank cut from a log. Used in construction and grip
+  itemDescription: 통나무를 잘라 만든 평평한 판자입니다. 건설과 손잡이 제작에 사용됩니다.
     crafting.
   width: 1
   height: 1

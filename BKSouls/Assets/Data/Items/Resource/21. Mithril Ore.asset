@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 21. Mithril Ore
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1021
-  itemName: Mithril Ore
+  itemName: 미스릴 광석
   itemIcon: {fileID: 21300000, guid: 6cb6a9fa1d134414ab8d25ebcafc84f0, type: 3}
   itemTier: 2
   itemType: 11
   cost: 500
-  itemDescription: A rare ore that glows faintly. Lighter than steel yet far more
+  itemDescription: 희미하게 빛나는 희귀 광석입니다. 강철보다 가볍지만 훨씬 단단합니다.
     resilient.
   width: 1
   height: 1

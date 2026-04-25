@@ -13,14 +13,12 @@ MonoBehaviour:
   m_Name: 33. Weapon Core
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 79
-  itemName: "\uBB34\uAE30 \uC815\uC218"
+  itemName: 무기 정수
   itemIcon: {fileID: 21300000, guid: b16a23e6c8acc7443ab99f13ca72aecc, type: 3}
   itemTier: 2
   itemType: 11
   cost: 800
-  itemDescription: "\uACE0\uAE09 \uBB34\uAE30\uB97C \uBD84\uD574\uD558\uC5EC \uC5BB\uC740
-    \uB18D\uCD95\uB41C \uC7AC\uB8CC. \uCD5C\uC0C1\uAE09 \uBB34\uAE30 \uC81C\uC791\uC5D0\uB9CC
-    \uC0AC\uC6A9\uB41C\uB2E4."
+  itemDescription: 고급 무기를 분해하여 얻은 농축된 재료입니다. 최상급 무기 제작에만 사용됩니다.
   width: 1
   height: 1
   weight: 1

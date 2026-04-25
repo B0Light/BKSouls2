@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ID 100. BaseRoad
   m_EditorClassIdentifier: 
   itemID: 100
-  itemName: Road
+  itemName: 도로
   itemIcon: {fileID: 21300000, guid: 67fdc91acd8a4b240a1a5c5d4fabc97d, type: 3}
   itemTier: 0
   itemType: 0
   cost: 0
-  itemDescription: A path that connects buildings.
+  itemDescription: 건물과 건물을 이어 주는 길입니다.
   width: 1
   height: 1
   weight: 0

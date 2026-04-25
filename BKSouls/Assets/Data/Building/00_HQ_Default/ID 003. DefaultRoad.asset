@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ID 003. DefaultRoad
   m_EditorClassIdentifier: 
   itemID: 3
-  itemName: "\uAE30\uBCF8\uB3C4\uB85C"
+  itemName: 기본 도로
   itemIcon: {fileID: 21300000, guid: 67fdc91acd8a4b240a1a5c5d4fabc97d, type: 3}
   itemTier: 6
   cost: 0
-  itemDescription: Default road to get HQ
+  itemDescription: 건설 본부와 연결되는 기본 도로입니다.
   itemType: 7
   width: 1
   height: 1

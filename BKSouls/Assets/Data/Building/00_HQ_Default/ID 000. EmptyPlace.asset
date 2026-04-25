@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ID 000. EmptyPlace
   m_EditorClassIdentifier: 
   itemID: 0
-  itemName: EmptyPlace
+  itemName: 빈 공간
   itemIcon: {fileID: 0}
   itemTier: 0
   cost: 0
-  itemDescription: EmptyPlace
+  itemDescription: 아직 아무 건물도 배치되지 않은 공간입니다.
   itemType: 7
   width: 1
   height: 1

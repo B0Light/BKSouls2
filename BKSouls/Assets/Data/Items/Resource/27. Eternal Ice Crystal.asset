@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 27. Eternal Ice Crystal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1027
-  itemName: Eternal Ice Crystal
+  itemName: 영원의 얼음 수정
   itemIcon: {fileID: 21300000, guid: f12e805c617eeef4f91a2745243d13de, type: 3}
   itemTier: 3
   itemType: 11
   cost: 1800
-  itemDescription: Ice that has never melted since the age of glaciers. Enchants
+  itemDescription: 빙하의 시대부터 한 번도 녹지 않은 얼음입니다. 장비에 냉기의 힘을 부여합니다.
     blades with a freezing touch.
   width: 1
   height: 1

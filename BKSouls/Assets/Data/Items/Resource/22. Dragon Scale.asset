@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 22. Dragon Scale
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1022
-  itemName: Dragon Scale
+  itemName: 용의 비늘
   itemIcon: {fileID: 21300000, guid: a46042d8a3799c841afed02afe2fbdd5, type: 3}
   itemTier: 3
   itemType: 11
   cost: 1500
-  itemDescription: A scale shed by an ancient dragon. Virtually fireproof and incredibly
+  itemDescription: 고대의 용이 남긴 비늘입니다. 불에 거의 타지 않으며 믿을 수 없을 만큼 단단합니다.
     hard.
   width: 1
   height: 1

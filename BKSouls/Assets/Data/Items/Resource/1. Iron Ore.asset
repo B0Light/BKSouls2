@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 1. Iron Ore
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1001
-  itemName: Iron Ore
+  itemName: 철광석
   itemIcon: {fileID: 21300000, guid: 64e1ebf7b0085d94e81b701aa5a3f366, type: 3}
   itemTier: 0
   itemType: 11
   cost: 15
-  itemDescription: A lump of raw iron ore. Smelt it to produce iron ingots.
+  itemDescription: 제련되지 않은 철광석 덩어리입니다. 녹여서 철 주괴를 만들 수 있습니다.
   width: 1
   height: 1
   weight: 1

@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 2. Coal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1002
-  itemName: Coal
+  itemName: 석탄
   itemIcon: {fileID: 21300000, guid: fe07145c22e7e8349a52f4187ef3a6ac, type: 3}
   itemTier: 0
   itemType: 11
   cost: 8
-  itemDescription: Black coal used as fuel for smelting and crafting.
+  itemDescription: 제련과 제작의 연료로 쓰이는 검은 석탄입니다.
   width: 1
   height: 1
   weight: 0.8

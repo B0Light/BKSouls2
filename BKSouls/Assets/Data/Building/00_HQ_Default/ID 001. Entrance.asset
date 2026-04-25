@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: ID 001. Entrance
   m_EditorClassIdentifier: 
   itemID: 1
-  itemName: "\uC785\uAD6C"
+  itemName: 입구
   itemIcon: {fileID: 0}
   itemTier: 6
   cost: 0
-  itemDescription: ENTRANCE
+  itemDescription: 쉘터로 들어오고 나가는 기본 입구입니다.
   itemType: 7
   width: 1
   height: 1

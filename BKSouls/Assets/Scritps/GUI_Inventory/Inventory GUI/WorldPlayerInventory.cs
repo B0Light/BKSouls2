@@ -340,6 +340,40 @@ namespace BK.Inventory
 
         #region Dungeon
 
+        public void ClearInventoryAndBackpack()
+        {
+            GetInventory()?.ResetItemGrid();
+            GetBackpackInventory()?.ResetItemGrid();
+
+            CharacterSaveData currentCharacterData = WorldSaveGameManager.Instance.currentCharacterData;
+            currentCharacterData?.inventoryItems?.Clear();
+            currentCharacterData?.backpackItems?.Clear();
+
+            OnInventoryChanged?.Invoke();
+        }
+
+        public void SaveInventoryAndBackpackToCurrentCharacterData()
+        {
+            CharacterSaveData currentCharacterData = WorldSaveGameManager.Instance.currentCharacterData;
+            if (currentCharacterData == null) return;
+
+            currentCharacterData.inventoryItems.Clear();
+            currentCharacterData.backpackItems.Clear();
+
+            CopyGridItemCounts(GetInventory(), currentCharacterData.inventoryItems);
+            CopyGridItemCounts(GetBackpackInventory(), currentCharacterData.backpackItems);
+        }
+
+        private void CopyGridItemCounts(ItemGrid sourceGrid, SerializableDictionary<int, int> targetItems)
+        {
+            if (sourceGrid == null || targetItems == null) return;
+
+            foreach (var pair in sourceGrid.GetCurItemDictById())
+            {
+                targetItems[pair.Key] = pair.Value;
+            }
+        }
+
         public void MoveInventoryToShare()
         {
             var inventory = GetInventory();

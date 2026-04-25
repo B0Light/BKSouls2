@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 17. Bone Powder
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1017
-  itemName: Bone Powder
+  itemName: 뼛가루
   itemIcon: {fileID: 21300000, guid: 3d08dde7a22313941a3833f82ff1b015, type: 3}
   itemTier: 0
   itemType: 11
   cost: 35
-  itemDescription: Ground bone powder used in alchemy and special coatings.
+  itemDescription: 뼈를 곱게 갈아 만든 가루입니다. 연금술과 특수 코팅에 사용됩니다.
   width: 1
   height: 1
   weight: 0.2

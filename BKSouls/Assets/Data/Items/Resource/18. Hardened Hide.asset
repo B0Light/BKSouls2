@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 18. Hardened Hide
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1018
-  itemName: Hardened Hide
+  itemName: 경화된 가죽
   itemIcon: {fileID: 21300000, guid: ce1023af707d5e046944c184ba75b215, type: 3}
   itemTier: 1
   itemType: 11
   cost: 120
-  itemDescription: Monster hide hardened through a special curing process. Excellent
+  itemDescription: 특수한 가공 과정을 거쳐 단단해진 몬스터 가죽입니다. 방어구 재료로 뛰어납니다.
     for heavy armor.
   width: 1
   height: 1

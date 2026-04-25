@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 16. Silk Thread
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1016
-  itemName: Silk Thread
+  itemName: 비단실
   itemIcon: {fileID: 21300000, guid: 74c1c58cdfe5c0a43b2ab58693b9d54e, type: 3}
   itemTier: 1
   itemType: 11
   cost: 75
-  itemDescription: Fine thread spun from rare silkworms. Used in high-quality cloth
+  itemDescription: 희귀한 누에고치에서 뽑아낸 고운 실입니다. 고급 천 제작에 사용됩니다.
     armor.
   width: 1
   height: 1

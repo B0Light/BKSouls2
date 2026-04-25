@@ -33,14 +33,14 @@ namespace BK.Inventory
         public override void SetGrid(int width, int height, List<int> setItemList)
         {
             itemIdToCntDict = new SerializedDictionary<int, int>();
-            _interactableItemIDList = new List<int>(setItemList);
+            _interactableItemIDList = setItemList ?? new List<int>();
             base.SetGrid(width, height, _interactableItemIDList);
         }
 
         public override void SetGridWithRefs(int width, int height, List<GridItem> soItems, List<int> runtimeIds)
         {
             itemIdToCntDict = new SerializedDictionary<int, int>();
-            _interactableItemIDList = new List<int>(runtimeIds ?? new List<int>());
+            _interactableItemIDList = runtimeIds ?? new List<int>();
             base.SetGridWithRefs(width, height, soItems, _interactableItemIDList);
         }
 

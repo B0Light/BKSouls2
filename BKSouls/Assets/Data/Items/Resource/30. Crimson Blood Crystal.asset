@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 30. Crimson Blood Crystal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1030
-  itemName: Crimson Blood Crystal
+  itemName: 진홍빛 혈정
   itemIcon: {fileID: 21300000, guid: e90f1772da7fa2c44a9810a03d7eb724, type: 3}
   itemTier: 4
   itemType: 11
   cost: 6000
-  itemDescription: A deep red crystal formed from the congealed blood of an ancient
+  itemDescription: 고대 존재의 응고된 피에서 생겨난 짙은 붉은 수정입니다.
     god. The rarest of all crafting materials.
   width: 1
   height: 1

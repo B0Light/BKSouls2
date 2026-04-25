@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 10. Feather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1010
-  itemName: Feather
+  itemName: 깃털
   itemIcon: {fileID: 21300000, guid: cebe27ddda3ac7345806ff3181183f8c, type: 3}
   itemTier: 0
   itemType: 11
   cost: 6
-  itemDescription: A light feather. Used in fletching and lightweight crafts.
+  itemDescription: 가벼운 깃털입니다. 화살깃이나 경량 제작품에 사용됩니다.
   width: 1
   height: 1
   weight: 0.1

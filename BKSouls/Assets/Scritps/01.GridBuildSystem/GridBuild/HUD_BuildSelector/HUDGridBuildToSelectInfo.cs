@@ -106,11 +106,9 @@ public class HUDGridBuildToSelectInfo : MonoBehaviour
 
     private string GetInfoText(BuildObjData buildData)
     {
-        CellType tileType = buildData.GetCellType();
-        int cost = buildData.baseFee;
         string description = buildData.itemDescription;
         
-        string text = $"[{tileType}]\n수익 : {cost}\n{description}";
+        string text = $"{description}";
 
         return text;
     }

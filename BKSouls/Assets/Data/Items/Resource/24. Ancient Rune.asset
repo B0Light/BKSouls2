@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 24. Ancient Rune
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1024
-  itemName: Ancient Rune
+  itemName: 고대 룬
   itemIcon: {fileID: 21300000, guid: c2a974955c8b2104e871a919dcde0484, type: 3}
   itemTier: 3
   itemType: 11
   cost: 1200
-  itemDescription: A stone tablet carved with forgotten runes. Channels arcane power
+  itemDescription: 잊힌 룬이 새겨진 석판입니다. 신비한 힘을 흘려보내는 매개체입니다.
     into forged items.
   width: 1
   height: 1
