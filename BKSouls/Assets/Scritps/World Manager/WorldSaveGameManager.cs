@@ -19,6 +19,8 @@ namespace BK
         [SerializeField] private string holdSceneIndex = "Scene_RoundTableHold";
         public Vector3 holdSceneSpawnPos = new Vector3(0,0,0);
 
+        public bool IsHoldScene => UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == holdSceneIndex;
+
         [Header("Init Position")] 
         [SerializeField] private Vector3 initPosition = new Vector3();
 

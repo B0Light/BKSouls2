@@ -520,6 +520,9 @@ namespace BK
 
         private void HandleRBInput()
         {
+            if (player.isDead.Value)
+                return;
+
             if (two_Hand_Input)
                 return;
 
@@ -553,6 +556,9 @@ namespace BK
 
         private void HandleLBInput()
         {
+            if (player.isDead.Value)
+                return;
+
             if (two_Hand_Input)
                 return;
 
@@ -590,6 +596,9 @@ namespace BK
 
         private void HandleRTInput()
         {
+            if (player.isDead.Value)
+                return;
+
             if (RT_Input)
             {
                 RT_Input = false;
@@ -618,6 +627,9 @@ namespace BK
 
         private void HandleLTInput()
         {
+            if (player.isDead.Value)
+                return;
+
             if (LT_Input)
             {
                 LT_Input = false;

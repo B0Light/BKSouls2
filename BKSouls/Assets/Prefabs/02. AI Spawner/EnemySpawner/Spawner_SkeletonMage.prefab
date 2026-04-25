@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &221337603687887941
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5759175981192852117}
+  - component: {fileID: 882319676538015308}
+  m_Layer: 0
+  m_Name: Spawner_SkeletonMage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5759175981192852117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221337603687887941}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &882319676538015308
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 221337603687887941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 683246800056f3748a89b2c277f6ab25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterSpawner
+  characterGameObject: {fileID: 1392478376182380569, guid: 720d5cfed2970b0449d2dc50005231df, type: 3}
+  instantiatedGameObject: {fileID: 0}
+  hasPatrolPath: 0
+  patrolPathID: 1
+  isSleeping: 1
+  statsSO: {fileID: 11400000, guid: a16a17f298c1ac94fbd9ad2a07879076, type: 2}
+  manuallySetStats: 1
+  stamina: 150
+  health: 400

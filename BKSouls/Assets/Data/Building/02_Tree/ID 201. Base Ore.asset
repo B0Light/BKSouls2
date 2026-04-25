@@ -27,4 +27,9 @@ MonoBehaviour:
   cellType: 7
   maxLevel: 10
   baseFee: 100
+  costItems:
+  - itemId: 1001
+    count: 3
+  - itemId: 1004
+    count: 5
   upgradeStages: []

@@ -1236,7 +1236,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 876691667627238536}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -11232,7 +11232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1878ead4a05381345a2060e8c3366604, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costPrefab: {fileID: 7471562467702614785, guid: 35e38772fae211f45ba97af588e79782, type: 3}
+  costPrefab: {fileID: 2912120803629889783, guid: 770a12e073d11e541a167a4c3b110cd8, type: 3}
   costItemSlot: {fileID: 7103017757853017042}
 --- !u!1 &7216351575309649525
 GameObject:

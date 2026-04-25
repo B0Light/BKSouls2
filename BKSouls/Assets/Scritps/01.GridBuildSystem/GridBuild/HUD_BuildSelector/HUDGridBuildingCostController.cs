@@ -41,14 +41,19 @@ public class HUDGridBuildingCostController : MonoBehaviour
     private void Instance_OnSelectedChanged(BuildObjData objectToPlace)
     {
         BuildObjData item = objectToPlace;
-        
+
         DeleteAllChildren(costItemSlot);
         if (item == null) return;
-        
-        foreach (var costItemPair in item.costItemDic)
+        if (costPrefab == null)
+        {
+            Debug.LogWarning("[HUDGridBuildingCostController] costPrefab is not assigned in the Inspector.");
+            return;
+        }
+
+        foreach (var costItemPair in item.GetCostItems())
         {
             GameObject spawnedCostItem = Instantiate(costPrefab, costItemSlot);
-                
+
             spawnedCostItem.GetComponent<ShopCostItem>()?.Init(costItemPair.Key, costItemPair.Value);
         }
     }

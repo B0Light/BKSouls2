@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace BK.Inventory
 {
@@ -14,9 +15,54 @@ namespace BK.Inventory
             public int cost;
         }
 
+        [System.Serializable]
+        public struct ItemCostEntry
+        {
+            public GridItem item;
+            public int count;
+
+            [SerializeField, HideInInspector, FormerlySerializedAs("itemId")]
+            private int legacyItemId;
+
+            public GridItem GetItem(bool allowLegacyResolve)
+            {
+                if (item != null)
+                    return item;
+
+                if (!allowLegacyResolve || legacyItemId <= 0 || WorldItemDatabase.Instance == null)
+                    return null;
+
+                return WorldItemDatabase.Instance.GetItemByID(legacyItemId) as GridItem;
+            }
+        }
+
         public Transform prefab;
-        
-        public Dictionary<int,int> costItemDic = new Dictionary<int,int>();
+
+        [Header("Build Cost")]
+        [SerializeField] private List<ItemCostEntry> costItems = new List<ItemCostEntry>();
+        public Dictionary<GridItem, int> costItemDic = new Dictionary<GridItem, int>();
+
+        private void OnEnable()
+        {
+            RefreshCostItemDictionary(false);
+        }
+
+        public IReadOnlyDictionary<GridItem, int> GetCostItems()
+        {
+            RefreshCostItemDictionary(true);
+            return costItemDic;
+        }
+
+        private void RefreshCostItemDictionary(bool allowLegacyResolve)
+        {
+            costItemDic = new Dictionary<GridItem, int>();
+            foreach (var entry in costItems)
+            {
+                GridItem item = entry.GetItem(allowLegacyResolve);
+                if (item != null && entry.count > 0)
+                    costItemDic[item] = entry.count;
+            }
+        }
 
         [Space(10)] 
         [SerializeField] private CellType cellType; // 건설할 타일의 타입

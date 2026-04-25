@@ -7,7 +7,7 @@ namespace BK
         [Header("Visual Effect")]
         [SerializeField] private GameObject vfxObject;
 
-        private void Awake()
+        protected override void Awake()
         {
             interactableText = "레벨 업";
             hostOnlyInteractable = false;

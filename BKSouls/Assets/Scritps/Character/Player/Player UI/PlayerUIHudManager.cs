@@ -123,6 +123,7 @@ namespace BK
 
         private void SetBalanceText(int value)
         {
+            if (value < 0) return;
             if (balanceCountText != null)
                 balanceCountText.text = value.ToString();
         }

@@ -13,17 +13,24 @@ MonoBehaviour:
   m_Name: ID 400. ShareBox
   m_EditorClassIdentifier: 
   itemID: 400
-  itemName: "\uCEE8\uD14C\uC774\uB108"
+  itemName: "\uAC1C\uC778 \uC0C1\uC790 "
   itemIcon: {fileID: 21300000, guid: a4b2f64db24a96546a59e2318e0d5e20, type: 3}
   itemTier: 1
   itemType: 7
   cost: 0
   itemDescription: "\uC544\uC774\uD15C\uC744 \uBCF4\uAD00\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.\n"
-  width: 2
-  height: 2
+  width: 1
+  height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 8505302688112017437, guid: 2689a2aa3fb71ba4e91dcf1f920d0af6, type: 3}
+  costItems:
+  - itemId: 1003
+    count: 5
+  - itemId: 1011
+    count: 3
+  - itemId: 1014
+    count: 4
   cellType: 6
   maxLevel: 10
   baseFee: 100

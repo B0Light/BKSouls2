@@ -7,9 +7,8 @@ namespace BK.Inventory
 {
     public class ItemShopUIManager : ShopUIManager
     {
-        [SerializeField] private Transform abilityContainer; // 모든 능력이 들어갈 컨테이너
-
-        [SerializeField] private GameObject abilityUIPrefab; // HUD_SelectedItemAbility 프리팹
+        [SerializeField] private Transform abilityContainer;
+        [SerializeField] private GameObject abilityUIPrefab;
 
         private List<HUD_SelectedItemAbility> abilityUIs = new List<HUD_SelectedItemAbility>();
 
@@ -33,13 +32,35 @@ namespace BK.Inventory
         [SerializeField] private ItemGrid inventorySaleViewGrid;
         [SerializeField] private CanvasGroup inventorySaleViewCanvasGroup;
 
-
         private bool _isShopOpen = false;
+        private bool _forceRunes = false;
+
+        private bool UseRunes => _forceRunes || !WorldSaveGameManager.Instance.IsHoldScene;
+
+        private PlayerManager LocalPlayer => GUIController.Instance?.localPlayer;
+
+        private int CurrentCurrency
+        {
+            get
+            {
+                if (UseRunes)
+                    return LocalPlayer != null ? LocalPlayer.playerStatsManager.runes : 0;
+                return WorldPlayerInventory.Instance != null ? WorldPlayerInventory.Instance.balance.Value : 0;
+            }
+        }
 
         public override void OpenShop(List<Item> items, Interactable interactable = null, bool isMasterShop = false)
         {
+            OpenShop(items, interactable, isMasterShop, false);
+        }
+
+        public void OpenShop(List<Item> items, Interactable interactable, bool isMasterShop, bool forceRunes)
+        {
+            _forceRunes = forceRunes;
             _isShopOpen = true;
-            WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
+
+            if (!UseRunes)
+                WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
 
             SetUpShelf(items);
             ResetItemInfo();
@@ -60,7 +81,8 @@ namespace BK.Inventory
         {
             base.CloseGUI();
 
-            WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
+            if (!UseRunes && WorldPlayerInventory.Instance != null)
+                WorldPlayerInventory.Instance.balance.OnValueChanged -= OnBalanceChanged;
 
             SetSaleVisible(false);
             SetInventoryViewVisible(false);
@@ -195,7 +217,6 @@ namespace BK.Inventory
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
-            
             _selectedItemCost = selectItemInfo.cost;
             SetPurchaseQuantity(1);
 
@@ -233,7 +254,7 @@ namespace BK.Inventory
 
             abilityUIs.Clear();
         }
-        
+
         private void SetPurchaseQuantity(int quantity)
         {
             _purchaseQuantity = Mathf.Max(1, quantity);
@@ -244,9 +265,9 @@ namespace BK.Inventory
             if (totalCostText != null)
             {
                 int totalCost = _selectedItemCost * _purchaseQuantity;
-                int balance = WorldPlayerInventory.Instance.balance.Value;
-                totalCostText.text = $"{totalCost} / {balance}";
-                totalCostText.color = totalCost > balance ? Color.red : Color.white;
+                int currency = CurrentCurrency;
+                totalCostText.text = $"{totalCost} / {currency}";
+                totalCostText.color = totalCost > currency ? Color.red : Color.white;
             }
         }
 
@@ -254,25 +275,47 @@ namespace BK.Inventory
         {
             int totalCost = item.cost * _purchaseQuantity;
 
-            // 돈이 없다면 구매불가
-            if (WorldPlayerInventory.Instance.balance.Value < totalCost)
+            if (UseRunes)
             {
-                notEnoughItemsComment.SetActive(true);
-                return;
-            }
-
-            // 플레이어가 구매할 수 있다면 구매하고 대금 지불
-            for (int i = 0; i < _purchaseQuantity; i++)
-            {
-                if (!WorldShopManager.Instance.BuyItem(item))
+                PlayerManager player = LocalPlayer;
+                if (player == null || player.playerStatsManager.runes < totalCost)
                 {
-                    // 슬롯 부족 등으로 아이템 구매 불가
-                    notEnoughSlot.SetActive(true);
+                    notEnoughItemsComment.SetActive(true);
                     return;
                 }
+
+                for (int i = 0; i < _purchaseQuantity; i++)
+                {
+                    if (!WorldShopManager.Instance.BuyItem(item))
+                    {
+                        notEnoughSlot.SetActive(true);
+                        return;
+                    }
+                }
+
+                player.playerStatsManager.AddRunes(-totalCost);
+                SetPurchaseQuantity(_purchaseQuantity);
+            }
+            else
+            {
+                if (WorldPlayerInventory.Instance.balance.Value < totalCost)
+                {
+                    notEnoughItemsComment.SetActive(true);
+                    return;
+                }
+
+                for (int i = 0; i < _purchaseQuantity; i++)
+                {
+                    if (!WorldShopManager.Instance.BuyItem(item))
+                    {
+                        notEnoughSlot.SetActive(true);
+                        return;
+                    }
+                }
+
+                WorldPlayerInventory.Instance.balance.Value -= totalCost;
             }
 
-            WorldPlayerInventory.Instance.balance.Value -= totalCost;
             BuyItemProcess();
             WorldSaveGameManager.Instance.SaveGame();
             Debug.Log("Buy Success" + item.itemName);

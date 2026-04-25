@@ -21,5 +21,5 @@ MonoBehaviour:
   rewardInteractablePrefabs:
   - {fileID: 117208430295345519, guid: 9d9c32c304442654fae1642de33b740f, type: 3}
   - {fileID: 8425027224959024433, guid: 773cbefd5944b4540b78a237d7d1ce48, type: 3}
-  - {fileID: 4260387877622594040, guid: d44cf46bb0e2b5f49998d93ec3a7954f, type: 3}
+  - {fileID: 1308818568085316837, guid: c58a7d16d22713c4280a52b2f1159d27, type: 3}
   rewardBaseTier: 0

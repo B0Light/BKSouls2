@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 300
   itemName: Forge
-  itemIcon: {fileID: 21300000, guid: 48a02e9e46c938842be1c1583632fc9c, type: 3}
+  itemIcon: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   itemTier: 0
   itemType: 7
   cost: 0
@@ -29,6 +29,13 @@ MonoBehaviour:
   weight: 0
   itemAbilities: []
   prefab: {fileID: 5298284454458809937, guid: cd282febe95e75a45849dbf4e043ebb7, type: 3}
+  costItems:
+  - item: {fileID: 11400000, guid: 465373c94bfa4d14a8aab30a7550402d, type: 2}
+    count: 5
+    legacyItemId: 1001
+  - item: {fileID: 11400000, guid: d93ae41100f627d4e9eecb36fb0c8289, type: 2}
+    count: 3
+    legacyItemId: 1002
   cellType: 6
   maxLevel: 10
   baseFee: 100

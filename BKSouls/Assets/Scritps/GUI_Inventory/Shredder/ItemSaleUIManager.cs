@@ -10,6 +10,8 @@ namespace BK.Inventory
         [SerializeField] private ItemGrid itemGrid;
         private int _saleValue;
 
+        private bool IsInDungeon => !WorldSaveGameManager.Instance.IsHoldScene;
+
         [Header("UI")] [SerializeField] private TextMeshProUGUI totalItemCostText;
         [SerializeField] private Button sellButton;
         private List<int> _initItemList;
@@ -53,7 +55,18 @@ namespace BK.Inventory
                 WorldPlayerInventory.Instance.RemoveItemInInventory(itemId, count);
 
             totalItemCostText.text = "Sale complete.";
-            WorldPlayerInventory.Instance.balance.Value += _saleValue;
+
+            if (IsInDungeon)
+            {
+                PlayerManager localPlayer = GUIController.Instance?.localPlayer;
+                if (localPlayer != null)
+                    localPlayer.playerStatsManager.AddRunes(_saleValue);
+            }
+            else
+            {
+                WorldPlayerInventory.Instance.balance.Value += _saleValue;
+            }
+
             _saleValue = 0;
             itemGrid.ResetItemGrid();
             _initItemList.Clear();

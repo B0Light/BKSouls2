@@ -1705,6 +1705,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory.ItemSaleUIManager
   itemGrid: {fileID: 649447687663231965}
+  shelterSceneName: Scene_RoundTableHold
   totalItemCostText: {fileID: 1187325897110447142}
   sellButton: {fileID: 6519551513087465988}
 --- !u!1 &343583230697509703
@@ -16565,6 +16566,7 @@ MonoBehaviour:
   openSaleButton: {fileID: 3254738859113344109}
   inventorySaleViewGrid: {fileID: 6279557580301808319}
   inventorySaleViewCanvasGroup: {fileID: 4356593503683020388}
+  shelterSceneName: Scene_RoundTableHold
 --- !u!225 &6066936003673155092
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -27348,7 +27350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.PlayerUISiteOfGraceManager
   menu: {fileID: 4933808781065460921}
   costText: {fileID: 8656578938608997125}
-  balanceText: {fileID: 1770054020016644491}
+  runeText: {fileID: 1770054020016644491}
   restButton: {fileID: 5978437665220208202}
   cancelButton: {fileID: 6452787789908077619}
 --- !u!1 &4438639175967511130

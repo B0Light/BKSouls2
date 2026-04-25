@@ -14,10 +14,14 @@ namespace BK.Inventory
         [SerializeField] private TextMeshProUGUI itemNameText;
         [SerializeField] private TextMeshProUGUI itemCntText;
 
-        public void Init(int itemDataID, int itemCount)
+        public void Init(GridItem itemInfoData, int itemCount)
         {
-            var itemInfoData = WorldItemDatabase.Instance.GetItemByID(itemDataID);
-            
+            if (itemInfoData == null)
+            {
+                Debug.LogWarning("[ShopCostItem] itemInfoData is null.");
+                return;
+            }
+
             itemIcon.sprite = itemInfoData.itemIcon ?? WorldItemDatabase.Instance.unknownIcon;
             itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
 
@@ -25,7 +29,7 @@ namespace BK.Inventory
                 itemNameText.text = itemInfoData.itemName;
             if (itemCntText)
             {
-                int inventoryCnt = WorldPlayerInventory.Instance.GetItemCountInAllInventory(itemDataID);
+                int inventoryCnt = WorldPlayerInventory.Instance.GetItemCountInAllInventory(itemInfoData.itemID);
                 itemCntText.text = inventoryCnt + " / " + itemCount;
                 itemCntText.color = itemCount > inventoryCnt
                     ? new Color(1f, 0.6f, 0.6f) // 파스텔 레드

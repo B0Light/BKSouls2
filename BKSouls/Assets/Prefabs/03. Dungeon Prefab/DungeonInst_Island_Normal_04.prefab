@@ -1819,7 +1819,8 @@ MonoBehaviour:
   - {fileID: 1988292987303728458}
   entryDoorAnchor: {fileID: 5302222812364546868}
   exitDoorAnchor: {fileID: 1058418186226773210}
-  rewardSpawnPoints: []
+  rewardSpawnPoints:
+  - {fileID: 502981519429379583}
 --- !u!1 &7360608410745582906
 GameObject:
   m_ObjectHideFlags: 0

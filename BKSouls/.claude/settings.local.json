@@ -6,7 +6,8 @@
       "Bash(sort -t: -k3 -n)",
       "Bash(xargs ls *)",
       "Bash(grep -v \"\\\\.meta$\")",
-      "Bash(grep -E \"\\\\.cs$\")"
+      "Bash(grep -E \"\\\\.cs$\")",
+      "Bash(grep -i \".cs$\")"
     ]
   }
 }

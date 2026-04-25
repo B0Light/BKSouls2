@@ -188,7 +188,13 @@ namespace BK
         public void OpenShop(List<Item> items, Interactable interactableObject, bool isMaster = false)
         {
             OpenGUI(itemShopUIManager);
-            itemShopUIManager.OpenShop(items, interactableObject, isMaster);
+            itemShopUIManager.OpenShop(items, interactableObject, isMaster, false);
+        }
+
+        public void OpenShopWithRunes(List<Item> items, Interactable interactableObject)
+        {
+            OpenGUI(itemShopUIManager);
+            itemShopUIManager.OpenShop(items, interactableObject, false, true);
         }
 
         private void ToggleInventory()

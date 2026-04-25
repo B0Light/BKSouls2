@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 301
   itemName: Adventurers' Guild
-  itemIcon: {fileID: 21300000, guid: 48a02e9e46c938842be1c1583632fc9c, type: 3}
+  itemIcon: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   itemTier: 0
   itemType: 7
   cost: 0
@@ -24,6 +24,13 @@ MonoBehaviour:
   weight: 0
   itemAbilities: []
   prefab: {fileID: 5182557877217463400, guid: 939d34b1f2ad63d4284cf9a8c07b59d3, type: 3}
+  costItems:
+  - item: {fileID: 11400000, guid: e5fe6b08eed9e8a4490bf27f0e270c9e, type: 2}
+    count: 4
+    legacyItemId: 1003
+  - item: {fileID: 11400000, guid: d93ae41100f627d4e9eecb36fb0c8289, type: 2}
+    count: 3
+    legacyItemId: 1003
   cellType: 6
   maxLevel: 10
   baseFee: 100

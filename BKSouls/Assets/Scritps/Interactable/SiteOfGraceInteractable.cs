@@ -10,6 +10,9 @@ namespace BK
         public int siteOfGraceID;
         public NetworkVariable<bool> isActivated = new NetworkVariable<bool>(false, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Owner);
 
+        [Header("Rest Cost")]
+        [SerializeField] private int restCost = 100;
+
         [Header("VFX")]
         [SerializeField] GameObject activatedParticles;
 
@@ -19,6 +22,8 @@ namespace BK
 
         [Header("Teleport Transform")]
         [SerializeField] Transform teleportTransform;
+
+        private bool _hasPaidForRest = false;
 
         protected override void Start()
         {
@@ -62,16 +67,32 @@ namespace BK
 
             GUIController.Instance.playerUIPopUpManager.SendGraceRestoredPopUp("SITE OF GRACE RESTORED");
 
-            ApplyRestEffect(player);
+            StartCoroutine(WaitForAnimationThenOpenRestMenu(player));
+        }
 
-            StartCoroutine(WaitForAnimationAndPopUpThenRestoreCollider());
+        private IEnumerator WaitForAnimationThenOpenRestMenu(PlayerManager player)
+        {
+            yield return new WaitForSeconds(2);
+            interactableCollider.enabled = true;
+            OpenRestUI(player);
         }
 
         private void RestAtSiteOfGrace(PlayerManager player)
         {
             interactableCollider.enabled = true;
+            OpenRestUI(player);
+        }
 
-            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(0, () => ApplyRestEffect(player), player);
+        private void OpenRestUI(PlayerManager player)
+        {
+            int cost = _hasPaidForRest ? 0 : restCost;
+            GUIController.Instance.playerUISiteOfGraceManager.OpenRestMenu(cost, () => OnRestPaid(player), player);
+        }
+
+        private void OnRestPaid(PlayerManager player)
+        {
+            _hasPaidForRest = true;
+            ApplyRestEffect(player);
         }
 
         private void ApplyRestEffect(PlayerManager player)
@@ -90,12 +111,6 @@ namespace BK
             }
 
             WorldAIManager.instance.ResetAllCharacters();
-        }
-
-        private IEnumerator WaitForAnimationAndPopUpThenRestoreCollider()
-        {
-            yield return new WaitForSeconds(2); //  THIS SHOULD GIVE ENOUGH TIME FOR THE ANAIMATION TO PLAY AND THE POP UP TO BEGIN FADING
-            interactableCollider.enabled = true;
         }
 
         private void OnIsActivatedChanged(bool oldStatus, bool newStatus)

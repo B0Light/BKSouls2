@@ -9,7 +9,7 @@ namespace BK
     {
         [Header("Rest UI")]
         [SerializeField] private TextMeshProUGUI costText;
-        [SerializeField] private TextMeshProUGUI balanceText;
+        [SerializeField] private TextMeshProUGUI runeText;
         [SerializeField] private Button restButton;
         [SerializeField] private Button cancelButton;
 
@@ -50,18 +50,20 @@ namespace BK
 
         private void RefreshUI()
         {
-            int balance = BK.Inventory.WorldPlayerInventory.Instance.balance.Value;
-            costText.text = $"Cost : {_restCost}";
-            balanceText.text = $"Runes : {balance}";
-            restButton.interactable = balance >= _restCost;
+            int runes = _player != null ? _player.playerStatsManager.runes : 0;
+            costText.text = _restCost > 0 ? $"Cost : {_restCost}" : "Cost : Free";
+            runeText.text = $"Runes : {runes}";
+            restButton.interactable = runes >= _restCost;
         }
 
         private void OnRestConfirmed()
         {
-            if (BK.Inventory.WorldPlayerInventory.Instance.balance.Value < _restCost)
-                return;
+            if (_player == null) return;
+            if (_player.playerStatsManager.runes < _restCost) return;
 
-            BK.Inventory.WorldPlayerInventory.Instance.balance.Value -= _restCost;
+            if (_restCost > 0)
+                _player.playerStatsManager.AddRunes(-_restCost);
+
             _onRestConfirmed?.Invoke();
             CloseMenu();
         }

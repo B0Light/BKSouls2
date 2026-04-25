@@ -7,11 +7,16 @@ namespace BK
         [Header("Box Settings")]
         [SerializeField] private bool autoFill = true;
         [SerializeField] private bool clearBeforeFill = true;
-        [SerializeField] public BoxType boxType;
         [SerializeField] private ItemTier boxTier = ItemTier.Common;
         public ItemTier BoxTier => boxTier;
         [SerializeField] private int itemCount = 5;
-        
+
+        [Header("Drop Rates (%)")]
+        [SerializeField] [Range(0, 100)] private int equipmentDropChance = 30;
+        [SerializeField] [Range(0, 100)] private int potionDropChance = 10;
+        // Resource = 100 - equipment - potion (~60%)
+
+        private const int MaxPotionPerBox = 1;
 
         private bool _wasSetup;
 
@@ -20,18 +25,11 @@ namespace BK
             base.Start();
 
             if (autoFill && !_wasSetup)
-            {
                 InitBox();
-            }
         }
 
-        /// <summary>
-        /// 런타임에 BoxType과 ItemTier를 지정하여 초기화합니다.
-        /// RoomManager 등에서 프리팹 스폰 직후 호출하세요.
-        /// </summary>
-        public void Setup(BoxType type, ItemTier tier)
+        public void Setup(ItemTier tier)
         {
-            boxType = type;
             boxTier = tier;
             _wasSetup = true;
             InitBox();
@@ -46,107 +44,74 @@ namespace BK
             }
 
             if (clearBeforeFill)
-            {
                 itemIdList.Clear();
-            }
+
+            int potionCount = 0;
 
             for (int i = 0; i < itemCount; i++)
             {
-                int itemId = GetRandomItemIdByBoxType(boxType, boxTier);
+                int roll = Random.Range(0, 100);
+                int itemId;
+
+                if (roll < potionDropChance && potionCount < MaxPotionPerBox)
+                {
+                    itemId = GetPotionItemId();
+                    if (itemId >= 0) potionCount++;
+                }
+                else if (roll < potionDropChance + equipmentDropChance)
+                {
+                    itemId = GetEquipmentItemId();
+                }
+                else
+                {
+                    itemId = GetResourceItemId();
+                }
 
                 if (itemId >= 0)
-                {
                     itemIdList.Add(itemId);
-                }
             }
         }
 
-        private int GetRandomItemIdByBoxType(BoxType targetBoxType, ItemTier maxTier)
+        private int GetPotionItemId()
         {
-            switch (targetBoxType)
-            {
-                case BoxType.WeaponBox:
-                    return GetRandomItemId(ItemType.Weapon, ItemTier.Common, maxTier);
-
-                case BoxType.ArmorBox:
-                    return GetArmorBoxRandomItemId(maxTier);
-
-                case BoxType.FoodBox:
-                    return GetRandomItemId(ItemType.Consumables, ItemTier.Common, maxTier);
-
-                case BoxType.SupplyBox:
-                    return GetSupplyBoxRandomItemId(maxTier);
-
-                case BoxType.MiscBox:
-                    return GetRandomItemId(ItemType.Misc, ItemTier.Common, maxTier);
-
-                default:
-                    return -1;
-            }
+            // 포션은 항상 Common 티어 고정 (과도한 소모품 드롭 방지)
+            int roll = Random.Range(0, 2);
+            ItemType itemType = roll == 0 ? ItemType.Potion : ItemType.Consumables;
+            int id = GetRandomItemId(itemType, ItemTier.Common, ItemTier.Common);
+            if (id >= 0) return id;
+            // fallback
+            return GetRandomItemId(ItemType.Consumables, ItemTier.Common, ItemTier.Common);
         }
 
-        private int GetSupplyBoxRandomItemId(ItemTier maxTier)
+        private int GetEquipmentItemId()
         {
-            // SupplyBox는 상황에 따라 소비 아이템 / 투사체 / 퀵슬롯 아이템 등을 섞어서 줄 수 있음
-            // 현재 프로젝트 ItemType 구성에 맞게 필요하면 조정
-            int random = Random.Range(0, 3);
-
-            switch (random)
+            int roll = Random.Range(0, 5);
+            ItemType itemType = roll switch
             {
-                case 0:
-                    return GetRandomItemId(ItemType.Consumables, ItemTier.Common, maxTier);
-
-                case 1:
-                    return GetRandomItemId(ItemType.Misc, ItemTier.Common, maxTier);
-
-                case 2:
-                    return GetRandomItemId(ItemType.None, ItemTier.Common, maxTier);
-            
-
-                default:
-                    return -1;
-            }
+                0 => ItemType.Weapon,
+                1 => ItemType.Armor,
+                2 => ItemType.Helmet,
+                3 => ItemType.Gauntlet,
+                _ => ItemType.Leggings,
+            };
+            int id = GetRandomItemId(itemType, ItemTier.Common, boxTier);
+            if (id >= 0) return id;
+            // 해당 장비 타입에 아이템이 없으면 리소스로 대체
+            return GetResourceItemId();
         }
 
-        private int GetArmorBoxRandomItemId(ItemTier maxTier)
+        private int GetResourceItemId()
         {
-            int random = Random.Range(0, 4);
-
-            switch (random)
-            {
-                case 0:
-                    return GetRandomItemId(ItemType.Armor, ItemTier.Common, maxTier);
-
-                case 1:
-                    return GetRandomItemId(ItemType.Helmet, ItemTier.Common, maxTier);
-
-                case 2:
-                    return GetRandomItemId(ItemType.Gauntlet, ItemTier.Common, maxTier);
-
-                case 3:
-                    return GetRandomItemId(ItemType.Leggings, ItemTier.Common, maxTier);
-
-                default:
-                    return -1;
-            }
+            int id = GetRandomItemId(ItemType.Resource, ItemTier.Common, boxTier);
+            if (id >= 0) return id;
+            // fallback: Misc
+            return GetRandomItemId(ItemType.Misc, ItemTier.Common, boxTier);
         }
-
-    
 
         private int GetRandomItemId(ItemType itemType, ItemTier minTier, ItemTier maxTier)
         {
             Item item = WorldItemDatabase.Instance.GetRandomItem(itemType, minTier, maxTier);
-
-            if (item == null)
-            {
-                Debug.LogWarning(
-                    $"{nameof(InteractableItemBox)}: No item found. " +
-                    $"boxType={boxType}, itemType={itemType}, minTier={minTier}, maxTier={maxTier}"
-                );
-                return -1;
-            }
-
-            return item.itemID;
+            return item != null ? item.itemID : -1;
         }
     }
 }

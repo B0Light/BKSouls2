@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemID: 305
   itemName: RitualCenter
-  itemIcon: {fileID: 21300000, guid: f9b2df08936497946a4296ebb8eaeaa5, type: 3}
+  itemIcon: {fileID: 21300000, guid: 2f71be265450a4a46bddebbe1d39327b, type: 3}
   itemTier: 4
   itemType: 7
   cost: 0
@@ -24,6 +24,19 @@ MonoBehaviour:
   weight: 0
   itemAbilities: []
   prefab: {fileID: 5182557877217463400, guid: 512ab81de883d8d40a58f94c25cf4fca, type: 3}
+  costItems:
+  - item: {fileID: 11400000, guid: ecf107ac2f47cdd4cb96e8095974ad04, type: 2}
+    count: 5
+    legacyItemId: 1024
+  - item: {fileID: 11400000, guid: b88237001b7c51948b26f06b68d51078, type: 2}
+    count: 3
+    legacyItemId: 1023
+  - item: {fileID: 11400000, guid: d3b27dc1fc44e6949aa35a420c0d7ed5, type: 2}
+    count: 3
+    legacyItemId: 1025
+  - item: {fileID: 11400000, guid: 4e7b4c677a546524c81868b57f4a9da0, type: 2}
+    count: 3
+    legacyItemId: 1022
   cellType: 6
   maxLevel: 10
   baseFee: 100

@@ -160,6 +160,7 @@ namespace BK
                 WorldPlayerInventory.Instance.balance.Value += balanceGain;
 
             WorldSaveGameManager.Instance.ResetRunes();
+            WorldSaveGameManager.Instance.currentCharacterData.balance = WorldPlayerInventory.Instance.balance.Value;
         }
 
         [ClientRpc]

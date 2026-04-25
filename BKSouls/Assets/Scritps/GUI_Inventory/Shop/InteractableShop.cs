@@ -8,8 +8,8 @@ namespace BK.Inventory
 {
     public class InteractableShop : Interactable
     {
-        [Header("Sale Item")] 
-        [SerializeField] private ItemType saleItemType;
+        [Header("Sale Item")]
+        [SerializeField] protected ItemType saleItemType;
         public List<Item> saleItemList = new List<Item>();
 
         // 상점 초기화 상태 관리

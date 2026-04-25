@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7823794157214017943}
   - component: {fileID: 3364467342944457203}
   - component: {fileID: 5910824950902349151}
-  - component: {fileID: 8612331373475304876}
+  - component: {fileID: 393090127464072298}
   m_Layer: 12
   m_Name: Interactable Shop For Dungeon
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2331085010
+  GlobalObjectIdHash: 3762959522
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -80,7 +80,7 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
---- !u!114 &8612331373475304876
+--- !u!114 &393090127464072298
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -89,12 +89,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 6159759156746008931}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 724bbe6f022407a47831e2205258ece6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0664a233131e76747bfd544d8adef7f1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory.InteractableShop
+  m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory.InteractableDungeonShop
   ShowTopMostFoldoutHeaderGroup: 1
   interactableText: 
   interactableCollider: {fileID: 3364467342944457203}
   hostOnlyInteractable: 1
-  saleItemType: 6
-  saleItemList: []
+  saleItemType: 0
+  saleItemList:
+  - {fileID: 11400000, guid: 90cdfe10670ce894a9b96b4552035064, type: 2}
+  - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
+  minItemCount: 5
+  maxItemCount: 10

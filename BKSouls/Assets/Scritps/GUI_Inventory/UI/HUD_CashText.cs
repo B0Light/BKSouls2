@@ -33,6 +33,7 @@ namespace BK.Inventory
 
         private void SetBalanceText(int value)
         {
+            if (value < 0) return;
             cashText.text = value.ToString();
         }
     }

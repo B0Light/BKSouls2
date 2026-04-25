@@ -792,11 +792,6 @@ namespace BK
                 boxPrefab = itemBoxDatabase.GetPrefab(stageIndex);
             }
 
-            BoxType[] validTypes = System.Array.FindAll(
-                (BoxType[])System.Enum.GetValues(typeof(BoxType)),
-                t => t != BoxType.None);
-            BoxType boxType = validTypes[Random.Range(0, validTypes.Length)];
-
             if (boxPrefab == null)
             {
                 Debug.LogWarning($"[RoomManager] 적절한 보상이 없습니다 : 보상 스킵.");
@@ -809,9 +804,8 @@ namespace BK
                 spawnPoints[0].rotation,
                 parent);
 
-            // Spawn 전에 Setup 호출 → Start()보다 먼저 실행됨
             InteractableItemBox itemBox = rewardObj.GetComponent<InteractableItemBox>();
-            itemBox?.Setup(boxType, finalTier);
+            itemBox?.Setup(finalTier);
 
             NetworkObject netObj = rewardObj.GetComponent<NetworkObject>();
             if (netObj == null)
@@ -824,7 +818,7 @@ namespace BK
             netObj.Spawn(true);
             currentRewardObjects.Add(netObj);
 
-            Debug.Log($"[RoomManager] 보상 상자 스폰: type={boxType}, tier={finalTier} (stage={stageIndex}, baseTier={currentTemplate.rewardBaseTier})");
+            Debug.Log($"[RoomManager] 보상 상자 스폰: tier={finalTier} (stage={stageIndex}, baseTier={currentTemplate.rewardBaseTier})");
         }
 
         private void SpawnTemplateRewardInteractable(Transform[] spawnPoints, Transform parent)
@@ -846,11 +840,7 @@ namespace BK
                 if (obj.TryGetComponent<InteractableItemBox>(out InteractableItemBox itemBox))
                 {
                     ItemTier finalTier = CalculateRewardTier(currentTemplate.rewardBaseTier, stageIndex);
-                    BoxType[] validTypes = System.Array.FindAll(
-                        (BoxType[])System.Enum.GetValues(typeof(BoxType)),
-                        t => t != BoxType.None);
-                    BoxType boxType = validTypes[Random.Range(0, validTypes.Length)];
-                    itemBox.Setup(boxType, finalTier);
+                    itemBox.Setup(finalTier);
                 }
 
                 NetworkObject netObj = obj.GetComponent<NetworkObject>();
