@@ -29,8 +29,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3374570675681891139}
   m_Father: {fileID: 0}
@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 696823372
+  GlobalObjectIdHash: 277788401
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -99,7 +99,7 @@ MonoBehaviour:
   hostOnlyInteractable: 1
   boxWidth: 6
   boxHeight: 10
-  itemIdList: 
+  initialItems: []
   openType: 0
   animationDuration: 1
   animationCurve:
@@ -133,11 +133,12 @@ MonoBehaviour:
   lid: {fileID: 3374569998941332093}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  boxType: 0
-  boxTier: 2
   autoFill: 1
-  itemCount: 5
   clearBeforeFill: 1
+  boxTier: 2
+  itemCount: 5
+  equipmentDropChance: 30
+  potionDropChance: 10
 --- !u!1001 &3369987568491239065
 PrefabInstance:
   m_ObjectHideFlags: 0
