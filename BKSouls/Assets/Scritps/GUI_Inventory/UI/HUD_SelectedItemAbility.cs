@@ -60,6 +60,9 @@ namespace BK.Inventory
                 case ItemEffect.BleedDamage:
                     return $"<color=#c0392b>+{value}%</color> 출혈 피해"; // 어두운 붉은 계열
 
+                case ItemEffect.PoisonDamage:
+                    return $"<color=#8e44ad>+{value}%</color> 중독 피해";
+
                 default:
                     return "분명 어딘가 쓸모가 있을 것입니다.";
             }

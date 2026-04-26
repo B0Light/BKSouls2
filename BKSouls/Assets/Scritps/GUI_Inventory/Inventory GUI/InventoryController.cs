@@ -200,6 +200,10 @@ namespace BK.Inventory
             GUIController.Instance.inventoryGUIManager.CloseItemToolTip();
             _lastTileGridPosition = GetTileGridPosition();
 
+            InventoryItem highlightedItem = _selectedItemGrid.GetItem(_lastTileGridPosition.x, _lastTileGridPosition.y);
+            if (ItemSaleUIManager.TryMoveFromActiveInventoryView(_selectedItemGrid, highlightedItem))
+                return;
+
             var backpack = WorldPlayerInventory.Instance.GetBackpackInventory();
             var inventory = WorldPlayerInventory.Instance.GetInventory();
             var targetGrid = WorldPlayerInventory.Instance.curInteractItemGrid;

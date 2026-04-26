@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f831f21f2a4dd43bd41e42e6668b01, type: 3}
   m_Name: Templar Helm
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
-  itemID: 8
-  itemName: Knight Helm
-  itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
+  itemID: 18
+  itemName: "\uC131\uC804\uAE30\uC0AC \uD22C\uAD6C"
+  itemIcon: {fileID: 21300000, guid: 734dcd772c90da54bbd6c5a033f70071, type: 3}
   itemTier: 0
   itemType: 2
   cost: 3800
-  itemDescription: A full enclosing helmet worn by the fearsome templars. Provides the heaviest level of head protection available to any warrior.
+  itemDescription: "\uB450\uB824\uC6C0\uC758 \uB300\uC0C1\uC778 \uC131\uC804\uAE30\uC0AC\uB4E4\uC774
+    \uC4F0\uB294 \uC644\uC804 \uD3D0\uC1C4\uD615 \uD22C\uAD6C. \uC5B4\uB5A4 \uC804\uC0AC\uC5D0\uAC8C\uB3C4
+    \uB4A4\uC9C0\uC9C0 \uC54A\uB294 \uCD5C\uACE0 \uC218\uC900\uC758 \uBA38\uB9AC
+    \uBCF4\uD638\uB825\uC744 \uC81C\uACF5\uD55C\uB2E4."
   width: 2
   height: 2
   weight: 0

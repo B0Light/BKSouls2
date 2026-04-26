@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Templar Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
   itemID: 12
-  itemName: Knight Gauntlet
+  itemName: 성전기사 건틀릿
   itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
   itemTier: 0
   itemType: 3
   cost: 3200
-  itemDescription: Massively reinforced gauntlets worn by templar knights. Near impenetrable to physical strikes, though they demand great strength to bear.
+  itemDescription: 성전기사들이 착용하는 대단히 보강된 건틀릿. 물리 공격에는 거의 뚫리지 않지만 착용하려면 큰 힘이 필요하다.
   width: 2
   height: 2
   weight: 0

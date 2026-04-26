@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Barbarian Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
   itemID: 12
-  itemName: Barbarian Gauntlet
+  itemName: 야만전사 건틀릿
   itemIcon: {fileID: 21300000, guid: 86672ff7beefd4e488fd5723ed5e3583, type: 3}
   itemTier: 0
   itemType: 3
   cost: 2000
-  itemDescription: Crude iron-studded leather bracers worn by savage warriors. Favored by berserkers who rely on raw strength over refined technique.
+  itemDescription: 거친 전사들이 착용하는 투박한 철징 가죽 팔보호구. 정교한 기교보다 순수한 힘에 의지하는 광전사들이 선호한다.
   width: 2
   height: 2
   weight: 0

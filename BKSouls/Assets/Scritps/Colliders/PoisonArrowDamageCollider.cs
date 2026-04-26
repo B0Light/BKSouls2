@@ -17,9 +17,10 @@ namespace BK
                 {
                     if (poisonBuildUpAmount > 0 && characterShootingProjectile.IsOwner)
                     {
-                        TakeBuildUpEffect poisonEffect = Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
-                        poisonEffect.buildUpAmount = poisonBuildUpAmount;
-                        potentialTarget.characterEffectsManager.ProcessInstantEffect(poisonEffect);
+                        characterShootingProjectile.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                            potentialTarget.NetworkObjectId,
+                            (int)BuildUp.Poison,
+                            poisonBuildUpAmount);
                     }
                 }
             }

@@ -93,7 +93,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.Inventory.InteractableDungeonShop
   ShowTopMostFoldoutHeaderGroup: 1
-  interactableText: 
+  interactableText: Enter Shop
   interactableCollider: {fileID: 3364467342944457203}
   hostOnlyInteractable: 1
   saleItemType: 0
@@ -102,3 +102,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
   minItemCount: 5
   maxItemCount: 10
+  rerollRuneCost: 100

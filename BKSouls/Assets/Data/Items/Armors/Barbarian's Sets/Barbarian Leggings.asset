@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Barbarian Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
-  itemName: Barbarian Leggings
+  itemName: 야만전사 각반
   itemIcon: {fileID: 21300000, guid: 17fc30cea89a3284ab035b384a828c09, type: 3}
   itemTier: 0
   itemType: 4
   cost: 3000
-  itemDescription: Rugged hide leggings worn by warriors of the wilderness. Sturdy enough to withstand the chaos of brutal close-quarters combat.
+  itemDescription: 황야의 전사들이 입는 질긴 가죽 각반. 잔혹한 근접전의 혼란을 견딜 만큼 튼튼하다.
   width: 2
   height: 2
   weight: 0

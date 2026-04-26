@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Bard Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Bard Armor
+  itemName: 음유시인 의복
   itemIcon: {fileID: 21300000, guid: f805299e3d09470459ea15b78c32014e, type: 3}
   itemTier: 0
   itemType: 1
   cost: 1200
-  itemDescription: Elegant cloth garb worn by wandering minstrels and enchanters. Offers minimal physical protection but greatly enhances the wearer's magical focus and vitality.
+  itemDescription: 떠돌이 음유시인과 마법 연주자들이 입는 우아한 천 의복. 물리 보호력은 낮지만 착용자의 마법 집중력과 생명력을 크게 높인다.
   width: 2
   height: 2
   weight: 0

@@ -32,8 +32,13 @@ namespace BK.Inventory
         [SerializeField] private ItemGrid inventorySaleViewGrid;
         [SerializeField] private CanvasGroup inventorySaleViewCanvasGroup;
 
+        [Header("Dungeon Shop Reroll")]
+        [SerializeField] private Button rerollButton;
+        [SerializeField] private TextMeshProUGUI rerollCostText;
+
         private bool _isShopOpen = false;
         private bool _forceRunes = false;
+        private InteractableDungeonShop _dungeonShop;
 
         private bool UseRunes => _forceRunes || !WorldSaveGameManager.Instance.IsHoldScene;
 
@@ -58,6 +63,7 @@ namespace BK.Inventory
         {
             _forceRunes = forceRunes;
             _isShopOpen = true;
+            _dungeonShop = interactable as InteractableDungeonShop;
 
             if (!UseRunes)
                 WorldPlayerInventory.Instance.balance.OnValueChanged += OnBalanceChanged;
@@ -75,6 +81,8 @@ namespace BK.Inventory
                 openSaleButton.onClick.RemoveAllListeners();
                 openSaleButton.onClick.AddListener(ToggleSale);
             }
+
+            SetupRerollButton();
         }
 
         public override void CloseGUI()
@@ -89,6 +97,7 @@ namespace BK.Inventory
 
             if (!_isShopOpen) return;
             _isShopOpen = false;
+            _dungeonShop = null;
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
 
@@ -98,6 +107,73 @@ namespace BK.Inventory
         private void OnBalanceChanged(int value)
         {
             SetPurchaseQuantity(_purchaseQuantity);
+            RefreshRerollButtonState();
+        }
+
+        private void SetupRerollButton()
+        {
+            EnsureRerollButton();
+
+            if (rerollButton == null)
+                return;
+
+            bool canReroll = _dungeonShop != null;
+            rerollButton.gameObject.SetActive(canReroll);
+            rerollButton.onClick.RemoveAllListeners();
+
+            if (!canReroll)
+                return;
+
+            rerollButton.onClick.AddListener(TryRerollDungeonShop);
+
+            if (rerollCostText != null)
+                rerollCostText.text = $"Reroll { _dungeonShop.RerollRuneCost }";
+
+            RefreshRerollButtonState();
+        }
+
+        private void EnsureRerollButton()
+        {
+            if (rerollButton != null || openSaleButton == null)
+                return;
+
+            GameObject rerollButtonObject = Instantiate(openSaleButton.gameObject, openSaleButton.transform.parent);
+            rerollButtonObject.name = "Button_Reroll_DungeonShop";
+            rerollButton = rerollButtonObject.GetComponent<Button>();
+            rerollCostText = rerollButtonObject.GetComponentInChildren<TextMeshProUGUI>(true);
+
+            if (rerollCostText != null)
+                rerollCostText.text = "Reroll";
+        }
+
+        private void TryRerollDungeonShop()
+        {
+            if (_dungeonShop == null)
+                return;
+
+            PlayerManager player = LocalPlayer;
+            if (!_dungeonShop.TryReroll(player))
+            {
+                notEnoughItemsComment.SetActive(true);
+                RefreshRerollButtonState();
+                return;
+            }
+
+            notEnoughItemsComment.SetActive(false);
+            ResetItemInfo();
+            SetUpShelf(_dungeonShop.saleItemList);
+            ShowAllItem();
+            SetupRerollButton();
+            WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        private void RefreshRerollButtonState()
+        {
+            if (rerollButton == null || _dungeonShop == null)
+                return;
+
+            rerollButton.interactable = LocalPlayer != null &&
+                                        LocalPlayer.playerStatsManager.runes >= _dungeonShop.RerollRuneCost;
         }
 
         private void ToggleSale()
@@ -162,6 +238,19 @@ namespace BK.Inventory
             {
                 foreach (var (id, count) in backpack.GetCurItemDictById())
                     itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
+            }
+
+            if (itemSaleUIManager != null)
+            {
+                foreach (var (id, count) in itemSaleUIManager.GetQueuedSaleItems())
+                {
+                    if (!itemDict.ContainsKey(id))
+                        continue;
+
+                    itemDict[id] -= count;
+                    if (itemDict[id] <= 0)
+                        itemDict.Remove(id);
+                }
             }
 
             inventorySaleViewGrid.ResetItemGrid();
@@ -297,6 +386,7 @@ namespace BK.Inventory
 
                 player.playerStatsManager.AddRunes(-totalCost);
                 SetPurchaseQuantity(_purchaseQuantity);
+                RefreshRerollButtonState();
             }
             else
             {

@@ -13,9 +13,10 @@ namespace BK
 
             if (bleedBuildUpAmount > 0 && characterCausingDamage.IsOwner)
             {
-                TakeBuildUpEffect bleedEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeBleedBuildUpEffect);
-                bleedEffect.buildUpAmount = bleedBuildUpAmount;
-                damageTarget.characterEffectsManager.ProcessInstantEffect(bleedEffect);
+                characterCausingDamage.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                    damageTarget.NetworkObjectId,
+                    (int)BuildUp.Bleed,
+                    bleedBuildUpAmount);
             }
         }
     }

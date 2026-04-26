@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Open Face Helm
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
   itemID: 9
-  itemName: Knight Open Helm
+  itemName: 기사 개방형 투구
   itemIcon: {fileID: 21300000, guid: 821fb2e0b3998074f8d8e51151cbde2c, type: 3}
   itemTier: 0
   cost: 1200
-  itemDescription: A lighter variant of the knight's helm with an open visor. Trades some protection in exchange for an improved field of vision.
+  itemDescription: 면갑을 연 기사 투구의 가벼운 변형. 일부 보호력을 포기하는 대신 더 넓은 시야를 제공한다.
   itemType: 2
   width: 2
   height: 2

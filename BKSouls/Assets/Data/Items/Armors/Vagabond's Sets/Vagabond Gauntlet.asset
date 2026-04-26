@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Vagabond Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
   itemID: 12
-  itemName: Knight Gauntlet
+  itemName: 방랑자 장갑
   itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
   itemTier: 0
   itemType: 3
   cost: 900
-  itemDescription: Simple gloves worn by seasoned wanderers. Provides modest protection without restricting freedom of movement or weapon grip.
+  itemDescription: 노련한 방랑자들이 착용하는 단순한 장갑. 움직임이나 무기 파지를 크게 방해하지 않으면서 적당한 보호력을 제공한다.
   width: 2
   height: 2
   weight: 0

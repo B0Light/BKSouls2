@@ -863,7 +863,7 @@ GameObject:
   - component: {fileID: 4893185821773463727}
   - component: {fileID: 8561500748435458419}
   m_Layer: 6
-  m_Name: 1_Normal Skeleton_Mage
+  m_Name: 1_Normal Skeleton_Mage_Lightning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

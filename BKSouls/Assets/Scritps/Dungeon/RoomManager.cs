@@ -51,6 +51,8 @@ namespace BK
         private readonly List<AICharacterManager> aliveEnemies = new();
         private readonly List<AICharacterManager> spawnedEnemies = new();
         private readonly List<AICharacterSpawner> runtimeSpawners = new();
+        private int remainingEnemySpawnCount;
+        private System.Random enemySpawnRng;
 
         private readonly List<NetworkObject> currentRewardObjects = new();
         private RoguelikeRoomDoor currentEntryDoor;
@@ -256,6 +258,8 @@ namespace BK
 
             spawnedEnemies.Clear();
             aliveEnemies.Clear();
+            remainingEnemySpawnCount = 0;
+            enemySpawnRng = null;
         }
 
         private void DestroyRuntimeSpawners()
@@ -597,23 +601,75 @@ namespace BK
                 return;
             }
 
-            System.Random rng = new System.Random(currentPlan.seed);
-
-            for (int i = 0; i < count; i++)
+            List<Transform> spawnPoints = GetValidEnemySpawnPoints();
+            if (spawnPoints.Count == 0)
             {
-                AICharacterSpawner spawnerPrefab =
-                    currentTemplate.enemySpawnerPrefabs[rng.Next(currentTemplate.enemySpawnerPrefabs.Count)];
+                Debug.LogWarning("[RoomManager] No valid enemy spawn points configured. Room will clear automatically.");
+                ClearRoom();
+                return;
+            }
 
-                if (spawnerPrefab == null)
-                    continue;
+            int spawnCount = Mathf.Min(count, spawnPoints.Count);
+            if (spawnCount < count)
+            {
+                Debug.LogWarning($"[RoomManager] Enemy count ({count}) exceeds valid spawn point count ({spawnPoints.Count}). Spawning enemies in waves.");
+            }
 
-                Transform spawnPoint = currentRoomInstance.GetEnemySpawnPoint(i);
+            remainingEnemySpawnCount = count;
+            enemySpawnRng = new System.Random(currentPlan.seed);
+            SpawnNextEnemyWave();
+        }
+
+        private List<Transform> GetValidEnemySpawnPoints()
+        {
+            List<Transform> spawnPoints = new();
+
+            if (currentRoomInstance == null || currentRoomInstance.EnemySpawnPoints == null)
+                return spawnPoints;
+
+            IReadOnlyList<Transform> configuredSpawnPoints = currentRoomInstance.EnemySpawnPoints;
+            for (int i = 0; i < configuredSpawnPoints.Count; i++)
+            {
+                Transform spawnPoint = configuredSpawnPoints[i];
                 if (spawnPoint == null)
                 {
-                    Debug.LogWarning($"[RoomManager] Missing enemy spawn point for enemy index {i}.");
+                    Debug.LogWarning($"[RoomManager] Enemy spawn point index {i} is null and will be ignored.");
                     continue;
                 }
 
+                spawnPoints.Add(spawnPoint);
+            }
+
+            return spawnPoints;
+        }
+
+        private void SpawnNextEnemyWave()
+        {
+            if (!IsServer || remainingEnemySpawnCount <= 0)
+                return;
+
+            List<Transform> spawnPoints = GetValidEnemySpawnPoints();
+            if (spawnPoints.Count == 0)
+            {
+                Debug.LogWarning("[RoomManager] No valid enemy spawn points configured for next wave. Clearing room.");
+                remainingEnemySpawnCount = 0;
+                ClearRoom();
+                return;
+            }
+
+            int spawnCount = Mathf.Min(remainingEnemySpawnCount, spawnPoints.Count);
+            if (spawnCount < remainingEnemySpawnCount)
+            {
+                Debug.Log($"[RoomManager] Spawning enemy wave: {spawnCount} now, {remainingEnemySpawnCount - spawnCount} queued.");
+            }
+
+            for (int i = 0; i < spawnCount; i++)
+            {
+                AICharacterSpawner spawnerPrefab = GetRandomEnemySpawnerPrefab();
+                if (spawnerPrefab == null)
+                    continue;
+
+                Transform spawnPoint = spawnPoints[i];
                 Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
 
                 AICharacterSpawner runtimeSpawner = Instantiate(
@@ -628,11 +684,37 @@ namespace BK
                 if (aiCharacter == null)
                     continue;
 
+                remainingEnemySpawnCount--;
                 RegisterSpawnedAI(aiCharacter);
             }
 
             if (aliveEnemies.Count == 0)
+            {
+                Debug.LogWarning("[RoomManager] Enemy wave spawned no valid AI. Clearing room.");
+                remainingEnemySpawnCount = 0;
                 ClearRoom();
+            }
+        }
+
+        private AICharacterSpawner GetRandomEnemySpawnerPrefab()
+        {
+            if (currentTemplate?.enemySpawnerPrefabs == null || currentTemplate.enemySpawnerPrefabs.Count == 0)
+                return null;
+
+            if (enemySpawnRng == null)
+                enemySpawnRng = new System.Random(currentPlan != null ? currentPlan.seed : 0);
+
+            for (int attempts = 0; attempts < currentTemplate.enemySpawnerPrefabs.Count; attempts++)
+            {
+                AICharacterSpawner spawnerPrefab =
+                    currentTemplate.enemySpawnerPrefabs[enemySpawnRng.Next(currentTemplate.enemySpawnerPrefabs.Count)];
+
+                if (spawnerPrefab != null)
+                    return spawnerPrefab;
+            }
+
+            Debug.LogWarning("[RoomManager] No valid enemy spawner prefab found.");
+            return null;
         }
 
         private void RegisterSpawnedAI(AICharacterManager aiCharacter)
@@ -665,7 +747,12 @@ namespace BK
             if (!removed)
                 return;
 
-            if (aliveEnemies.Count == 0)
+            if (aliveEnemies.Count > 0)
+                return;
+
+            if (remainingEnemySpawnCount > 0)
+                SpawnNextEnemyWave();
+            else
                 ClearRoom();
         }
 

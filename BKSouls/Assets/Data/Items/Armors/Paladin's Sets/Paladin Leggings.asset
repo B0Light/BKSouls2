@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Paladin Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
-  itemName: Paladin Leggings
+  itemName: 성기사 각반
   itemIcon: {fileID: 21300000, guid: 58f49d2820ca62446961dc8220d043d2, type: 3}
   itemTier: 0
   itemType: 4
   cost: 3500
-  itemDescription: Sacred greaves worn by those who walk the path of righteousness. Provides steadfast protection to holy warriors in service of their creed.
+  itemDescription: 정의의 길을 걷는 이들이 착용하는 신성한 각반. 신념을 섬기는 성스러운 전사에게 흔들림 없는 보호를 제공한다.
   width: 2
   height: 2
   weight: 0

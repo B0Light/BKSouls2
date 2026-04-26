@@ -75,9 +75,10 @@ namespace BK
 
                 if (poisonBuildUpAmount > 0)
                 {
-                    TakeBuildUpEffect poisonEffect = Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
-                    poisonEffect.buildUpAmount = poisonBuildUpAmount;
-                    damageTarget.characterEffectsManager.ProcessInstantEffect(poisonEffect);
+                    spellCaster.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        damageTarget.NetworkObjectId,
+                        (int)BuildUp.Poison,
+                        poisonBuildUpAmount);
                 }
             }
         }

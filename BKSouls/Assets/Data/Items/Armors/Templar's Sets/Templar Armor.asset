@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Templar Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Crusader Armor
+  itemName: 성전기사 갑옷
   itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
   itemTier: 0
   itemType: 1
   cost: 8500
-  itemDescription: Imposing heavy plate worn by the elite templar knights. Among the heaviest armor available, offering exceptional physical defense and poise.
+  itemDescription: 정예 성전기사들이 착용하는 위압적인 중판금 갑옷. 가장 무거운 방어구 중 하나로, 뛰어난 물리 방어력과 강인도를 제공한다.
   width: 2
   height: 2
   weight: 0

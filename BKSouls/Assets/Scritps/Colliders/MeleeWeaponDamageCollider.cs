@@ -199,19 +199,22 @@ namespace BK
             switch (bonusEffectType)
             {
                 case WeaponBonusEffectType.Frost:
-                    TakeBuildUpEffect frostEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
-                    frostEffect.buildUpAmount = bonusEffectAmount;
-                    damageTarget.characterEffectsManager.ProcessInstantEffect(frostEffect);
+                    characterCausingDamage.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        damageTarget.NetworkObjectId,
+                        (int)BuildUp.Frost,
+                        bonusEffectAmount);
                     break;
                 case WeaponBonusEffectType.Bleed:
-                    TakeBuildUpEffect bleedEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeBleedBuildUpEffect);
-                    bleedEffect.buildUpAmount = bonusEffectAmount;
-                    damageTarget.characterEffectsManager.ProcessInstantEffect(bleedEffect);
+                    characterCausingDamage.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        damageTarget.NetworkObjectId,
+                        (int)BuildUp.Bleed,
+                        bonusEffectAmount);
                     break;
                 case WeaponBonusEffectType.Poison:
-                    TakeBuildUpEffect poisonEffect = Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
-                    poisonEffect.buildUpAmount = bonusEffectAmount;
-                    damageTarget.characterEffectsManager.ProcessInstantEffect(poisonEffect);
+                    characterCausingDamage.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        damageTarget.NetworkObjectId,
+                        (int)BuildUp.Poison,
+                        bonusEffectAmount);
                     break;
             }
         }

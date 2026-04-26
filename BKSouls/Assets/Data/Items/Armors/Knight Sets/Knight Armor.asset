@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Knight Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Knigh Armor
+  itemName: 기사 갑옷
   itemIcon: {fileID: 21300000, guid: c10c028b30dac074fa3aee62b39f5d83, type: 3}
   itemTier: 0
   cost: 4000
-  itemDescription: Standard-issue plate armor worn by knights of the realm. Offers reliable, well-rounded protection across all damage types.
+  itemDescription: 왕국의 기사들이 지급받아 착용하는 표준 판금 갑옷. 모든 피해 유형에 대해 신뢰할 만한 균형 잡힌 보호력을 제공한다.
   itemType: 1
   width: 2
   height: 2

@@ -651,8 +651,8 @@ namespace BK
             //  SYNC ARMOR
             playerNetworkManager.OnHeadEquipmentChanged(0, playerNetworkManager.headEquipmentID.Value);
             playerNetworkManager.OnBodyEquipmentChanged(0, playerNetworkManager.bodyEquipmentID.Value);
-            playerNetworkManager.OnHandEquipmentChanged(0, playerNetworkManager.bodyEquipmentID.Value);
-            playerNetworkManager.OnLegEquipmentChanged(0, playerNetworkManager.bodyEquipmentID.Value);
+            playerNetworkManager.OnHandEquipmentChanged(0, playerNetworkManager.handEquipmentID.Value);
+            playerNetworkManager.OnLegEquipmentChanged(0, playerNetworkManager.legEquipmentID.Value);
 
             //  SYNC PROJECTILES
             playerNetworkManager.OnMainProjectileIDChange(0, playerNetworkManager.mainProjectileID.Value);

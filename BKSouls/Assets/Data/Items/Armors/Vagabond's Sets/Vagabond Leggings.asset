@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Vagabond Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
-  itemName: Knight Leggings
+  itemName: 방랑자 각반
   itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
   itemTier: 0
   itemType: 4
   cost: 1400
-  itemDescription: Patched traveling trousers worn by those who roam the dangerous roads. Comfortable and reasonably protective for a life spent wandering.
+  itemDescription: 위험한 길을 떠도는 이들이 입는 덧댄 여행용 바지. 방랑의 삶에 어울릴 만큼 편안하면서도 적당한 보호력을 갖추었다.
   width: 2
   height: 2
   weight: 0

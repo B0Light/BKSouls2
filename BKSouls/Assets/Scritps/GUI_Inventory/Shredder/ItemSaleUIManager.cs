@@ -8,6 +8,8 @@ namespace BK.Inventory
 {
     public class ItemSaleUIManager : MonoBehaviour
     {
+        private static ItemSaleUIManager activeSaleUI;
+
         [SerializeField] private ItemGrid itemGrid;
         [SerializeField] private TextMeshProUGUI totalItemCostText;
         [SerializeField] private Button sellButton;
@@ -21,6 +23,8 @@ namespace BK.Inventory
 
         public void Init(int width, int height, List<int> itemIdList, ItemGrid inventoryViewGrid = null, Action onSaleCompleted = null)
         {
+            activeSaleUI = this;
+
             sellButton.onClick.RemoveAllListeners();
             sellButton.onClick.AddListener(SellItems);
 
@@ -30,6 +34,35 @@ namespace BK.Inventory
 
             itemGrid.ResetItemGrid();
             itemGrid.SetGrid(width, height, itemIdList);
+        }
+
+        public static bool TryMoveFromActiveInventoryView(ItemGrid sourceGrid, InventoryItem sourceItem)
+        {
+            return activeSaleUI != null && activeSaleUI.TryMoveFromInventoryView(sourceGrid, sourceItem);
+        }
+
+        public Dictionary<int, int> GetQueuedSaleItems()
+        {
+            return new Dictionary<int, int>(itemGrid.GetCurItemDictById());
+        }
+
+        private bool TryMoveFromInventoryView(ItemGrid sourceGrid, InventoryItem sourceItem)
+        {
+            if (sourceGrid == null || sourceItem == null || sourceGrid != _inventoryViewGrid)
+                return false;
+
+            int itemId = sourceItem.itemData.itemID;
+            int ownedCount = WorldPlayerInventory.Instance.GetItemCountInAllInventory(itemId);
+            int queuedCount = itemGrid.GetItemCountById(itemId);
+
+            if (queuedCount >= ownedCount)
+                return true;
+
+            if (!itemGrid.AddItemById(itemId, 1, false))
+                return true;
+
+            _onSaleCompleted?.Invoke();
+            return true;
         }
 
         private void FixedUpdate()
@@ -47,6 +80,12 @@ namespace BK.Inventory
         {
             var saleItems = new Dictionary<int, int>(itemGrid.GetCurItemDictById());
             if (saleItems.Count == 0) return;
+
+            foreach (var (itemId, count) in saleItems)
+            {
+                if (!WorldPlayerInventory.Instance.CheckItemInInventory(itemId, count))
+                    return;
+            }
 
             foreach (var (itemId, count) in saleItems)
                 WorldPlayerInventory.Instance.RemoveItemInInventory(itemId, count);

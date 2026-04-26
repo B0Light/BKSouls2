@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Vagabond Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 10
-  itemName: Crusader Armor
-  itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
+  itemID: 26
+  itemName: "\uBC29\uB791\uC790 \uAC11\uC637"
+  itemIcon: {fileID: 21300000, guid: 7dc6a8a1b1345304cabd8cffb037c1e0, type: 3}
   itemTier: 0
   itemType: 1
   cost: 2000
-  itemDescription: Worn traveling clothes layered over light chainmail. Offers decent balanced protection suitable for those who wander dangerous and uncharted lands.
+  itemDescription: "\uAC00\uBCBC\uC6B4 \uC0AC\uC2AC\uAC11\uC637 \uC704\uC5D0 \uB0A1\uC740
+    \uC5EC\uD589\uBCF5\uC744 \uACB9\uCCD0 \uC785\uC740 \uBC29\uC5B4\uAD6C. \uC704\uD5D8\uD558\uACE0
+    \uBBF8\uC9C0\uC758 \uB545\uC744 \uB5A0\uB3C4\uB294 \uC774\uC5D0\uAC8C \uC54C\uB9DE\uC740
+    \uADE0\uD615 \uC7A1\uD78C \uBCF4\uD638\uB825\uC744 \uC81C\uACF5\uD55C\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -31,8 +34,8 @@ MonoBehaviour:
   physicalDamageAbsorption: 9.2
   magicDamageAbsorption: 8.5
   fireDamageAbsorption: 8.5
-  holyDamageAbsorption: 8.0
-  lightningDamageAbsorption: 8.0
+  holyDamageAbsorption: 8
+  lightningDamageAbsorption: 8
   immunity: 24
   robustness: 32
   focus: 20

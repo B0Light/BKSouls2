@@ -44,6 +44,11 @@ namespace BK.Inventory
             return initState != ShopInitializationState.NotInitialized && saleItemList.Count > 0;
         }
 
+        protected void MarkShopInitialized()
+        {
+            initState = ShopInitializationState.InitializedWithItemList;
+        }
+
         /// <summary>
         /// 현재 상태에 따라 적절한 방식으로 상점 초기화
         /// </summary>
@@ -96,7 +101,7 @@ namespace BK.Inventory
         /// <summary>
         /// 판매 아이템 리스트 초기화
         /// </summary>
-        private void ClearSaleItems()
+        protected void ClearSaleItems()
         {
             saleItemList.Clear();
         }

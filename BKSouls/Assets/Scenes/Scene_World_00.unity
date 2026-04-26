@@ -179,6 +179,9 @@ MonoBehaviour:
   maxEliteEnemyCount: 6
   minBossEnemyCount: 1
   maxBossEnemyCount: 1
+  battleRoomRuneReward: 100
+  eliteRoomRuneReward: 300
+  bossRoomRuneReward: 800
 --- !u!114 &430361882
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -147,6 +147,7 @@ namespace BK
                 poisonVFX.transform.parent = character.characterCombatManager.lockOnTransform;
                 poisonVFX.transform.localPosition = Vector3.zero;
                 poisonVFX.transform.localRotation = Quaternion.identity;
+                character.characterEffectsManager.poisonedVFX = poisonVFX;
             }
             else
             {
@@ -155,6 +156,7 @@ namespace BK
 
                 //  OPTION 1 JUST DESTROY IT
                 Destroy(character.characterEffectsManager.poisonedVFX);
+                character.characterEffectsManager.poisonedVFX = null;
 
                 //  OPTION 2
                 //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
@@ -193,6 +195,7 @@ namespace BK
 
                 //  OPTION 1 JUST DESTROY IT
                 Destroy(character.characterEffectsManager.frostBiteVFX);
+                character.characterEffectsManager.frostBiteVFX = null;
 
                 //  OPTION 2
                 //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
@@ -217,6 +220,72 @@ namespace BK
                 //  1. RESUME ANIMATION AS NORMAL FROM WHERE IT LEFT ON WHEN FROZEN
                 character.animator.speed = 1;
                 //  2. RE-APPLY NORMAL MATERIAL OR REMOVE FROZEN MATERIAL
+            }
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        public void NotifyServerOfBuildUpServerRpc(ulong damagedCharacterID, int buildUpType, int buildUpAmount)
+        {
+            if (!IsServer || buildUpAmount <= 0)
+                return;
+
+            if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(damagedCharacterID, out NetworkObject damagedNetworkObject))
+                return;
+
+            if (damagedNetworkObject.OwnerClientId == NetworkManager.ServerClientId)
+            {
+                ProcessBuildUpFromNetwork(damagedCharacterID, buildUpType, buildUpAmount);
+                return;
+            }
+
+            ApplyBuildUpClientRpc(
+                damagedCharacterID,
+                buildUpType,
+                buildUpAmount,
+                new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new[] { damagedNetworkObject.OwnerClientId }
+                    }
+                });
+        }
+
+        [ClientRpc]
+        private void ApplyBuildUpClientRpc(ulong damagedCharacterID, int buildUpType, int buildUpAmount, ClientRpcParams _ = default)
+        {
+            ProcessBuildUpFromNetwork(damagedCharacterID, buildUpType, buildUpAmount);
+        }
+
+        private void ProcessBuildUpFromNetwork(ulong damagedCharacterID, int buildUpType, int buildUpAmount)
+        {
+            if (!NetworkManager.Singleton.SpawnManager.SpawnedObjects.TryGetValue(damagedCharacterID, out NetworkObject damagedNetworkObject))
+                return;
+
+            CharacterManager damagedCharacter = damagedNetworkObject.GetComponent<CharacterManager>();
+            if (damagedCharacter == null || !damagedCharacter.IsOwner)
+                return;
+
+            TakeBuildUpEffect buildUpEffect = GetBuildUpEffect((BuildUp)buildUpType);
+            if (buildUpEffect == null)
+                return;
+
+            buildUpEffect.buildUpAmount = buildUpAmount;
+            damagedCharacter.characterEffectsManager.ProcessInstantEffect(buildUpEffect);
+        }
+
+        private TakeBuildUpEffect GetBuildUpEffect(BuildUp buildUpType)
+        {
+            switch (buildUpType)
+            {
+                case BuildUp.Poison:
+                    return Instantiate(WorldCharacterEffectsManager.Instance.takePoisonBuildUpEffect);
+                case BuildUp.Bleed:
+                    return Instantiate(WorldCharacterEffectsManager.Instance.takeBleedBuildUpEffect);
+                case BuildUp.Frost:
+                    return Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
+                default:
+                    return null;
             }
         }
 

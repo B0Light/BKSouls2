@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Crusader Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Crusader Armor
+  itemName: 십자군 갑옷
   itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
   itemTier: 0
   itemType: 1
   cost: 6000
-  itemDescription: Battle-worn plate mail bearing the marks of sacred campaigns. Provides excellent all-round protection, particularly against fire and holy forces.
+  itemDescription: 성스러운 원정의 흔적이 새겨진 전투용 판금 갑옷. 전반적으로 뛰어난 보호력을 제공하며 특히 화염과 신성한 힘에 강하다.
   width: 2
   height: 2
   weight: 0

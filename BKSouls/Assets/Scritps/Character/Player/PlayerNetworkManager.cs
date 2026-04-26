@@ -123,6 +123,7 @@ namespace BK
 
                 //  OPTION 1 JUST DESTROY IT
                 Destroy(character.characterEffectsManager.poisonedVFX);
+                character.characterEffectsManager.poisonedVFX = null;
 
                 //  OPTION 2
                 //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE
@@ -161,7 +162,7 @@ namespace BK
                 frostBite.transform.parent = character.characterCombatManager.lockOnTransform;
                 frostBite.transform.localPosition = Vector3.zero;
                 frostBite.transform.localRotation = Quaternion.identity;
-                player.playerEffectsManager.frostBiteVFX = frostBite;
+                character.characterEffectsManager.frostBiteVFX = frostBite;
             }
             else
             {
@@ -170,6 +171,7 @@ namespace BK
 
                 //  OPTION 1 JUST DESTROY IT
                 Destroy(character.characterEffectsManager.frostBiteVFX);
+                character.characterEffectsManager.frostBiteVFX = null;
 
                 //  OPTION 2
                 //  CREATE A SCRIPT ON THE VFX, AND CALL A FUNCTION TO "END" IT, AND STOP THE PARTICLES SO THEY FADE

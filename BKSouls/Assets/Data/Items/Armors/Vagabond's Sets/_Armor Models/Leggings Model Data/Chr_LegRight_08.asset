@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Chr_LegRight_08
   m_EditorClassIdentifier: 
   equipmentModelType: 19
-  maleEquipmentName: Chr_LegLeft_Male_08
+  maleEquipmentName: Chr_LegRight_Male_08
   femaleEquipmentName: Chr_LegRight_Female_08

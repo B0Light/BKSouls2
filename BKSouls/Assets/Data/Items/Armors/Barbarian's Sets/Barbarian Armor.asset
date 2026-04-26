@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Barbarian Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
   itemID: 10
-  itemName: Barbarian Armor
+  itemName: 야만전사 갑옷
   itemIcon: {fileID: 21300000, guid: 86367a7244073a0428c4fd5fbc318118, type: 3}
   itemTier: 0
   itemType: 1
   cost: 4500
-  itemDescription: Thick fur-lined armor worn by warriors of the untamed wilds. Offers exceptional physical defense and robustness at the cost of magic resistance.
+  itemDescription: 길들지 않은 야생의 전사들이 입는 두꺼운 모피 안감 갑옷. 마법 저항은 낮지만 뛰어난 물리 방어력과 강인함을 제공한다.
   width: 2
   height: 2
   weight: 0

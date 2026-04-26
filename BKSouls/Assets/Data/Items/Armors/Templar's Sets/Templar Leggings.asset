@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Templar Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
   itemID: 0
-  itemName: Knight Leggings
+  itemName: 성전기사 각반
   itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
   itemTier: 0
   itemType: 4
   cost: 5500
-  itemDescription: Thick iron greaves forged for the templar order. Heavy and unyielding, utterly reliable under the most brutal conditions of battle.
+  itemDescription: 성전기사단을 위해 벼려진 두꺼운 철제 각반. 무겁고 완고하지만 가장 혹독한 전장에서도 절대적으로 믿음직하다.
   width: 2
   height: 2
   weight: 0

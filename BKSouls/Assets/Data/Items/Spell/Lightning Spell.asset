@@ -30,7 +30,7 @@ MonoBehaviour:
   spellChargeFX: {fileID: 9027514048236820045, guid: ceccaeaaf2f71a54493c4317617da43b, type: 3}
   spellCastReleaseFX: {fileID: 7118137286583304359, guid: b8da065e95cf2234aa3c3a47ba9f94fc, type: 3}
   spellCastReleaseFXFullCharge: {fileID: 7118137286583304359, guid: b8da065e95cf2234aa3c3a47ba9f94fc, type: 3}
-  mainHandSpellAnimation: Spell_Main_Fire_Ball_Start_01
-  offHandSpellAnimation: Spell_Off_Fire_Ball_Start_01
+  mainHandSpellAnimation: Spell_Main_Hand_Ball_Start_01
+  offHandSpellAnimation: Spell_Off_Hand_Ball_Start_01
   warmUpSoundFX: {fileID: 0}
   releaseSoundFX: {fileID: 0}

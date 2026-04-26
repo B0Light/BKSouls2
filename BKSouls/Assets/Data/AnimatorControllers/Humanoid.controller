@@ -314,7 +314,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Main_Fire_Ball_Charge_01
+  m_Name: Spell_Main_Hand_Ball_Charge_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -452,7 +452,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Main_Fire_Ball_Start_01
+  m_Name: Spell_Main_Hand_Ball_Start_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -548,7 +548,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Off_Fire_Ball_Release_01
+  m_Name: Spell_Off_Hand_Ball_Release_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -2289,7 +2289,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Off_Fire_Ball_Start_01
+  m_Name: Spell_Off_Hand_Ball_Start_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -3537,7 +3537,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Main_Fire_Ball_Full_Release_01
+  m_Name: Spell_Main_Hand_Ball_Full_Release_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -5739,7 +5739,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Off_Fire_Ball_Charge_01
+  m_Name: Spell_Off_Hand_Ball_Charge_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -6144,7 +6144,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Off_Fire_Ball_Full_Release_01
+  m_Name: Spell_Off_Hand_Ball_Full_Release_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -6588,7 +6588,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Spell_Main_Fire_Ball_Release_01
+  m_Name: Spell_Main_Hand_Ball_Release_01
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

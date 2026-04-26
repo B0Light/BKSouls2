@@ -79,9 +79,10 @@ namespace BK
 
                 if (splashFrostBuildUpAmount > 0)
                 {
-                    TakeBuildUpEffect frostEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
-                    frostEffect.buildUpAmount = splashFrostBuildUpAmount;
-                    target.characterEffectsManager.ProcessInstantEffect(frostEffect);
+                    spellCaster.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        target.NetworkObjectId,
+                        (int)BuildUp.Frost,
+                        splashFrostBuildUpAmount);
                 }
             }
         }
@@ -121,9 +122,10 @@ namespace BK
                 //        플레이어 시전자 → 플레이어 피격 시에는 별도 RPC 확장 필요.
                 if (frostBuildUpAmount > 0)
                 {
-                    TakeBuildUpEffect frostEffect = Instantiate(WorldCharacterEffectsManager.Instance.takeFrostBuildUpEffect);
-                    frostEffect.buildUpAmount = frostBuildUpAmount;
-                    damageTarget.characterEffectsManager.ProcessInstantEffect(frostEffect);
+                    spellCaster.characterNetworkManager.NotifyServerOfBuildUpServerRpc(
+                        damageTarget.NetworkObjectId,
+                        (int)BuildUp.Frost,
+                        frostBuildUpAmount);
                 }
             }
         }

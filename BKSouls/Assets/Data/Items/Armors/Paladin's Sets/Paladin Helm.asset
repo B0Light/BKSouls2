@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: Paladin Helm
   m_EditorClassIdentifier: Assembly-CSharp::BK.HeadEquipmentItem
   itemID: 8
-  itemName: Paladin Helm
+  itemName: 성기사 투구
   itemIcon: {fileID: 21300000, guid: 00890f57ec1fda74f9e7fc2a07d246d7, type: 3}
   itemTier: 0
   itemType: 2
   cost: 2500
-  itemDescription: A consecrated helm worn by knights of the holy order. Said to grant clarity of purpose and ward against the corruption of unholy forces.
+  itemDescription: 성스러운 교단의 기사들이 쓰는 축성된 투구. 목적의 명료함을 부여하고 부정한 힘의 타락을 막아 준다고 전해진다.
   width: 2
   height: 2
   weight: 0
