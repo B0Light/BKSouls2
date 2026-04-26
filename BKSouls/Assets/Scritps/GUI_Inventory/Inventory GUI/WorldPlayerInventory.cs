@@ -230,7 +230,7 @@ namespace BK.Inventory
 
             try
             {
-                bool result = RemoveItemInInventory(itemId, requiredCount, transaction);
+                bool result = RemoveItemInGrids(itemId, requiredCount, _removePriorityGrids, transaction);
                 if (result) OnInventoryChanged?.Invoke();
                 return result;
             }
@@ -241,15 +241,35 @@ namespace BK.Inventory
                 return false;
             }
         }
-        private bool RemoveItemInInventory(int itemId, int requiredCount,
+
+        public bool RemoveItemInInventoryAndBackpack(int itemId, int requiredCount = 1)
+        {
+            var transaction = new Dictionary<ItemGrid, Dictionary<int, int>>();
+            var saleSourceGrids = new List<ItemGrid> { GetInventory(), GetBackpackInventory() };
+
+            try
+            {
+                bool result = RemoveItemInGrids(itemId, requiredCount, saleSourceGrids, transaction);
+                if (result) OnInventoryChanged?.Invoke();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message);
+                RollbackTransaction(transaction);
+                return false;
+            }
+        }
+
+        private bool RemoveItemInGrids(int itemId, int requiredCount, List<ItemGrid> grids,
             Dictionary<ItemGrid, Dictionary<int, int>> transaction)
         {
-            if (GetItemCountInAllInventory(itemId) < requiredCount)
+            if (GetItemCountInGrids(itemId, grids) < requiredCount)
                 return false;
 
             int remaining = requiredCount;
 
-            foreach (var grid in _removePriorityGrids)
+            foreach (var grid in grids)
             {
                 if (grid == null || remaining <= 0) break;
 
@@ -285,6 +305,7 @@ namespace BK.Inventory
         }
 
         public bool CheckItemInInventory(int itemCode, int amount = 1) => GetItemCountInAllInventory(itemCode) >= amount;
+        public bool CheckItemInInventoryAndBackpack(int itemCode, int amount = 1) => GetItemCountInInventoryAndBackpack(itemCode) >= amount;
 
         public int GetItemCountInAllInventory(int itemCode)
         {
@@ -296,6 +317,24 @@ namespace BK.Inventory
         }
 
         // 인벤토리에서 특정 ProjectileClass(Arrow/Bolt)에 해당하는 화살을 찾아 반환
+        public int GetItemCountInInventoryAndBackpack(int itemCode)
+        {
+            return GetItemCountInGrids(itemCode, new List<ItemGrid> { GetInventory(), GetBackpackInventory() });
+        }
+
+        private int GetItemCountInGrids(int itemCode, List<ItemGrid> grids)
+        {
+            int sum = 0;
+
+            foreach (var grid in grids)
+            {
+                if (grid == null) continue;
+                sum += grid.GetItemCountById(itemCode);
+            }
+
+            return sum;
+        }
+
         public RangedProjectileItem FindProjectileInInventory(ProjectileClass projectileClass)
         {
             var grids = new List<ItemGrid> { GetInventory(), GetBackpackInventory(), GetShareInventory() };

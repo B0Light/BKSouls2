@@ -298,6 +298,9 @@ namespace BK.Inventory
 
         private void PlaceItem(Vector2Int tileGridPosition)
         {
+            if (!ItemSaleUIManager.CanPlaceInActiveSaleGrid(_selectedItemGrid, SelectedItem))
+                return;
+
             if (_selectedItemGrid.PlaceItem(SelectedItem, tileGridPosition.x, tileGridPosition.y, false))
                 SelectedItem = null;
         }

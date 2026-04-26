@@ -235,13 +235,23 @@ namespace BK.Inventory
             if (inventory != null)
             {
                 foreach (var (id, count) in inventory.GetCurItemDictById())
+                {
+                    if (!CanSellItem(id))
+                        continue;
+
                     itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
+                }
             }
 
             if (backpack != null)
             {
                 foreach (var (id, count) in backpack.GetCurItemDictById())
+                {
+                    if (!CanSellItem(id))
+                        continue;
+
                     itemDict[id] = itemDict.TryGetValue(id, out int cur) ? cur + count : count;
+                }
             }
 
             if (itemSaleUIManager != null)
@@ -265,6 +275,12 @@ namespace BK.Inventory
                 for (int i = 0; i < count; i++)
                     inventorySaleViewGrid.AddItemById(id, 1, false);
             }
+        }
+
+        private static bool CanSellItem(int itemId)
+        {
+            Item item = WorldItemDatabase.Instance.GetItemByID(itemId);
+            return item != null && item.itemTier != ItemTier.None;
         }
 
         private void SetSaleVisible(bool isActive)

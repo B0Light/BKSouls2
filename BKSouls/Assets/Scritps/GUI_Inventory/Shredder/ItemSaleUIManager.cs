@@ -41,6 +41,14 @@ namespace BK.Inventory
             return activeSaleUI != null && activeSaleUI.TryMoveFromInventoryView(sourceGrid, sourceItem);
         }
 
+        public static bool CanPlaceInActiveSaleGrid(ItemGrid targetGrid, InventoryItem item)
+        {
+            if (activeSaleUI == null || targetGrid != activeSaleUI.itemGrid)
+                return true;
+
+            return IsSellableItem(item);
+        }
+
         public Dictionary<int, int> GetQueuedSaleItems()
         {
             return new Dictionary<int, int>(itemGrid.GetCurItemDictById());
@@ -51,8 +59,11 @@ namespace BK.Inventory
             if (sourceGrid == null || sourceItem == null || sourceGrid != _inventoryViewGrid)
                 return false;
 
+            if (!IsSellableItem(sourceItem))
+                return true;
+
             int itemId = sourceItem.itemData.itemID;
-            int ownedCount = WorldPlayerInventory.Instance.GetItemCountInAllInventory(itemId);
+            int ownedCount = WorldPlayerInventory.Instance.GetItemCountInInventoryAndBackpack(itemId);
             int queuedCount = itemGrid.GetItemCountById(itemId);
 
             if (queuedCount >= ownedCount)
@@ -83,12 +94,15 @@ namespace BK.Inventory
 
             foreach (var (itemId, count) in saleItems)
             {
-                if (!WorldPlayerInventory.Instance.CheckItemInInventory(itemId, count))
+                if (!IsSellableItem(itemId))
+                    return;
+
+                if (!WorldPlayerInventory.Instance.CheckItemInInventoryAndBackpack(itemId, count))
                     return;
             }
 
             foreach (var (itemId, count) in saleItems)
-                WorldPlayerInventory.Instance.RemoveItemInInventory(itemId, count);
+                WorldPlayerInventory.Instance.RemoveItemInInventoryAndBackpack(itemId, count);
 
             if (IsInDungeon)
             {
@@ -111,6 +125,17 @@ namespace BK.Inventory
                 totalItemCostText.text = "Sale complete.";
 
             WorldSaveGameManager.Instance.SaveGame();
+        }
+
+        private static bool IsSellableItem(InventoryItem item)
+        {
+            return item != null && item.itemData != null && item.itemData.itemTier != ItemTier.None;
+        }
+
+        private static bool IsSellableItem(int itemId)
+        {
+            Item item = WorldItemDatabase.Instance.GetItemByID(itemId);
+            return item != null && item.itemTier != ItemTier.None;
         }
 
         public ItemGrid GetItemGrid => itemGrid;
