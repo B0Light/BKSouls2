@@ -41,6 +41,7 @@ namespace BK
 
             WorldSaveGameManager.Instance.ResetRunes();
             WorldPlayerInventory.Instance.ClearInventoryAndBackpack();
+            WorldPlayerInventory.Instance.ClearEquipmentSlots();
 
             // 던전에 보스/적 시신이 남아 있으면 씬 전환 전에 정리
             if (RoomManager.Instance != null)

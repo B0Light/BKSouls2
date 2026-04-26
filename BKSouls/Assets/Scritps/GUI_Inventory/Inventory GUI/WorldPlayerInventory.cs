@@ -352,6 +352,43 @@ namespace BK.Inventory
             OnInventoryChanged?.Invoke();
         }
 
+        public void ClearEquipmentSlots()
+        {
+            GetRightWeaponInventory()?.ResetItemGrid();
+            GetLeftWeaponInventory()?.ResetItemGrid();
+            GetRightSubWeaponInventory()?.ResetItemGrid();
+            GetLeftSubWeaponInventory()?.ResetItemGrid();
+
+            GetHelmetInventory()?.ResetItemGrid();
+            GetArmorInventory()?.ResetItemGrid();
+            GetGauntletInventory()?.ResetItemGrid();
+            GetLeggingsInventory()?.ResetItemGrid();
+
+            GUIController.Instance.inventoryGUIManager.ToggleBackpackInventory(false);
+            GUIController.Instance.inventoryGUIManager.backpackItemGrid.UpdateItemGridSize(Vector2Int.zero);
+
+            GUIController.Instance.localPlayer?.playerEquipmentManager?.ClearEquipmentSlots();
+            ClearEquipmentSlotsFromCurrentCharacterData();
+
+            OnInventoryChanged?.Invoke();
+        }
+
+        private void ClearEquipmentSlotsFromCurrentCharacterData()
+        {
+            CharacterSaveData currentCharacterData = WorldSaveGameManager.Instance.currentCharacterData;
+            if (currentCharacterData == null) return;
+
+            currentCharacterData.rightMainWeaponItemCode = 0;
+            currentCharacterData.leftMainWeaponItemCode = 0;
+            currentCharacterData.rightSubWeaponItemCode = 0;
+            currentCharacterData.leftSubWeaponItemCode = 0;
+
+            currentCharacterData.helmetItemCode = -1;
+            currentCharacterData.armorItemCode = -1;
+            currentCharacterData.gauntletItemCode = -1;
+            currentCharacterData.leggingsItemCode = -1;
+        }
+
         public void SaveInventoryAndBackpackToCurrentCharacterData()
         {
             CharacterSaveData currentCharacterData = WorldSaveGameManager.Instance.currentCharacterData;

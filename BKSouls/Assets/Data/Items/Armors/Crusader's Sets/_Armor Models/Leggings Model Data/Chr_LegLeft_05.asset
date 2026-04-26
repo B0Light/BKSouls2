@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d64ddd47df84fb408841b35a1897e4d, type: 3}
   m_Name: Chr_LegLeft_05
   m_EditorClassIdentifier: 
-  equipmentModelType: 19
+  equipmentModelType: 21
   maleEquipmentName: Chr_LegLeft_Male_05
   femaleEquipmentName: Chr_LegLeft_Female_05

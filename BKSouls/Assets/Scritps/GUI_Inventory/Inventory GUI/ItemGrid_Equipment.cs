@@ -105,14 +105,13 @@ namespace BK.Inventory
 
         public override void ResetItemGrid()
         {
-            if (_equippedItem == null) return;
-            if (!TryGetValidPlayerManager(out var pm)) return;
+            if (TryGetValidPlayerManager(out var pm))
+            {
+                ApplyEquipmentNetworkId(pm, 0);
+            }
 
-            var item = _equippedItem;
             _equippedItem = null;
-
-            ApplyEquipmentNetworkId(pm, 0);
-            RemoveItem(item);
+            base.ResetItemGrid();
         }
 
         public void RemoveItemAtGrid(int itemID)

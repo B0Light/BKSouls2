@@ -2291,7 +2291,7 @@ GameObject:
   - component: {fileID: 570063352563960889}
   - component: {fileID: 5068394267731993941}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_01
+  m_Name: Chr_LegLeft_Male_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8938,7 +8938,7 @@ GameObject:
   - component: {fileID: 4861102073213960243}
   - component: {fileID: 8288688287623733245}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_10
+  m_Name: Chr_LegLeft_Male_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10924,7 +10924,7 @@ GameObject:
   - component: {fileID: 5194736766209212653}
   - component: {fileID: 3329967406745436092}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_17
+  m_Name: Chr_LegRight_Male_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11147,7 +11147,7 @@ GameObject:
   - component: {fileID: 4197985304385431439}
   - component: {fileID: 5938369428431008689}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_05
+  m_Name: Chr_LegRight_Male_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13778,7 +13778,7 @@ GameObject:
   - component: {fileID: 363142647180585461}
   - component: {fileID: 7828009042322749561}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_09
+  m_Name: Chr_LegLeft_Male_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14250,7 +14250,7 @@ GameObject:
   - component: {fileID: 6866575117244663910}
   - component: {fileID: 7846783485917299697}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_00
+  m_Name: Chr_LegRight_Male_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18601,7 +18601,7 @@ GameObject:
   - component: {fileID: 7765722118456358419}
   - component: {fileID: 1226463927690640395}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_03
+  m_Name: Chr_LegRight_Male_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23170,7 +23170,7 @@ GameObject:
   - component: {fileID: 6283126142150399695}
   - component: {fileID: 3270813290233452475}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_13
+  m_Name: Chr_LegRight_Male_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23457,7 +23457,7 @@ GameObject:
   - component: {fileID: 6428988416674231001}
   - component: {fileID: 2739513723615960200}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_19
+  m_Name: Chr_LegLeft_Male_19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25548,7 +25548,7 @@ GameObject:
   - component: {fileID: 7929704983467094416}
   - component: {fileID: 1848187612811653580}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_01
+  m_Name: Chr_LegRight_Male_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25969,7 +25969,7 @@ GameObject:
   - component: {fileID: 1718781297562835367}
   - component: {fileID: 8558232959623296338}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_15
+  m_Name: Chr_LegLeft_Male_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26065,12 +26065,12 @@ GameObject:
   - component: {fileID: 4430912135880816024}
   - component: {fileID: 6092216865057412857}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_14
+  m_Name: Chr_LegLeft_Male_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4430912135880816024
 Transform:
   m_ObjectHideFlags: 0
@@ -28079,7 +28079,7 @@ GameObject:
   - component: {fileID: 6823665119837655014}
   - component: {fileID: 6534220250649094234}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_10
+  m_Name: Chr_LegRight_Male_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29429,7 +29429,7 @@ GameObject:
   - component: {fileID: 8356870582128002241}
   - component: {fileID: 299044578385531759}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_08
+  m_Name: Chr_LegLeft_Male_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30788,7 +30788,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7262285628547854082
 Transform:
   m_ObjectHideFlags: 0
@@ -32694,7 +32694,7 @@ GameObject:
   - component: {fileID: 6280682609817696682}
   - component: {fileID: 8989012627652847563}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_03
+  m_Name: Chr_LegLeft_Male_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33623,7 +33623,7 @@ GameObject:
   - component: {fileID: 4028458921693653651}
   - component: {fileID: 8416796118306457308}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_07
+  m_Name: Chr_LegLeft_Male_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34642,7 +34642,7 @@ GameObject:
   - component: {fileID: 7555757985426018218}
   - component: {fileID: 2269576763271392337}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_09
+  m_Name: Chr_LegRight_Male_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35028,12 +35028,12 @@ GameObject:
   - component: {fileID: 7664903198342245291}
   - component: {fileID: 7114236187595160600}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_06
+  m_Name: Chr_LegLeft_Male_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7664903198342245291
 Transform:
   m_ObjectHideFlags: 0
@@ -38248,7 +38248,7 @@ GameObject:
   - component: {fileID: 880509083339458449}
   - component: {fileID: 5301885497412579587}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_08
+  m_Name: Chr_LegRight_Male_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38741,7 +38741,7 @@ GameObject:
   - component: {fileID: 6241597785284951033}
   - component: {fileID: 8370121534265443766}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_16
+  m_Name: Chr_LegLeft_Male_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -40102,7 +40102,7 @@ GameObject:
   - component: {fileID: 8084305281451729666}
   - component: {fileID: 4680802759160951899}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_19
+  m_Name: Chr_LegRight_Male_19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42007,7 +42007,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &128888237711881471
 Transform:
   m_ObjectHideFlags: 0
@@ -42289,7 +42289,7 @@ GameObject:
   - component: {fileID: 3553877688145775386}
   - component: {fileID: 8894407242241121448}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_02
+  m_Name: Chr_LegRight_Male_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44537,7 +44537,7 @@ GameObject:
   - component: {fileID: 3097825830970317784}
   - component: {fileID: 2720028864145915346}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_12
+  m_Name: Chr_LegLeft_Male_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47441,7 +47441,7 @@ GameObject:
   - component: {fileID: 2177801049637751581}
   - component: {fileID: 6995002787699816585}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_05
+  m_Name: Chr_LegLeft_Male_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50791,7 +50791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &3600740421295630767
 Transform:
   m_ObjectHideFlags: 0
@@ -51673,7 +51673,7 @@ GameObject:
   - component: {fileID: 6592033290270249685}
   - component: {fileID: 7880826857520879104}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_18
+  m_Name: Chr_LegRight_Male_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53223,7 +53223,7 @@ GameObject:
   - component: {fileID: 318105493308243991}
   - component: {fileID: 2801200684998298932}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_18
+  m_Name: Chr_LegLeft_Male_18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55250,7 +55250,7 @@ GameObject:
   - component: {fileID: 5833641398184743922}
   - component: {fileID: 7375404590772715109}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_15
+  m_Name: Chr_LegRight_Male_15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57805,7 +57805,7 @@ GameObject:
   - component: {fileID: 8984158544867783865}
   - component: {fileID: 6975633580439699637}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_14
+  m_Name: Chr_LegRight_Male_14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -58327,7 +58327,7 @@ GameObject:
   - component: {fileID: 6166725789479441072}
   - component: {fileID: 1971037707925999911}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_07
+  m_Name: Chr_LegRight_Male_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60471,7 +60471,7 @@ GameObject:
   - component: {fileID: 1113580173248481266}
   - component: {fileID: 6470486744376178}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_02
+  m_Name: Chr_LegLeft_Male_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60928,7 +60928,7 @@ GameObject:
   - component: {fileID: 5433244523601540548}
   - component: {fileID: 3465512132603863932}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_16
+  m_Name: Chr_LegRight_Male_16
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61407,7 +61407,7 @@ GameObject:
   - component: {fileID: 3188432168570185454}
   - component: {fileID: 7978890769720764793}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_17
+  m_Name: Chr_LegLeft_Male_17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61697,7 +61697,7 @@ GameObject:
   - component: {fileID: 3811322017265197509}
   - component: {fileID: 6727383398226504151}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_12
+  m_Name: Chr_LegRight_Male_12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62762,7 +62762,7 @@ GameObject:
   - component: {fileID: 3176556629684305316}
   - component: {fileID: 1318672581350345037}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_06
+  m_Name: Chr_LegRight_Male_06
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66790,7 +66790,7 @@ GameObject:
   - component: {fileID: 8047899593751215888}
   - component: {fileID: 4980940027085748618}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_04
+  m_Name: Chr_LegRight_Male_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -66981,7 +66981,7 @@ GameObject:
   - component: {fileID: 1374062389317978656}
   - component: {fileID: 4878575034053881721}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_04
+  m_Name: Chr_LegLeft_Male_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -67771,7 +67771,7 @@ GameObject:
   - component: {fileID: 1358156967548525684}
   - component: {fileID: 625340018202503084}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_13
+  m_Name: Chr_LegLeft_Male_13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68376,7 +68376,7 @@ GameObject:
   - component: {fileID: 2265337196003719969}
   - component: {fileID: 4929942796385014349}
   m_Layer: 6
-  m_Name: Chr_LegLeft_Male_11
+  m_Name: Chr_LegRight_Male_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72062,7 +72062,7 @@ GameObject:
   - component: {fileID: 862843100683864331}
   - component: {fileID: 7355749547754197292}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_00
+  m_Name: Chr_LegLeft_Male_00
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73627,7 +73627,7 @@ GameObject:
   - component: {fileID: 1117882777085648204}
   - component: {fileID: 8387163962673347892}
   m_Layer: 6
-  m_Name: Chr_LegRight_Male_11
+  m_Name: Chr_LegLeft_Male_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

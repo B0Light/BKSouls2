@@ -17655,7 +17655,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: c3000000000000000000000000002003, type: 2}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: defaultItemIcon.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[0]'
@@ -17680,29 +17680,33 @@ PrefabInstance:
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[5]'
       value: 
-      objectReference: {fileID: 21300000, guid: 937df54c63360704b9d3aaae0be02e7c, type: 3}
+      objectReference: {fileID: 21300000, guid: 3e5a00774161a2341b8909a33006bdce, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[6]'
       value: 
-      objectReference: {fileID: 21300000, guid: c3f670e7e5d7fe14bbc1fe517f898554, type: 3}
+      objectReference: {fileID: 21300000, guid: 937df54c63360704b9d3aaae0be02e7c, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[7]'
       value: 
-      objectReference: {fileID: 21300000, guid: d0cc402c022231547a38aea4bfdd2c39, type: 3}
+      objectReference: {fileID: 21300000, guid: c3f670e7e5d7fe14bbc1fe517f898554, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[8]'
       value: 
-      objectReference: {fileID: 21300000, guid: 4605ffe5224a7ad46b803e5e6db5703d, type: 3}
+      objectReference: {fileID: 21300000, guid: d0cc402c022231547a38aea4bfdd2c39, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[9]'
       value: 
-      objectReference: {fileID: 21300000, guid: c0565af35c3f7964bbb71a75a81a0bb5, type: 3}
+      objectReference: {fileID: 21300000, guid: 4605ffe5224a7ad46b803e5e6db5703d, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[10]'
       value: 
-      objectReference: {fileID: 21300000, guid: b2baae98665e1434186da1449705120f, type: 3}
+      objectReference: {fileID: 21300000, guid: c0565af35c3f7964bbb71a75a81a0bb5, type: 3}
     - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
       propertyPath: 'defaultItemIcon.Array.data[11]'
+      value: 
+      objectReference: {fileID: 21300000, guid: b2baae98665e1434186da1449705120f, type: 3}
+    - target: {fileID: 7838406070653524560, guid: eb1e741790e4f6b47bc6bc29757cf115, type: 3}
+      propertyPath: 'defaultItemIcon.Array.data[12]'
       value: 
       objectReference: {fileID: 21300000, guid: 5f614881884279c42ac12b49cab7dc5b, type: 3}
     m_RemovedComponents: []

@@ -148,6 +148,12 @@ namespace BK
             netVar.Value = idOrMinusOne;
         }
 
+        private WeaponItem InstantiateDefaultWeapon()
+        {
+            WeaponItem defaultWeapon = WorldItemDatabase.Instance.GetWeaponByID(0);
+            return defaultWeapon != null ? Instantiate(defaultWeapon) : null;
+        }
+
         #endregion
 
         #region Armor Init
@@ -204,6 +210,7 @@ namespace BK
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.headEquipmentID, -1);
                 player.playerInventoryManager.headEquipment = null;
+                RecalculateArmorAbsorption();
                 return;
             }
 
@@ -251,6 +258,7 @@ namespace BK
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.bodyEquipmentID, -1);
                 player.playerInventoryManager.bodyEquipment = null;
+                RecalculateArmorAbsorption();
                 return;
             }
 
@@ -292,6 +300,7 @@ namespace BK
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.legEquipmentID, -1);
                 player.playerInventoryManager.legEquipment = null;
+                RecalculateArmorAbsorption();
                 return;
             }
 
@@ -328,6 +337,7 @@ namespace BK
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.handEquipmentID, -1);
                 player.playerInventoryManager.handEquipment = null;
+                RecalculateArmorAbsorption();
                 return;
             }
 
@@ -357,6 +367,50 @@ namespace BK
         }
 
         #endregion
+
+        public void ClearEquipmentSlots()
+        {
+            if (player.IsOwner)
+            {
+                player.playerNetworkManager.isTwoHandingWeapon.Value = false;
+                player.playerNetworkManager.isTwoHandingRightWeapon.Value = false;
+                player.playerNetworkManager.isTwoHandingLeftWeapon.Value = false;
+                player.playerNetworkManager.currentWeaponBeingUsed.Value = 0;
+                player.playerNetworkManager.currentWeaponBeingTwoHanded.Value = 0;
+
+                player.playerNetworkManager.currentRightHandWeaponID.Value = 0;
+                player.playerNetworkManager.currentLeftHandWeaponID.Value = 0;
+                player.playerNetworkManager.currentRightSubWeaponID.Value = 0;
+                player.playerNetworkManager.currentLeftSubWeaponID.Value = 0;
+
+                player.playerNetworkManager.headEquipmentID.Value = -1;
+                player.playerNetworkManager.bodyEquipmentID.Value = -1;
+                player.playerNetworkManager.handEquipmentID.Value = -1;
+                player.playerNetworkManager.legEquipmentID.Value = -1;
+            }
+
+            player.playerInventoryManager.currentRightHandWeapon = InstantiateDefaultWeapon();
+            player.playerInventoryManager.currentLeftHandWeapon = InstantiateDefaultWeapon();
+            player.playerInventoryManager.currentRightSubWeapon = InstantiateDefaultWeapon();
+            player.playerInventoryManager.currentLeftSubWeapon = InstantiateDefaultWeapon();
+            player.playerInventoryManager.currentTwoHandWeapon = null;
+
+            LoadRightWeapon();
+            LoadLeftWeapon();
+            LoadHeadEquipment(null);
+            LoadBodyEquipment(null);
+            LoadHandEquipment(null);
+            LoadLegEquipment(null);
+
+            if (player.IsOwner)
+            {
+                GUIController.Instance.playerUIHudManager.SetRightWeaponQuickSlotIcon(0);
+                GUIController.Instance.playerUIHudManager.SetLeftWeaponQuickSlotIcon(0);
+                GUIController.Instance.playerUIHudManager.ToggleProjectileQuickSlotsVisibility(false);
+            }
+
+            GUIController.Instance.playerUICharacterMenuManager?.Refresh();
+        }
 
         #region Projectiles / Quick Slot Load
 

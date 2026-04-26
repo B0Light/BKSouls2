@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Mana Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
   itemID: 46
-  itemName: Mana Flask
+  itemName: "\uB9C8\uB098 \uD50C\uB77C\uC2A4\uD06C"
   itemIcon: {fileID: 21300000, guid: ab1d83d6d9539f4429674b75560cf51e, type: 3}
   itemTier: 0
   itemType: 9
   cost: 1200
-  itemDescription: A mystical flask filled with a cerulean liquid. Drinking it restores
-    a portion of the user's spent focus points.
+  itemDescription: "\uD478\uB978\uBE5B \uC561\uCCB4\uAC00 \uB2F4\uAE34 \uC2E0\uBE44\uD55C
+    \uD50C\uB77C\uC2A4\uD06C. \uB9C8\uC2DC\uBA74 \uC18C\uBAA8\uD55C \uC9D1\uC911\uB825\uC758
+    \uC77C\uBD80\uB97C \uD68C\uBCF5\uD55C\uB2E4."
   width: 1
   height: 1
   weight: 1
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 5
+    value: 50
   itemModel: {fileID: 670785654338084186, guid: 534646500b1c3ff4db0f6b943c12a55c, type: 3}
   useItemAnimation: Item_Flask_Drink_Start_01
   isConsumable: 1

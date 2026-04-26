@@ -13,17 +13,20 @@ MonoBehaviour:
   m_Name: Health Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
   itemID: 45
-  itemName: Health Flask
+  itemName: "\uCCB4\uB825 \uD50C\uB77C\uC2A4\uD06C"
   itemIcon: {fileID: 21300000, guid: 11a2f270c1ea6bc42a989b01db574f16, type: 3}
   itemTier: 0
   itemType: 9
   cost: 1000
-  itemDescription: A sacred flask filled with a crimson restorative liquid. Drinking
-    it restores a portion of the user's lost health.
+  itemDescription: "\uC9C4\uD64D\uBE5B \uD68C\uBCF5\uC561\uC774 \uB2F4\uAE34 \uC131\uC2A4\uB7EC\uC6B4
+    \uD50C\uB77C\uC2A4\uD06C. \uB9C8\uC2DC\uBA74 \uC783\uC740 \uCCB4\uB825\uC758
+    \uC77C\uBD80\uB97C \uD68C\uBCF5\uD55C\uB2E4."
   width: 1
   height: 1
   weight: 1
-  itemAbilities: []
+  itemAbilities:
+  - itemEffect: 4
+    value: 50
   itemModel: {fileID: 6630635678089878116, guid: 4d15ba3ced6cc4b4f8ba6342a7891d2b, type: 3}
   useItemAnimation: Item_Flask_Drink_Start_01
   isConsumable: 1
