@@ -2940,7 +2940,7 @@ Transform:
   m_GameObject: {fileID: 2072473805834413110}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4, y: 0, z: -13.2}
+  m_LocalPosition: {x: -0.59, y: 0, z: -11.31}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10962,7 +10962,7 @@ GameObject:
   - component: {fileID: 7295493440521448522}
   - component: {fileID: 2448881811639062017}
   m_Layer: 0
-  m_Name: DungeonInst_Island_Boss_00
+  m_Name: DungeonInst_Island_Elite_01_MiniBoss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10977,7 +10977,7 @@ Transform:
   m_GameObject: {fileID: 7155262747603071470}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.2, y: 0, z: 0.19}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

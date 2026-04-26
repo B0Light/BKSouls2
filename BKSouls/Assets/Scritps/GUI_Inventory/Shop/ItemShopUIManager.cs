@@ -20,6 +20,7 @@ namespace BK.Inventory
 
         private int _purchaseQuantity = 1;
         private int _selectedItemCost = 0;
+        private Item _selectedShopItem;
 
         [SerializeField] private CanvasGroup itemInfoCanvasGroup;
 
@@ -38,6 +39,7 @@ namespace BK.Inventory
 
         private bool _isShopOpen = false;
         private bool _forceRunes = false;
+        private InteractableShop _currentShop;
         private InteractableDungeonShop _dungeonShop;
 
         private bool UseRunes => _forceRunes || !WorldSaveGameManager.Instance.IsHoldScene;
@@ -63,6 +65,7 @@ namespace BK.Inventory
         {
             _forceRunes = forceRunes;
             _isShopOpen = true;
+            _currentShop = interactable as InteractableShop;
             _dungeonShop = interactable as InteractableDungeonShop;
 
             if (!UseRunes)
@@ -97,6 +100,7 @@ namespace BK.Inventory
 
             if (!_isShopOpen) return;
             _isShopOpen = false;
+            _currentShop = null;
             _dungeonShop = null;
             notEnoughItemsComment.SetActive(false);
             notEnoughSlot.SetActive(false);
@@ -280,6 +284,7 @@ namespace BK.Inventory
             notEnoughSlot.SetActive(false);
 
             _selectedItemCost = 0;
+            _selectedShopItem = null;
             SetPurchaseQuantity(1);
 
             if (totalCostText != null)
@@ -309,6 +314,7 @@ namespace BK.Inventory
             notEnoughSlot.SetActive(false);
 
             _selectedItemCost = selectItemInfo.cost;
+            _selectedShopItem = selectItemInfo;
             SetPurchaseQuantity(1);
 
             itemBuyButton_Cash.onClick.RemoveAllListeners();
@@ -348,7 +354,8 @@ namespace BK.Inventory
 
         private void SetPurchaseQuantity(int quantity)
         {
-            _purchaseQuantity = Mathf.Max(1, quantity);
+            int maxQuantity = GetRemainingPurchaseCount(_selectedShopItem);
+            _purchaseQuantity = maxQuantity > 0 ? Mathf.Clamp(quantity, 1, maxQuantity) : 0;
 
             if (itemQuantityText != null)
                 itemQuantityText.text = _purchaseQuantity.ToString();
@@ -360,10 +367,28 @@ namespace BK.Inventory
                 totalCostText.text = $"{totalCost} / {currency}";
                 totalCostText.color = totalCost > currency ? Color.red : Color.white;
             }
+
+            if (itemQuantityIncreaseButton != null)
+                itemQuantityIncreaseButton.interactable = _purchaseQuantity > 0 && _purchaseQuantity < maxQuantity;
+
+            if (itemQuantityDecreaseButton != null)
+                itemQuantityDecreaseButton.interactable = _purchaseQuantity > 1;
+
+            if (itemBuyButton_Cash != null)
+                itemBuyButton_Cash.interactable = _purchaseQuantity > 0;
         }
 
         private void BuyWithCash(Item item)
         {
+            int remainingCount = GetRemainingPurchaseCount(item);
+            if (remainingCount <= 0)
+            {
+                notEnoughItemsComment.SetActive(true);
+                SetPurchaseQuantity(0);
+                return;
+            }
+
+            _purchaseQuantity = Mathf.Min(_purchaseQuantity, remainingCount);
             int totalCost = item.cost * _purchaseQuantity;
 
             if (UseRunes)
@@ -385,6 +410,7 @@ namespace BK.Inventory
                 }
 
                 player.playerStatsManager.AddRunes(-totalCost);
+                _currentShop?.RecordPurchase(item, _purchaseQuantity);
                 SetPurchaseQuantity(_purchaseQuantity);
                 RefreshRerollButtonState();
             }
@@ -406,11 +432,21 @@ namespace BK.Inventory
                 }
 
                 WorldPlayerInventory.Instance.balance.Value -= totalCost;
+                _currentShop?.RecordPurchase(item, _purchaseQuantity);
             }
 
+            SetPurchaseQuantity(_purchaseQuantity);
             BuyItemProcess();
             WorldSaveGameManager.Instance.SaveGame();
             Debug.Log("Buy Success" + item.itemName);
+        }
+
+        private int GetRemainingPurchaseCount(Item item)
+        {
+            if (item == null)
+                return 0;
+
+            return _currentShop != null ? _currentShop.GetRemainingPurchaseCount(item) : int.MaxValue;
         }
 
         private void BuyItemProcess()

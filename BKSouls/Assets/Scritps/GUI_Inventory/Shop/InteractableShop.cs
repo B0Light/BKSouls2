@@ -11,6 +11,7 @@ namespace BK.Inventory
         [Header("Sale Item")]
         [SerializeField] protected ItemType saleItemType;
         public List<Item> saleItemList = new List<Item>();
+        private readonly Dictionary<int, int> purchasedItemCounts = new Dictionary<int, int>();
 
         // 상점 초기화 상태 관리
         private ShopInitializationState initState = ShopInitializationState.NotInitialized;
@@ -47,6 +48,7 @@ namespace BK.Inventory
         protected void MarkShopInitialized()
         {
             initState = ShopInitializationState.InitializedWithItemList;
+            ResetPurchaseLimits();
         }
 
         /// <summary>
@@ -77,6 +79,7 @@ namespace BK.Inventory
             }
 
             initState = ShopInitializationState.InitializedWithLevel;
+            ResetPurchaseLimits();
             Debug.Log($"[InteractableShop] Initialized with level {level}. Items count: {saleItemList.Count}");
         }
 
@@ -104,6 +107,58 @@ namespace BK.Inventory
         protected void ClearSaleItems()
         {
             saleItemList.Clear();
+            ResetPurchaseLimits();
+        }
+
+        public int GetPurchaseLimit(Item item)
+        {
+            if (item == null)
+                return 0;
+
+            ItemTier maxTier = GetHighestSaleTier();
+            if (maxTier == ItemTier.None || item.itemTier == ItemTier.None)
+                return 1;
+
+            return Mathf.Max(1, (int)maxTier - (int)item.itemTier + 1);
+        }
+
+        public int GetRemainingPurchaseCount(Item item)
+        {
+            if (item == null)
+                return 0;
+
+            purchasedItemCounts.TryGetValue(item.itemID, out int purchasedCount);
+            return Mathf.Max(0, GetPurchaseLimit(item) - purchasedCount);
+        }
+
+        public void RecordPurchase(Item item, int count)
+        {
+            if (item == null || count <= 0)
+                return;
+
+            purchasedItemCounts.TryGetValue(item.itemID, out int purchasedCount);
+            purchasedItemCounts[item.itemID] = purchasedCount + count;
+        }
+
+        protected void ResetPurchaseLimits()
+        {
+            purchasedItemCounts.Clear();
+        }
+
+        private ItemTier GetHighestSaleTier()
+        {
+            ItemTier highestTier = ItemTier.None;
+
+            foreach (Item item in saleItemList)
+            {
+                if (item == null || item.itemTier == ItemTier.None)
+                    continue;
+
+                if (highestTier == ItemTier.None || item.itemTier > highestTier)
+                    highestTier = item.itemTier;
+            }
+
+            return highestTier;
         }
 
         /// <summary>

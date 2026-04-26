@@ -367,8 +367,22 @@ namespace BK
             projectileDamageCollider = projectileGameObject.GetComponent<RangedProjectileDamageCollider>();
             projectileRigidbody = projectileGameObject.GetComponent<Rigidbody>();
 
-            //  (TODO MAKE FORMULA TO SET RANGE PROJECTILE DAMAGE)
-            projectileDamageCollider.physicalDamage = 100;
+            WeaponItem bow = player.playerNetworkManager.isTwoHandingLeftWeapon.Value
+                ? player.playerInventoryManager.currentLeftHandWeapon
+                : player.playerInventoryManager.currentRightHandWeapon;
+            var net = player.playerNetworkManager;
+            WeaponManager.CalculateRangedProjectileDamage(
+                bow,
+                projectileItem,
+                net.strength.Value + net.strengthModifier.Value,
+                net.dexterity.Value,
+                net.intelligence.Value,
+                net.faith.Value,
+                out projectileDamageCollider.physicalDamage,
+                out projectileDamageCollider.magicDamage,
+                out projectileDamageCollider.fireDamage,
+                out projectileDamageCollider.lightningDamage,
+                out projectileDamageCollider.holyDamage);
             projectileDamageCollider.characterShootingProjectile = player;
 
             //  FIRE AN ARROW BASED ON 1 OF 3 VARIATIONS

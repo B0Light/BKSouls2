@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 77191a7693fb73342aa9d7c4a86c22fe, type: 3}
-  m_Name: 5.ElitRoom
+  m_Name: 5.ElitRoom_02
   m_EditorClassIdentifier: Assembly-CSharp::RoomTemplateSO
   templateId: 0
   roomType: 5
-  roomPrefab: {fileID: 7155262747603071470, guid: 1ff1a30d83e740d4eac57605f656be56, type: 3}
+  roomPrefab: {fileID: 7155262747603071470, guid: 0232cdc5a47ab9e43b51773616dbecf2, type: 3}
   enemySpawnerPrefabs:
   - {fileID: 882319676538015308, guid: a2729a6389e6a10419bf9669ae60f966, type: 3}
   - {fileID: 882319676538015308, guid: 76cad843693fbef47918a3ae0ac7d952, type: 3}

@@ -9,7 +9,9 @@ namespace BK
 
         protected override void Awake()
         {
-            interactableText = "레벨 업";
+            base.Awake();
+
+            interactableText = "Level Up";
             hostOnlyInteractable = false;
 
             if (vfxObject != null)

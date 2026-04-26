@@ -193,8 +193,24 @@ namespace BK
             PlayerManager player = GUIController.Instance.localPlayer;
             var net = player.playerNetworkManager;
 
+            int currentLevel = player.characterStatsManager.CalculateCharacterLevelBasedOnAttributes();
+            int projectedLevel = player.characterStatsManager.CalculateCharacterLevelBasedOnAttributes(true);
+            CalculateLevelCost(currentLevel, projectedLevel);
+
+            if (projectedLevel <= currentLevel || totalLevelUpCost <= 0)
+            {
+                ResetSliders();
+                return;
+            }
+
+            if (player.playerStatsManager.runes < totalLevelUpCost)
+            {
+                ResetSliders();
+                return;
+            }
+
             //  DEDUCT COST FROM TOTAL RUNES
-            player.playerStatsManager.runes -= totalLevelUpCost;
+            player.playerStatsManager.AddRunes(-totalLevelUpCost);
 
             //  SET NEW STATS
             net.vigor.Value      = Mathf.RoundToInt(vigorSlider.value);
@@ -434,42 +450,19 @@ namespace BK
         // WeaponManager/PlayerUICharacterMenuManager와 동일한 스케일링 로직
         private static (int phys, int mag) CalcWeaponAttack(WeaponItem weapon, int str, int dex, int intel, int faith)
         {
-            float physBonus = 0f, magBonus = 0f;
+            WeaponManager.CalculateScaledWeaponDamage(
+                weapon,
+                str,
+                dex,
+                intel,
+                faith,
+                out float physicalDamage,
+                out float magicDamage,
+                out _,
+                out _,
+                out _);
 
-            switch (weapon.weaponClass)
-            {
-                case WeaponClass.StraightSword:
-                case WeaponClass.Fist:
-                    physBonus = StatScalingBonus(weapon.physicalDamage, str, 0.5f);
-                    break;
-                case WeaponClass.Spear:
-                    physBonus = StatScalingBonus(weapon.physicalDamage, str, 0.3f)
-                              + StatScalingBonus(weapon.physicalDamage, dex, 0.3f);
-                    break;
-                case WeaponClass.Bow:
-                    physBonus = StatScalingBonus(weapon.physicalDamage, dex, 0.5f);
-                    break;
-                case WeaponClass.Staff:
-                    magBonus = StatScalingBonus(weapon.magicDamage, intel, 0.5f);
-                    break;
-            }
-
-            bool meetsReq = str   >= weapon.strengthREQ
-                         && dex   >= weapon.dexREQ
-                         && intel >= weapon.intREQ
-                         && faith >= weapon.faithREQ;
-            float penalty = meetsReq ? 1f : 0.5f;
-
-            int phys = Mathf.RoundToInt((weapon.physicalDamage + physBonus) * penalty);
-            int mag  = Mathf.RoundToInt((weapon.magicDamage  + magBonus)  * penalty);
-            return (phys, mag);
-        }
-
-        private static float StatScalingBonus(float baseDamage, int statValue, float scaleFactor)
-        {
-            float normalized = Mathf.Clamp01(statValue / 99f);
-            float curve = 1f - Mathf.Pow(1f - normalized, 2f);
-            return baseDamage * curve * scaleFactor;
+            return (Mathf.RoundToInt(physicalDamage), Mathf.RoundToInt(magicDamage));
         }
 
         // ── 방어력 표시 (스탯 무관 / 방어구 기반) ────────────────────────

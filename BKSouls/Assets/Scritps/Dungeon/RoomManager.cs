@@ -28,8 +28,8 @@ namespace BK
         [SerializeField] private GameObject siteOfGracePrefab;
 
         [Header("Runtime Prefabs")]
-        [SerializeField] private GameObject entryDoorPrefab;
         [SerializeField] private GameObject exitDoorPrefab;
+        [SerializeField] private GameObject levelUpInteractablePrefab;
 
         [Header("Enemy Count")]
         [SerializeField] private int minBattleEnemyCount = 2;
@@ -55,6 +55,7 @@ namespace BK
         private System.Random enemySpawnRng;
 
         private readonly List<NetworkObject> currentRewardObjects = new();
+        private NetworkObject currentEntryLevelUpInteractable;
         private RoguelikeRoomDoor currentEntryDoor;
         private RoguelikeRoomDoor currentExitDoor;
 
@@ -301,6 +302,16 @@ namespace BK
                 currentEntryDoor = null;
             }
 
+            if (currentEntryLevelUpInteractable != null)
+            {
+                if (currentEntryLevelUpInteractable.IsSpawned)
+                    currentEntryLevelUpInteractable.Despawn(true);
+                else
+                    Destroy(currentEntryLevelUpInteractable.gameObject);
+
+                currentEntryLevelUpInteractable = null;
+            }
+
             if (currentExitDoor != null)
             {
                 NetworkObject exitNetObj = currentExitDoor.NetworkObject;
@@ -387,19 +398,19 @@ namespace BK
                 return;
             }
 
-            GameObject resolvedEntryPrefab = currentTemplate?.entryDoorPrefab != null
-                ? currentTemplate.entryDoorPrefab
-                : entryDoorPrefab;
-
             GameObject resolvedExitPrefab = currentTemplate?.exitDoorPrefab != null
                 ? currentTemplate.exitDoorPrefab
                 : exitDoorPrefab;
 
-            if (currentRoomInstance.EntryDoorAnchor != null && resolvedEntryPrefab != null)
+            if (currentRoomInstance.EntryDoorAnchor != null && levelUpInteractablePrefab != null)
             {
-                currentEntryDoor = SpawnSingleDoor(resolvedEntryPrefab, currentRoomInstance.EntryDoorAnchor, "EntryDoor");
-                if (currentEntryDoor != null)
-                    currentEntryDoor.SetDoorRoleServer(RoguelikeDoorRole.Entry);
+                currentEntryLevelUpInteractable = SpawnEntryLevelUpInteractable(
+                    levelUpInteractablePrefab,
+                    currentRoomInstance.EntryDoorAnchor);
+            }
+            else if (currentRoomInstance.EntryDoorAnchor != null)
+            {
+                Debug.LogWarning("[RoomManager] LevelUpInteractablePrefab is not assigned. Entry anchor will remain empty.");
             }
 
             if (currentRoomInstance.ExitDoorAnchor != null && resolvedExitPrefab != null)
@@ -440,6 +451,38 @@ namespace BK
 
             netObj.Spawn(true);
             return door;
+        }
+
+        private NetworkObject SpawnEntryLevelUpInteractable(GameObject prefab, Transform anchor)
+        {
+            Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
+
+            GameObject obj = Instantiate(
+                prefab,
+                anchor.position,
+                anchor.rotation,
+                parent);
+
+            obj.name = "EntryLevelUpInteractable";
+
+            NetworkObject netObj = obj.GetComponent<NetworkObject>();
+            if (netObj == null)
+            {
+                Debug.LogError("[RoomManager] LevelUpInteractable prefab must contain NetworkObject.");
+                Destroy(obj);
+                return null;
+            }
+
+            LevelUpInteractable levelUpInteractable = obj.GetComponent<LevelUpInteractable>();
+            if (levelUpInteractable == null)
+            {
+                Debug.LogError("[RoomManager] LevelUpInteractable prefab must contain LevelUpInteractable.");
+                Destroy(obj);
+                return null;
+            }
+
+            netObj.Spawn(true);
+            return netObj;
         }
 
         private void WarpAllPlayersToRoom()

@@ -38636,7 +38636,7 @@ GameObject:
   - component: {fileID: 149963917244413562}
   - component: {fileID: 2580050757875016780}
   m_Layer: 0
-  m_Name: 'Interactable Level Up '
+  m_Name: Interactable Level Up - park Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

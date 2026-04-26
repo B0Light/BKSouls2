@@ -211,12 +211,25 @@ namespace BK
 
         private void Update()
         {
-            if(GUIController.Instance.currentOpenGUI == null)
-                HandleAllInputs();
+            if (GUIController.Instance != null && GUIController.Instance.currentOpenGUI != null)
+            {
+                ClearGameplayInputState();
+                HandleCloseUIInput();
+                return;
+            }
+
+            HandleAllInputs();
         }
 
         private void HandleAllInputs()
         {
+            if (IsGameplayInputBlocked())
+            {
+                ClearGameplayInputState();
+                HandleCloseUIInput();
+                return;
+            }
+
             HandleUseItemInput();
             HandleTwoHandInput();
             HandleLockOnInput();
@@ -240,6 +253,63 @@ namespace BK
             HandleInteractionInput();
             HandleCloseUIInput();
             HandleOpenCharacterMenuInput();
+        }
+
+        private bool IsGameplayInputBlocked()
+        {
+            return GUIController.Instance != null && GUIController.Instance.menuWindowIsOpen;
+        }
+
+        private void ClearGameplayInputState()
+        {
+            movementInput = Vector2.zero;
+            vertical_Input = 0;
+            horizontal_Input = 0;
+            moveAmount = 0;
+
+            dodge_Input = false;
+            sprint_Input = false;
+            jump_Input = false;
+            switch_Right_Weapon_Input = false;
+            switch_Left_Weapon_Input = false;
+            switch_Quick_Slot_Item_Input = false;
+            interaction_Input = false;
+            use_Item_Input = false;
+
+            RB_Input = false;
+            hold_RB_Input = false;
+            LB_Input = false;
+            hold_LB_Input = false;
+            RT_Input = false;
+            Hold_RT_Input = false;
+            LT_Input = false;
+
+            two_Hand_Input = false;
+            two_Hand_Right_Weapon_Input = false;
+            two_Hand_Left_Weapon_Input = false;
+
+            lockOn_Input = false;
+            lockOn_Left_Input = false;
+            lockOn_Right_Input = false;
+
+            input_Que_Is_Active = false;
+            que_Input_Timer = 0;
+            que_RB_Input = false;
+            que_RT_Input = false;
+            openCharacterMenuInput = false;
+
+            if (player == null)
+                return;
+
+            player.playerNetworkManager.isMoving.Value = false;
+            player.playerNetworkManager.isSprinting.Value = false;
+            player.playerNetworkManager.isBlocking.Value = false;
+            player.playerNetworkManager.isAiming.Value = false;
+            player.playerNetworkManager.isChargingAttack.Value = false;
+            player.playerNetworkManager.isChargingRightSpell.Value = false;
+            player.playerNetworkManager.isChargingLeftSpell.Value = false;
+            player.playerNetworkManager.isHoldingArrow.Value = false;
+            player.playerLocomotionManager.ResetMovementState();
         }
 
         //  USE ITEM

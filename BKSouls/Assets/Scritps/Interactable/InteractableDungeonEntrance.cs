@@ -35,7 +35,11 @@ namespace BK
 
             WorldSaveGameManager.Instance.SaveGame();
             WorldSaveGameManager.Instance.SnapshotPreDungeonStats();
+            WorldSaveGameManager.Instance.ResetRunes();
 
+            player.playerInteractionManager?.SuppressInteractionsUntilSceneChange();
+            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
+            if (vfx != null) vfx.Stop();
             if (vCam != null) vCam.SetActive(true);
 
             WorldPlayerInventory.Instance.MoveInventoryToShare();

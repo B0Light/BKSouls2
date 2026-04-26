@@ -176,7 +176,9 @@ namespace BK
             CloseCurrentGUI();
             currentOpenGUI = null;
 
-            playerUICharacterMenuManager.CloseMenu();
+            playerUICharacterMenuManager?.CloseMenu();
+            playerUISiteOfGraceManager?.CloseMenu();
+            playerUILevelUpManager?.CloseMenu();
             cashCanvasGroup.alpha = 0;
             HideCursor();
         }

@@ -6,12 +6,13 @@ namespace BK.Inventory
     {
         protected override void InitializeShop()
         {
-            saleItemList.Clear();
+            ClearSaleItems();
             foreach (var item in WorldItemDatabase.Instance.GetAllItem())
             {
                 if (item.itemID == 0) continue;
                 saleItemList.Add(item);
             }
+            MarkShopInitialized();
         }
 
         protected override void EnterShop()

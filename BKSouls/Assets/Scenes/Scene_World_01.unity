@@ -181,8 +181,8 @@ MonoBehaviour:
   navMeshBuilder: {fileID: 756663084}
   itemBoxDatabase: {fileID: 11400000, guid: bfd94a63c1af6a049bee7a961e3956c4, type: 2}
   siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
-  entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 4248399383740184582, guid: 1966c8dbc9cf75d4b891d390cffa1d5c, type: 3}
+  levelUpInteractablePrefab: {fileID: 6706801780401813702, guid: 5ffe428860547844ebfd4ea012899dbd, type: 3}
   minBattleEnemyCount: 2
   maxBattleEnemyCount: 4
   minEliteEnemyCount: 3
@@ -666,7 +666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   ShowTopMostFoldoutHeaderGroup: 1
   roomManager: {fileID: 430361881}
-  floorSequence: 00000000010000000100000005000000030000000100000002000000010000000300000006000000
+  floorSequence: 00000000010000000100000001000000030000000100000005000000040000000100000001000000050000000400000006000000
 --- !u!114 &1458793202
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BK
 {
@@ -9,15 +10,27 @@ namespace BK
         PlayerManager player;
 
         private List<Interactable> currentInteractableActions; //   DO NOT SERIALIZE IF USING UNITY V 2022.3.11f1 IT CAUSES A BUG IN THE INSPECTOR
+        private bool suppressInteractionsUntilSceneChange;
 
         private void Awake()
         {
             player = GetComponent<PlayerManager>();
+            currentInteractableActions = new List<Interactable>();
         }
 
         private void Start()
         {
-            currentInteractableActions = new List<Interactable>();
+            currentInteractableActions ??= new List<Interactable>();
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.activeSceneChanged += OnActiveSceneChanged;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
         private void FixedUpdate()
@@ -25,9 +38,21 @@ namespace BK
             if (!player.IsOwner)
                 return;
 
+            if (suppressInteractionsUntilSceneChange)
+            {
+                GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
+                return;
+            }
+
             //  IF OUR UI MENU IS NOT OPEN, AND WE DONT HAVE A POP UP (CURRENT INTERACTION MESSAGE) CHECK FOR INTERACTABLE
             if (!GUIController.Instance.menuWindowIsOpen && !GUIController.Instance.popUpWindowIsOpen)
                 CheckForInteractable();
+        }
+
+        private void OnActiveSceneChanged(Scene oldScene, Scene newScene)
+        {
+            suppressInteractionsUntilSceneChange = false;
+            ClearInteractionList();
         }
 
         private void CheckForInteractable()
@@ -38,6 +63,7 @@ namespace BK
             if (currentInteractableActions[0] == null)
             {
                 currentInteractableActions.RemoveAt(0); //  IF THE CURRENT INTERACTABLE ITEM AT POSITION 0 BECOMES NULL (REMOVED FROM GAME), WE REMOVE POSITION 0 FROM THE LIST
+                GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
                 return;
             }
 
@@ -57,6 +83,9 @@ namespace BK
 
         public void AddInteractionToList(Interactable interactableObject)
         {
+            if (suppressInteractionsUntilSceneChange)
+                return;
+
             RefreshInteractionList();
 
             if (!currentInteractableActions.Contains(interactableObject))
@@ -69,6 +98,19 @@ namespace BK
                 currentInteractableActions.Remove(interactableObject);
 
             RefreshInteractionList();
+        }
+
+        public void ClearInteractionList()
+        {
+            currentInteractableActions ??= new List<Interactable>();
+            currentInteractableActions.Clear();
+            GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();
+        }
+
+        public void SuppressInteractionsUntilSceneChange()
+        {
+            suppressInteractionsUntilSceneChange = true;
+            ClearInteractionList();
         }
 
         public void Interact()

@@ -92,21 +92,7 @@ namespace BK
                 spellBuff = casterWeapon.spellBuff;
 
             // 요구 스탯 미충족 시 데미지 절반
-            float requirementPenalty = 1f;
-            if (casterWeapon != null)
-            {
-                int str   = net.strength.Value + net.strengthModifier.Value;
-                int dex   = net.dexterity.Value;
-                int faith = net.faith.Value;
-                bool meets = str   >= casterWeapon.strengthREQ
-                          && dex   >= casterWeapon.dexREQ
-                          && intel >= casterWeapon.intREQ
-                          && faith >= casterWeapon.faithREQ;
-                if (!meets)
-                    requirementPenalty = 0.5f;
-            }
-
-            return baseDamage * (spellBuff / 100f) * intMultiplier * requirementPenalty;
+            return baseDamage * (spellBuff / 100f) * intMultiplier;
         }
 
         //  HELPER FUNCTION TO CHECK WEATHER OR NOT WE ARE ABLE TO USE THE SPELL WHEN ATTEMPTING TO CAST
