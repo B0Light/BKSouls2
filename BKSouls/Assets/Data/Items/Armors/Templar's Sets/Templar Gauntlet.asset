@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f854220f2b5bbef409f0fbacbd2154a6, type: 3}
   m_Name: Templar Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
-  itemID: 12
-  itemName: 성전기사 건틀릿
-  itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
+  itemID: 40
+  itemName: "\uC131\uC804\uAE30\uC0AC \uAC74\uD2C0\uB9BF"
+  itemIcon: {fileID: 21300000, guid: 726278b5da83b0046adc80f701384c44, type: 3}
   itemTier: 0
   itemType: 3
   cost: 3200
-  itemDescription: 성전기사들이 착용하는 대단히 보강된 건틀릿. 물리 공격에는 거의 뚫리지 않지만 착용하려면 큰 힘이 필요하다.
+  itemDescription: "\uC131\uC804\uAE30\uC0AC\uB4E4\uC774 \uCC29\uC6A9\uD558\uB294
+    \uB300\uB2E8\uD788 \uBCF4\uAC15\uB41C \uAC74\uD2C0\uB9BF. \uBB3C\uB9AC \uACF5\uACA9\uC5D0\uB294
+    \uAC70\uC758 \uB6AB\uB9AC\uC9C0 \uC54A\uC9C0\uB9CC \uCC29\uC6A9\uD558\uB824\uBA74
+    \uD070 \uD798\uC774 \uD544\uC694\uD558\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -30,7 +33,7 @@ MonoBehaviour:
   itemWeight: 0
   physicalDamageAbsorption: 10.7
   magicDamageAbsorption: 7.7
-  fireDamageAbsorption: 8.0
+  fireDamageAbsorption: 8
   holyDamageAbsorption: 7.7
   lightningDamageAbsorption: 7.4
   immunity: 19

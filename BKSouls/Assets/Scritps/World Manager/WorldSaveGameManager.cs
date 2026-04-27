@@ -125,6 +125,7 @@ namespace BK
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
             currentCharacterData = saveFileDataWriter.LoadSaveFile();
+            ClearEquipmentSlotsForShelterLoad(currentCharacterData);
             WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
         }
 
@@ -149,6 +150,7 @@ namespace BK
             if (saveFileDataWriter.CheckToSeeIfFileExists())
             {
                 currentCharacterData = saveFileDataWriter.LoadSaveFile();
+                ClearEquipmentSlotsForShelterLoad(currentCharacterData);
                 if(NetworkManager.Singleton.IsHost)
                     WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
                 return true;
@@ -157,6 +159,30 @@ namespace BK
             {
                 return false;
             }
+        }
+
+        private void ClearEquipmentSlotsForShelterLoad(CharacterSaveData characterData)
+        {
+            if (characterData == null)
+                return;
+
+            characterData.rightMainWeaponItemCode = 0;
+            characterData.leftMainWeaponItemCode = 0;
+            characterData.rightSubWeaponItemCode = 0;
+            characterData.leftSubWeaponItemCode = 0;
+
+            characterData.helmetItemCode = -1;
+            characterData.armorItemCode = -1;
+            characterData.gauntletItemCode = -1;
+            characterData.leggingsItemCode = -1;
+
+            characterData.currentSpell = -1;
+
+            characterData.currentHealthFlasksRemaining = CharacterSaveData.DefaultHealthFlaskCharges;
+            characterData.currentFocusPointsFlaskRemaining = CharacterSaveData.DefaultFocusPointFlaskCharges;
+
+            characterData.mainProjectile = new SerializableRangedProjectile { itemID = -1 };
+            characterData.secondaryProjectile = new SerializableRangedProjectile { itemID = -1 };
         }
 
         public void SaveGame()

@@ -9,6 +9,9 @@ namespace BK
     //  SINCE WE WANT TO REFERENCE THIS DATA FOR EVERY SAVE FILE, THIS SCRIPT IS NOT A MONOBEHAVIOUR AND IS INSTEAD SERIALIZABLE
     public class CharacterSaveData
     {
+        public const int DefaultHealthFlaskCharges = 3;
+        public const int DefaultFocusPointFlaskCharges = 1;
+
         [Header("SCENE INDEX")]
         public int sceneIndex = 1;
 
@@ -63,8 +66,8 @@ namespace BK
         [Header("Quick Slot Items")]
         public int[] quickSlotItemIDs = new int[3];
         
-        public int currentHealthFlasksRemaining = 3;
-        public int currentFocusPointsFlaskRemaining = 1;
+        public int currentHealthFlasksRemaining = DefaultHealthFlaskCharges;
+        public int currentFocusPointsFlaskRemaining = DefaultFocusPointFlaskCharges;
 
         [Header("Inventory")]
         public List<SerializableRangedProjectile> projectilesInInventory;

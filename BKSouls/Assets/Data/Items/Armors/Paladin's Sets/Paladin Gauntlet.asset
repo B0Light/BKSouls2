@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f854220f2b5bbef409f0fbacbd2154a6, type: 3}
   m_Name: Paladin Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
-  itemID: 12
-  itemName: 성기사 건틀릿
-  itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
+  itemID: 39
+  itemName: "\uC131\uAE30\uC0AC \uAC74\uD2C0\uB9BF"
+  itemIcon: {fileID: 21300000, guid: c2a8afb49e2bef44b892b89f537304de, type: 3}
   itemTier: 0
   itemType: 3
   cost: 2000
-  itemDescription: 성스러운 교단에 헌신한 성기사들이 착용하는 축복받은 건틀릿. 전투 중 착용자의 영적 조율을 높인다고 전해진다.
+  itemDescription: "\uC131\uC2A4\uB7EC\uC6B4 \uAD50\uB2E8\uC5D0 \uD5CC\uC2E0\uD55C
+    \uC131\uAE30\uC0AC\uB4E4\uC774 \uCC29\uC6A9\uD558\uB294 \uCD95\uBCF5\uBC1B\uC740
+    \uAC74\uD2C0\uB9BF. \uC804\uD22C \uC911 \uCC29\uC6A9\uC790\uC758 \uC601\uC801
+    \uC870\uC728\uC744 \uB192\uC778\uB2E4\uACE0 \uC804\uD574\uC9C4\uB2E4."
   width: 2
   height: 2
   weight: 0
