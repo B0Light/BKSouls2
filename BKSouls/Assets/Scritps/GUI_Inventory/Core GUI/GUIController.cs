@@ -24,6 +24,7 @@ namespace BK
 
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
+        [HideInInspector] public DungeonResultUIManager dungeonResultUIManager;
         [HideInInspector] public InventoryGUIManager inventoryGUIManager;
         [HideInInspector] public ItemShopUIManager itemShopUIManager;
         //[HideInInspector] public DialogueGUIManager dialogueGUIManager;
@@ -54,6 +55,7 @@ namespace BK
 
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
             playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
+            dungeonResultUIManager = GetComponentInChildren<DungeonResultUIManager>(true);
             
             inventoryGUIManager = GetComponentInChildren<InventoryGUIManager>();
             itemShopUIManager = GetComponentInChildren<ItemShopUIManager>();

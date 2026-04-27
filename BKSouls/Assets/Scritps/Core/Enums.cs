@@ -276,9 +276,9 @@ public enum RoomType
 {
     Start,
     Battle,
-    Event,
+    Elite_MiniBoss,
     Shop,
-    Rest,
+    Forge,
     Elite,
     Boss
 }

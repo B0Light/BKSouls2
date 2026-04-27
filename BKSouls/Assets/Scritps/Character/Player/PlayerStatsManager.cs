@@ -11,6 +11,7 @@ namespace BK
 
         [Header("Runes")]
         public int runes = 0;
+        public int runesSpentThisDungeon = 0;
 
         protected override void Awake()
         {
@@ -144,8 +145,16 @@ namespace BK
 
         public void AddRunes(int runesToAdd)
         {
+            if (runesToAdd < 0 && WorldSaveGameManager.Instance != null && !WorldSaveGameManager.Instance.IsHoldScene)
+                runesSpentThisDungeon += Mathf.Abs(runesToAdd);
+
             runes += runesToAdd;
             GUIController.Instance.playerUIHudManager.SetRunesCount(runesToAdd);
+        }
+
+        public void ResetDungeonRuneSpending()
+        {
+            runesSpentThisDungeon = 0;
         }
     }
 }

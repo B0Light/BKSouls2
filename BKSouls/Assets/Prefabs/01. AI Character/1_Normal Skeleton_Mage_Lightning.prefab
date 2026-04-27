@@ -920,7 +920,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1048084975
+  GlobalObjectIdHash: 984130657
   InScenePlacedSourceGlobalObjectIdHash: 3502972318
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1328,6 +1328,11 @@ MonoBehaviour:
   canRun: 1
   canRoll: 1
   isGrounded: 1
+  correctFloatingBody: 1
+  allowedHeightAboveNavMesh: 0.35
+  groundCorrectionSpeed: 12
+  hardSnapHeight: 2.5
+  navMeshSampleDistance: 6
 --- !u!114 &6751616559134134055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1342,8 +1347,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterInventoryManager
   dropItemChance: 10
   droppableItems:
-  - {fileID: 11400000, guid: 411b71f54b96e1d4090537da3cf78587, type: 2}
-  - {fileID: 11400000, guid: e62291c0476d3624d9140e8b62aa1d3a, type: 2}
+  - {fileID: 11400000, guid: cae62621f5824044d9b53db5d83b902e, type: 2}
+  - {fileID: 11400000, guid: 2958f3955e0068444b03cf582c58384c, type: 2}
+  - {fileID: 11400000, guid: 6d24dd7e101c97847b5e8553b35b61dd, type: 2}
 --- !u!114 &8347288845491123823
 MonoBehaviour:
   m_ObjectHideFlags: 0

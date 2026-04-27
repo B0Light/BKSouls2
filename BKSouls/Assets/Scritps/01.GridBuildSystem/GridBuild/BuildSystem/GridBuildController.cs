@@ -264,6 +264,9 @@ public class GridBuildController : MonoBehaviour
 
     private bool CheckItemInInventory(BuildObjData buyObject)
     {
+        if (buyObject.cost > 0 && WorldPlayerInventory.Instance.balance.Value < buyObject.cost)
+            return false;
+
         foreach (var costItem in buyObject.GetCostItems())
         {
             if (!WorldPlayerInventory.Instance.CheckItemInInventory(costItem.Key.itemID, costItem.Value))
@@ -274,6 +277,9 @@ public class GridBuildController : MonoBehaviour
 
     private bool SpendItemInInventory(BuildObjData buyObject)
     {
+        if (buyObject.cost > 0 && !WorldPlayerInventory.Instance.TrySpend(buyObject.cost))
+            return false;
+
         foreach (var costItem in buyObject.GetCostItems())
         {
             if (!WorldPlayerInventory.Instance.RemoveItemInInventory(costItem.Key.itemID, costItem.Value))

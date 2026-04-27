@@ -42,9 +42,14 @@ namespace BK
         [Header("Resources")]
         [SerializeField] private List<ResourceItem> resources = new();
 
+        [Header("Currencies")]
+        [SerializeField] private GridItem shelterCoinItem;
+
         [Header("Icons")]
         [SerializeField] private List<Sprite> defaultItemIcon = new();
         public Sprite unknownIcon;
+
+        public GridItem ShelterCoinItem => shelterCoinItem;
 
         private readonly List<Item> _allItems = new();
 

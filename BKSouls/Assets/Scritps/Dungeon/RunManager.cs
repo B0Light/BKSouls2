@@ -25,6 +25,7 @@ namespace BK
         public int CurrentRoomIndex => currentRoomIndex;
         private int runSeed;
         private bool hasStartedRun;
+        private bool isWaitingForDungeonResult;
 
         private void Awake()
         {
@@ -124,12 +125,8 @@ namespace BK
             if (currentRoomIndex >= floorPlan.Count)
             {
                 Debug.Log("[RunManager] Run Finished.");
-                RestoreAllPlayersClientRpc();
-                ResetLevelUpUIClientRpc();
-                ApplyClearRuneRewardClientRpc();
-                if (roomManager != null)
-                    roomManager.CleanupForSceneTransition();
-                WorldSaveGameManager.Instance.LoadHoldScene();
+                isWaitingForDungeonResult = true;
+                ShowClearDungeonResultClientRpc(floorPlan.Count);
                 return;
             }
 
@@ -163,6 +160,54 @@ namespace BK
             WorldSaveGameManager.Instance.currentCharacterData.balance = WorldPlayerInventory.Instance.balance.Value;
             WorldPlayerInventory.Instance.ClearEquipmentSlots();
             WorldPlayerInventory.Instance.SaveInventoryAndBackpackToCurrentCharacterData();
+        }
+
+        [ClientRpc]
+        private void ShowClearDungeonResultClientRpc(int roomsCleared)
+        {
+            PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
+            int shelterCoinGain = localPlayer != null ? localPlayer.playerStatsManager.runes : 0;
+            int playerLevel = localPlayer != null ? localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes() : 0;
+            int runesSpent = localPlayer != null ? localPlayer.playerStatsManager.runesSpentThisDungeon : 0;
+            DungeonResultData resultData = new DungeonResultData(true, roomsCleared, shelterCoinGain, playerLevel, runesSpent);
+
+            DungeonResultUIManager resultUI = GUIController.Instance != null
+                ? GUIController.Instance.dungeonResultUIManager
+                : null;
+
+            if (resultUI == null)
+            {
+                ConfirmDungeonResultServerRpc();
+                return;
+            }
+
+            GUIController.Instance.CloseGUI();
+            resultUI.Open(resultData, ConfirmClearDungeonResult);
+        }
+
+        private void ConfirmClearDungeonResult()
+        {
+            if (GUIController.Instance != null)
+                GUIController.Instance.playerUILoadingScreenManager?.ActivateLoadingScreen();
+
+            ConfirmDungeonResultServerRpc();
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        private void ConfirmDungeonResultServerRpc()
+        {
+            if (!isWaitingForDungeonResult)
+                return;
+
+            isWaitingForDungeonResult = false;
+            RestoreAllPlayersClientRpc();
+            ResetLevelUpUIClientRpc();
+            ApplyClearRuneRewardClientRpc();
+
+            if (roomManager != null)
+                roomManager.CleanupForSceneTransition();
+
+            WorldSaveGameManager.Instance.LoadHoldScene();
         }
 
         [ClientRpc]

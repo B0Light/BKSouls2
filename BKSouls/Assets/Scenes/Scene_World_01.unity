@@ -175,7 +175,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
   - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
   - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}
-  - {fileID: 11400000, guid: 8e42cd4a49166b247920eee8b055ad61, type: 2}
+  - {fileID: 11400000, guid: 5b27b7895e9ab86449abb04c4ddafb3e, type: 2}
   - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
   - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   navMeshBuilder: {fileID: 756663084}
@@ -187,6 +187,8 @@ MonoBehaviour:
   maxBattleEnemyCount: 4
   minEliteEnemyCount: 3
   maxEliteEnemyCount: 6
+  minEliteMiniBossEnemyCount: 1
+  maxEliteMiniBossEnemyCount: 1
   minBossEnemyCount: 1
   maxBossEnemyCount: 1
   battleRoomRuneReward: 100
@@ -436,7 +438,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -666,7 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   ShowTopMostFoldoutHeaderGroup: 1
   roomManager: {fileID: 430361881}
-  floorSequence: 00000000010000000100000001000000030000000100000005000000040000000100000001000000050000000400000006000000
+  floorSequence: 00000000010000000100000001000000030000000100000002000000040000000100000001000000050000000400000006000000
 --- !u!114 &1458793202
 MonoBehaviour:
   m_ObjectHideFlags: 0

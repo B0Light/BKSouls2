@@ -26,7 +26,7 @@ MonoBehaviour:
   itemAbilities:
   - itemEffect: 0
     value: 80
-  - itemEffect: 8
+  - itemEffect: 9
     value: 5
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}

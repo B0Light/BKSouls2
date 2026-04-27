@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: ID 400. ShareBox
   m_EditorClassIdentifier: 
   itemID: 400
-  itemName: 개인 상자
+  itemName: "\uAC1C\uC778 \uC0C1\uC790"
   itemIcon: {fileID: 21300000, guid: a4b2f64db24a96546a59e2318e0d5e20, type: 3}
   itemTier: 1
   itemType: 7
-  cost: 0
-  itemDescription: 아이템을 안전하게 보관할 수 있는 개인 창고입니다.
+  cost: 100
+  itemDescription: "\uC544\uC774\uD15C\uC744 \uC548\uC804\uD558\uAC8C \uBCF4\uAD00\uD560
+    \uC218 \uC788\uB294 \uAC1C\uC778 \uCC3D\uACE0\uC785\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0
@@ -26,13 +27,13 @@ MonoBehaviour:
   prefab: {fileID: 8505302688112017437, guid: 2689a2aa3fb71ba4e91dcf1f920d0af6, type: 3}
   costItems:
   - item: {fileID: 11400000, guid: e5fe6b08eed9e8a4490bf27f0e270c9e, type: 2}
-    count: 5
+    count: 2
     legacyItemId: 1003
   - item: {fileID: 11400000, guid: d93ae41100f627d4e9eecb36fb0c8289, type: 2}
-    count: 3
+    count: 2
     legacyItemId: 1011
   - item: {fileID: 11400000, guid: 8364c2b69f9ca4e40befd3030b21cf04, type: 2}
-    count: 4
+    count: 2
     legacyItemId: 1014
   cellType: 6
   maxLevel: 10

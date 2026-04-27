@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using BK;
 using BK.Inventory;
 using UnityEngine;
 
@@ -55,6 +56,23 @@ public class HUDGridBuildingCostController : MonoBehaviour
             GameObject spawnedCostItem = Instantiate(costPrefab, costItemSlot);
 
             spawnedCostItem.GetComponent<ShopCostItem>()?.Init(costItemPair.Key, costItemPair.Value);
+        }
+
+        if (item.cost > 0)
+        {
+            GridItem shelterCoinItem = WorldItemDatabase.Instance != null
+                ? WorldItemDatabase.Instance.ShelterCoinItem
+                : null;
+
+            if (shelterCoinItem == null)
+            {
+                Debug.LogWarning("[HUDGridBuildingCostController] Shelter Coin item is not assigned in WorldItemDatabase.");
+                return;
+            }
+
+            GameObject spawnedCostItem = Instantiate(costPrefab, costItemSlot);
+            int balance = WorldPlayerInventory.Instance != null ? WorldPlayerInventory.Instance.balance.Value : 0;
+            spawnedCostItem.GetComponent<ShopCostItem>()?.InitCost(shelterCoinItem, item.cost, balance);
         }
     }
     

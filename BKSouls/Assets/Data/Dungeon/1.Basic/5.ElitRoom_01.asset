@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 5.ElitRoom_01
   m_EditorClassIdentifier: Assembly-CSharp::RoomTemplateSO
   templateId: 0
-  roomType: 5
+  roomType: 2
   roomPrefab: {fileID: 7155262747603071470, guid: 2f4aa2b7039c80144956f2b2ac7fa08a, type: 3}
   enemySpawnerPrefabs:
   - {fileID: 882319676538015308, guid: e9cfc7f0883eabb438f7240d0c54afc2, type: 3}

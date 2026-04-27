@@ -36,5 +36,27 @@ namespace BK.Inventory
                     : new Color(0.6f, 1f, 0.6f); // 파스텔 그린
             }
         }
+        public void InitCost(GridItem itemInfoData, int cost, int currentAmount)
+        {
+            if (itemInfoData == null)
+            {
+                Debug.LogWarning("[ShopCostItem] itemInfoData is null.");
+                return;
+            }
+
+            itemIcon.sprite = itemInfoData.itemIcon ?? WorldItemDatabase.Instance.unknownIcon;
+            itemFrame.color = WorldItemDatabase.Instance.GetItemColorByTier(itemInfoData.itemTier);
+
+            if (itemNameText)
+                itemNameText.text = itemInfoData.itemName;
+
+            if (itemCntText)
+            {
+                itemCntText.text = cost.ToString();
+                itemCntText.color = cost > currentAmount
+                    ? new Color(1f, 0.6f, 0.6f)
+                    : new Color(0.6f, 1f, 0.6f);
+            }
+        }
     }
 }

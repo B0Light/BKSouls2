@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 136e51c4f56cbda40a6ec0a0f7b3be15, type: 3}
   m_Name: Straight Sword 4
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
-  itemID: 1
+  itemID: 10
   itemName: Straight Sword
   itemIcon: {fileID: 21300000, guid: 83f73c41b50a7124b8b8a788e8c1455e, type: 3}
   itemTier: 0
@@ -26,7 +26,7 @@ MonoBehaviour:
   itemAbilities:
   - itemEffect: 0
     value: 75
-  - itemEffect: 5
+  - itemEffect: 7
     value: 100
   itemWeight: 0
   weaponAnimator: {fileID: 22100000, guid: 14c7a7257dc60c94cbfe74e058f46982, type: 2}

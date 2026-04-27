@@ -36,6 +36,8 @@ namespace BK
         [SerializeField] private int maxBattleEnemyCount = 4;
         [SerializeField] private int minEliteEnemyCount = 3;
         [SerializeField] private int maxEliteEnemyCount = 6;
+        [SerializeField] private int minEliteMiniBossEnemyCount = 1;
+        [SerializeField] private int maxEliteMiniBossEnemyCount = 1;
         [SerializeField] private int minBossEnemyCount  = 1;
         [SerializeField] private int maxBossEnemyCount  = 1;
 
@@ -52,6 +54,7 @@ namespace BK
         private readonly List<AICharacterManager> spawnedEnemies = new();
         private readonly List<AICharacterSpawner> runtimeSpawners = new();
         private int remainingEnemySpawnCount;
+        private int spawnedEnemyWaveCount;
         private System.Random enemySpawnRng;
 
         private readonly List<NetworkObject> currentRewardObjects = new();
@@ -183,13 +186,13 @@ namespace BK
             switch (plan.roomType)
             {
                 case RoomType.Start:
-                case RoomType.Event:
                 case RoomType.Shop:
-                case RoomType.Rest:
+                case RoomType.Forge:
                     ClearNonCombatRoom();
                     break;
 
                 case RoomType.Battle:
+                case RoomType.Elite_MiniBoss:
                 case RoomType.Elite:
                 case RoomType.Boss:
                     StartCombatRoom();
@@ -260,6 +263,7 @@ namespace BK
             spawnedEnemies.Clear();
             aliveEnemies.Clear();
             remainingEnemySpawnCount = 0;
+            spawnedEnemyWaveCount = 0;
             enemySpawnRng = null;
         }
 
@@ -609,6 +613,8 @@ namespace BK
             {
                 case RoomType.Battle:
                     return rng.Next(minBattleEnemyCount, maxBattleEnemyCount + 1);
+                case RoomType.Elite_MiniBoss:
+                    return rng.Next(minEliteMiniBossEnemyCount, maxEliteMiniBossEnemyCount + 1);
                 case RoomType.Elite:
                     return rng.Next(minEliteEnemyCount, maxEliteEnemyCount + 1);
                 case RoomType.Boss:
@@ -659,6 +665,7 @@ namespace BK
             }
 
             remainingEnemySpawnCount = count;
+            spawnedEnemyWaveCount = 0;
             enemySpawnRng = new System.Random(currentPlan.seed);
             SpawnNextEnemyWave();
         }
@@ -701,6 +708,8 @@ namespace BK
             }
 
             int spawnCount = Mathf.Min(remainingEnemySpawnCount, spawnPoints.Count);
+            bool shouldAlertSpawnedEnemies = spawnedEnemyWaveCount > 0;
+
             if (spawnCount < remainingEnemySpawnCount)
             {
                 Debug.Log($"[RoomManager] Spawning enemy wave: {spawnCount} now, {remainingEnemySpawnCount - spawnCount} queued.");
@@ -729,7 +738,12 @@ namespace BK
 
                 remainingEnemySpawnCount--;
                 RegisterSpawnedAI(aiCharacter);
+
+                if (shouldAlertSpawnedEnemies)
+                    AlertSpawnedAIToPlayer(aiCharacter);
             }
+
+            spawnedEnemyWaveCount++;
 
             if (aliveEnemies.Count == 0)
             {
@@ -776,6 +790,48 @@ namespace BK
                 reporter = aiCharacter.gameObject.AddComponent<RoguelikeAIReporter>();
 
             reporter.Initialize(this, aiCharacter);
+        }
+
+        private void AlertSpawnedAIToPlayer(AICharacterManager aiCharacter)
+        {
+            if (aiCharacter == null || aiCharacter.isDead.Value)
+                return;
+
+            PlayerManager targetPlayer = GetClosestAlivePlayer(aiCharacter.transform.position);
+            if (targetPlayer == null)
+                return;
+
+            aiCharacter.aiCharacterCombatManager.SetTarget(targetPlayer);
+        }
+
+        private PlayerManager GetClosestAlivePlayer(Vector3 position)
+        {
+            if (NetworkManager.Singleton == null)
+                return null;
+
+            PlayerManager closestPlayer = null;
+            float closestSqrDistance = float.MaxValue;
+            var clients = NetworkManager.Singleton.ConnectedClientsList;
+
+            for (int i = 0; i < clients.Count; i++)
+            {
+                NetworkObject playerObject = clients[i]?.PlayerObject;
+                if (playerObject == null)
+                    continue;
+
+                PlayerManager player = playerObject.GetComponent<PlayerManager>();
+                if (player == null || player.isDead.Value)
+                    continue;
+
+                float sqrDistance = (player.transform.position - position).sqrMagnitude;
+                if (sqrDistance >= closestSqrDistance)
+                    continue;
+
+                closestSqrDistance = sqrDistance;
+                closestPlayer = player;
+            }
+
+            return closestPlayer;
         }
 
         public void NotifyEnemyDead(AICharacterManager enemy)

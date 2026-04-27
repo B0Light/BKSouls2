@@ -17,12 +17,18 @@ namespace BK
 
         private void OnAnimatorMove()
         {
-            if (applyRootMotion)
-            {
-                Vector3 velocity = player.animator.deltaPosition;
-                player.characterController.Move(velocity);
-                player.transform.rotation *= player.animator.deltaRotation;
-            }
+            if (!applyRootMotion)
+                return;
+
+            if (player == null || player.animator == null || player.characterController == null)
+                return;
+
+            if (!player.characterController.enabled || !player.characterController.gameObject.activeInHierarchy)
+                return;
+
+            Vector3 velocity = player.animator.deltaPosition;
+            player.characterController.Move(velocity);
+            player.transform.rotation *= player.animator.deltaRotation;
         }
 
     }

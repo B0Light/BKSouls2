@@ -36,6 +36,7 @@ namespace BK
             WorldSaveGameManager.Instance.SaveGame();
             WorldSaveGameManager.Instance.SnapshotPreDungeonStats();
             WorldSaveGameManager.Instance.ResetRunes();
+            player.playerStatsManager.ResetDungeonRuneSpending();
 
             player.playerInteractionManager?.SuppressInteractionsUntilSceneChange();
             GUIController.Instance.playerUIPopUpManager.CloseAllPopUpWindows();

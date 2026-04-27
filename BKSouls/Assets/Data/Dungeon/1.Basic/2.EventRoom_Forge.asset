@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2.EventRoom_Forge
   m_EditorClassIdentifier: Assembly-CSharp::RoomTemplateSO
   templateId: 0
-  roomType: 2
+  roomType: 4
   roomPrefab: {fileID: 7155262747603071470, guid: c5fbab266f078734a9e00d2cf953c214, type: 3}
   enemySpawnerPrefabs: []
   entryDoorPrefab: {fileID: 0}
