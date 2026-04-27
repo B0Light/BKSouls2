@@ -454,6 +454,7 @@ namespace BK
                 return;
 
             player.playerInventoryManager.currentSpell.SuccessfullyCastSpell(player);
+            ResetSpellActionFlags();
         }
 
         public void SuccessfullyChargeSpell()
@@ -470,6 +471,19 @@ namespace BK
                 return;
 
             player.playerInventoryManager.currentSpell.SuccessfullyCastSpellFullCharge(player);
+            ResetSpellActionFlags();
+        }
+
+        private void ResetSpellActionFlags()
+        {
+            if (!player.IsOwner)
+                return;
+
+            player.playerNetworkManager.isAttacking.Value = false;
+            player.playerNetworkManager.isChargingAttack.Value = false;
+            player.playerNetworkManager.isChargingRightSpell.Value = false;
+            player.playerNetworkManager.isChargingLeftSpell.Value = false;
+            player.playerNetworkManager.isHoldingArrow.Value = false;
         }
 
         //  QUICK SLOT

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Vagabond Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 26
+  itemID: 27
   itemName: "\uBC29\uB791\uC790 \uAC11\uC637"
   itemIcon: {fileID: 21300000, guid: 7dc6a8a1b1345304cabd8cffb037c1e0, type: 3}
   itemTier: 0
@@ -49,4 +49,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 48a90552405a09948927e8056754574d, type: 2}
   - {fileID: 11400000, guid: 2f3927bab02fce842a3833f0010037f4, type: 2}
   - {fileID: 11400000, guid: 8e09690fe3854394a9c0a74f61c252ff, type: 2}
-  backpackSize: {x: 3, y: 3}
+  backpackSize: {x: 4, y: 3}

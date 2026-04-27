@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683246800056f3748a89b2c277f6ab25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.AICharacterSpawner
-  characterGameObject: {fileID: 6515750127205923320, guid: 6a2013a8dd09b59499e641f39527ba89, type: 3}
+  characterGameObject: {fileID: 6515750127205923320, guid: 92d01dbbe49c5d848a768ed8a99c21ab, type: 3}
   instantiatedGameObject: {fileID: 0}
   hasPatrolPath: 0
   patrolPathID: 1

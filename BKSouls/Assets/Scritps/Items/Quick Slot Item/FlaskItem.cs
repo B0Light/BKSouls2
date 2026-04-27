@@ -33,8 +33,10 @@ namespace BK
             if (!CanIUseThisItem(player))
                 return;
 
+            int currentAmount = GetCurrentAmount(player);
+
             //  HEALTH FLASK CHECK
-            if (healthFlask && GetCurrentAmount(player) <= 0)
+            if (healthFlask && currentAmount <= 0)
             {
                 if (player.playerCombatManager.isUsingItem)
                     return;
@@ -54,7 +56,7 @@ namespace BK
             }
 
             //  FOCUS POINTS FLASK CHECK
-            if (!healthFlask && GetCurrentAmount(player) <= 0)
+            if (!healthFlask && currentAmount <= 0)
             {
                 if (player.playerCombatManager.isUsingItem)
                     return;
@@ -77,7 +79,7 @@ namespace BK
             if (player.playerCombatManager.isUsingItem)
             {
                 if (player.IsOwner)
-                    player.playerNetworkManager.isChugging.Value = true;
+                    player.playerNetworkManager.isChugging.Value = false;
 
                 return;
             }
@@ -97,6 +99,15 @@ namespace BK
         {
             base.SuccessfullyUseItem(player);
 
+            if (GetCurrentAmount(player) <= 0)
+            {
+                if (player.IsOwner)
+                    player.playerNetworkManager.isChugging.Value = false;
+
+                ShowEmptyFlask(player);
+                return;
+            }
+
             if (player.IsOwner)
             {
                 if (healthFlask)
@@ -104,19 +115,13 @@ namespace BK
                     player.playerNetworkManager.currentHealth.Value += flaskRestoration;
 
                     // 인벤토리 포션 먼저 소모, 없으면 기본 플라스크 소모
-                    if (GetInventoryFlaskCount() > 0)
-                        BK.Inventory.WorldPlayerInventory.Instance.RemoveItemInInventory(itemID, 1);
-                    else
-                        player.playerNetworkManager.remainingHealthFlasks.Value -= 1;
+                    ConsumeOneFlask(player);
                 }
                 else
                 {
                     player.playerNetworkManager.currentFocusPoints.Value += flaskRestoration;
 
-                    if (GetInventoryFlaskCount() > 0)
-                        BK.Inventory.WorldPlayerInventory.Instance.RemoveItemInInventory(itemID, 1);
-                    else
-                        player.playerNetworkManager.remainingFocusPointsFlasks.Value -= 1;
+                    ConsumeOneFlask(player);
                 }
 
                 GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(player.playerInventoryManager.currentQuickSlotItem);
@@ -124,19 +129,46 @@ namespace BK
 
             if (healthFlask && GetCurrentAmount(player) <= 0)
             {
-                Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
-                GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
-                player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
+                ShowEmptyFlask(player);
             }
 
             if (!healthFlask && GetCurrentAmount(player) <= 0)
             {
-                Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
-                GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
-                player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
+                ShowEmptyFlask(player);
             }
 
             PlayHealingFX(player);
+        }
+
+        private void ConsumeOneFlask(PlayerManager player)
+        {
+            if (GetInventoryFlaskCount() > 0)
+            {
+                BK.Inventory.WorldPlayerInventory.Instance.RemoveItemInInventory(itemID, 1);
+                return;
+            }
+
+            if (healthFlask)
+            {
+                player.playerNetworkManager.remainingHealthFlasks.Value =
+                    Mathf.Max(0, player.playerNetworkManager.remainingHealthFlasks.Value - 1);
+            }
+            else
+            {
+                player.playerNetworkManager.remainingFocusPointsFlasks.Value =
+                    Mathf.Max(0, player.playerNetworkManager.remainingFocusPointsFlasks.Value - 1);
+            }
+        }
+
+        private void ShowEmptyFlask(PlayerManager player)
+        {
+            Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
+
+            if (emptyFlaskItem == null)
+                return;
+
+            GameObject emptyFlask = Instantiate(emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
+            player.playerEffectsManager.activeQuickSlotItemFX = emptyFlask;
         }
 
         private void PlayHealingFX(PlayerManager player)
@@ -157,7 +189,7 @@ namespace BK
                 ? player.playerNetworkManager.remainingHealthFlasks.Value
                 : player.playerNetworkManager.remainingFocusPointsFlasks.Value;
 
-            return baseAmount + GetInventoryFlaskCount();
+            return Mathf.Max(0, baseAmount + GetInventoryFlaskCount());
         }
     }
 }

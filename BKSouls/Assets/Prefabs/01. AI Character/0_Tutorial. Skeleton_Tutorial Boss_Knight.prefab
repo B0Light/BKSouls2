@@ -3209,7 +3209,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 0.05, y: 1.1, z: 0.2}
+  m_Size: {x: 0.05, y: 2, z: 0.2}
   m_Center: {x: 0, y: 0.37, z: 0}
 --- !u!114 &7980367310988151136
 MonoBehaviour:
@@ -4299,6 +4299,11 @@ MonoBehaviour:
   canRun: 1
   canRoll: 1
   isGrounded: 1
+  correctFloatingBody: 1
+  allowedHeightAboveNavMesh: 0.35
+  groundCorrectionSpeed: 12
+  hardSnapHeight: 2.5
+  navMeshSampleDistance: 6
 --- !u!114 &3748821541443036182
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -26,5 +26,12 @@ namespace BK
 
         [Tooltip("이 룸 클리어 시 지급될 보상 상자의 기본 등급 (스테이지 깊이와 행운에 따라 상향될 수 있음)")]
         public ItemTier rewardBaseTier = ItemTier.Common;
+
+        [Header("Sub Reward")]
+        [Tooltip("전투 시작 시점에 생성되는 보조 보상 프리팹 목록입니다. 주로 재료 파밍 상자에 사용합니다.")]
+        [HideInInspector] public List<GameObject> subRewardInteractablePrefabs = new();
+
+        [Tooltip("Sub reward가 ItemBox 계열일 때 적용할 기본 티어입니다.")]
+        public ItemTier subRewardBaseTier = ItemTier.Common;
     }
 }

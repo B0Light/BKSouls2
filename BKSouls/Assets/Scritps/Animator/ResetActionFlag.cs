@@ -40,6 +40,14 @@ namespace BK
                 character.characterNetworkManager.isRipostable.Value = false;
                 character.characterNetworkManager.isBeingCriticallyDamaged.Value = false;
                 character.characterNetworkManager.isParrying.Value = false;
+
+                PlayerManager player = character as PlayerManager;
+                if (player != null)
+                {
+                    player.playerNetworkManager.isChargingRightSpell.Value = false;
+                    player.playerNetworkManager.isChargingLeftSpell.Value = false;
+                    player.playerNetworkManager.isHoldingArrow.Value = false;
+                }
             }
         }
 

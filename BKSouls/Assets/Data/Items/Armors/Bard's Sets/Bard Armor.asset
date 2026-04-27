@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Bard Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 10
-  itemName: 음유시인 의복
+  itemID: 23
+  itemName: "\uC74C\uC720\uC2DC\uC778 \uC758\uBCF5"
   itemIcon: {fileID: 21300000, guid: f805299e3d09470459ea15b78c32014e, type: 3}
   itemTier: 0
   itemType: 1
   cost: 1200
-  itemDescription: 떠돌이 음유시인과 마법 연주자들이 입는 우아한 천 의복. 물리 보호력은 낮지만 착용자의 마법 집중력과 생명력을 크게 높인다.
+  itemDescription: "\uB5A0\uB3CC\uC774 \uC74C\uC720\uC2DC\uC778\uACFC \uB9C8\uBC95
+    \uC5F0\uC8FC\uC790\uB4E4\uC774 \uC785\uB294 \uC6B0\uC544\uD55C \uCC9C \uC758\uBCF5.
+    \uBB3C\uB9AC \uBCF4\uD638\uB825\uC740 \uB0AE\uC9C0\uB9CC \uCC29\uC6A9\uC790\uC758
+    \uB9C8\uBC95 \uC9D1\uC911\uB825\uACFC \uC0DD\uBA85\uB825\uC744 \uD06C\uAC8C \uB192\uC778\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -31,7 +34,7 @@ MonoBehaviour:
   physicalDamageAbsorption: 5.8
   magicDamageAbsorption: 6.5
   fireDamageAbsorption: 5.5
-  holyDamageAbsorption: 7.0
+  holyDamageAbsorption: 7
   lightningDamageAbsorption: 5.2
   immunity: 22
   robustness: 15
@@ -42,4 +45,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0e58eb12a9994af499a571628d7430f7, type: 2}
   - {fileID: 11400000, guid: dac4bc6c2736adb44876b8169d01b360, type: 2}
   - {fileID: 11400000, guid: 456cdefbea139564abc21af66380e2a0, type: 2}
-  backpackSize: {x: 3, y: 3}
+  backpackSize: {x: 2, y: 2}

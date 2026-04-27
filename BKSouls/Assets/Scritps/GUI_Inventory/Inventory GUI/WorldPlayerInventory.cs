@@ -9,7 +9,7 @@ namespace BK.Inventory
     {
         [SerializeField] private IncomeEventBalance incomeEvent;
 
-        public Variable<int> balance = new Variable<int>(-1);
+        public Variable<int> balance = new Variable<int>(0);
         public ClampedVariable<float> itemWeight = new ClampedVariable<float>(0, 0, 500);
 
         [Header("Inventory Info")]
@@ -252,6 +252,36 @@ namespace BK.Inventory
                 bool result = RemoveItemInGrids(itemId, requiredCount, saleSourceGrids, transaction);
                 if (result) OnInventoryChanged?.Invoke();
                 return result;
+            }
+            catch (Exception ex)
+            {
+                Debug.LogWarning(ex.Message);
+                RollbackTransaction(transaction);
+                return false;
+            }
+        }
+
+        public bool RemoveItemsInInventoryAndBackpack(Dictionary<int, int> requiredItems)
+        {
+            var transaction = new Dictionary<ItemGrid, Dictionary<int, int>>();
+            var saleSourceGrids = new List<ItemGrid> { GetInventory(), GetBackpackInventory() };
+
+            try
+            {
+                foreach (var pair in requiredItems)
+                {
+                    int itemId = pair.Key;
+                    int requiredCount = pair.Value;
+
+                    if (requiredCount <= 0)
+                        continue;
+
+                    if (!RemoveItemInGrids(itemId, requiredCount, saleSourceGrids, transaction))
+                        throw new InsufficientItemsException(itemId, requiredCount);
+                }
+
+                OnInventoryChanged?.Invoke();
+                return true;
             }
             catch (Exception ex)
             {

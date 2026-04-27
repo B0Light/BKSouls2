@@ -172,15 +172,21 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33bc3a52d27978e4aa9b7860972e32c3, type: 2}
   navMeshBuilder: {fileID: 756663084}
   itemBoxDatabase: {fileID: 11400000, guid: 51604226f51698745af1bb04c3d977eb, type: 2}
-  siteOfGracePrefab: {fileID: 0}
-  entryDoorPrefab: {fileID: 0}
+  siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
   exitDoorPrefab: {fileID: 0}
+  levelUpInteractablePrefab: {fileID: 0}
+  subRewardItemBoxPrefab: {fileID: 7289641902394218821, guid: 80dda7403ee19fa48a5b4bffea966128, type: 3}
   minBattleEnemyCount: 2
   maxBattleEnemyCount: 4
   minEliteEnemyCount: 3
   maxEliteEnemyCount: 6
+  minEliteMiniBossEnemyCount: 1
+  maxEliteMiniBossEnemyCount: 1
   minBossEnemyCount: 1
   maxBossEnemyCount: 1
+  battleRoomRuneReward: 100
+  eliteRoomRuneReward: 300
+  bossRoomRuneReward: 800
 --- !u!114 &430361882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -609,7 +615,7 @@ Light:
   serializedVersion: 12
   m_Type: 1
   m_Color: {r: 0.5157232, g: 0.8161974, b: 1, a: 1}
-  m_Intensity: 1
+  m_Intensity: 2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208

@@ -21,10 +21,15 @@ namespace BK
             if (player.playerNetworkManager.isChugging.Value && player.IsOwner)
             {
                 FlaskItem currentFlask = player.playerInventoryManager.currentQuickSlotItem as FlaskItem;
+                if (currentFlask == null)
+                {
+                    player.playerNetworkManager.isChugging.Value = false;
+                    return;
+                }
 
                 if (currentFlask.healthFlask)
                 {
-                    if (player.playerNetworkManager.remainingHealthFlasks.Value <= 0)
+                    if (currentFlask.GetCurrentAmount(player) <= 0)
                     {
                         player.playerAnimatorManager.PlayTargetActionAnimation(currentFlask.emptyFlaskAnimation, false, false, true, true, false);
                         player.playerNetworkManager.HideWeaponsServerRpc();
@@ -32,7 +37,7 @@ namespace BK
                 }
                 else
                 {
-                    if (player.playerNetworkManager.remainingFocusPointsFlasks.Value <= 0)
+                    if (currentFlask.GetCurrentAmount(player) <= 0)
                     {
                         player.playerAnimatorManager.PlayTargetActionAnimation(currentFlask.emptyFlaskAnimation, false, false, true, true, false);
                         player.playerNetworkManager.HideWeaponsServerRpc();
@@ -44,10 +49,12 @@ namespace BK
             if (player.playerNetworkManager.isChugging.Value)
             {
                 FlaskItem currentFlask = player.playerInventoryManager.currentQuickSlotItem as FlaskItem;
+                if (currentFlask == null)
+                    return;
 
                 if (currentFlask.healthFlask)
                 {
-                    if (player.playerNetworkManager.remainingHealthFlasks.Value <= 0)
+                    if (currentFlask.GetCurrentAmount(player) <= 0)
                     {
                         Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
                         GameObject emptyFlask = Instantiate(currentFlask.emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);
@@ -56,7 +63,7 @@ namespace BK
                 }
                 else
                 {
-                    if (player.playerNetworkManager.remainingFocusPointsFlasks.Value <= 0)
+                    if (currentFlask.GetCurrentAmount(player) <= 0)
                     {
                         Destroy(player.playerEffectsManager.activeQuickSlotItemFX);
                         GameObject emptyFlask = Instantiate(currentFlask.emptyFlaskItem, player.playerEquipmentManager.rightHandWeaponSlot.transform);

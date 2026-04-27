@@ -11,6 +11,11 @@ namespace BK
         public ItemTier BoxTier => boxTier;
         [SerializeField] private int itemCount = 5;
 
+        [Header("Forced Content")]
+        [SerializeField] private bool resourceOnly = false;
+        [SerializeField] private ItemTier resourceMinTier = ItemTier.Common;
+        [SerializeField] private ItemTier resourceMaxTier = ItemTier.Common;
+
         [Header("Drop Rates (%)")]
         [SerializeField] [Range(0, 100)] private int equipmentDropChance = 30;
         [SerializeField] [Range(0, 100)] private int potionDropChance = 10;
@@ -24,13 +29,24 @@ namespace BK
         {
             base.Start();
 
-            if (autoFill && !_wasSetup)
+            if (autoFill || _wasSetup)
                 InitBox();
         }
 
         public void Setup(ItemTier tier)
         {
+            resourceOnly = false;
             boxTier = tier;
+            _wasSetup = true;
+            InitBox();
+        }
+
+        public void SetupResourceOnly(ItemTier maxTier)
+        {
+            resourceOnly = true;
+            resourceMinTier = ItemTier.Common;
+            resourceMaxTier = maxTier;
+            boxTier = maxTier;
             _wasSetup = true;
             InitBox();
         }
@@ -50,8 +66,18 @@ namespace BK
 
             for (int i = 0; i < itemCount; i++)
             {
-                int roll = Random.Range(0, 100);
                 int itemId;
+
+                if (resourceOnly)
+                {
+                    itemId = GetRandomItemId(ItemType.Resource, resourceMinTier, resourceMaxTier);
+                    if (itemId >= 0)
+                        itemIdList.Add(itemId);
+
+                    continue;
+                }
+
+                int roll = Random.Range(0, 100);
 
                 if (roll < potionDropChance && potionCount < MaxPotionPerBox)
                 {
@@ -78,7 +104,8 @@ namespace BK
             int roll = Random.Range(0, 2);
             ItemType itemType = roll == 0 ? ItemType.Potion : ItemType.Consumables;
             int id = GetRandomItemId(itemType, ItemTier.Common, ItemTier.Common);
-            if (id >= 0) return id;
+            if (id >= 0)
+                return id;
             // fallback
             return GetRandomItemId(ItemType.Consumables, ItemTier.Common, ItemTier.Common);
         }
@@ -96,16 +123,20 @@ namespace BK
             };
             int id = GetRandomItemId(itemType, ItemTier.Common, boxTier);
             if (id >= 0) return id;
-            // 해당 장비 타입에 아이템이 없으면 리소스로 대체
             return GetResourceItemId();
         }
 
         private int GetResourceItemId()
         {
-            int id = GetRandomItemId(ItemType.Resource, ItemTier.Common, boxTier);
+            return GetResourceItemId(ItemTier.Common, boxTier);
+        }
+
+        private int GetResourceItemId(ItemTier minTier, ItemTier maxTier)
+        {
+            int id = GetRandomItemId(ItemType.Resource, minTier, maxTier);
             if (id >= 0) return id;
             // fallback: Misc
-            return GetRandomItemId(ItemType.Misc, ItemTier.Common, boxTier);
+            return GetRandomItemId(ItemType.Misc, minTier, maxTier);
         }
 
         private int GetRandomItemId(ItemType itemType, ItemTier minTier, ItemTier maxTier)

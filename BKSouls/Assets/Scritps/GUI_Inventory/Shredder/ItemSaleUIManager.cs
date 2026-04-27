@@ -101,8 +101,11 @@ namespace BK.Inventory
                     return;
             }
 
-            foreach (var (itemId, count) in saleItems)
-                WorldPlayerInventory.Instance.RemoveItemInInventoryAndBackpack(itemId, count);
+            if (!WorldPlayerInventory.Instance.RemoveItemsInInventoryAndBackpack(saleItems))
+            {
+                _onSaleCompleted?.Invoke();
+                return;
+            }
 
             if (IsInDungeon)
             {

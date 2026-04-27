@@ -18,13 +18,22 @@ namespace BK
         [Header("Reward Spawn Points")]
         [SerializeField] private Transform[] rewardSpawnPoints;
 
+        [Header("Sub Reward Spawn Points")]
+        [SerializeField] private Transform[] subRewardSpawnPoints;
+
         public Transform EntryDoorAnchor => entryDoorAnchor;
         public Transform ExitDoorAnchor => exitDoorAnchor;
         public IReadOnlyList<Transform> RewardSpawnPoints => rewardSpawnPoints;
+        public IReadOnlyList<Transform> SubRewardSpawnPoints => subRewardSpawnPoints;
 
         public Transform[] GetRewardSpawnPoints()
         {
             return rewardSpawnPoints ?? System.Array.Empty<Transform>();
+        }
+
+        public Transform[] GetSubRewardSpawnPoints()
+        {
+            return subRewardSpawnPoints ?? System.Array.Empty<Transform>();
         }
 
         public IReadOnlyList<Transform> PlayerSpawnPoints => playerSpawnPoints;
@@ -83,6 +92,15 @@ namespace BK
                 if (pts[i] == null) continue;
                 Gizmos.DrawSphere(pts[i].position, 0.25f);
                 UnityEditor.Handles.Label(pts[i].position + Vector3.up * 0.3f, $"R{i}");
+            }
+
+            Transform[] subPts = GetSubRewardSpawnPoints();
+            Gizmos.color = Color.magenta;
+            for (int i = 0; i < subPts.Length; i++)
+            {
+                if (subPts[i] == null) continue;
+                Gizmos.DrawSphere(subPts[i].position, 0.2f);
+                UnityEditor.Handles.Label(subPts[i].position + Vector3.up * 0.3f, $"SR{i}");
             }
         }
 

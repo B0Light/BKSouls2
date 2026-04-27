@@ -64,6 +64,7 @@ namespace BK
         [SerializeField] float que_Input_Timer = 0;
         [SerializeField] bool que_RB_Input = false;
         [SerializeField] bool que_RT_Input = false;
+        [SerializeField] bool que_Use_Item_Input = false;
 
         [Header("UI INPUTS")]
         private Vector2 _mousePos;
@@ -296,6 +297,7 @@ namespace BK
             que_Input_Timer = 0;
             que_RB_Input = false;
             que_RT_Input = false;
+            que_Use_Item_Input = false;
             openCharacterMenuInput = false;
 
             if (player == null)
@@ -324,13 +326,47 @@ namespace BK
 
                 if (player.playerInventoryManager.currentQuickSlotItem != null)
                 {
-                    player.playerInventoryManager.currentQuickSlotItem.AttemptToUseItem(player);
+                    CancelSpellChargeStateForItemUse();
 
-                    //  SEND SERVER RPC SO OUR PLAYER PERFORMS ITEM ACTION ON OTHER CLIENTS GAME WINDOWS
-                    player.playerNetworkManager.NotifyServerOfQuickSlotItemActionServerRpc
-                        (NetworkManager.Singleton.LocalClientId, player.playerInventoryManager.currentQuickSlotItem.itemID);
+                    if (player.isPerformingAction && !player.playerCombatManager.isUsingItem)
+                    {
+                        QueueUseItemInput();
+                        return;
+                    }
+
+                    AttemptToUseCurrentQuickSlotItem();
                 }
             }
+        }
+
+        private void AttemptToUseCurrentQuickSlotItem()
+        {
+            if (player.playerInventoryManager.currentQuickSlotItem == null)
+                return;
+
+            if (!player.playerInventoryManager.currentQuickSlotItem.CanIUseThisItem(player))
+                return;
+
+            player.playerInventoryManager.currentQuickSlotItem.AttemptToUseItem(player);
+
+            //  SEND SERVER RPC SO OUR PLAYER PERFORMS ITEM ACTION ON OTHER CLIENTS GAME WINDOWS
+            player.playerNetworkManager.NotifyServerOfQuickSlotItemActionServerRpc
+                (NetworkManager.Singleton.LocalClientId, player.playerInventoryManager.currentQuickSlotItem.itemID);
+        }
+
+        private void CancelSpellChargeStateForItemUse()
+        {
+            hold_RB_Input = false;
+            hold_LB_Input = false;
+            Hold_RT_Input = false;
+
+            player.playerNetworkManager.isChargingAttack.Value = false;
+            player.playerNetworkManager.isChargingRightSpell.Value = false;
+            player.playerNetworkManager.isChargingLeftSpell.Value = false;
+            player.playerNetworkManager.isHoldingArrow.Value = false;
+
+            if (!player.isPerformingAction)
+                player.playerNetworkManager.isAttacking.Value = false;
         }
 
         //  TWO HAND
@@ -614,8 +650,10 @@ namespace BK
         {
             if (hold_RB_Input)
             {
-                player.playerNetworkManager.isChargingRightSpell.Value = true;
-                player.playerNetworkManager.isHoldingArrow.Value = true;
+                WeaponItem rightWeapon = player.playerInventoryManager.currentRightHandWeapon;
+
+                player.playerNetworkManager.isChargingRightSpell.Value = rightWeapon is CasterWeaponItem;
+                player.playerNetworkManager.isHoldingArrow.Value = rightWeapon != null && rightWeapon.weaponClass == WeaponClass.Bow;
             }
             else
             {
@@ -656,7 +694,8 @@ namespace BK
         {
             if (hold_LB_Input)
             {
-                player.playerNetworkManager.isChargingLeftSpell.Value = true;
+                WeaponItem leftWeapon = player.playerInventoryManager.currentLeftHandWeapon;
+                player.playerNetworkManager.isChargingLeftSpell.Value = leftWeapon is CasterWeaponItem;
             }
             else
             {
@@ -790,6 +829,7 @@ namespace BK
             //  RESET ALL QUED INPUTS SO ONLY ONE CAN QUE AT A TIME
             que_RB_Input = false;
             que_RT_Input = false;
+            que_Use_Item_Input = false;
             //que_LB_Input = false;
             //que_LT_Input = false;
 
@@ -803,6 +843,18 @@ namespace BK
             }
         }
 
+        private void QueueUseItemInput()
+        {
+            if (input_Que_Is_Active && que_Use_Item_Input)
+                return;
+
+            que_RB_Input = false;
+            que_RT_Input = false;
+            que_Use_Item_Input = true;
+            que_Input_Timer = default_Que_Input_Time;
+            input_Que_Is_Active = true;
+        }
+
         private void ProcessQuedInput()
         {
             if (player.isDead.Value)
@@ -813,6 +865,15 @@ namespace BK
 
             if (que_RT_Input)
                 RT_Input = true;
+
+            if (que_Use_Item_Input && !player.isPerformingAction)
+            {
+                que_Use_Item_Input = false;
+                input_Que_Is_Active = false;
+                que_Input_Timer = 0;
+                CancelSpellChargeStateForItemUse();
+                AttemptToUseCurrentQuickSlotItem();
+            }
         }
 
         private void HandleQuedInputs()
@@ -830,6 +891,7 @@ namespace BK
                     //  RESET ALL QUED INPUTS
                     que_RB_Input = false;
                     que_RT_Input = false;
+                    que_Use_Item_Input = false;
 
                     input_Que_Is_Active = false;
                     que_Input_Timer = 0;

@@ -31,6 +31,10 @@ namespace BK
         [SerializeField] private GameObject exitDoorPrefab;
         [SerializeField] private GameObject levelUpInteractablePrefab;
 
+        [Header("Sub Reward")]
+        [Tooltip("All sub reward spawn points use this same item box prefab. Its contents are filled with resource items based on room progress.")]
+        [SerializeField] private GameObject subRewardItemBoxPrefab;
+
         [Header("Enemy Count")]
         [SerializeField] private int minBattleEnemyCount = 2;
         [SerializeField] private int maxBattleEnemyCount = 4;
@@ -58,6 +62,7 @@ namespace BK
         private System.Random enemySpawnRng;
 
         private readonly List<NetworkObject> currentRewardObjects = new();
+        private readonly List<NetworkObject> currentSubRewardObjects = new();
         private NetworkObject currentEntryLevelUpInteractable;
         private RoguelikeRoomDoor currentEntryDoor;
         private RoguelikeRoomDoor currentExitDoor;
@@ -227,6 +232,7 @@ namespace BK
         {
             DespawnAllEnemies();
             DestroyRuntimeSpawners();
+            DespawnSubRewards();
             DespawnReward();
             DespawnDoors();
             DespawnAllDroppedItems();
@@ -291,6 +297,21 @@ namespace BK
             }
 
             currentRewardObjects.Clear();
+        }
+
+        private void DespawnSubRewards()
+        {
+            foreach (NetworkObject netObj in currentSubRewardObjects)
+            {
+                if (netObj == null) continue;
+
+                if (netObj.IsSpawned)
+                    netObj.Despawn(true);
+                else
+                    Destroy(netObj.gameObject);
+            }
+
+            currentSubRewardObjects.Clear();
         }
 
         private void DespawnDoors()
@@ -667,6 +688,7 @@ namespace BK
             remainingEnemySpawnCount = count;
             spawnedEnemyWaveCount = 0;
             enemySpawnRng = new System.Random(currentPlan.seed);
+            SpawnSubRewardsIfNeeded();
             SpawnNextEnemyWave();
         }
 
@@ -891,6 +913,66 @@ namespace BK
             PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
             if (localPlayer == null) return;
             localPlayer.playerStatsManager.AddRunes(amount);
+        }
+
+        private void SpawnSubRewardsIfNeeded()
+        {
+            if (!IsServer)
+                return;
+
+            if (currentSubRewardObjects.Count > 0)
+                return;
+
+            if (currentTemplate == null || currentRoomInstance == null)
+                return;
+
+            if (subRewardItemBoxPrefab == null)
+            {
+                Debug.LogWarning("[RoomManager] SubRewardItemBoxPrefab is not assigned. Sub rewards will not spawn.");
+                return;
+            }
+
+            Transform[] spawnPoints = currentRoomInstance.GetSubRewardSpawnPoints();
+            if (spawnPoints.Length == 0)
+            {
+                Debug.LogWarning("[RoomManager] Sub reward spawn points are not configured.");
+                return;
+            }
+
+            Transform parent = networkRuntimeRoot != null ? networkRuntimeRoot : null;
+            int stageIndex = RunManager.Instance != null ? RunManager.Instance.CurrentRoomIndex : 0;
+            ItemTier maxResourceTier = CalculateRewardTier(currentTemplate.subRewardBaseTier, stageIndex);
+
+            for (int i = 0; i < spawnPoints.Length; i++)
+            {
+                Transform spawnPoint = spawnPoints[i];
+                if (spawnPoint == null)
+                    continue;
+
+                GameObject obj = Instantiate(subRewardItemBoxPrefab, spawnPoint.position, spawnPoint.rotation, parent);
+
+                if (obj.TryGetComponent<InteractableItemBox>(out InteractableItemBox itemBox))
+                {
+                    itemBox.SetupResourceOnly(maxResourceTier);
+                }
+                else
+                {
+                    Debug.LogWarning("[RoomManager] SubRewardItemBoxPrefab has no InteractableItemBox. Resource tier setup was skipped.");
+                }
+
+                NetworkObject netObj = obj.GetComponent<NetworkObject>();
+                if (netObj == null)
+                {
+                    Debug.LogError($"[RoomManager] SubRewardItemBoxPrefab ({subRewardItemBoxPrefab.name}) has no NetworkObject.");
+                    Destroy(obj);
+                    continue;
+                }
+
+                netObj.Spawn(true);
+                currentSubRewardObjects.Add(netObj);
+
+                Debug.Log($"[RoomManager] Sub reward spawned [{i}]: {subRewardItemBoxPrefab.name} at {spawnPoint.name}, resourceTier=Common..{maxResourceTier}");
+            }
         }
 
         private void SpawnRewardIfNeeded(bool isSiteOfGrace = false)

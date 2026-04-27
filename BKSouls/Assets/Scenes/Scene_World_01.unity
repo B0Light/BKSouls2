@@ -175,14 +175,15 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62fadecec2207c94f91db0e30a8aa81c, type: 2}
   - {fileID: 11400000, guid: 405050df37f47dc4380bbf239ff577a5, type: 2}
   - {fileID: 11400000, guid: 0c0b07d910a75aa4c8d0d850607c4d44, type: 2}
-  - {fileID: 11400000, guid: 5b27b7895e9ab86449abb04c4ddafb3e, type: 2}
   - {fileID: 11400000, guid: 6cdcad648f4d190499efc72340b1ba3d, type: 2}
+  - {fileID: 11400000, guid: 5b27b7895e9ab86449abb04c4ddafb3e, type: 2}
   - {fileID: 11400000, guid: 7d1b4e59c256ef44fb874b41b09e3fa4, type: 2}
   navMeshBuilder: {fileID: 756663084}
   itemBoxDatabase: {fileID: 11400000, guid: bfd94a63c1af6a049bee7a961e3956c4, type: 2}
   siteOfGracePrefab: {fileID: 4724223395331370529, guid: c90039a73da83e44bbab58270b1b0d61, type: 3}
   exitDoorPrefab: {fileID: 4248399383740184582, guid: 1966c8dbc9cf75d4b891d390cffa1d5c, type: 3}
   levelUpInteractablePrefab: {fileID: 6706801780401813702, guid: 5ffe428860547844ebfd4ea012899dbd, type: 3}
+  subRewardItemBoxPrefab: {fileID: 7289641902394218821, guid: 80dda7403ee19fa48a5b4bffea966128, type: 3}
   minBattleEnemyCount: 2
   maxBattleEnemyCount: 4
   minEliteEnemyCount: 3

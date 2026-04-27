@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Paladin Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 10
-  itemName: 성기사 갑옷
+  itemID: 25
+  itemName: "\uC131\uAE30\uC0AC \uAC11\uC637"
   itemIcon: {fileID: 21300000, guid: ea8fd0a22c6d22446ac80b2204f0378f, type: 3}
   itemTier: 0
   itemType: 1
   cost: 5500
-  itemDescription: 성스러운 교단의 사제들이 축복한 신성한 판금 갑옷. 신성한 힘에 대한 뛰어난 보호력을 제공하며 착용자의 집중력을 크게 높인다.
+  itemDescription: "\uC131\uC2A4\uB7EC\uC6B4 \uAD50\uB2E8\uC758 \uC0AC\uC81C\uB4E4\uC774
+    \uCD95\uBCF5\uD55C \uC2E0\uC131\uD55C \uD310\uAE08 \uAC11\uC637. \uC2E0\uC131\uD55C
+    \uD798\uC5D0 \uB300\uD55C \uB6F0\uC5B4\uB09C \uBCF4\uD638\uB825\uC744 \uC81C\uACF5\uD558\uBA70
+    \uCC29\uC6A9\uC790\uC758 \uC9D1\uC911\uB825\uC744 \uD06C\uAC8C \uB192\uC778\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -28,11 +31,11 @@ MonoBehaviour:
   - itemEffect: 3
     value: 19
   itemWeight: 12.5
-  physicalDamageAbsorption: 14.0
+  physicalDamageAbsorption: 14
   magicDamageAbsorption: 12.5
-  fireDamageAbsorption: 12.0
+  fireDamageAbsorption: 12
   holyDamageAbsorption: 18.5
-  lightningDamageAbsorption: 11.0
+  lightningDamageAbsorption: 11
   immunity: 25
   robustness: 45
   focus: 30
@@ -46,4 +49,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 46ff09113d40ce941a3b94f7ee1168da, type: 2}
   - {fileID: 11400000, guid: a2f79d964727c874a81e42c920424a01, type: 2}
   - {fileID: 11400000, guid: 504819bbbe5443645a1eda9d374fb9c3, type: 2}
-  backpackSize: {x: 3, y: 3}
+  backpackSize: {x: 4, y: 4}

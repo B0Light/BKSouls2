@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BK.IceSpell
   itemID: 0
   itemName: Ice Ball
-  itemIcon: {fileID: 0}
+  itemIcon: {fileID: 21300000, guid: c3f670e7e5d7fe14bbc1fe517f898554, type: 3}
   itemTier: 0
-  itemType: 0
+  itemType: 8
   cost: 0
   itemDescription: 
   SpellClass: 0
   baseDamage: 10
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1
-  staminaCost: 25
-  focusPointCost: 25
+  staminaCost: 12
+  focusPointCost: 12
   spellCastWarmUpFX: {fileID: 8024480108448382363, guid: 8b0af09d6f3a4394e9d2e4198ee1accf, type: 3}
   spellChargeFX: {fileID: 8024480108448382363, guid: d4766121d0b7dd840bf6ec77025dd861, type: 3}
   spellCastReleaseFX: {fileID: 7118137286583304359, guid: 42fc1a2821e42514b85e48223e94d726, type: 3}

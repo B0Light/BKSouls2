@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Knight Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 10
-  itemName: 기사 갑옷
+  itemID: 21
+  itemName: "\uAE30\uC0AC \uAC11\uC637"
   itemIcon: {fileID: 21300000, guid: c10c028b30dac074fa3aee62b39f5d83, type: 3}
   itemTier: 0
-  cost: 4000
-  itemDescription: 왕국의 기사들이 지급받아 착용하는 표준 판금 갑옷. 모든 피해 유형에 대해 신뢰할 만한 균형 잡힌 보호력을 제공한다.
   itemType: 1
+  cost: 4000
+  itemDescription: "\uC655\uAD6D\uC758 \uAE30\uC0AC\uB4E4\uC774 \uC9C0\uAE09\uBC1B\uC544
+    \uCC29\uC6A9\uD558\uB294 \uD45C\uC900 \uD310\uAE08 \uAC11\uC637. \uBAA8\uB4E0
+    \uD53C\uD574 \uC720\uD615\uC5D0 \uB300\uD574 \uC2E0\uB8B0\uD560 \uB9CC\uD55C
+    \uADE0\uD615 \uC7A1\uD78C \uBCF4\uD638\uB825\uC744 \uC81C\uACF5\uD55C\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -46,4 +49,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 57fdf87079b7fc74c91b6ce70ae42cf9, type: 2}
   - {fileID: 11400000, guid: a152bdee998413947bdbf8558e521440, type: 2}
   - {fileID: 11400000, guid: 45cc30e8deb49284ca1db7edd69ac567, type: 2}
-  backpackSize: {x: 3, y: 3}
+  backpackSize: {x: 2, y: 2}

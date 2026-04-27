@@ -18,4 +18,7 @@ MonoBehaviour:
   enemySpawnerPrefabs: []
   entryDoorPrefab: {fileID: 0}
   exitDoorPrefab: {fileID: 2446101746359676848, guid: 37d616bc812d93543947da3a887e9a8e, type: 3}
-  rewardPrefab: {fileID: 570746600425174815, guid: 96e421acace93ab4991549d03d0fb949, type: 3}
+  rewardInteractablePrefabs: []
+  rewardBaseTier: 0
+  subRewardInteractablePrefabs: []
+  subRewardBaseTier: 0

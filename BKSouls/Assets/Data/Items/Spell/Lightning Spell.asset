@@ -12,20 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2902e89704e48c44abaa9bbadbfb3b51, type: 3}
   m_Name: Lightning Spell
   m_EditorClassIdentifier: Assembly-CSharp::BK.LightningSpell
-  itemID: 43
+  itemID: 44
   itemName: 'Lightning '
-  itemIcon: {fileID: 21300000, guid: 4ad57abb2d906874da5bcd22b048013d, type: 3}
+  itemIcon: {fileID: 21300000, guid: d0cc402c022231547a38aea4bfdd2c39, type: 3}
   itemTier: 0
   itemType: 8
   cost: 6000
   itemDescription: Calls down crackling bolts of lightning to strike a target with
     devastating force. Can be charged to unleash a catastrophic thunderbolt.
   SpellClass: 0
-  baseDamage: 30
+  baseDamage: 50
   fullChargeEffectMultiplier: 2
   spellSlotsUsed: 1
-  staminaCost: 25
-  focusPointCost: 25
+  staminaCost: 30
+  focusPointCost: 30
   spellCastWarmUpFX: {fileID: 3451417486803977753, guid: f2d5cc29d6857954bae6446d45951893, type: 3}
   spellChargeFX: {fileID: 9027514048236820045, guid: ceccaeaaf2f71a54493c4317617da43b, type: 3}
   spellCastReleaseFX: {fileID: 7118137286583304359, guid: b8da065e95cf2234aa3c3a47ba9f94fc, type: 3}

@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ccd1782d1c9fdc4fb8d6f15da737ec8, type: 3}
   m_Name: Templar Armor
   m_EditorClassIdentifier: Assembly-CSharp::BK.BodyEquipmentItem
-  itemID: 10
-  itemName: 성전기사 갑옷
+  itemID: 26
+  itemName: "\uC131\uC804\uAE30\uC0AC \uAC11\uC637"
   itemIcon: {fileID: 21300000, guid: 600c719c91fe4fc4bb1b678e5f87bbf1, type: 3}
   itemTier: 0
   itemType: 1
   cost: 8500
-  itemDescription: 정예 성전기사들이 착용하는 위압적인 중판금 갑옷. 가장 무거운 방어구 중 하나로, 뛰어난 물리 방어력과 강인도를 제공한다.
+  itemDescription: "\uC815\uC608 \uC131\uC804\uAE30\uC0AC\uB4E4\uC774 \uCC29\uC6A9\uD558\uB294
+    \uC704\uC555\uC801\uC778 \uC911\uD310\uAE08 \uAC11\uC637. \uAC00\uC7A5 \uBB34\uAC70\uC6B4
+    \uBC29\uC5B4\uAD6C \uC911 \uD558\uB098\uB85C, \uB6F0\uC5B4\uB09C \uBB3C\uB9AC
+    \uBC29\uC5B4\uB825\uACFC \uAC15\uC778\uB3C4\uB97C \uC81C\uACF5\uD55C\uB2E4."
   width: 2
   height: 2
   weight: 0
@@ -29,9 +32,9 @@ MonoBehaviour:
     value: 15
   itemWeight: 17.5
   physicalDamageAbsorption: 19.5
-  magicDamageAbsorption: 14.0
+  magicDamageAbsorption: 14
   fireDamageAbsorption: 14.5
-  holyDamageAbsorption: 14.0
+  holyDamageAbsorption: 14
   lightningDamageAbsorption: 13.5
   immunity: 35
   robustness: 65
@@ -46,4 +49,4 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ecb134f066a7d2b4a95adeacd18a1abc, type: 2}
   - {fileID: 11400000, guid: 7da71a164778324488f426230efa76a2, type: 2}
   - {fileID: 11400000, guid: 8045757f21a4c8644819c37263a33ef9, type: 2}
-  backpackSize: {x: 3, y: 3}
+  backpackSize: {x: 5, y: 4}

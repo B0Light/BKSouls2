@@ -571,11 +571,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.CharacterSoundFXManager
   damageGrunts:
-  - {fileID: 8300000, guid: 84171c5748b48794e884d53f29caee9b, type: 3}
-  - {fileID: 8300000, guid: 7ab60e4554fbf6045a4554a29f42f8ff, type: 3}
+  - {fileID: 8300000, guid: f68fded8cec0b4a989305170251cdd1c, type: 3}
+  - {fileID: 8300000, guid: c41826a27914045aabfe68d349ec456a, type: 3}
+  - {fileID: 8300000, guid: ebe92ff14da5a48f3962927257938031, type: 3}
   attackGrunts:
-  - {fileID: 8300000, guid: c7c7414ea098603488e5b72a3637d625, type: 3}
-  - {fileID: 8300000, guid: 9473ab3947bbf924ba7d50c545d60f2d, type: 3}
+  - {fileID: 8300000, guid: e31c28ceebb9a49ddbd2ed751c215a4e, type: 3}
+  - {fileID: 8300000, guid: ceb866992b3a44590be942c047db24f2, type: 3}
+  - {fileID: 8300000, guid: 74039bc6502aa4e448b90545bf20db75, type: 3}
   footSteps: []
   blockingSFX:
   - {fileID: 8300000, guid: 6eaf40e3af5d44e56af5a692c252f405, type: 3}

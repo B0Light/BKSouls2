@@ -21,5 +21,5 @@ MonoBehaviour:
     weight: 1
   tierPenaltyStrength: 0.3
   startRoomEntries:
-  - itemBox: {fileID: 4144350666005027533, guid: a4daef197b57fa44ab844865bec19496, type: 3}
+  - itemBox: {fileID: 8242086445388113291, guid: 80dda7403ee19fa48a5b4bffea966128, type: 3}
     weight: 1
