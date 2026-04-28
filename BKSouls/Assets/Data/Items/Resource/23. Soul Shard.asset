@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 23. Soul Shard
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1023
-  itemName: 영혼 조각
+  itemName: "\uC601\uD63C \uC870\uAC01"
   itemIcon: {fileID: 21300000, guid: a7e8047bacd0b2b48a20227d962cd8a9, type: 3}
   itemTier: 2
-  itemType: 11
+  itemType: 6
   cost: 800
-  itemDescription: 떠나간 영혼이 결정화된 조각입니다. 영적인 힘과 공명합니다.
-    energy.
+  itemDescription: "\uB5A0\uB098\uAC04 \uC601\uD63C\uC774 \uACB0\uC815\uD654\uB41C
+    \uC870\uAC01\uC785\uB2C8\uB2E4. \uC601\uC801\uC778 \uD798\uACFC \uACF5\uBA85\uD569\uB2C8\uB2E4.
+    energy."
   width: 1
   height: 1
   weight: 0.2

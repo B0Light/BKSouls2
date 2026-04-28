@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 16. Silk Thread
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1016
-  itemName: 비단실
+  itemName: "\uBE44\uB2E8\uC2E4"
   itemIcon: {fileID: 21300000, guid: 74c1c58cdfe5c0a43b2ab58693b9d54e, type: 3}
   itemTier: 1
-  itemType: 11
+  itemType: 6
   cost: 75
-  itemDescription: 희귀한 누에고치에서 뽑아낸 고운 실입니다. 고급 천 제작에 사용됩니다.
-    armor.
+  itemDescription: "\uD76C\uADC0\uD55C \uB204\uC5D0\uACE0\uCE58\uC5D0\uC11C \uBF51\uC544\uB0B8
+    \uACE0\uC6B4 \uC2E4\uC785\uB2C8\uB2E4. \uACE0\uAE09 \uCC9C \uC81C\uC791\uC5D0
+    \uC0AC\uC6A9\uB429\uB2C8\uB2E4. armor."
   width: 1
   height: 1
   weight: 0.1

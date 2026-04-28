@@ -824,6 +824,21 @@ namespace BK
                 return;
 
             aiCharacter.aiCharacterCombatManager.SetTarget(targetPlayer);
+
+            if (!aiCharacter.IsOwner || aiCharacter.aiCharacterNetworkManager.isAwake.Value)
+                return;
+
+            // sleep 상태인 경우: 수면 애니메이션이 재생되기 전에 즉시 awake로 전환
+            // (상태머신 틱에서 처리하면 수면 애니메이션이 먼저 재생되어 isPerformingAction=true가 되므로
+            //  기상 애니메이션이 막혀 수면 포즈로 추격하는 버그가 발생)
+            aiCharacter.aiCharacterNetworkManager.isAwake.Value = true;
+
+            if (!aiCharacter.isPerformingAction)
+                aiCharacter.characterAnimatorManager.PlayTargetActionAnimation(
+                    aiCharacter.aiCharacterNetworkManager.wakingAnimation.Value.ToString(), true);
+
+            if (aiCharacter.currentState != null && aiCharacter.pursueTarget != null)
+                aiCharacter.currentState = aiCharacter.currentState.SwitchState(aiCharacter, aiCharacter.pursueTarget);
         }
 
         private PlayerManager GetClosestAlivePlayer(Vector3 position)

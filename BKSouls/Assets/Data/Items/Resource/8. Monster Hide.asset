@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: 8. Monster Hide
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1008
-  itemName: 몬스터 가죽
+  itemName: "\uBAAC\uC2A4\uD130 \uAC00\uC8FD"
   itemIcon: {fileID: 21300000, guid: 84c32fe32f3e8bf448372ac91020b0c7, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 25
-  itemDescription: 쓰러진 몬스터에게서 벗겨낸 두꺼운 가죽입니다. 일반 가죽보다 훨씬 질깁니다.
+  itemDescription: "\uC4F0\uB7EC\uC9C4 \uBAAC\uC2A4\uD130\uC5D0\uAC8C\uC11C \uBC97\uACA8\uB0B8
+    \uB450\uAEBC\uC6B4 \uAC00\uC8FD\uC785\uB2C8\uB2E4. \uC77C\uBC18 \uAC00\uC8FD\uBCF4\uB2E4
+    \uD6E8\uC52C \uC9C8\uAE41\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0.8

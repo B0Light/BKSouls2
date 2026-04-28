@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 17. Bone Powder
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1017
-  itemName: 뼛가루
+  itemName: "\uBF1B\uAC00\uB8E8"
   itemIcon: {fileID: 21300000, guid: 3d08dde7a22313941a3833f82ff1b015, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 35
-  itemDescription: 뼈를 곱게 갈아 만든 가루입니다. 연금술과 특수 코팅에 사용됩니다.
+  itemDescription: "\uBF08\uB97C \uACF1\uAC8C \uAC08\uC544 \uB9CC\uB4E0 \uAC00\uB8E8\uC785\uB2C8\uB2E4.
+    \uC5F0\uAE08\uC220\uACFC \uD2B9\uC218 \uCF54\uD305\uC5D0 \uC0AC\uC6A9\uB429\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0.2

@@ -58,12 +58,11 @@ public enum ItemType
     Gauntlet,
     Leggings,
     Consumables,
-    Misc,
+    Resource,
     Blueprint,
     Spell,
-    Potion,
     AshOfWar,
-    Resource,
+    
     None,
 }
 

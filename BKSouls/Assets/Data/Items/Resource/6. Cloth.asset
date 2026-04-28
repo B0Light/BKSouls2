@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 6. Cloth
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1006
-  itemName: 천
+  itemName: "\uCC9C"
   itemIcon: {fileID: 21300000, guid: ecabf23b817c7de4e925bfec1cf94a26, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 12
-  itemDescription: 짜여진 천 조각입니다. 가벼운 방어구와 장신구 제작에 사용됩니다.
+  itemDescription: "\uC9DC\uC5EC\uC9C4 \uCC9C \uC870\uAC01\uC785\uB2C8\uB2E4. \uAC00\uBCBC\uC6B4
+    \uBC29\uC5B4\uAD6C\uC640 \uC7A5\uC2E0\uAD6C \uC81C\uC791\uC5D0 \uC0AC\uC6A9\uB429\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0.2

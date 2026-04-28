@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 12. Steel Ingot
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1012
-  itemName: 강철 주괴
+  itemName: "\uAC15\uCCA0 \uC8FC\uAD34"
   itemIcon: {fileID: 21300000, guid: e40aaf88681463c4db5a3b11e03e25bb, type: 3}
   itemTier: 2
-  itemType: 11
+  itemType: 6
   cost: 200
-  itemDescription: 철과 석탄으로 단련한 고급 강철 주괴입니다. 순수한 철보다 단단합니다.
-    iron.
+  itemDescription: "\uCCA0\uACFC \uC11D\uD0C4\uC73C\uB85C \uB2E8\uB828\uD55C \uACE0\uAE09
+    \uAC15\uCCA0 \uC8FC\uAD34\uC785\uB2C8\uB2E4. \uC21C\uC218\uD55C \uCCA0\uBCF4\uB2E4
+    \uB2E8\uB2E8\uD569\uB2C8\uB2E4. iron."
   width: 1
   height: 1
   weight: 1.5

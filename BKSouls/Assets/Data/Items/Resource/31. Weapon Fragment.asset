@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: 31. Weapon Fragment
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 2001
-  itemName: 무기 파편
+  itemName: "\uBB34\uAE30 \uD30C\uD3B8"
   itemIcon: {fileID: 21300000, guid: 0fc82f934543c614497f5cf9827dc6d7, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 100
-  itemDescription: 하급 무기를 분해하여 얻은 기본 재료입니다. 초급 무기 제작의 핵심 소재입니다.
+  itemDescription: "\uD558\uAE09 \uBB34\uAE30\uB97C \uBD84\uD574\uD558\uC5EC \uC5BB\uC740
+    \uAE30\uBCF8 \uC7AC\uB8CC\uC785\uB2C8\uB2E4. \uCD08\uAE09 \uBB34\uAE30 \uC81C\uC791\uC758
+    \uD575\uC2EC \uC18C\uC7AC\uC785\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 1

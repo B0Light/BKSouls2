@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 4. Stone
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1004
-  itemName: 돌
+  itemName: "\uB3CC"
   itemIcon: {fileID: 21300000, guid: 9df5434f0ad3bb84690abeb0dfa6847a, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 5
-  itemDescription: 평범한 돌입니다. 흔하지만 기본 건설에 꼭 필요한 재료입니다.
+  itemDescription: "\uD3C9\uBC94\uD55C \uB3CC\uC785\uB2C8\uB2E4. \uD754\uD558\uC9C0\uB9CC
+    \uAE30\uBCF8 \uAC74\uC124\uC5D0 \uAF2D \uD544\uC694\uD55C \uC7AC\uB8CC\uC785\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 2

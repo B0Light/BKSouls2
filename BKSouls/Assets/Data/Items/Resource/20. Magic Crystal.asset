@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 20. Magic Crystal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1020
-  itemName: 마력 수정
+  itemName: "\uB9C8\uB825 \uC218\uC815"
   itemIcon: {fileID: 21300000, guid: 5dedce6982b8c1b4282a7a0c1507bf29, type: 3}
   itemTier: 2
-  itemType: 11
+  itemType: 6
   cost: 350
-  itemDescription: 잠재된 마력이 깃든 수정입니다. 마법 장비 제작의 핵심 재료입니다.
-    enchanted gear.
+  itemDescription: "\uC7A0\uC7AC\uB41C \uB9C8\uB825\uC774 \uAE43\uB4E0 \uC218\uC815\uC785\uB2C8\uB2E4.
+    \uB9C8\uBC95 \uC7A5\uBE44 \uC81C\uC791\uC758 \uD575\uC2EC \uC7AC\uB8CC\uC785\uB2C8\uB2E4.
+    enchanted gear."
   width: 1
   height: 1
   weight: 0.4

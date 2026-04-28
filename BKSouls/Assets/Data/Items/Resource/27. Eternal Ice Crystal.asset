@@ -13,13 +13,15 @@ MonoBehaviour:
   m_Name: 27. Eternal Ice Crystal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1027
-  itemName: 영원의 얼음 수정
+  itemName: "\uC601\uC6D0\uC758 \uC5BC\uC74C \uC218\uC815"
   itemIcon: {fileID: 21300000, guid: f12e805c617eeef4f91a2745243d13de, type: 3}
   itemTier: 3
-  itemType: 11
+  itemType: 6
   cost: 1800
-  itemDescription: 빙하의 시대부터 한 번도 녹지 않은 얼음입니다. 장비에 냉기의 힘을 부여합니다.
-    blades with a freezing touch.
+  itemDescription: "\uBE59\uD558\uC758 \uC2DC\uB300\uBD80\uD130 \uD55C \uBC88\uB3C4
+    \uB179\uC9C0 \uC54A\uC740 \uC5BC\uC74C\uC785\uB2C8\uB2E4. \uC7A5\uBE44\uC5D0
+    \uB0C9\uAE30\uC758 \uD798\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4. blades with a
+    freezing touch."
   width: 1
   height: 1
   weight: 0.5

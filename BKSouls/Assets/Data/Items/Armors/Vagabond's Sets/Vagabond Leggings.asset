@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c43dd3bbdc4bc534990f5c9024efcd2d, type: 3}
   m_Name: Vagabond Leggings
   m_EditorClassIdentifier: Assembly-CSharp::BK.LegEquipmentItem
-  itemID: 0
-  itemName: 방랑자 각반
-  itemIcon: {fileID: 21300000, guid: 646f2c3a364653a4b8dc02361eddb1ac, type: 3}
+  itemID: 34
+  itemName: "\uBC29\uB791\uC790 \uAC01\uBC18"
+  itemIcon: {fileID: 21300000, guid: e4d90354f9cf6e94d81104e2493a4c90, type: 3}
   itemTier: 0
   itemType: 4
   cost: 1400
-  itemDescription: 위험한 길을 떠도는 이들이 입는 덧댄 여행용 바지. 방랑의 삶에 어울릴 만큼 편안하면서도 적당한 보호력을 갖추었다.
+  itemDescription: "\uC704\uD5D8\uD55C \uAE38\uC744 \uB5A0\uB3C4\uB294 \uC774\uB4E4\uC774
+    \uC785\uB294 \uB367\uB304 \uC5EC\uD589\uC6A9 \uBC14\uC9C0. \uBC29\uB791\uC758
+    \uC0B6\uC5D0 \uC5B4\uC6B8\uB9B4 \uB9CC\uD07C \uD3B8\uC548\uD558\uBA74\uC11C\uB3C4
+    \uC801\uB2F9\uD55C \uBCF4\uD638\uB825\uC744 \uAC16\uCD94\uC5C8\uB2E4."
   width: 2
   height: 2
   weight: 0

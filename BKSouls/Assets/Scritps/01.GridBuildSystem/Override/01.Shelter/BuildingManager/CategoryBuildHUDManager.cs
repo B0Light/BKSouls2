@@ -116,10 +116,8 @@ public class CategoryBuildHUDManager : GridBuildHUDManager
         var buildSystem = BaseGridBuildSystem.Instance as ShelterGridBuildSystem;
         if (buildSystem != null)
         {
-            foreach (var building in buildSystem.SaveBuildingDataList)
-            {
-                Debug.Log($"Saving Building: {building.code}at ({building.x}, {building.y})");
-            }
+            WorldSaveGameManager.Instance.currentCharacterData.buildings =
+                new List<SaveBuildingData>(buildSystem.SaveBuildingDataList);
         }
 
         WorldSaveGameManager.Instance.SaveGame();

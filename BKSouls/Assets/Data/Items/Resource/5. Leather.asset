@@ -13,12 +13,14 @@ MonoBehaviour:
   m_Name: 5. Leather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1005
-  itemName: 가죽
+  itemName: "\uAC00\uC8FD"
   itemIcon: {fileID: 21300000, guid: 01a693144953532408777671ddacc297, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 20
-  itemDescription: 가공되지 않은 동물 가죽입니다. 무두질하면 튼튼한 방어구 재료가 됩니다.
+  itemDescription: "\uAC00\uACF5\uB418\uC9C0 \uC54A\uC740 \uB3D9\uBB3C \uAC00\uC8FD\uC785\uB2C8\uB2E4.
+    \uBB34\uB450\uC9C8\uD558\uBA74 \uD2BC\uD2BC\uD55C \uBC29\uC5B4\uAD6C \uC7AC\uB8CC\uAC00
+    \uB429\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0.5

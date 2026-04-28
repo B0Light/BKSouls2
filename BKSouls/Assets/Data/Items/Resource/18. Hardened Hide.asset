@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 18. Hardened Hide
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1018
-  itemName: 경화된 가죽
+  itemName: "\uACBD\uD654\uB41C \uAC00\uC8FD"
   itemIcon: {fileID: 21300000, guid: ce1023af707d5e046944c184ba75b215, type: 3}
   itemTier: 1
-  itemType: 11
+  itemType: 6
   cost: 120
-  itemDescription: 특수한 가공 과정을 거쳐 단단해진 몬스터 가죽입니다. 방어구 재료로 뛰어납니다.
-    for heavy armor.
+  itemDescription: "\uD2B9\uC218\uD55C \uAC00\uACF5 \uACFC\uC815\uC744 \uAC70\uCCD0
+    \uB2E8\uB2E8\uD574\uC9C4 \uBAAC\uC2A4\uD130 \uAC00\uC8FD\uC785\uB2C8\uB2E4. \uBC29\uC5B4\uAD6C
+    \uC7AC\uB8CC\uB85C \uB6F0\uC5B4\uB0A9\uB2C8\uB2E4. for heavy armor."
   width: 1
   height: 1
   weight: 0.9

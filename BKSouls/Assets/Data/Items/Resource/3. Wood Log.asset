@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 3. Wood Log
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1003
-  itemName: 통나무
+  itemName: "\uD1B5\uB098\uBB34"
   itemIcon: {fileID: 21300000, guid: f293db8c22bfe5548819f3ec13253936, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 10
-  itemDescription: 나무에서 베어낸 거친 통나무입니다. 판자나 손잡이를 만드는 데 사용됩니다.
+  itemDescription: "\uB098\uBB34\uC5D0\uC11C \uBCA0\uC5B4\uB0B8 \uAC70\uCE5C \uD1B5\uB098\uBB34\uC785\uB2C8\uB2E4.
+    \uD310\uC790\uB098 \uC190\uC7A1\uC774\uB97C \uB9CC\uB4DC\uB294 \uB370 \uC0AC\uC6A9\uB429\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 1.5

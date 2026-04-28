@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 24. Ancient Rune
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1024
-  itemName: 고대 룬
+  itemName: "\uACE0\uB300 \uB8EC"
   itemIcon: {fileID: 21300000, guid: c2a974955c8b2104e871a919dcde0484, type: 3}
   itemTier: 3
-  itemType: 11
+  itemType: 6
   cost: 1200
-  itemDescription: 잊힌 룬이 새겨진 석판입니다. 신비한 힘을 흘려보내는 매개체입니다.
-    into forged items.
+  itemDescription: "\uC78A\uD78C \uB8EC\uC774 \uC0C8\uACA8\uC9C4 \uC11D\uD310\uC785\uB2C8\uB2E4.
+    \uC2E0\uBE44\uD55C \uD798\uC744 \uD758\uB824\uBCF4\uB0B4\uB294 \uB9E4\uAC1C\uCCB4\uC785\uB2C8\uB2E4.
+    into forged items."
   width: 1
   height: 1
   weight: 0.1

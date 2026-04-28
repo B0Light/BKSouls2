@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: 10. Feather
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1010
-  itemName: 깃털
+  itemName: "\uAE43\uD138"
   itemIcon: {fileID: 21300000, guid: cebe27ddda3ac7345806ff3181183f8c, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 6
-  itemDescription: 가벼운 깃털입니다. 화살깃이나 경량 제작품에 사용됩니다.
+  itemDescription: "\uAC00\uBCBC\uC6B4 \uAE43\uD138\uC785\uB2C8\uB2E4. \uD654\uC0B4\uAE43\uC774\uB098
+    \uACBD\uB7C9 \uC81C\uC791\uD488\uC5D0 \uC0AC\uC6A9\uB429\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0.1

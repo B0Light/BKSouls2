@@ -111,6 +111,11 @@ namespace BK.Inventory
         {
             CloseSaleUI();
 
+            if (itemType == -1)
+            {
+                return;
+            }
+
             foreach (var item in onSaleItems)
             {
                 if (item is ShopShelfItem itemProduct)

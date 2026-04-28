@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 30. Crimson Blood Crystal
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1030
-  itemName: 진홍빛 혈정
+  itemName: "\uC9C4\uD64D\uBE5B \uD608\uC815"
   itemIcon: {fileID: 21300000, guid: e90f1772da7fa2c44a9810a03d7eb724, type: 3}
   itemTier: 4
-  itemType: 11
+  itemType: 6
   cost: 6000
-  itemDescription: 고대 존재의 응고된 피에서 생겨난 짙은 붉은 수정입니다.
-    god. The rarest of all crafting materials.
+  itemDescription: "\uACE0\uB300 \uC874\uC7AC\uC758 \uC751\uACE0\uB41C \uD53C\uC5D0\uC11C
+    \uC0DD\uACA8\uB09C \uC9D9\uC740 \uBD89\uC740 \uC218\uC815\uC785\uB2C8\uB2E4.
+    god. The rarest of all crafting materials."
   width: 1
   height: 1
   weight: 0.2

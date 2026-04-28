@@ -12,13 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f854220f2b5bbef409f0fbacbd2154a6, type: 3}
   m_Name: Vagabond Gauntlet
   m_EditorClassIdentifier: Assembly-CSharp::BK.HandEquipmentItem
-  itemID: 12
-  itemName: 방랑자 장갑
-  itemIcon: {fileID: 21300000, guid: 37ba3a33e2d392545b9a65fb4e3d3d10, type: 3}
+  itemID: 41
+  itemName: "\uBC29\uB791\uC790 \uC7A5\uAC11"
+  itemIcon: {fileID: 21300000, guid: b17b1cb84afe7464f8213ef2101328e2, type: 3}
   itemTier: 0
   itemType: 3
   cost: 900
-  itemDescription: 노련한 방랑자들이 착용하는 단순한 장갑. 움직임이나 무기 파지를 크게 방해하지 않으면서 적당한 보호력을 제공한다.
+  itemDescription: "\uB178\uB828\uD55C \uBC29\uB791\uC790\uB4E4\uC774 \uCC29\uC6A9\uD558\uB294
+    \uB2E8\uC21C\uD55C \uC7A5\uAC11. \uC6C0\uC9C1\uC784\uC774\uB098 \uBB34\uAE30
+    \uD30C\uC9C0\uB97C \uD06C\uAC8C \uBC29\uD574\uD558\uC9C0 \uC54A\uC73C\uBA74\uC11C
+    \uC801\uB2F9\uD55C \uBCF4\uD638\uB825\uC744 \uC81C\uACF5\uD55C\uB2E4."
   width: 2
   height: 2
   weight: 0

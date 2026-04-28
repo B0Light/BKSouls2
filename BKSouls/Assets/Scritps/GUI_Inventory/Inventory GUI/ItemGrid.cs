@@ -625,7 +625,7 @@ namespace BK.Inventory
                     Destroy(pickUpItem.gameObject);
                     return true;
                     */
-                case ItemType.Misc:
+                case ItemType.Resource:
                     // 단순 수집 아이템은 인벤토리에 들어갔을 경우만 성공 처리
                     return AddItem(pickUpItem.gameObject, false);
                 /*

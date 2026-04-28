@@ -143,6 +143,9 @@ namespace BK
             if (character.isDead.Value)
                 return;
 
+            if (character is AIBossCharacterManager)
+                return;
+
             if (poiseIsBroken)
             {
                 if (angleHitFrom >= 145 && angleHitFrom <= 180)

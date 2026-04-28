@@ -184,10 +184,10 @@ MonoBehaviour:
   exitDoorPrefab: {fileID: 4248399383740184582, guid: 1966c8dbc9cf75d4b891d390cffa1d5c, type: 3}
   levelUpInteractablePrefab: {fileID: 6706801780401813702, guid: 5ffe428860547844ebfd4ea012899dbd, type: 3}
   subRewardItemBoxPrefab: {fileID: 7289641902394218821, guid: 80dda7403ee19fa48a5b4bffea966128, type: 3}
-  minBattleEnemyCount: 2
-  maxBattleEnemyCount: 4
-  minEliteEnemyCount: 3
-  maxEliteEnemyCount: 6
+  minBattleEnemyCount: 3
+  maxBattleEnemyCount: 9
+  minEliteEnemyCount: 6
+  maxEliteEnemyCount: 9
   minEliteMiniBossEnemyCount: 1
   maxEliteMiniBossEnemyCount: 1
   minBossEnemyCount: 1

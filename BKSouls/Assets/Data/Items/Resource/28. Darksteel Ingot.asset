@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 28. Darksteel Ingot
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1028
-  itemName: 암흑강 주괴
+  itemName: "\uC554\uD751\uAC15 \uC8FC\uAD34"
   itemIcon: {fileID: 21300000, guid: 4ec0f7444483b8148a7e61c6b4a66e13, type: 3}
   itemTier: 2
-  itemType: 11
+  itemType: 6
   cost: 600
-  itemDescription: 그림자가 깃든 조밀한 검은 금속 주괴입니다. 빛을 흡수하고 강한 내구성을 지닙니다.
-    magic alike.
+  itemDescription: "\uADF8\uB9BC\uC790\uAC00 \uAE43\uB4E0 \uC870\uBC00\uD55C \uAC80\uC740
+    \uAE08\uC18D \uC8FC\uAD34\uC785\uB2C8\uB2E4. \uBE5B\uC744 \uD761\uC218\uD558\uACE0
+    \uAC15\uD55C \uB0B4\uAD6C\uC131\uC744 \uC9C0\uB2D9\uB2C8\uB2E4. magic alike."
   width: 1
   height: 1
   weight: 2

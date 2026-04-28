@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 25. Void Essence
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1025
-  itemName: 공허의 정수
+  itemName: "\uACF5\uD5C8\uC758 \uC815\uC218"
   itemIcon: {fileID: 21300000, guid: 114cb989412a77443971c664d1620c26, type: 3}
   itemTier: 3
-  itemType: 11
+  itemType: 6
   cost: 2000
-  itemDescription: 세계 사이의 공허에서 추출한 순수한 정수입니다. 불안정하지만 강력합니다.
-    but immensely powerful.
+  itemDescription: "\uC138\uACC4 \uC0AC\uC774\uC758 \uACF5\uD5C8\uC5D0\uC11C \uCD94\uCD9C\uD55C
+    \uC21C\uC218\uD55C \uC815\uC218\uC785\uB2C8\uB2E4. \uBD88\uC548\uC815\uD558\uC9C0\uB9CC
+    \uAC15\uB825\uD569\uB2C8\uB2E4. but immensely powerful."
   width: 1
   height: 1
   weight: 0.3

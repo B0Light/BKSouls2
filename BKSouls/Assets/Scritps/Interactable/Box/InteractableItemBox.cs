@@ -101,8 +101,7 @@ namespace BK
         private int GetPotionItemId()
         {
             // 포션은 항상 Common 티어 고정 (과도한 소모품 드롭 방지)
-            int roll = Random.Range(0, 2);
-            ItemType itemType = roll == 0 ? ItemType.Potion : ItemType.Consumables;
+            ItemType itemType = ItemType.Consumables;
             int id = GetRandomItemId(itemType, ItemTier.Common, ItemTier.Common);
             if (id >= 0)
                 return id;
@@ -134,9 +133,7 @@ namespace BK
         private int GetResourceItemId(ItemTier minTier, ItemTier maxTier)
         {
             int id = GetRandomItemId(ItemType.Resource, minTier, maxTier);
-            if (id >= 0) return id;
-            // fallback: Misc
-            return GetRandomItemId(ItemType.Misc, minTier, maxTier);
+            return id;
         }
 
         private int GetRandomItemId(ItemType itemType, ItemTier minTier, ItemTier maxTier)

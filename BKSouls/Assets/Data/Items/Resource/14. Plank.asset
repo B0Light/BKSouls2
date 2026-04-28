@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 14. Plank
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1014
-  itemName: 판자
+  itemName: "\uD310\uC790"
   itemIcon: {fileID: 21300000, guid: 022d424ed1f7bdb4d844cd2fc9836bd5, type: 3}
   itemTier: 0
-  itemType: 11
+  itemType: 6
   cost: 22
-  itemDescription: 통나무를 잘라 만든 평평한 판자입니다. 건설과 손잡이 제작에 사용됩니다.
-    crafting.
+  itemDescription: "\uD1B5\uB098\uBB34\uB97C \uC798\uB77C \uB9CC\uB4E0 \uD3C9\uD3C9\uD55C
+    \uD310\uC790\uC785\uB2C8\uB2E4. \uAC74\uC124\uACFC \uC190\uC7A1\uC774 \uC81C\uC791\uC5D0
+    \uC0AC\uC6A9\uB429\uB2C8\uB2E4. crafting."
   width: 1
   height: 1
   weight: 1

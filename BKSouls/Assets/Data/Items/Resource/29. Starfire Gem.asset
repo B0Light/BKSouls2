@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: 29. Starfire Gem
   m_EditorClassIdentifier: Assembly-CSharp::ResourceItem
   itemID: 1029
-  itemName: 성화 보석
+  itemName: "\uC131\uD654 \uBCF4\uC11D"
   itemIcon: {fileID: 21300000, guid: d60afee68965bf149ac289d89b8cba54, type: 3}
   itemTier: 4
-  itemType: 11
+  itemType: 6
   cost: 4000
-  itemDescription: 하늘에서 떨어진 보석입니다. 별빛 같은 에너지로 타오릅니다.
-    Coveted by master craftsmen.
+  itemDescription: "\uD558\uB298\uC5D0\uC11C \uB5A8\uC5B4\uC9C4 \uBCF4\uC11D\uC785\uB2C8\uB2E4.
+    \uBCC4\uBE5B \uAC19\uC740 \uC5D0\uB108\uC9C0\uB85C \uD0C0\uC624\uB985\uB2C8\uB2E4.
+    Coveted by master craftsmen."
   width: 1
   height: 1
   weight: 0.3
