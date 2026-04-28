@@ -221,7 +221,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 10
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -12935,9 +12935,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C1\uD638\uC791\uC6A9 : E\n\uB2EC\uB9AC\uAE30 : Shift\n\uC8FC \uBB34\uAE30
-    \uBCC0\uACBD : \u2192\n\uBCF4\uC870 \uBB34\uAE30 \uBCC0\uACBD : \u2190\n\uD3EC\uC158
-    \uBCC0\uACBD : \u2193"
+  m_text: "\uC0C1\uD638\uC791\uC6A9 : E\n\uD3EC\uC158\uC0AC\uC6A9 : X\n\uB2EC\uB9AC\uAE30
+    : Shift\n\uC8FC \uBB34\uAE30 \uBCC0\uACBD : \u2192\n\uBCF4\uC870 \uBB34\uAE30
+    \uBCC0\uACBD : \u2190\n\uD3EC\uC158 \uBCC0\uACBD : \u2193"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8fa2aaccf043b164dbb873907c893431, type: 2}
   m_sharedMaterial: {fileID: -5651077443740028391, guid: 8fa2aaccf043b164dbb873907c893431, type: 2}
@@ -12977,7 +12977,7 @@ MonoBehaviour:
   m_characterSpacing: 0
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 30
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
