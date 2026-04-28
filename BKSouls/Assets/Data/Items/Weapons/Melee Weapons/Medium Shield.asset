@@ -13,14 +13,12 @@ MonoBehaviour:
   m_Name: Medium Shield
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
   itemID: 4
-  itemName: Medium Shield
+  itemName: 기사 방패
   itemIcon: {fileID: 21300000, guid: 724f8501cbae21649992f1c05ddf112a, type: 3}
   itemTier: 0
   itemType: 0
   cost: 1200
-  itemDescription: A reliable all-purpose shield offering solid protection. Sturdy
-    enough to block a wide variety of incoming attacks, making it a staple of defensive
-    combat.
+  itemDescription: 폭넓은 방어력을 제공하는 믿음직한 방패. 다양한 공격을 막아내는 방어 전투의 핵심 장비.
   width: 2
   height: 2
   weight: 0
@@ -34,7 +32,7 @@ MonoBehaviour:
   weaponModelType: 1
   weaponModel: {fileID: 1200830525985445504, guid: d12df99f348053a4daa63e14ac3e6d56, type: 3}
   weaponClass: 2
-  strengthREQ: 14
+  strengthREQ: 12
   dexREQ: 0
   intREQ: 0
   faithREQ: 0

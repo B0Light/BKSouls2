@@ -170,5 +170,17 @@ namespace BK
         {
             return Mathf.Max(0, requirement) / 20f;
         }
+
+        public static bool MeetsRequirements(WeaponItem weapon, CharacterNetworkManager net)
+        {
+            if (weapon == null || net == null)
+                return false;
+
+            int str = net.strength.Value + net.strengthModifier.Value;
+            return str >= weapon.strengthREQ
+                && net.dexterity.Value >= weapon.dexREQ
+                && net.intelligence.Value >= weapon.intREQ
+                && net.faith.Value >= weapon.faithREQ;
+        }
     }
 }

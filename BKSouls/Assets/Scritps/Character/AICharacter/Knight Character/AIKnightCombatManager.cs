@@ -63,7 +63,7 @@ namespace BK
             Transform spawnPoint = slashFXSpawnPoint != null ? slashFXSpawnPoint : aiCharacter.transform;
             GameObject fx = Instantiate(prefab, spawnPoint.position, spawnPoint.rotation);
 
-            SlashFXDamageCollider slashCollider = fx.GetComponent<SlashFXDamageCollider>();
+            SlashFXDamageCollider slashCollider = fx.GetComponentInChildren<SlashFXDamageCollider>();
             if (slashCollider != null)
             {
                 slashCollider.characterCausingDamage = aiCharacter;

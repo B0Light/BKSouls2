@@ -586,7 +586,7 @@ namespace BK
                 leftHandShieldSlot.PlaceWeaponModelIntoSlot(leftHandWeaponModel);
         }
 
-        private void RefreshWeaponDamages()
+        public void RefreshWeaponDamages()
         {
             var right = player.playerInventoryManager.currentRightHandWeapon;
             var left = player.playerInventoryManager.currentLeftHandWeapon;

@@ -25,6 +25,7 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
     public List<Vector2Int> CheckPointList { get; private set; }
     
     public List<SaveBuildingData> SaveBuildingDataList { get; private set; }
+    private bool _isLoadingSavedBuildings;
 
     protected override void Awake()
     {
@@ -129,6 +130,8 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
     private void LoadSaveBuildingData()
     {
         SaveBuildingDataList = new List<SaveBuildingData>();
+        _isLoadingSavedBuildings = true;
+
         foreach (var saveData in WorldSaveGameManager.Instance.currentCharacterData.buildings)
         {
             int sX = saveData.x;
@@ -138,6 +141,8 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
             Dir dir = ObjectToPlace.GetCellType() == CellType.Road ? Dir.Down : (Dir)saveData.dir;
             PlaceTile(sX,sZ, dir, saveData.level);
         }
+
+        _isLoadingSavedBuildings = false;
         ObjectToPlace = null;
     }
 
@@ -153,6 +158,7 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
             SaveBuildingDataList.Add(saveData);
             //  서버(호스트)에서 실시간으로 배치한 건물만 전파. 초기 로드나 클라이언트 적용 시에는 no-op
             GridBuildNetworkManager.Instance?.NotifyBuildingPlaced(saveData);
+            SaveCurrentBuildingData();
         }
         if(ObjectToPlace.itemID >= 300)
         {
@@ -204,6 +210,8 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
                 UpdateSurroundingRoads(gridPosition);
                 SetDefaultTile(gridPosition.x,gridPosition.y);
             }
+
+            SaveCurrentBuildingData();
         }
     }
     
@@ -297,6 +305,24 @@ public class ShelterGridBuildSystem : BaseGridBuildSystem
 
         //  서버에서 업그레이드된 건물을 클라이언트에 전파
         GridBuildNetworkManager.Instance?.NotifyBuildingUpgraded(originPos.x, originPos.y);
+        SaveCurrentBuildingData();
+    }
+
+    private void SaveCurrentBuildingData()
+    {
+        if (_isLoadingSavedBuildings)
+            return;
+
+        if (WorldSaveGameManager.Instance == null || WorldSaveGameManager.Instance.currentCharacterData == null)
+            return;
+
+        bool canSave = NetworkManager.Singleton == null || NetworkManager.Singleton.IsServer;
+        if (!canSave)
+            return;
+
+        WorldSaveGameManager.Instance.currentCharacterData.buildings =
+            new List<SaveBuildingData>(SaveBuildingDataList);
+        WorldSaveGameManager.Instance.SaveGame();
     }
 
     #endregion

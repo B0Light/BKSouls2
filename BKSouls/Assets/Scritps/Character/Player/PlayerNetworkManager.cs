@@ -220,6 +220,14 @@ namespace BK
             GUIController.Instance.playerUIHudManager.SetMaxBuildUpValue(Mathf.RoundToInt(buildUpCapacity.Value));
         }
 
+        public void OnDamageStatChanged(int oldValue, int newValue)
+        {
+            player.playerEquipmentManager.RefreshWeaponDamages();
+
+            if (player.IsOwner)
+                GUIController.Instance.playerUICharacterMenuManager?.Refresh();
+        }
+
         public void OnHairStyleIDChanged(int oldID, int newID)
         {
             player.playerBodyManager.ToggleHairType(hairStyleID.Value);

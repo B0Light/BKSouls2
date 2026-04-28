@@ -511,6 +511,9 @@ namespace BK
             if (currentWeapon == null)
                 return;
 
+            if (!WeaponManager.MeetsRequirements(currentWeapon, player.playerNetworkManager))
+                return;
+
             GameObject[] prefabs = currentWeapon.slashFXPrefabs;
             if (prefabs == null || prefabIndex < 0 || prefabIndex >= prefabs.Length)
                 return;
@@ -535,7 +538,7 @@ namespace BK
             Transform spawnPoint = weaponModel != null ? weaponModel : player.transform;
             GameObject fx = Instantiate(prefab, spawnPoint.position, player.transform.rotation);
 
-            SlashFXDamageCollider slashCollider = fx.GetComponent<SlashFXDamageCollider>();
+            SlashFXDamageCollider slashCollider = fx.GetComponentInChildren<SlashFXDamageCollider>();
             if (slashCollider != null)
             {
                 slashCollider.characterCausingDamage = player;

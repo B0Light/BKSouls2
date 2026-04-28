@@ -13,13 +13,12 @@ MonoBehaviour:
   m_Name: Buckler Shield
   m_EditorClassIdentifier: Assembly-CSharp::BK.MeleeWeaponItem
   itemID: 5
-  itemName: Buckler Shield
+  itemName: 소형 방패
   itemIcon: {fileID: 21300000, guid: 085b3b2e2f213344f88f72117aef827b, type: 3}
   itemTier: 0
   itemType: 0
   cost: 600
-  itemDescription: A small round shield ideal for deflecting blows. Its compact size
-    makes it excellent for precise parrying, opening enemies up to critical counterattacks.
+  itemDescription: 타격을 정밀하게 튕겨내기 위한 소형 원형 방패. 패링에 특화되어 적의 빈틈을 여는 데 탁월하다.
   width: 2
   height: 2
   weight: 0
@@ -33,8 +32,8 @@ MonoBehaviour:
   weaponModelType: 1
   weaponModel: {fileID: 8411820571077843988, guid: 2d36045543d22a74fbd27e53b0aede5f, type: 3}
   weaponClass: 4
-  strengthREQ: 8
-  dexREQ: 10
+  strengthREQ: 7
+  dexREQ: 8
   intREQ: 0
   faithREQ: 0
   bonusEffectType: 0

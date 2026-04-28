@@ -223,12 +223,16 @@ namespace BK
             net.SetNewMaxHealthValue(0, net.vigor.Value);
             net.SetNewMaxStaminaValue(0, net.endurance.Value);
             net.SetNewMaxFocusPointsValue(0, net.mind.Value);
+            net.SetNewMaxBuildUpCapacityValue(0, net.vigor.Value);
+            player.playerEquipmentManager.RefreshWeaponDamages();
 
             SetCurrentStats();
             ChangeTextColorsDependingOnCosts();
+            GUIController.Instance.playerUICharacterMenuManager?.Refresh();
 
-            //  SAVE GAME AFTER SETTING STATS
-            WorldSaveGameManager.Instance.SaveGame();
+            // Dungeon level-ups are temporary run stats. Shelter stats are saved normally.
+            if (WorldSaveGameManager.Instance.IsHoldScene)
+                WorldSaveGameManager.Instance.SaveGame();
         }
 
         // 모든 슬라이더를 현재 스탯(minValue)으로 되돌리고 UI를 초기 상태로 리셋

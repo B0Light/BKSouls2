@@ -101,6 +101,12 @@ namespace BK
                 playerNetworkManager.mind.OnValueChanged += playerNetworkManager.SetNewMaxFocusPointsValue;
                 
                 playerNetworkManager.vigor.OnValueChanged += playerNetworkManager.SetNewMaxBuildUpCapacityValue;
+
+                playerNetworkManager.strength.OnValueChanged += playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.dexterity.OnValueChanged += playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.intelligence.OnValueChanged += playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.faith.OnValueChanged += playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.strengthModifier.OnValueChanged += playerNetworkManager.OnDamageStatChanged;
                 
                 playerNetworkManager.currentHealth.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
@@ -190,6 +196,12 @@ namespace BK
                 
                 //  UPDATE THE TOTAL AMOUNT OF BUILD UP WE CAN ENDURE BASED ON VITALITY LEVEL
                 playerNetworkManager.vigor.OnValueChanged -= playerNetworkManager.SetNewMaxBuildUpCapacityValue;
+
+                playerNetworkManager.strength.OnValueChanged -= playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.dexterity.OnValueChanged -= playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.intelligence.OnValueChanged -= playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.faith.OnValueChanged -= playerNetworkManager.OnDamageStatChanged;
+                playerNetworkManager.strengthModifier.OnValueChanged -= playerNetworkManager.OnDamageStatChanged;
 
                 //  UPDATES UI STAT BARS WHEN A STAT CHANGES (HEALTH OR STAMINA)
                 playerNetworkManager.currentHealth.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewHealthValue;
@@ -413,10 +425,11 @@ namespace BK
                 currentGameData.backpackItems.Add(pair.Key, pair.Value);
             }
 
-            currentGameData.buildings.Clear();
             var buildSystem = BaseGridBuildSystem.Instance as ShelterGridBuildSystem;
-            if (buildSystem != null)
+            if (buildSystem != null && buildSystem.SaveBuildingDataList != null)
             {
+                currentGameData.buildings.Clear();
+
                 foreach (var building in buildSystem.SaveBuildingDataList)
                 {
                     currentGameData.buildings.Add(building);

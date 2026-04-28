@@ -13,17 +13,19 @@ MonoBehaviour:
   m_Name: ID 000. EmptyPlace
   m_EditorClassIdentifier: 
   itemID: 0
-  itemName: 빈 공간
+  itemName: "\uBE48 \uACF5\uAC04"
   itemIcon: {fileID: 0}
-  itemTier: 0
-  cost: 0
-  itemDescription: 아직 아무 건물도 배치되지 않은 공간입니다.
+  itemTier: 6
   itemType: 7
+  cost: 0
+  itemDescription: "\uC544\uC9C1 \uC544\uBB34 \uAC74\uBB3C\uB3C4 \uBC30\uCE58\uB418\uC9C0
+    \uC54A\uC740 \uACF5\uAC04\uC785\uB2C8\uB2E4."
   width: 1
   height: 1
   weight: 0
   itemAbilities: []
   prefab: {fileID: 1528818639043606945, guid: 9698b0eea8f10954aa657ecb0d1898d4, type: 3}
+  costItems: []
   cellType: 0
   maxLevel: 0
   baseFee: 0

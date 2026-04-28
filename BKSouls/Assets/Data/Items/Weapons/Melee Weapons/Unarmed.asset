@@ -18,8 +18,7 @@ MonoBehaviour:
   itemTier: 6
   itemType: 0
   cost: 0
-  itemDescription: To fight with bare fists when no weapon is at hand. Not the most
-    effective approach, but desperation demands it.
+  itemDescription: 무기가 없을 때 맨주먹으로 싸우는 최후의 수단. 효과적이지는 않지만, 절박함이 요구할 때 쓴다.
   width: 1
   height: 1
   weight: 0
