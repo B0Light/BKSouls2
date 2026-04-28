@@ -4234,7 +4234,9 @@ MonoBehaviour:
   attack01DamageModifier: 1
   attack02DamageModifier: 1.4
   slashFXPrefabs:
-  - {fileID: 5876420305346616488, guid: e29ae2419d3000043b2d2f3c5dab627d, type: 3}
+  - {fileID: 5876420305346616488, guid: 3252b7e03f5b8d0408970bce66361137, type: 3}
+  - {fileID: 5876420305346616488, guid: 46eda535347ecca4ca0f3ca15d64e21b, type: 3}
+  - {fileID: 1011157772751556, guid: a595c2d759b3f4040ab143ea9c319445, type: 3}
   slashFXSpawnPoint: {fileID: 4776256093081641740}
   slashFXDamageModifier: 0.5
 --- !u!114 &6155475291205133828
@@ -4250,6 +4252,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BK.CharacterStatsManager
   runesDroppedOnDeath: 50
+  healthPerVigor: 15
+  healthPerVigorUpgradeBonus: 5
+  focusPointsPerMind: 10
+  focusPointsPerMindUpgradeBonus: 5
+  staminaPerEndurance: 10
+  staminaPerEnduranceUpgradeBonus: 5
   baseStaminaRegenerationAmount: 2
   staminaRegenerationDelay: 2
   blockingPhysicalAbsorption: 0
