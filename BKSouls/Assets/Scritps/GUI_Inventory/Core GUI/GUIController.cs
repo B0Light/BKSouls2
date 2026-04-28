@@ -39,6 +39,7 @@ namespace BK
         public bool menuWindowIsOpen = false; 
         public bool popUpWindowIsOpen = false;
         public GUIComponent currentOpenGUI;
+        private PlayerUIMenu _currentOpenPlayerUIMenu;
         
         // INPUT 
         PlayerControls playerControls;
@@ -117,11 +118,20 @@ namespace BK
 
         private bool TryCloseActiveUI()
         {
-            if (currentOpenGUI == null)
-                return false;
+            if (currentOpenGUI != null)
+            {
+                CloseGUI();
+                return true;
+            }
 
-            CloseGUI();
-            return true;
+            if (_currentOpenPlayerUIMenu != null && _currentOpenPlayerUIMenu.IsOpen)
+            {
+                _currentOpenPlayerUIMenu.CloseMenu();
+                _currentOpenPlayerUIMenu = null;
+                return true;
+            }
+
+            return false;
         }
 
         private void OpenPauseMenu()
@@ -189,6 +199,28 @@ namespace BK
         }
 
         private void CloseCurrentGUI() => currentOpenGUI?.CloseGUI();
+
+        public void RegisterOpenPlayerUIMenu(PlayerUIMenu menu)
+        {
+            if (menu == null)
+                return;
+
+            if (_currentOpenPlayerUIMenu != null &&
+                _currentOpenPlayerUIMenu != menu &&
+                _currentOpenPlayerUIMenu.IsOpen &&
+                currentOpenGUI == null)
+            {
+                _currentOpenPlayerUIMenu.CloseMenu();
+            }
+
+            _currentOpenPlayerUIMenu = menu;
+        }
+
+        public void UnregisterOpenPlayerUIMenu(PlayerUIMenu menu)
+        {
+            if (_currentOpenPlayerUIMenu == menu)
+                _currentOpenPlayerUIMenu = null;
+        }
 
         #endregion
         

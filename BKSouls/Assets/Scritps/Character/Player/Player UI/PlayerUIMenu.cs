@@ -8,10 +8,13 @@ namespace BK
         [Header("Menu")]
         [SerializeField] GameObject menu;
 
+        public bool IsOpen => menu != null && menu.activeInHierarchy;
+
         public virtual void OpenMenu()
         {
             GUIController.Instance.menuWindowIsOpen = true;
             menu.SetActive(true);
+            GUIController.Instance.RegisterOpenPlayerUIMenu(this);
             GUIController.ShowCursor();
         }
 
@@ -20,6 +23,7 @@ namespace BK
         {
             GUIController.Instance.menuWindowIsOpen = false;
             menu.SetActive(false);
+            GUIController.Instance.UnregisterOpenPlayerUIMenu(this);
             GUIController.HideCursor();
         }
 
@@ -37,6 +41,7 @@ namespace BK
 
             GUIController.Instance.menuWindowIsOpen = false;
             menu.SetActive(false);
+            GUIController.Instance.UnregisterOpenPlayerUIMenu(this);
         }
     }
 }

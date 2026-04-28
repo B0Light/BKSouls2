@@ -177,7 +177,7 @@ namespace BK
                     Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.intelligenceSlider.value) +
                     Mathf.RoundToInt(GUIController.Instance.playerUILevelUpManager.faithSlider.value);
 
-                int projectedCharacterLevel = totalProjectedAttributes - 70 + 1;
+                int projectedCharacterLevel = totalProjectedAttributes - GetBaseAttributeTotalForLevelOne() + 1;
 
                 if (projectedCharacterLevel < 1)
                     projectedCharacterLevel = 1;
@@ -193,12 +193,17 @@ namespace BK
                 character.characterNetworkManager.intelligence.Value +
                 character.characterNetworkManager.faith.Value;
 
-            int characterLevel = totalAttributes - 70 + 1;
+            int characterLevel = totalAttributes - GetBaseAttributeTotalForLevelOne() + 1;
 
             if (characterLevel < 1)
                 characterLevel = 1;
 
             return characterLevel;
+        }
+
+        private static int GetBaseAttributeTotalForLevelOne()
+        {
+            return CharacterSaveData.DefaultRoguelikeAttributeLevel * 7;
         }
 
         public int CalculateBuildUpCapacityBasedOnVitalityLevel(int vitality)

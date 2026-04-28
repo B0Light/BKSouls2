@@ -71,6 +71,7 @@ namespace BK
         private void Awake()
         {
             SetAllLevelsCost();
+            RegisterSliderCallbacks();
         }
 
         public override void OpenMenu()
@@ -96,30 +97,37 @@ namespace BK
             vigorLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
             projectedVigorLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.vigor.Value.ToString();
             vigorSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.vigor.Value;
+            vigorSlider.value = vigorSlider.minValue;
 
             mindLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.mind.Value.ToString();
             projectedMindLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.mind.Value.ToString();
             mindSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.mind.Value;
+            mindSlider.value = mindSlider.minValue;
 
             enduranceLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
             projectedEnduranceLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.endurance.Value.ToString();
             enduranceSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.endurance.Value;
+            enduranceSlider.value = enduranceSlider.minValue;
 
             strengthLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.strength.Value.ToString();
             projectedStrengthLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.strength.Value.ToString();
             strengthSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.strength.Value;
+            strengthSlider.value = strengthSlider.minValue;
 
             dexterityLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
             projectedDexterityLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.dexterity.Value.ToString();
             dexteritySlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.dexterity.Value;
+            dexteritySlider.value = dexteritySlider.minValue;
 
             intelligenceLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
             projectedIntelligenceLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.intelligence.Value.ToString();
             intelligenceSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.intelligence.Value;
+            intelligenceSlider.value = intelligenceSlider.minValue;
 
             faithLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.faith.Value.ToString();
             projectedFaithLevelText.text = GUIController.Instance.localPlayer.playerNetworkManager.faith.Value.ToString();
             faithSlider.minValue = GUIController.Instance.localPlayer.playerNetworkManager.faith.Value;
+            faithSlider.value = faithSlider.minValue;
 
             vigorSlider.Select();
             vigorSlider.OnSelect(null);
@@ -169,17 +177,7 @@ namespace BK
             projectedCharacterLevelText.text = player.characterStatsManager.CalculateCharacterLevelBasedOnAttributes(true).ToString();
             runesNeededText.text = totalLevelUpCost.ToString();
 
-            //  CHECK COST
-            if (totalLevelUpCost > player.playerStatsManager.runes)
-            {
-                //  DISABLE CONFIRM BUTTON AND RESET SLIDERS TO CURRENT STATS
-                confirmLevelsButton.interactable = false;
-                ResetSliders();
-            }
-            else
-            {
-                confirmLevelsButton.interactable = true;
-            }
+            confirmLevelsButton.interactable = totalLevelUpCost > 0 && totalLevelUpCost <= player.playerStatsManager.runes;
 
             //  CHANGES PROJECTED STATS TEXT COLORS TO REFLECT FEED BACK DEPENDING ON IF WE CAN AFFORD THE LEVELS OR NOT
             ChangeTextColorsDependingOnCosts();
@@ -283,12 +281,7 @@ namespace BK
                 if (i < currentLevel)
                     continue;
 
-                //  THIS IS A SAFEGUARD TO STOP ADDING COST IF THE PLAYERS LEVEL SOME HOW EXCEEDS THE SIZE OF THE ARRAY WE HAVE CREATED
-                //  YOU CAN OPTIONALLY ADD A CHECK FOR A TOTAL LEVEL AND PREVENT ADVANCES BEYOND THAT OR ALLOW THE MAX VALUE OF YOUR SLIDERS TO DETERMINE THE MAX LEVEL (LIKE ELDEN/SOULS)
-                if (i > playerLevels.Length)
-                    continue;
-
-                totalCost += playerLevels[i];
+                totalCost += GetLevelCost(i);
             }
 
             totalLevelUpCost = totalCost;
@@ -303,6 +296,17 @@ namespace BK
             {
                 projectedRunesHeldText.color = Color.white;
             }
+        }
+
+        private int GetLevelCost(int levelIndex)
+        {
+            if (levelIndex < 0)
+                return 0;
+
+            if (levelIndex < playerLevels.Length)
+                return playerLevels[levelIndex];
+
+            return baseLevelCost + (50 * levelIndex);
         }
 
         //  THIS WILL CHANGE THE COLORS OF THE PROJECTED LEVELS...
@@ -435,8 +439,8 @@ namespace BK
         {
             if (weapon == null)
             {
-                physField?.SetText("—");
-                magField?.SetText("—");
+                physField?.SetText("--");
+                magField?.SetText("--");
                 return;
             }
 
@@ -499,6 +503,9 @@ namespace BK
 
         private void ChangeTextFieldToSpecificColorBasedOnStat(PlayerManager player, TextMeshProUGUI textField, int stat, int projectedStat)
         {
+            if (textField == null)
+                return;
+
             if (projectedStat == stat)
                 textField.color = Color.white;
 
@@ -530,6 +537,30 @@ namespace BK
                     textField.color = Color.white;
                 }
             }
+        }
+
+        private void RegisterSliderCallbacks()
+        {
+            RegisterSliderCallback(vigorSlider, CharacterAttribute.Vigor);
+            RegisterSliderCallback(mindSlider, CharacterAttribute.Mind);
+            RegisterSliderCallback(enduranceSlider, CharacterAttribute.Endurance);
+            RegisterSliderCallback(strengthSlider, CharacterAttribute.Strength);
+            RegisterSliderCallback(dexteritySlider, CharacterAttribute.Dexterity);
+            RegisterSliderCallback(intelligenceSlider, CharacterAttribute.Intelligence);
+            RegisterSliderCallback(faithSlider, CharacterAttribute.Faith);
+        }
+
+        private void RegisterSliderCallback(Slider slider, CharacterAttribute attribute)
+        {
+            if (slider == null)
+                return;
+
+            slider.wholeNumbers = true;
+            slider.onValueChanged.AddListener(_ =>
+            {
+                currentSelectedAttribute = attribute;
+                UpdateSliderBasedOnCurrentlySelectedAttribute();
+            });
         }
     }
 }
