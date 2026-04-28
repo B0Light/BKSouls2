@@ -29,7 +29,16 @@ namespace BK.Inventory
 
         private void SelectThisItem() => _playerUIShopManager.SelectItemToBuy(itemData);
 
-        public override int GetItemCategory() => (int)_itemInfo.itemType;
+        // public override int GetItemCategory() => (int)_itemInfo.itemType;
+
+        public override int GetItemCategory(){
+
+            if(_itemInfo == null) 
+            {
+                return -1;
+            }
+            return (int)_itemInfo.itemType;
+        }
 
     }
 }

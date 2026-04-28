@@ -14,6 +14,9 @@ namespace BK
         [SerializeField] private List<int> mindCoefficientUpgradeCosts = new() { 1500, 4000, 8000 };
         [SerializeField] private List<int> enduranceCoefficientUpgradeCosts = new() { 1500, 4000, 8000 };
         [SerializeField] private List<int> healthFlaskUpgradeCosts = new() { 1000, 2000, 3500, 5500, 8000 };
+        [SerializeField] private List<int> healthFlaskHealUpgradeCosts = new() { 1200, 2500, 4000, 6000, 9000 };
+        [SerializeField] private List<int> focusPointFlaskUpgradeCosts = new() { 1500, 3000, 5000, 7500, 11000 };
+        [SerializeField] private List<int> focusPointFlaskHealUpgradeCosts = new() { 1200, 2500, 4000, 6000, 9000 };
 
         [Header("Balance")]
         [SerializeField] private TextMeshProUGUI balanceText;
@@ -29,6 +32,24 @@ namespace BK
         [SerializeField] private TextMeshProUGUI healthFlaskCurrentText;
         [SerializeField] private TextMeshProUGUI healthFlaskNextText;
         [SerializeField] private TextMeshProUGUI healthFlaskCostText;
+
+        [Header("Health Flask Heal")]
+        [SerializeField] private TextMeshProUGUI healthFlaskHealLevelText;
+        [SerializeField] private TextMeshProUGUI healthFlaskHealCurrentText;
+        [SerializeField] private TextMeshProUGUI healthFlaskHealNextText;
+        [SerializeField] private TextMeshProUGUI healthFlaskHealCostText;
+
+        [Header("Focus Point Flasks")]
+        [SerializeField] private TextMeshProUGUI focusPointFlaskLevelText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskCurrentText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskNextText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskCostText;
+
+        [Header("Focus Point Flask Heal")]
+        [SerializeField] private TextMeshProUGUI focusPointFlaskHealLevelText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskHealCurrentText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskHealNextText;
+        [SerializeField] private TextMeshProUGUI focusPointFlaskHealCostText;
 
         [Header("Vigor Coefficient")]
         [SerializeField] private TextMeshProUGUI vigorCoefficientLevelText;
@@ -51,6 +72,9 @@ namespace BK
         [Header("Buttons")]
         [SerializeField] private Button startingRuneUpgradeButton;
         [SerializeField] private Button healthFlaskUpgradeButton;
+        [SerializeField] private Button healthFlaskHealUpgradeButton;
+        [SerializeField] private Button focusPointFlaskUpgradeButton;
+        [SerializeField] private Button focusPointFlaskHealUpgradeButton;
         [SerializeField] private Button vigorCoefficientUpgradeButton;
         [SerializeField] private Button mindCoefficientUpgradeButton;
         [SerializeField] private Button enduranceCoefficientUpgradeButton;
@@ -62,6 +86,9 @@ namespace BK
         {
             startingRuneUpgradeButton?.onClick.AddListener(TryUpgradeStartingRunes);
             healthFlaskUpgradeButton?.onClick.AddListener(TryUpgradeHealthFlasks);
+            healthFlaskHealUpgradeButton?.onClick.AddListener(TryUpgradeHealthFlaskHeal);
+            focusPointFlaskUpgradeButton?.onClick.AddListener(TryUpgradeFocusPointFlasks);
+            focusPointFlaskHealUpgradeButton?.onClick.AddListener(TryUpgradeFocusPointFlaskHeal);
             vigorCoefficientUpgradeButton?.onClick.AddListener(TryUpgradeVigorCoefficient);
             mindCoefficientUpgradeButton?.onClick.AddListener(TryUpgradeMindCoefficient);
             enduranceCoefficientUpgradeButton?.onClick.AddListener(TryUpgradeEnduranceCoefficient);
@@ -108,6 +135,52 @@ namespace BK
 
             data.healthFlaskBonusLevel++;
             WorldSaveGameManager.Instance.ResetFlasksToDefaultCharges();
+            WorldSaveGameManager.Instance.SaveGame();
+            Refresh();
+        }
+
+        public void TryUpgradeHealthFlaskHeal()
+        {
+            CharacterSaveData data = WorldSaveGameManager.Instance.currentCharacterData;
+            if (data == null || data.healthFlaskHealBonusLevel >= CharacterSaveData.MaxHealthFlaskHealBonusLevel)
+                return;
+
+            int cost = GetUpgradeCost(healthFlaskHealUpgradeCosts, data.healthFlaskHealBonusLevel);
+            if (!WorldPlayerInventory.Instance.TrySpend(cost))
+                return;
+
+            data.healthFlaskHealBonusLevel++;
+            WorldSaveGameManager.Instance.SaveGame();
+            Refresh();
+        }
+
+        public void TryUpgradeFocusPointFlasks()
+        {
+            CharacterSaveData data = WorldSaveGameManager.Instance.currentCharacterData;
+            if (data == null || data.focusPointFlaskBonusLevel >= CharacterSaveData.MaxFocusPointFlaskBonusLevel)
+                return;
+
+            int cost = GetUpgradeCost(focusPointFlaskUpgradeCosts, data.focusPointFlaskBonusLevel);
+            if (!WorldPlayerInventory.Instance.TrySpend(cost))
+                return;
+
+            data.focusPointFlaskBonusLevel++;
+            WorldSaveGameManager.Instance.ResetFlasksToDefaultCharges();
+            WorldSaveGameManager.Instance.SaveGame();
+            Refresh();
+        }
+
+        public void TryUpgradeFocusPointFlaskHeal()
+        {
+            CharacterSaveData data = WorldSaveGameManager.Instance.currentCharacterData;
+            if (data == null || data.focusPointFlaskHealBonusLevel >= CharacterSaveData.MaxFocusPointFlaskHealBonusLevel)
+                return;
+
+            int cost = GetUpgradeCost(focusPointFlaskHealUpgradeCosts, data.focusPointFlaskHealBonusLevel);
+            if (!WorldPlayerInventory.Instance.TrySpend(cost))
+                return;
+
+            data.focusPointFlaskHealBonusLevel++;
             WorldSaveGameManager.Instance.SaveGame();
             Refresh();
         }
@@ -172,6 +245,9 @@ namespace BK
 
             RefreshStartingRuneUI(data, balance);
             RefreshHealthFlaskUI(data, balance);
+            RefreshHealthFlaskHealUI(data, balance);
+            RefreshFocusPointFlaskUI(data, balance);
+            RefreshFocusPointFlaskHealUI(data, balance);
             RefreshVigorCoefficientUI(data, balance);
             RefreshMindCoefficientUI(data, balance);
             RefreshEnduranceCoefficientUI(data, balance);
@@ -185,7 +261,7 @@ namespace BK
             int nextRunes = isMax ? currentRunes : (level + 1) * 1000;
             int cost = isMax ? 0 : GetUpgradeCost(startingRuneUpgradeCosts, level);
 
-            startingRuneLevelText?.SetText($"{level} / {CharacterSaveData.MaxStartingRuneBonusLevel}");
+            startingRuneLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
             startingRuneCurrentText?.SetText(currentRunes.ToString());
             startingRuneNextText?.SetText(isMax ? "MAX" : nextRunes.ToString());
             startingRuneCostText?.SetText(isMax ? "MAX" : cost.ToString());
@@ -202,13 +278,64 @@ namespace BK
             int nextCharges = isMax ? currentCharges : currentCharges + 1;
             int cost = isMax ? 0 : GetUpgradeCost(healthFlaskUpgradeCosts, level);
 
-            healthFlaskLevelText?.SetText($"{level} / {CharacterSaveData.MaxHealthFlaskBonusLevel}");
+            healthFlaskLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
             healthFlaskCurrentText?.SetText(currentCharges.ToString());
             healthFlaskNextText?.SetText(isMax ? "MAX" : nextCharges.ToString());
             healthFlaskCostText?.SetText(isMax ? "MAX" : cost.ToString());
 
             if (healthFlaskUpgradeButton != null)
                 healthFlaskUpgradeButton.interactable = !isMax && balance >= cost;
+        }
+
+        private void RefreshHealthFlaskHealUI(CharacterSaveData data, int balance)
+        {
+            int level = Mathf.Clamp(data.healthFlaskHealBonusLevel, 0, CharacterSaveData.MaxHealthFlaskHealBonusLevel);
+            bool isMax = level >= CharacterSaveData.MaxHealthFlaskHealBonusLevel;
+            int currentBonus = level * CharacterSaveData.HealthFlaskHealBonusPerLevel;
+            int nextBonus = isMax ? currentBonus : (level + 1) * CharacterSaveData.HealthFlaskHealBonusPerLevel;
+            int cost = isMax ? 0 : GetUpgradeCost(healthFlaskHealUpgradeCosts, level);
+
+            healthFlaskHealLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
+            healthFlaskHealCurrentText?.SetText($"+{currentBonus}");
+            healthFlaskHealNextText?.SetText(isMax ? "MAX" : $"+{nextBonus}");
+            healthFlaskHealCostText?.SetText(isMax ? "MAX" : cost.ToString());
+
+            if (healthFlaskHealUpgradeButton != null)
+                healthFlaskHealUpgradeButton.interactable = !isMax && balance >= cost;
+        }
+
+        private void RefreshFocusPointFlaskUI(CharacterSaveData data, int balance)
+        {
+            int level = Mathf.Clamp(data.focusPointFlaskBonusLevel, 0, CharacterSaveData.MaxFocusPointFlaskBonusLevel);
+            bool isMax = level >= CharacterSaveData.MaxFocusPointFlaskBonusLevel;
+            int currentCharges = CharacterSaveData.DefaultFocusPointFlaskCharges + level;
+            int nextCharges = isMax ? currentCharges : currentCharges + 1;
+            int cost = isMax ? 0 : GetUpgradeCost(focusPointFlaskUpgradeCosts, level);
+
+            focusPointFlaskLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
+            focusPointFlaskCurrentText?.SetText(currentCharges.ToString());
+            focusPointFlaskNextText?.SetText(isMax ? "MAX" : nextCharges.ToString());
+            focusPointFlaskCostText?.SetText(isMax ? "MAX" : cost.ToString());
+
+            if (focusPointFlaskUpgradeButton != null)
+                focusPointFlaskUpgradeButton.interactable = !isMax && balance >= cost;
+        }
+
+        private void RefreshFocusPointFlaskHealUI(CharacterSaveData data, int balance)
+        {
+            int level = Mathf.Clamp(data.focusPointFlaskHealBonusLevel, 0, CharacterSaveData.MaxFocusPointFlaskHealBonusLevel);
+            bool isMax = level >= CharacterSaveData.MaxFocusPointFlaskHealBonusLevel;
+            int currentBonus = level * CharacterSaveData.FocusPointFlaskHealBonusPerLevel;
+            int nextBonus = isMax ? currentBonus : (level + 1) * CharacterSaveData.FocusPointFlaskHealBonusPerLevel;
+            int cost = isMax ? 0 : GetUpgradeCost(focusPointFlaskHealUpgradeCosts, level);
+
+            focusPointFlaskHealLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
+            focusPointFlaskHealCurrentText?.SetText($"+{currentBonus}");
+            focusPointFlaskHealNextText?.SetText(isMax ? "MAX" : $"+{nextBonus}");
+            focusPointFlaskHealCostText?.SetText(isMax ? "MAX" : cost.ToString());
+
+            if (focusPointFlaskHealUpgradeButton != null)
+                focusPointFlaskHealUpgradeButton.interactable = !isMax && balance >= cost;
         }
 
         private void RefreshVigorCoefficientUI(CharacterSaveData data, int balance)
@@ -222,7 +349,7 @@ namespace BK
             int nextCoefficient = stats != null ? stats.GetHealthPerVigorForUpgradeLevel(level + 1) : 0;
             int cost = isMax ? 0 : GetUpgradeCost(vigorCoefficientUpgradeCosts, level);
 
-            vigorCoefficientLevelText?.SetText($"{level} / {CharacterSaveData.MaxVigorCoefficientLevel}");
+            vigorCoefficientLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
             vigorCoefficientCurrentText?.SetText(currentCoefficient.ToString());
             vigorCoefficientNextText?.SetText(isMax ? "MAX" : nextCoefficient.ToString());
             vigorCoefficientCostText?.SetText(isMax ? "MAX" : cost.ToString());
@@ -242,7 +369,7 @@ namespace BK
             int nextCoefficient = stats != null ? stats.GetFocusPointsPerMindForUpgradeLevel(level + 1) : 0;
             int cost = isMax ? 0 : GetUpgradeCost(mindCoefficientUpgradeCosts, level);
 
-            mindCoefficientLevelText?.SetText($"{level} / {CharacterSaveData.MaxMindCoefficientLevel}");
+            mindCoefficientLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
             mindCoefficientCurrentText?.SetText(currentCoefficient.ToString());
             mindCoefficientNextText?.SetText(isMax ? "MAX" : nextCoefficient.ToString());
             mindCoefficientCostText?.SetText(isMax ? "MAX" : cost.ToString());
@@ -262,7 +389,7 @@ namespace BK
             int nextCoefficient = stats != null ? stats.GetStaminaPerEnduranceForUpgradeLevel(level + 1) : 0;
             int cost = isMax ? 0 : GetUpgradeCost(enduranceCoefficientUpgradeCosts, level);
 
-            enduranceCoefficientLevelText?.SetText($"{level} / {CharacterSaveData.MaxEnduranceCoefficientLevel}");
+            enduranceCoefficientLevelText?.SetText(isMax ? "MAX" : $"LV {level + 1}");
             enduranceCoefficientCurrentText?.SetText(currentCoefficient.ToString());
             enduranceCoefficientNextText?.SetText(isMax ? "MAX" : nextCoefficient.ToString());
             enduranceCoefficientCostText?.SetText(isMax ? "MAX" : cost.ToString());

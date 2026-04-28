@@ -112,14 +112,16 @@ namespace BK
             {
                 if (healthFlask)
                 {
-                    player.playerNetworkManager.currentHealth.Value += flaskRestoration;
+                    int healBonus = WorldSaveGameManager.Instance != null ? WorldSaveGameManager.Instance.GetHealthFlaskHealBonus() : 0;
+                    player.playerNetworkManager.currentHealth.Value += flaskRestoration + healBonus;
 
                     // 인벤토리 포션 먼저 소모, 없으면 기본 플라스크 소모
                     ConsumeOneFlask(player);
                 }
                 else
                 {
-                    player.playerNetworkManager.currentFocusPoints.Value += flaskRestoration;
+                    int healBonus = WorldSaveGameManager.Instance != null ? WorldSaveGameManager.Instance.GetFocusPointFlaskHealBonus() : 0;
+                    player.playerNetworkManager.currentFocusPoints.Value += flaskRestoration + healBonus;
 
                     ConsumeOneFlask(player);
                 }

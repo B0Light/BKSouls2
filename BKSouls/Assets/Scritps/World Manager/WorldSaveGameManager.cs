@@ -180,7 +180,7 @@ namespace BK
             characterData.currentSpell = -1;
 
             characterData.currentHealthFlasksRemaining = GetDefaultHealthFlaskCharges();
-            characterData.currentFocusPointsFlaskRemaining = CharacterSaveData.DefaultFocusPointFlaskCharges;
+            characterData.currentFocusPointsFlaskRemaining = GetDefaultFocusPointFlaskCharges();
 
             characterData.mainProjectile = new SerializableRangedProjectile { itemID = -1 };
             characterData.secondaryProjectile = new SerializableRangedProjectile { itemID = -1 };
@@ -336,10 +336,34 @@ namespace BK
             return CharacterSaveData.DefaultHealthFlaskCharges + bonusLevel;
         }
 
+        public int GetDefaultFocusPointFlaskCharges()
+        {
+            int bonusLevel = currentCharacterData != null
+                ? Mathf.Clamp(currentCharacterData.focusPointFlaskBonusLevel, 0, CharacterSaveData.MaxFocusPointFlaskBonusLevel)
+                : 0;
+            return CharacterSaveData.DefaultFocusPointFlaskCharges + bonusLevel;
+        }
+
+        public int GetHealthFlaskHealBonus()
+        {
+            int bonusLevel = currentCharacterData != null
+                ? Mathf.Clamp(currentCharacterData.healthFlaskHealBonusLevel, 0, CharacterSaveData.MaxHealthFlaskHealBonusLevel)
+                : 0;
+            return bonusLevel * CharacterSaveData.HealthFlaskHealBonusPerLevel;
+        }
+
+        public int GetFocusPointFlaskHealBonus()
+        {
+            int bonusLevel = currentCharacterData != null
+                ? Mathf.Clamp(currentCharacterData.focusPointFlaskHealBonusLevel, 0, CharacterSaveData.MaxFocusPointFlaskHealBonusLevel)
+                : 0;
+            return bonusLevel * CharacterSaveData.FocusPointFlaskHealBonusPerLevel;
+        }
+
         public void ResetFlasksToDefaultCharges()
         {
             int healthFlasks = GetDefaultHealthFlaskCharges();
-            int focusFlasks = CharacterSaveData.DefaultFocusPointFlaskCharges;
+            int focusFlasks = GetDefaultFocusPointFlaskCharges();
 
             if (currentCharacterData != null)
             {

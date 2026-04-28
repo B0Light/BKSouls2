@@ -17,6 +17,12 @@ namespace BK
         public const int MaxMindCoefficientLevel = 3;
         public const int MaxEnduranceCoefficientLevel = 3;
         public const int MaxHealthFlaskBonusLevel = 5;
+        public const int MaxHealthFlaskHealBonusLevel = 5;
+        public const int MaxFocusPointFlaskBonusLevel = 5;
+        public const int MaxFocusPointFlaskHealBonusLevel = 5;
+
+        public const int HealthFlaskHealBonusPerLevel = 25;
+        public const int FocusPointFlaskHealBonusPerLevel = 10;
 
         [Header("SCENE INDEX")]
         public int sceneIndex = 1;
@@ -118,6 +124,9 @@ namespace BK
         public int mindCoefficientLevel;
         public int enduranceCoefficientLevel;
         public int healthFlaskBonusLevel;
+        public int healthFlaskHealBonusLevel;
+        public int focusPointFlaskBonusLevel;
+        public int focusPointFlaskHealBonusLevel;
         public List<SaveBuildingData> buildings;
 
         public CharacterSaveData()
