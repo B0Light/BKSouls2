@@ -24,6 +24,7 @@ namespace BK
 
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
+        [HideInInspector] public PlayerUIBaseStatUpgradeManager playerUIBaseStatUpgradeManager;
         [HideInInspector] public DungeonResultUIManager dungeonResultUIManager;
         [HideInInspector] public InventoryGUIManager inventoryGUIManager;
         [HideInInspector] public ItemShopUIManager itemShopUIManager;
@@ -55,6 +56,7 @@ namespace BK
 
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
             playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
+            playerUIBaseStatUpgradeManager = GetComponentInChildren<PlayerUIBaseStatUpgradeManager>(true);
             dungeonResultUIManager = GetComponentInChildren<DungeonResultUIManager>(true);
             
             inventoryGUIManager = GetComponentInChildren<InventoryGUIManager>();
@@ -181,6 +183,7 @@ namespace BK
             playerUICharacterMenuManager?.CloseMenu();
             playerUISiteOfGraceManager?.CloseMenu();
             playerUILevelUpManager?.CloseMenu();
+            playerUIBaseStatUpgradeManager?.CloseMenu();
             cashCanvasGroup.alpha = 0;
             HideCursor();
         }

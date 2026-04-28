@@ -73,5 +73,11 @@ namespace BK
             CloseMenu();
             GUIController.Instance.playerUILevelUpManager.OpenMenu();
         }
+
+        public void OpenBaseStatUpgradeMenu()
+        {
+            CloseMenu();
+            GUIController.Instance.playerUIBaseStatUpgradeManager.OpenMenu();
+        }
     }
 }

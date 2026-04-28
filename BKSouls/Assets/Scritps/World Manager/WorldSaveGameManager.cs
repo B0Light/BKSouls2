@@ -131,6 +131,7 @@ namespace BK
 
         public void LoadHoldScene()
         {
+            ResetStatsForShelterReturn();
             WorldSceneManager.Instance.LoadWorldScene(holdSceneIndex);
         }
         
@@ -178,7 +179,7 @@ namespace BK
 
             characterData.currentSpell = -1;
 
-            characterData.currentHealthFlasksRemaining = CharacterSaveData.DefaultHealthFlaskCharges;
+            characterData.currentHealthFlasksRemaining = GetDefaultHealthFlaskCharges();
             characterData.currentFocusPointsFlaskRemaining = CharacterSaveData.DefaultFocusPointFlaskCharges;
 
             characterData.mainProjectile = new SerializableRangedProjectile { itemID = -1 };
@@ -303,6 +304,56 @@ namespace BK
         }
 
         // ── Pre-dungeon stat snapshot ──────────────────────────────────────────
+        public int GetStartingRunesForRun()
+        {
+            if (currentCharacterData == null)
+                return 0;
+
+            int upgradeLevel = Mathf.Clamp(
+                currentCharacterData.startingRuneBonusLevel,
+                0,
+                CharacterSaveData.MaxStartingRuneBonusLevel);
+
+            return upgradeLevel * 1000;
+        }
+
+        public void GrantStartingRunesForRun()
+        {
+            int startingRunes = GetStartingRunesForRun();
+            if (startingRunes <= 0 || player == null || !player.IsOwner)
+                return;
+
+            player.playerStatsManager.TrackStartingRunesGranted(startingRunes);
+            player.playerStatsManager.AddRunes(startingRunes);
+        }
+
+        public int GetDefaultHealthFlaskCharges()
+        {
+            int bonusLevel = currentCharacterData != null
+                ? Mathf.Clamp(currentCharacterData.healthFlaskBonusLevel, 0, CharacterSaveData.MaxHealthFlaskBonusLevel)
+                : 0;
+
+            return CharacterSaveData.DefaultHealthFlaskCharges + bonusLevel;
+        }
+
+        public void ResetFlasksToDefaultCharges()
+        {
+            int healthFlasks = GetDefaultHealthFlaskCharges();
+            int focusFlasks = CharacterSaveData.DefaultFocusPointFlaskCharges;
+
+            if (currentCharacterData != null)
+            {
+                currentCharacterData.currentHealthFlasksRemaining = healthFlasks;
+                currentCharacterData.currentFocusPointsFlaskRemaining = focusFlasks;
+            }
+
+            if (player == null || !player.IsOwner)
+                return;
+
+            player.playerNetworkManager.remainingHealthFlasks.Value = healthFlasks;
+            player.playerNetworkManager.remainingFocusPointsFlasks.Value = focusFlasks;
+        }
+
         private int _snapVitality, _snapMind, _snapEndurance;
         private int _snapStrength, _snapDexterity, _snapIntelligence, _snapFaith;
         private bool _hasDungeonSnapshot;
@@ -353,6 +404,55 @@ namespace BK
             }
         }
         // ──────────────────────────────────────────────────────────────────────
+
+        public void ResetStatsForShelterReturn()
+        {
+            int baseAttributeLevel = CharacterSaveData.DefaultRoguelikeAttributeLevel;
+
+            if (currentCharacterData != null)
+            {
+                currentCharacterData.vitality     = baseAttributeLevel;
+                currentCharacterData.mind         = baseAttributeLevel;
+                currentCharacterData.endurance    = baseAttributeLevel;
+                currentCharacterData.strength     = baseAttributeLevel;
+                currentCharacterData.dexterity    = baseAttributeLevel;
+                currentCharacterData.intelligence = baseAttributeLevel;
+                currentCharacterData.faith        = baseAttributeLevel;
+            }
+
+            _hasDungeonSnapshot = false;
+
+            if (player == null || !player.IsOwner)
+                return;
+
+            var nm = player.playerNetworkManager;
+            var sm = player.playerStatsManager;
+
+            nm.vigor.Value        = baseAttributeLevel;
+            nm.endurance.Value    = baseAttributeLevel;
+            nm.mind.Value         = baseAttributeLevel;
+            nm.strength.Value     = baseAttributeLevel;
+            nm.dexterity.Value    = baseAttributeLevel;
+            nm.intelligence.Value = baseAttributeLevel;
+            nm.faith.Value        = baseAttributeLevel;
+            nm.strengthModifier.Value = 0;
+
+            nm.maxHealth.Value         = sm.CalculateHealthBasedOnVitalityLevel(baseAttributeLevel);
+            nm.maxStamina.Value        = sm.CalculateStaminaBasedOnEnduranceLevel(baseAttributeLevel);
+            nm.maxFocusPoints.Value    = sm.CalculateFocusPointsBasedOnMindLevel(baseAttributeLevel);
+            nm.buildUpCapacity.Value   = sm.CalculateBuildUpCapacityBasedOnVitalityLevel(baseAttributeLevel);
+            nm.currentHealth.Value     = nm.maxHealth.Value;
+            nm.currentStamina.Value    = nm.maxStamina.Value;
+            nm.currentFocusPoints.Value = nm.maxFocusPoints.Value;
+            ResetFlasksToDefaultCharges();
+
+            if (currentCharacterData != null)
+            {
+                currentCharacterData.currentHealth = nm.currentHealth.Value;
+                currentCharacterData.currentStamina = nm.currentStamina.Value;
+                currentCharacterData.currentFocusPoints = nm.currentFocusPoints.Value;
+            }
+        }
 
         public SerializableWeapon GetSerializableWeaponFromWeaponItem(WeaponItem weapon)
         {

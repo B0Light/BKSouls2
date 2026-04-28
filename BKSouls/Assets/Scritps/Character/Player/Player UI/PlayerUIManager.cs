@@ -19,6 +19,7 @@ namespace BK
 
         [HideInInspector] public PlayerUILoadingScreenManager playerUILoadingScreenManager;
         [HideInInspector] public PlayerUILevelUpManager playerUILevelUpManager;
+        [HideInInspector] public PlayerUIBaseStatUpgradeManager playerUIBaseStatUpgradeManager;
 
         [Header("UI Flags")]
         public bool menuWindowIsOpen = false;       // INVENTORY SCREEN, EQUIPMENT MENU, BLACKSMITH MENU ECT
@@ -34,6 +35,7 @@ namespace BK
 
             playerUILoadingScreenManager = GetComponentInChildren<PlayerUILoadingScreenManager>();
             playerUILevelUpManager = GetComponentInChildren<PlayerUILevelUpManager>();
+            playerUIBaseStatUpgradeManager = GetComponentInChildren<PlayerUIBaseStatUpgradeManager>(true);
         }
 
         private void Start()
@@ -59,6 +61,7 @@ namespace BK
             playerUISiteOfGraceManager.CloseMenuAfterFixedFrame();
 
             playerUILevelUpManager.CloseMenuAfterFixedFrame();
+            playerUIBaseStatUpgradeManager?.CloseMenuAfterFixedFrame();
         }
     }
 }

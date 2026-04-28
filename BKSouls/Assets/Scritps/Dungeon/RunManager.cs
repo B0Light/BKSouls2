@@ -152,10 +152,11 @@ namespace BK
             PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
             if (localPlayer == null) return;
 
-            int balanceGain = localPlayer.playerStatsManager.runes;
+            int balanceGain = localPlayer.playerStatsManager.GetRewardableRunes();
             if (balanceGain > 0)
                 WorldPlayerInventory.Instance.balance.Value += balanceGain;
 
+            WorldSaveGameManager.Instance.ResetStatsForShelterReturn();
             WorldSaveGameManager.Instance.ResetRunes();
             WorldSaveGameManager.Instance.currentCharacterData.balance = WorldPlayerInventory.Instance.balance.Value;
             WorldPlayerInventory.Instance.ClearEquipmentSlots();
@@ -166,7 +167,7 @@ namespace BK
         private void ShowClearDungeonResultClientRpc(int roomsCleared)
         {
             PlayerManager localPlayer = NetworkManager.Singleton.LocalClient?.PlayerObject?.GetComponent<PlayerManager>();
-            int shelterCoinGain = localPlayer != null ? localPlayer.playerStatsManager.runes : 0;
+            int shelterCoinGain = localPlayer != null ? localPlayer.playerStatsManager.GetRewardableRunes() : 0;
             int playerLevel = localPlayer != null ? localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes() : 0;
             int runesSpent = localPlayer != null ? localPlayer.playerStatsManager.runesSpentThisDungeon : 0;
             DungeonResultData resultData = new DungeonResultData(true, roomsCleared, shelterCoinGain, playerLevel, runesSpent);
@@ -201,8 +202,8 @@ namespace BK
 
             isWaitingForDungeonResult = false;
             RestoreAllPlayersClientRpc();
-            ResetLevelUpUIClientRpc();
             ApplyClearRuneRewardClientRpc();
+            ResetLevelUpUIClientRpc();
 
             if (roomManager != null)
                 roomManager.CleanupForSceneTransition();

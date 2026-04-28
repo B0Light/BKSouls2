@@ -11,6 +11,14 @@ namespace BK
         [Header("Runes")]
         public int runesDroppedOnDeath = 50;
 
+        [Header("Roguelike Meta Upgrades")]
+        [SerializeField] private int healthPerVigor = 15;
+        [SerializeField] private int healthPerVigorUpgradeBonus = 5;
+        [SerializeField] private int focusPointsPerMind = 10;
+        [SerializeField] private int focusPointsPerMindUpgradeBonus = 5;
+        [SerializeField] private int staminaPerEndurance = 10;
+        [SerializeField] private int staminaPerEnduranceUpgradeBonus = 5;
+
         [Header("Stamina Regeneration")]
         [SerializeField] float baseStaminaRegenerationAmount = 2;
         private float staminaRegenerationAmount = 0;
@@ -63,35 +71,92 @@ namespace BK
 
         public int CalculateHealthBasedOnVitalityLevel(int vitality)
         {
-            float health = 0;
+            return vitality * GetHealthPerVigor();
+        }
 
-            //  CREATE AN EQUATION FOR HOW YOU WANT YOUR STAMINA TO BE CALCULATED
+        public int GetHealthPerVigor()
+        {
+            return GetHealthPerVigorForUpgradeLevel(GetVigorCoefficientUpgradeLevel());
+        }
 
-            health = vitality * 15;
+        public int GetHealthPerVigorForUpgradeLevel(int upgradeLevel)
+        {
+            upgradeLevel = Mathf.Clamp(upgradeLevel, 0, CharacterSaveData.MaxVigorCoefficientLevel);
+            return healthPerVigor + upgradeLevel * healthPerVigorUpgradeBonus;
+        }
 
-            return Mathf.RoundToInt(health);
+        private int GetVigorCoefficientUpgradeLevel()
+        {
+            if (!(character is PlayerManager))
+                return 0;
+
+            CharacterSaveData data = WorldSaveGameManager.Instance != null
+                ? WorldSaveGameManager.Instance.currentCharacterData
+                : null;
+
+            return data != null
+                ? Mathf.Clamp(data.vigorCoefficientLevel, 0, CharacterSaveData.MaxVigorCoefficientLevel)
+                : 0;
+        }
+
+        private int GetMindCoefficientUpgradeLevel()
+        {
+            if (!(character is PlayerManager))
+                return 0;
+
+            CharacterSaveData data = WorldSaveGameManager.Instance != null
+                ? WorldSaveGameManager.Instance.currentCharacterData
+                : null;
+
+            return data != null
+                ? Mathf.Clamp(data.mindCoefficientLevel, 0, CharacterSaveData.MaxMindCoefficientLevel)
+                : 0;
+        }
+
+        private int GetEnduranceCoefficientUpgradeLevel()
+        {
+            if (!(character is PlayerManager))
+                return 0;
+
+            CharacterSaveData data = WorldSaveGameManager.Instance != null
+                ? WorldSaveGameManager.Instance.currentCharacterData
+                : null;
+
+            return data != null
+                ? Mathf.Clamp(data.enduranceCoefficientLevel, 0, CharacterSaveData.MaxEnduranceCoefficientLevel)
+                : 0;
         }
 
         public int CalculateStaminaBasedOnEnduranceLevel(int endurance)
         {
-            float stamina = 0;
+            return endurance * GetStaminaPerEndurance();
+        }
 
-            //  CREATE AN EQUATION FOR HOW YOU WANT YOUR STAMINA TO BE CALCULATED
+        public int GetStaminaPerEndurance()
+        {
+            return GetStaminaPerEnduranceForUpgradeLevel(GetEnduranceCoefficientUpgradeLevel());
+        }
 
-            stamina = endurance * 10;
-
-            return Mathf.RoundToInt(stamina);
+        public int GetStaminaPerEnduranceForUpgradeLevel(int upgradeLevel)
+        {
+            upgradeLevel = Mathf.Clamp(upgradeLevel, 0, CharacterSaveData.MaxEnduranceCoefficientLevel);
+            return staminaPerEndurance + upgradeLevel * staminaPerEnduranceUpgradeBonus;
         }
 
         public int CalculateFocusPointsBasedOnMindLevel(int mind)
         {
-            int focusPoints = 0;
+            return mind * GetFocusPointsPerMind();
+        }
 
-            //  CREATE AN EQUATION FOR HOW YOU WANT YOUR STAMINA TO BE CALCULATED
+        public int GetFocusPointsPerMind()
+        {
+            return GetFocusPointsPerMindForUpgradeLevel(GetMindCoefficientUpgradeLevel());
+        }
 
-            focusPoints = mind * 10;
-
-            return Mathf.RoundToInt(focusPoints);
+        public int GetFocusPointsPerMindForUpgradeLevel(int upgradeLevel)
+        {
+            upgradeLevel = Mathf.Clamp(upgradeLevel, 0, CharacterSaveData.MaxMindCoefficientLevel);
+            return focusPointsPerMind + upgradeLevel * focusPointsPerMindUpgradeBonus;
         }
 
         public int CalculateCharacterLevelBasedOnAttributes(bool calculateProjectedLevel = false)

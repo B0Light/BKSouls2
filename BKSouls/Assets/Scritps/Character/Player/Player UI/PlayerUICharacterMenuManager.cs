@@ -7,6 +7,9 @@ namespace BK
     {
         private PlayerManager Player => GUIController.Instance.localPlayer;
 
+        [Header("Character")]
+        [SerializeField] private TextMeshProUGUI levelText;
+
         [Header("Derived Resources")]
         [SerializeField] private TextMeshProUGUI maxHPText;
         [SerializeField] private TextMeshProUGUI maxFPText;
@@ -56,10 +59,16 @@ namespace BK
         {
             if (Player == null) return;
 
+            RefreshCharacter();
             RefreshAttributes();
             RefreshResources();
             RefreshAttack();
             RefreshDefense();
+        }
+
+        private void RefreshCharacter()
+        {
+            levelText?.SetText(Player.characterStatsManager.CalculateCharacterLevelBasedOnAttributes().ToString());
         }
 
         private void RefreshAttributes()

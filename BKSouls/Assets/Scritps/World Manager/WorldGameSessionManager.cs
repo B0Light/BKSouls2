@@ -25,7 +25,7 @@ namespace BK
             yield return new WaitForSeconds(delay);
 
             PlayerManager localPlayer = GUIController.Instance.localPlayer;
-            int runesOnDeath = localPlayer != null ? localPlayer.playerStatsManager.runes : 0;
+            int runesOnDeath = localPlayer != null ? localPlayer.playerStatsManager.GetRewardableRunes() : 0;
             int balanceGain = Mathf.RoundToInt(runesOnDeath * 0.1f);
             int roomsCleared = RunManager.Instance != null ? Mathf.Max(0, RunManager.Instance.CurrentRoomIndex) : 0;
             int playerLevel = localPlayer != null ? localPlayer.characterStatsManager.CalculateCharacterLevelBasedOnAttributes() : 0;
@@ -51,7 +51,7 @@ namespace BK
             GUIController.Instance.playerUILoadingScreenManager.ActivateLoadingScreen();
 
             GUIController.Instance.localPlayer.ReviveCharacter();
-            WorldSaveGameManager.Instance.RestorePreDungeonStats();
+            WorldSaveGameManager.Instance.ResetStatsForShelterReturn();
 
             if (GUIController.Instance.localPlayer != null && balanceGain > 0)
                 WorldPlayerInventory.Instance.balance.Value += balanceGain;

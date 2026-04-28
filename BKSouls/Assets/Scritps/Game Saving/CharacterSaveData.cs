@@ -11,6 +11,12 @@ namespace BK
     {
         public const int DefaultHealthFlaskCharges = 3;
         public const int DefaultFocusPointFlaskCharges = 1;
+        public const int DefaultRoguelikeAttributeLevel = 5;
+        public const int MaxStartingRuneBonusLevel = 10;
+        public const int MaxVigorCoefficientLevel = 3;
+        public const int MaxMindCoefficientLevel = 3;
+        public const int MaxEnduranceCoefficientLevel = 3;
+        public const int MaxHealthFlaskBonusLevel = 5;
 
         [Header("SCENE INDEX")]
         public int sceneIndex = 1;
@@ -107,6 +113,11 @@ namespace BK
         
         // Shelter
         public int shelterLevel;
+        public int startingRuneBonusLevel;
+        public int vigorCoefficientLevel;
+        public int mindCoefficientLevel;
+        public int enduranceCoefficientLevel;
+        public int healthFlaskBonusLevel;
         public List<SaveBuildingData> buildings;
 
         public CharacterSaveData()

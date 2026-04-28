@@ -104,8 +104,7 @@ namespace BK
             //  인벤토리 포션(여분)은 건드리지 않고 기본 충전 횟수만 복원한다.
             if (player.IsOwner)
             {
-                player.playerNetworkManager.remainingHealthFlasks.Value = 3;
-                player.playerNetworkManager.remainingFocusPointsFlasks.Value = 1;
+                WorldSaveGameManager.Instance.ResetFlasksToDefaultCharges();
                 GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(
                     player.playerInventoryManager.currentQuickSlotItem);
             }

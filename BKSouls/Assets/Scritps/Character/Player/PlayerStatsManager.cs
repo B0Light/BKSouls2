@@ -12,6 +12,7 @@ namespace BK
         [Header("Runes")]
         public int runes = 0;
         public int runesSpentThisDungeon = 0;
+        public int startingRunesGrantedThisDungeon = 0;
 
         protected override void Awake()
         {
@@ -155,6 +156,18 @@ namespace BK
         public void ResetDungeonRuneSpending()
         {
             runesSpentThisDungeon = 0;
+            startingRunesGrantedThisDungeon = 0;
+        }
+
+        public void TrackStartingRunesGranted(int amount)
+        {
+            startingRunesGrantedThisDungeon = Mathf.Max(0, amount);
+        }
+
+        public int GetRewardableRunes()
+        {
+            int nonRewardableStartingRunes = Mathf.Max(0, startingRunesGrantedThisDungeon - runesSpentThisDungeon);
+            return Mathf.Max(0, runes - nonRewardableStartingRunes);
         }
     }
 }

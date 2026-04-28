@@ -10,6 +10,7 @@ namespace BK
     public class WorldSceneManager : NetworkBehaviour
     {
         public static WorldSceneManager Instance;
+        private const string HoldSceneName = "Scene_RoundTableHold";
 
         private readonly Dictionary<string, Vector3> sceneInfoDic = new Dictionary<string, Vector3>();
         [SerializeField] private List<SceneInfo> sceneInfos = new List<SceneInfo>();
@@ -66,6 +67,10 @@ namespace BK
             }
 
             GUIController.HideCursor();
+
+            if (sceneName == HoldSceneName && WorldSaveGameManager.Instance != null)
+                WorldSaveGameManager.Instance.ResetStatsForShelterReturn();
+
             NetworkManager.SceneManager.LoadScene(sceneName, LoadSceneMode.Single);
             GUIController.Instance.localPlayer.LoadGameDataFromCurrentCharacterData(ref WorldSaveGameManager.Instance.currentCharacterData, GetSpawnPos(sceneName));
         }
