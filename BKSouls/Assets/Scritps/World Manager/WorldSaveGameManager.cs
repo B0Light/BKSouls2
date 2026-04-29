@@ -85,6 +85,17 @@ namespace BK
 
         public void AttemptToCreateNewGame()
         {
+            if (TryPrepareNewGame())
+            {
+                FinishCreatingNewGame();
+                return;
+            }
+
+            TitleScreenManager.Instance.DisplayNoFreeCharacterSlotsPopUp();
+        }
+
+        public bool TryPrepareNewGame()
+        {
             SetupSaveWriter();
             foreach (CharacterSlot slot in Enum.GetValues(typeof(CharacterSlot)))
             {
@@ -95,29 +106,42 @@ namespace BK
                 {
                     currentCharacterSlotBeingUsed = slot;
                     currentCharacterData = new CharacterSaveData();
-                    NewGame();
-                    return;
+                    SetNewGameDefaultStats();
+                    return true;
                 }
             }
-            TitleScreenManager.Instance.DisplayNoFreeCharacterSlotsPopUp();
+
+            return false;
         }
         
 
-        private void NewGame()
+        private void SetNewGameDefaultStats()
         {
+            if (player == null)
+            {
+                Debug.LogError("Cannot initialize new game stats because WorldSaveGameManager.player is not assigned.");
+                return;
+            }
+
             player.playerNetworkManager.vigor.Value = 15;
             player.playerNetworkManager.endurance.Value = 10;
             player.playerNetworkManager.mind.Value = 10;
+        }
 
-            SaveGame();
-            
+        public void FinishCreatingNewGame()
+        {
+            if (player == null)
+            {
+                Debug.LogError("Cannot finish creating new game because WorldSaveGameManager.player is not assigned.");
+                return;
+            }
+
             currentCharacterData.xPosition = initPosition.x;
             currentCharacterData.yPosition = initPosition.y;
             currentCharacterData.zPosition = initPosition.z;
-            
+
+            SaveGame();
             WorldSceneManager.Instance.LoadWorldScene(tutorialSceneIndex);
-            
-            
         }
 
         public void LoadGame()

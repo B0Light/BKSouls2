@@ -108,9 +108,27 @@ namespace BK
 
         public void StartNewGame()
         {
-            WorldSaveGameManager.Instance.AttemptToCreateNewGame();
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
+            NetworkObject localPlayerObject = NetworkManager.Singleton != null
+                ? NetworkManager.Singleton.LocalClient?.PlayerObject
+                : null;
+
+            if (localPlayerObject == null)
+            {
+                Debug.LogError("Cannot start new game because the local network player has not spawned.");
+                return;
+            }
+
+            PlayerManager player = localPlayerObject.GetComponent<PlayerManager>();
+            WorldSaveGameManager.Instance.player = player;
+
+            if (!WorldSaveGameManager.Instance.TryPrepareNewGame())
+            {
+                DisplayNoFreeCharacterSlotsPopUp();
+                return;
+            }
+
             startingClasses[selectClass].DecideClass(player);
+            WorldSaveGameManager.Instance.FinishCreatingNewGame();
         }
 
         public void ContinueLastGame()
