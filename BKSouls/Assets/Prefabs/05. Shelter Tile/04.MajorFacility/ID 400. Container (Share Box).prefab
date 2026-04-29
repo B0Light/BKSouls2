@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8310541182868939072}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ActionPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4965438662362533213}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: QueueStartPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 2511844526160334704}
   - component: {fileID: 8691803284987389353}
   - component: {fileID: 2878514922593214931}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: SM_Tile_Cube_Flat_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 2931928185241095389}
   - component: {fileID: 2968610516696285561}
   - component: {fileID: 8527687559859991061}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2159447608895429642}
-  m_Layer: 24
+  m_Layer: 16
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +434,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5900521240766154867}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -467,7 +467,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8505302688112017437}
   - component: {fileID: -6233556549067357911}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: ID 400. Container (Share Box)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -526,7 +526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2991795630829043138}
-  m_Layer: 14
+  m_Layer: 0
   m_Name: Entrance
   m_TagString: Untagged
   m_Icon: {fileID: 0}

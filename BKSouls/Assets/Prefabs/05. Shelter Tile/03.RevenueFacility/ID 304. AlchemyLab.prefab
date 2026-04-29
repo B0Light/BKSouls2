@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 8212492891552691701}
   - component: {fileID: 6597254240432695687}
   - component: {fileID: 1239696567403287099}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,7 @@ GameObject:
   - component: {fileID: 6492034144127977481}
   - component: {fileID: 5037261107016753225}
   - component: {fileID: 6100761645013580856}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8959989075211227557}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: MiniMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -918,7 +918,7 @@ GameObject:
   - component: {fileID: 7314800047316543787}
   - component: {fileID: 8483570702627227390}
   - component: {fileID: 6044715561530443488}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1307,7 +1307,7 @@ GameObject:
   - component: {fileID: 6802909197648187086}
   - component: {fileID: 9218755689116836975}
   - component: {fileID: 5824749282547103478}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

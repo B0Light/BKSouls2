@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Scene_World_01.unity
     guid: c29b3fd18e77d264e9dbdbefe2c254b7
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_World_Test.unity
     guid: c81ca4a28c171e8489fbc1ef4bfc0137
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Scene_World_ProtoType.unity
     guid: e26b94dcf0a79db4eb5c105c6922991a
   m_configObjects:
