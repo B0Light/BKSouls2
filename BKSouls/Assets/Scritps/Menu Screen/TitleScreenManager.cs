@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using BK.Inventory;
 using UnityEngine;
 using Unity.Netcode;
@@ -34,20 +31,17 @@ namespace BK
         //  CHARACTER CREATION MENU
         [Header("Character Creation Main Panel Buttons")]
         [SerializeField] Button characterNameButton;
-        [SerializeField] Button characterClassButton;
         [SerializeField] Button characterHairButton;
         [SerializeField] Button characterHairColorButton;
         [SerializeField] Button characterSexButton;
         [SerializeField] TextMeshProUGUI characterSexText;
         [SerializeField] Button startGameButton;
 
-        [Header("Character Creation Class Panel Buttons")]
-        [SerializeField] Button[] characterClassButtons;
+        [Header("Character Creation Hair Panel Buttons")]
         [SerializeField] Button[] characterHairButtons;
         [SerializeField] Button[] characterHairColorButtons;
 
         [Header("Character Creation Secondary Panel Menus")]
-        [SerializeField] GameObject characterClassMenu;
         [SerializeField] GameObject characterHairMenu;
         [SerializeField] GameObject characterHairColorMenu;
         [SerializeField] GameObject characterNameMenu;
@@ -64,9 +58,6 @@ namespace BK
         [Header("Character Slots")]
         public CharacterSlot currentSelectedSlot = CharacterSlot.NO_SLOT;
 
-        [Header("Classes")]
-        public CharacterClass[] startingClasses;
-        private int selectClass;
 
         private void Awake()
         {
@@ -127,7 +118,6 @@ namespace BK
                 return;
             }
 
-            startingClasses[selectClass].DecideClass(player);
             WorldSaveGameManager.Instance.FinishCreatingNewGame();
         }
 
@@ -206,34 +196,6 @@ namespace BK
             OpenTitleScreenMainMenu();
         }
 
-        public void OpenChooseCharacterClassSubMenu()
-        {
-            //  1. DISABLE ALL MAIN MENU BUTTONS (SO YOU CANT ACCIDENTALLY HIT ONE)
-            ToggleCharacterCreationScreenMainMenuButtons(false);
-
-            //  2. ENABLE SUB MENU OBJECT (CLASS LIST WITH BUTTONS)
-            characterClassMenu.SetActive(true);
-
-            //  3. AUTO SELECT FIRST BUTTON
-            if (characterClassButtons.Length > 0)
-            {
-                characterClassButtons[0].Select();
-                characterClassButtons[0].OnSelect(null);
-            }
-        }
-
-        public void CloseChooseCharacterClassSubMenu()
-        {
-            //  1. RE-ENABLE ALL MAIN MENU BUTTONS
-            ToggleCharacterCreationScreenMainMenuButtons(true);
-
-            //  2. DISABLE SUB MENU OBJECT
-            characterClassMenu.SetActive(false);
-
-            //  3. AUTO SELECT "CHOOSE CLASS BUTTON" (SINCE IT WAS THE LAST BUTTON YOU HIT DURING THE MAIN MENU
-            characterClassButton.Select();
-            characterClassButton.OnSelect(null);
-        }
 
         public void OpenChooseHairStyleSubMenu()
         {
@@ -362,7 +324,6 @@ namespace BK
         private void ToggleCharacterCreationScreenMainMenuButtons(bool status)
         {
             characterNameButton.enabled = status;
-            characterClassButton.enabled = status;
             characterHairButton.enabled = status;
             characterHairColorButton.enabled = status;
             characterSexButton.enabled = status;
@@ -428,113 +389,6 @@ namespace BK
         {
             deleteCharacterSlotPopUp.SetActive(false);
             loadMenuReturnButton.Select();
-        }
-
-        //  CHARACTER CLASS
-
-        public void SelectClass(int classID)
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            if (startingClasses.Length <= 0)
-                return;
-
-            startingClasses[classID].SetClass(player);
-            selectClass = classID;
-            CloseChooseCharacterClassSubMenu();
-        }
-
-        public void PreviewClass(int classID)
-        {
-            PlayerManager player = NetworkManager.Singleton.LocalClient.PlayerObject.GetComponent<PlayerManager>();
-
-            if (startingClasses.Length <= 0)
-                return;
-
-            startingClasses[classID].SetClass(player);
-        }
-
-        public void SetCharacterClass(PlayerManager player,
-            WeaponItem mainHandWeapon, WeaponItem offHandWeapon,
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment)
-        {
-            // 0. Clear the hidden helmet (just incase someone figures how out how to store a helmet and then re-equip it on another class)
-            hiddenHelmet = null;
-
-            player.playerInventoryManager.headEquipment = headEquipment != null ? Instantiate(headEquipment) : null;
-            player.playerInventoryManager.bodyEquipment = bodyEquipment != null ? Instantiate(bodyEquipment) : null;
-            player.playerInventoryManager.handEquipment = handEquipment != null ? Instantiate(handEquipment) : null;
-            player.playerInventoryManager.legEquipment = legEquipment != null ? Instantiate(legEquipment) : null;
-            player.playerInventoryManager.currentRightHandWeapon = mainHandWeapon != null ? Instantiate(mainHandWeapon) : null;
-            player.playerInventoryManager.currentLeftHandWeapon = offHandWeapon != null ? Instantiate(offHandWeapon) : null;
-            
-            player.playerEquipmentManager.EquipArmor();
-            player.playerEquipmentManager.EquipWeapons();
-        }
-        
-        public void DecideCharacterClass(PlayerManager player, int vitality, int endurance, int mind, int strength, int dexterity, int intelligence, int faith,
-            WeaponItem mainHandWeapon, WeaponItem offHandWeapon, WeaponItem rightSubWeapon, WeaponItem leftSubWeapon, 
-            HeadEquipmentItem headEquipment, BodyEquipmentItem bodyEquipment, LegEquipmentItem legEquipment, HandEquipmentItem handEquipment,
-            QuickSlotItem[] quickSlotItems, RangedProjectileItem[] rangedProjectileItems, SpellItem spellItem)
-        {
-            Debug.Log("Set Item");
-            
-            // 0. Clear the hidden helmet
-            hiddenHelmet = null;
-
-            // 1. Set the stats
-            player.playerNetworkManager.vigor.Value = vitality;
-            player.playerNetworkManager.endurance.Value = endurance;
-            player.playerNetworkManager.mind.Value = mind;
-            player.playerNetworkManager.strength.Value = strength;
-            player.playerNetworkManager.dexterity.Value = dexterity;
-            player.playerNetworkManager.intelligence.Value = intelligence;
-            player.playerNetworkManager.faith.Value = faith;
-
-            // 2. Set the weapons
-            WorldPlayerInventory.Instance.GetRightWeaponInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetLeftWeaponInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetRightSubWeaponInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetLeftSubWeaponInventory().ResetItemGrid();
-            if(mainHandWeapon)
-                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightWeaponInventory(), mainHandWeapon);
-            if(offHandWeapon)
-                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftWeaponInventory(), offHandWeapon);
-            if(rightSubWeapon)
-                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetRightSubWeaponInventory(), rightSubWeapon);
-            if(leftSubWeapon)
-                WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeftSubWeaponInventory(), leftSubWeapon);
-            
-            // 3. Set the armor
-            WorldPlayerInventory.Instance.GetHelmetInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetArmorInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetGauntletInventory().ResetItemGrid();
-            WorldPlayerInventory.Instance.GetLeggingsInventory().ResetItemGrid();
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetHelmetInventory(), headEquipment);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetArmorInventory(), bodyEquipment);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetGauntletInventory(), handEquipment);
-            WorldShopManager.Instance.SetItem(WorldPlayerInventory.Instance.GetLeggingsInventory(), legEquipment);
-            
-            // 4. Set the quickslot items
-            player.playerInventoryManager.quickSlotItemIndex = 0;
-
-            if (quickSlotItems[0] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[0] = Instantiate(quickSlotItems[0]);
-            if (quickSlotItems[1] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[1] = Instantiate(quickSlotItems[1]);
-            if (quickSlotItems[2] != null)
-                player.playerInventoryManager.quickSlotItemsInQuickSlots[2] = Instantiate(quickSlotItems[2]);
-
-            player.playerEquipmentManager.LoadQuickSlotEquipment(player.playerInventoryManager.quickSlotItemsInQuickSlots[player.playerInventoryManager.quickSlotItemIndex]);
-            
-            // 5. Set Projectile
-            player.playerInventoryManager.mainProjectile = rangedProjectileItems[0];
-            player.playerInventoryManager.secondaryProjectile = rangedProjectileItems[1];
-
-            if(spellItem)
-                player.playerNetworkManager.currentSpellID.Value = spellItem.itemID;
-            
-            GUIController.Instance.playerUIHudManager.SetMainProjectileQuickSlotIcon(player.playerInventoryManager.mainProjectile);
         }
 
         //  CHARACTER HAIR

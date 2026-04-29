@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257580ef25bb09e4f9c6bcc18fdadad1, type: 3}
   m_Name: Mana Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
-  itemID: 46
+  itemID: 47
   itemName: "\uB9C8\uB098 \uD50C\uB77C\uC2A4\uD06C"
   itemIcon: {fileID: 21300000, guid: ab1d83d6d9539f4429674b75560cf51e, type: 3}
   itemTier: 0
-  itemType: 9
+  itemType: 5
   cost: 1200
   itemDescription: "\uD478\uB978\uBE5B \uC561\uCCB4\uAC00 \uB2F4\uAE34 \uC2E0\uBE44\uD55C
     \uD50C\uB77C\uC2A4\uD06C. \uB9C8\uC2DC\uBA74 \uC18C\uBAA8\uD55C \uC9D1\uC911\uB825\uC758

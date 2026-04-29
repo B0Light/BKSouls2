@@ -114,6 +114,8 @@ namespace BK
                 playerNetworkManager.currentHealth.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
                 playerNetworkManager.currentFocusPoints.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
+                playerNetworkManager.remainingHealthFlasks.OnValueChanged += GUIController.Instance.playerUIHudManager.RefreshQuickSlotCount;
+                playerNetworkManager.remainingFocusPointsFlasks.OnValueChanged += GUIController.Instance.playerUIHudManager.RefreshQuickSlotCount;
                 
                 playerNetworkManager.poisonBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
                 playerNetworkManager.bleedBuildUp.OnValueChanged += GUIController.Instance.playerUIHudManager.SetNewBleedBuildUpAmount;
@@ -213,6 +215,8 @@ namespace BK
                 playerNetworkManager.currentHealth.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewHealthValue;
                 playerNetworkManager.currentStamina.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewStaminaValue;
                 playerNetworkManager.currentFocusPoints.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewFocusPointValue;
+                playerNetworkManager.remainingHealthFlasks.OnValueChanged -= GUIController.Instance.playerUIHudManager.RefreshQuickSlotCount;
+                playerNetworkManager.remainingFocusPointsFlasks.OnValueChanged -= GUIController.Instance.playerUIHudManager.RefreshQuickSlotCount;
                 
                 //  UPDATE UI BUILD UP BARS WHEN BUILD UP CHANGES
                 playerNetworkManager.poisonBuildUp.OnValueChanged -= GUIController.Instance.playerUIHudManager.SetNewPoisonBuildUpAmount;
@@ -569,13 +573,23 @@ namespace BK
                 playerInventoryManager.AddItemToInventory(projectile);
             }
             
-            if(currentCharacterData.quickSlotItemIDs[0] != -1)
+            for (int i = 0; i < playerInventoryManager.quickSlotItemsInQuickSlots.Length; i++)
+                playerInventoryManager.quickSlotItemsInQuickSlots[i] = null;
+
+            if(currentCharacterData.quickSlotItemIDs[0] != -1 && WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[0]) != null)
                 playerInventoryManager.quickSlotItemsInQuickSlots[0] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[0]));
-            if(currentCharacterData.quickSlotItemIDs[1] != -1)
+            if(currentCharacterData.quickSlotItemIDs[1] != -1 && WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[1]) != null)
                 playerInventoryManager.quickSlotItemsInQuickSlots[1] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[1]));
-            if(currentCharacterData.quickSlotItemIDs[2] != -1)    
+            if(currentCharacterData.quickSlotItemIDs[2] != -1 && WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[2]) != null)    
                 playerInventoryManager.quickSlotItemsInQuickSlots[2] = Instantiate(WorldItemDatabase.Instance.GetQuickSlotItemByID(currentCharacterData.quickSlotItemIDs[2]));
+
+            if (playerInventoryManager.quickSlotItemsInQuickSlots[0] == null && WorldItemDatabase.Instance.GetDefaultHealthFlask() != null)
+                playerInventoryManager.quickSlotItemsInQuickSlots[0] = Instantiate(WorldItemDatabase.Instance.GetDefaultHealthFlask());
+
+            if (playerInventoryManager.quickSlotItemsInQuickSlots[1] == null && WorldItemDatabase.Instance.GetDefaultFocusPointFlask() != null)
+                playerInventoryManager.quickSlotItemsInQuickSlots[1] = Instantiate(WorldItemDatabase.Instance.GetDefaultFocusPointFlask());
             
+            playerInventoryManager.quickSlotItemIndex = 0;
             playerEquipmentManager.LoadQuickSlotEquipment(playerInventoryManager.quickSlotItemsInQuickSlots[0]);
 
             

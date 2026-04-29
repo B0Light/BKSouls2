@@ -10,7 +10,7 @@ namespace BK
     public class CharacterSaveData
     {
         public const int DefaultHealthFlaskCharges = 3;
-        public const int DefaultFocusPointFlaskCharges = 1;
+        public const int DefaultFocusPointFlaskCharges = 3;
         public const int DefaultRoguelikeAttributeLevel = 5;
         public const int MaxStartingRuneBonusLevel = 10;
         public const int MaxVigorCoefficientLevel = 3;
@@ -150,6 +150,9 @@ namespace BK
             backpackItems = new SerializableDictionary<int, int>();
             safeItems = new SerializableDictionary<int, int>();
             shareInventoryItems = new SerializableDictionary<int, int>();
+
+            for (int i = 0; i < quickSlotItemIDs.Length; i++)
+                quickSlotItemIDs[i] = -1;
 
             // Shelter
             shelterLevel = 1;

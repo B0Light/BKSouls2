@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257580ef25bb09e4f9c6bcc18fdadad1, type: 3}
   m_Name: Health Flask Item
   m_EditorClassIdentifier: Assembly-CSharp::BK.FlaskItem
-  itemID: 45
+  itemID: 46
   itemName: "\uCCB4\uB825 \uD50C\uB77C\uC2A4\uD06C"
   itemIcon: {fileID: 21300000, guid: 11a2f270c1ea6bc42a989b01db574f16, type: 3}
   itemTier: 0
-  itemType: 9
+  itemType: 5
   cost: 1000
   itemDescription: "\uC9C4\uD64D\uBE5B \uD68C\uBCF5\uC561\uC774 \uB2F4\uAE34 \uC131\uC2A4\uB7EC\uC6B4
     \uD50C\uB77C\uC2A4\uD06C. \uB9C8\uC2DC\uBA74 \uC783\uC740 \uCCB4\uB825\uC758

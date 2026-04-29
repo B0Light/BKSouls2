@@ -96,7 +96,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   interactableText: Open Item Box
   interactableCollider: {fileID: 2844109787039566109}
-  hostOnlyInteractable: 1
+  hostOnlyInteractable: 0
   boxWidth: 6
   boxHeight: 10
   initialItems: []
@@ -133,11 +133,15 @@ MonoBehaviour:
   lid: {fileID: 1026795745481008762}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  boxType: 2
-  boxTier: 1
   autoFill: 1
-  itemCount: 5
   clearBeforeFill: 1
+  boxTier: 1
+  itemCount: 5
+  resourceOnly: 0
+  resourceMinTier: 0
+  resourceMaxTier: 0
+  equipmentDropChance: 30
+  potionDropChance: 10
 --- !u!1001 &1022734213976673486
 PrefabInstance:
   m_ObjectHideFlags: 0

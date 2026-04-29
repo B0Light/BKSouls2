@@ -125,9 +125,22 @@ namespace BK
                 return;
             }
 
-            player.playerNetworkManager.vigor.Value = 15;
-            player.playerNetworkManager.endurance.Value = 10;
-            player.playerNetworkManager.mind.Value = 10;
+            player.playerNetworkManager.vigor.Value        = 15;
+            player.playerNetworkManager.endurance.Value    = 15;
+            player.playerNetworkManager.mind.Value         = 15;
+            player.playerNetworkManager.strength.Value     = 5;
+            player.playerNetworkManager.dexterity.Value    = 5;
+            player.playerNetworkManager.intelligence.Value = 5;
+            player.playerNetworkManager.faith.Value        = 5;
+
+            int healthFlasks = GetDefaultHealthFlaskCharges();
+            int focusFlasks  = GetDefaultFocusPointFlaskCharges();
+            currentCharacterData.currentHealthFlasksRemaining      = healthFlasks;
+            currentCharacterData.currentFocusPointsFlaskRemaining  = focusFlasks;
+            player.playerNetworkManager.remainingHealthFlasks.Value      = healthFlasks;
+            player.playerNetworkManager.remainingFocusPointsFlasks.Value = focusFlasks;
+
+            EnsureDefaultFlasksInQuickSlots();
         }
 
         public void FinishCreatingNewGame()
@@ -141,8 +154,9 @@ namespace BK
             currentCharacterData.xPosition = initPosition.x;
             currentCharacterData.yPosition = initPosition.y;
             currentCharacterData.zPosition = initPosition.z;
+            ResetFlasksToDefaultCharges();
 
-            SaveGame();
+            SaveGame(false, true);
             WorldSceneManager.Instance.LoadWorldScene(tutorialSceneIndex);
         }
 
@@ -205,18 +219,39 @@ namespace BK
 
             characterData.currentSpell = -1;
 
-            characterData.currentHealthFlasksRemaining = GetDefaultHealthFlaskCharges();
-            characterData.currentFocusPointsFlaskRemaining = GetDefaultFocusPointFlaskCharges();
+            SetFlaskChargesToDefault(characterData);
 
             characterData.mainProjectile = new SerializableRangedProjectile { itemID = -1 };
             characterData.secondaryProjectile = new SerializableRangedProjectile { itemID = -1 };
         }
 
-        public void SaveGame()
+        public void SaveGame(bool saveCurrentPlayerPosition = true, bool resetFlasksToDefault = false)
         {
             SetupSaveWriter();
             saveFileDataWriter.saveFileName = DecideCharacterFileNameBasedOnCharacterSlotBeingUsed(currentCharacterSlotBeingUsed);
+
+            Vector3 savedPosition = currentCharacterData != null
+                ? new Vector3(currentCharacterData.xPosition, currentCharacterData.yPosition, currentCharacterData.zPosition)
+                : Vector3.zero;
+
             player.SaveGameDataToCurrentCharacterData(ref currentCharacterData);
+
+            if (!saveCurrentPlayerPosition)
+            {
+                currentCharacterData.xPosition = savedPosition.x;
+                currentCharacterData.yPosition = savedPosition.y;
+                currentCharacterData.zPosition = savedPosition.z;
+            }
+
+            if (IsHoldScene)
+                resetFlasksToDefault = true;
+
+            if (resetFlasksToDefault)
+            {
+                SetFlaskChargesToDefault(currentCharacterData);
+                ApplyCurrentFlaskChargesToPlayer();
+            }
+
             saveFileDataWriter.CreateNewCharacterSaveFile(currentCharacterData);
         }
 
@@ -391,17 +426,55 @@ namespace BK
             int healthFlasks = GetDefaultHealthFlaskCharges();
             int focusFlasks = GetDefaultFocusPointFlaskCharges();
 
-            if (currentCharacterData != null)
-            {
-                currentCharacterData.currentHealthFlasksRemaining = healthFlasks;
-                currentCharacterData.currentFocusPointsFlaskRemaining = focusFlasks;
-            }
+            SetFlaskChargesToDefault(currentCharacterData);
 
             if (player == null || !player.IsOwner)
                 return;
 
             player.playerNetworkManager.remainingHealthFlasks.Value = healthFlasks;
             player.playerNetworkManager.remainingFocusPointsFlasks.Value = focusFlasks;
+            GUIController.Instance?.playerUIHudManager?.RefreshQuickSlotCount();
+        }
+
+        private void ApplyCurrentFlaskChargesToPlayer()
+        {
+            if (currentCharacterData == null || player == null || !player.IsOwner)
+                return;
+
+            player.playerNetworkManager.remainingHealthFlasks.Value = currentCharacterData.currentHealthFlasksRemaining;
+            player.playerNetworkManager.remainingFocusPointsFlasks.Value = currentCharacterData.currentFocusPointsFlaskRemaining;
+            GUIController.Instance?.playerUIHudManager?.RefreshQuickSlotCount();
+        }
+
+        private void SetFlaskChargesToDefault(CharacterSaveData characterData)
+        {
+            if (characterData == null)
+                return;
+
+            characterData.currentHealthFlasksRemaining = GetDefaultHealthFlaskCharges();
+            characterData.currentFocusPointsFlaskRemaining = GetDefaultFocusPointFlaskCharges();
+        }
+
+        private void EnsureDefaultFlasksInQuickSlots()
+        {
+            if (player == null || WorldItemDatabase.Instance == null)
+                return;
+
+            PlayerInventoryManager inventory = player.playerInventoryManager;
+            if (inventory == null)
+                return;
+
+            if (inventory.quickSlotItemsInQuickSlots[0] == null && WorldItemDatabase.Instance.GetDefaultHealthFlask() != null)
+                inventory.quickSlotItemsInQuickSlots[0] = Instantiate(WorldItemDatabase.Instance.GetDefaultHealthFlask());
+
+            if (inventory.quickSlotItemsInQuickSlots[1] == null && WorldItemDatabase.Instance.GetDefaultFocusPointFlask() != null)
+                inventory.quickSlotItemsInQuickSlots[1] = Instantiate(WorldItemDatabase.Instance.GetDefaultFocusPointFlask());
+
+            if (inventory.quickSlotItemIndex < 0 || inventory.quickSlotItemIndex >= inventory.quickSlotItemsInQuickSlots.Length)
+                inventory.quickSlotItemIndex = 0;
+
+            if (player.playerEquipmentManager != null && inventory.quickSlotItemsInQuickSlots[inventory.quickSlotItemIndex] != null)
+                player.playerEquipmentManager.LoadQuickSlotEquipment(inventory.quickSlotItemsInQuickSlots[inventory.quickSlotItemIndex]);
         }
 
         private int _snapVitality, _snapMind, _snapEndurance;

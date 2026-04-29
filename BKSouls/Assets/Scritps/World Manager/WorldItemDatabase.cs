@@ -190,6 +190,16 @@ namespace BK
         public QuickSlotItem GetQuickSlotItemByID(int id) => GetItemByID<QuickSlotItem>(id);
         public ResourceItem GetResourceByID(int id) => GetItemByID<ResourceItem>(id);
 
+        public FlaskItem GetDefaultHealthFlask()
+        {
+            return quickSlotItems.OfType<FlaskItem>().FirstOrDefault(flask => flask.healthFlask);
+        }
+
+        public FlaskItem GetDefaultFocusPointFlask()
+        {
+            return quickSlotItems.OfType<FlaskItem>().FirstOrDefault(flask => !flask.healthFlask);
+        }
+
         #endregion
 
         #region Serialization

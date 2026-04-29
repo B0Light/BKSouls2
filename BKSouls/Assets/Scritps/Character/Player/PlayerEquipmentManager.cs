@@ -446,11 +446,16 @@ namespace BK
             {
                 SetNetworkIdIfOwner(player.playerNetworkManager.currentQuickSlotItemID, -1);
                 player.playerInventoryManager.currentQuickSlotItem = null;
+                if (player.IsOwner)
+                    GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(null);
                 return;
             }
 
             player.playerInventoryManager.currentQuickSlotItem = equipment;
             SetNetworkIdIfOwner(player.playerNetworkManager.currentQuickSlotItemID, equipment.itemID);
+
+            if (player.IsOwner)
+                GUIController.Instance.playerUIHudManager.SetQuickSlotItemQuickSlotIcon(equipment);
         }
 
         #endregion

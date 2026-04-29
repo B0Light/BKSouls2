@@ -136,10 +136,15 @@ namespace BK
             cg.blocksRaycasts = isVisible;
         }
 
-        private void RefreshQuickSlotCount()
+        public void RefreshQuickSlotCount()
         {
             if (GUIController.Instance?.localPlayer == null) return;
             SetQuickSlotItemQuickSlotIcon(GUIController.Instance.localPlayer.playerInventoryManager.currentQuickSlotItem);
+        }
+
+        public void RefreshQuickSlotCount(int oldValue, int newValue)
+        {
+            RefreshQuickSlotCount();
         }
 
         public void ToggleHUD(bool status)

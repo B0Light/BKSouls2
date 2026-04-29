@@ -96,7 +96,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   interactableText: Open Item Box
   interactableCollider: {fileID: 8994797345591240875}
-  hostOnlyInteractable: 1
+  hostOnlyInteractable: 0
   boxWidth: 6
   boxHeight: 10
   initialItems: []
@@ -137,6 +137,9 @@ MonoBehaviour:
   clearBeforeFill: 1
   boxTier: 2
   itemCount: 5
+  resourceOnly: 0
+  resourceMinTier: 0
+  resourceMaxTier: 0
   equipmentDropChance: 30
   potionDropChance: 10
 --- !u!1001 &3369987568491239065

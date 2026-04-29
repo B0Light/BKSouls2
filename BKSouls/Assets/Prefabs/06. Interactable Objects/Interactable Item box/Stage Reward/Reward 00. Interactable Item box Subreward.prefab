@@ -96,7 +96,7 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   interactableText: Open Item Box
   interactableCollider: {fileID: 5412595593977857940}
-  hostOnlyInteractable: 1
+  hostOnlyInteractable: 0
   boxWidth: 6
   boxHeight: 10
   initialItems: []
@@ -133,7 +133,7 @@ MonoBehaviour:
   lid: {fileID: 8630039200067943779}
   leftDoor: {fileID: 0}
   rightDoor: {fileID: 0}
-  autoFill: 1
+  autoFill: 0
   clearBeforeFill: 0
   boxTier: 0
   itemCount: 5
