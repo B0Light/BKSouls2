@@ -1,7 +1,9 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace BK
@@ -521,6 +523,38 @@ namespace BK
             }
 
             return serializedWeapon;
+        }
+
+        public void ReturnToOwnServer()
+        {
+            StartCoroutine(ReturnToOwnServerCoroutine());
+        }
+
+        private IEnumerator ReturnToOwnServerCoroutine()
+        {
+            NetworkManager.Singleton.Shutdown();
+
+            // Shutdown 처리가 완료될 때까지 대기
+            yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
+
+            NetworkManager.Singleton.StartHost();
+
+            // 로컬 플레이어가 스폰될 때까지 대기
+            float timeout = 10f;
+            while (GUIController.Instance.localPlayer == null && timeout > 0f)
+            {
+                timeout -= Time.deltaTime;
+                yield return null;
+            }
+
+            if (GUIController.Instance.localPlayer == null)
+            {
+                Debug.LogError("[ReturnToOwnServer] 호스트 시작 후 플레이어가 스폰되지 않았습니다.");
+                yield break;
+            }
+
+            LoadHoldScene();
         }
 
         public SerializableRangedProjectile GetSerializableRangedProjectileFromRangedProjectileItem(RangedProjectileItem projectile)

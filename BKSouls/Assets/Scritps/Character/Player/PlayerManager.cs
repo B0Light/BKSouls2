@@ -88,6 +88,9 @@ namespace BK
             base.OnNetworkSpawn();
 
             NetworkManager.Singleton.OnClientConnectedCallback += OnClientConnectedCallback;
+
+            if (IsOwner && !IsServer)
+                NetworkManager.Singleton.OnClientDisconnectCallback += OnClientDisconnectedFromHost;
             
             if (IsOwner)
             {
@@ -186,6 +189,9 @@ namespace BK
 
             NetworkManager.Singleton.OnClientConnectedCallback -= OnClientConnectedCallback;
 
+            if (IsOwner && !IsServer && NetworkManager.Singleton != null)
+                NetworkManager.Singleton.OnClientDisconnectCallback -= OnClientDisconnectedFromHost;
+
             //  IF THIS IS THE PLAYER OBJECT OWNED BY THIS CLIENT
             if (IsOwner)
             {
@@ -276,6 +282,14 @@ namespace BK
 
             //  FLAGS
             playerNetworkManager.isChargingAttack.OnValueChanged -= playerNetworkManager.OnIsChargingAttackChanged;
+        }
+
+        private void OnClientDisconnectedFromHost(ulong clientId)
+        {
+            if (NetworkManager.Singleton == null) return;
+            if (clientId != NetworkManager.Singleton.LocalClientId) return;
+
+            WorldSaveGameManager.Instance.ReturnToOwnServer();
         }
 
         private void OnClientConnectedCallback(ulong clientID)
