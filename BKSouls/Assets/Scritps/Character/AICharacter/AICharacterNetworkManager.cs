@@ -63,9 +63,21 @@ namespace BK
             projectileDamageCollider.physicalDamage = 100;
             projectileDamageCollider.characterShootingProjectile = aiCharacter;
 
-            Quaternion arrowRotation = Quaternion.LookRotation(aiCharacter.aiCharacterCombatManager.currentTarget.characterCombatManager.lockOnTransform.position
-                    - projectileGameObject.transform.position);
+            CharacterManager target = aiCharacter.aiCharacterCombatManager.currentTarget;
+            Transform targetLockOn = (target != null && target.characterCombatManager != null)
+                ? target.characterCombatManager.lockOnTransform
+                : null;
+
+            if (targetLockOn != null)
+            {
+                Quaternion arrowRotation = Quaternion.LookRotation(
+                    targetLockOn.position - projectileGameObject.transform.position);
                 projectileGameObject.transform.rotation = arrowRotation;
+            }
+            else
+            {
+                projectileGameObject.transform.rotation = Quaternion.Euler(0, yCharacterRotation, 0);
+            }
                 
             Collider[] characterColliders = aiCharacter.GetComponentsInChildren<Collider>();
             List<Collider> collidersArrowWillIgnore = new List<Collider>();

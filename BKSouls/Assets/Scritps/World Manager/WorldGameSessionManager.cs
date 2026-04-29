@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using BK.Inventory;
+using Unity.Netcode;
 using UnityEngine;
 
 namespace BK
@@ -60,13 +61,25 @@ namespace BK
             WorldPlayerInventory.Instance.ClearInventoryAndBackpack();
             WorldPlayerInventory.Instance.ClearEquipmentSlots();
 
-            if (RoomManager.Instance != null)
-                RoomManager.Instance.CleanupForSceneTransition();
-
             if (GUIController.Instance.playerUILevelUpManager != null)
                 GUIController.Instance.playerUILevelUpManager.ResetSliders();
 
-            WorldSceneManager.Instance.LoadWorldScene("Scene_RoundTableHold");
+            bool isClientOnly = NetworkManager.Singleton != null
+                && NetworkManager.Singleton.IsClient
+                && !NetworkManager.Singleton.IsHost;
+
+            if (isClientOnly)
+            {
+                if (RunManager.Instance != null && RunManager.Instance.IsSpawned)
+                    RunManager.Instance.RequestReturnToShelterServerRpc();
+            }
+            else
+            {
+                if (RoomManager.Instance != null)
+                    RoomManager.Instance.CleanupForSceneTransition();
+
+                WorldSceneManager.Instance.LoadWorldScene("Scene_RoundTableHold");
+            }
         }
 
         public void AddPlayerToActivePlayersList(PlayerManager player)

@@ -195,6 +195,15 @@ namespace BK
         }
 
         [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+        public void RequestReturnToShelterServerRpc()
+        {
+            if (roomManager != null)
+                roomManager.CleanupForSceneTransition();
+
+            WorldSaveGameManager.Instance.LoadHoldScene();
+        }
+
+        [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
         private void ConfirmDungeonResultServerRpc()
         {
             if (!isWaitingForDungeonResult)
